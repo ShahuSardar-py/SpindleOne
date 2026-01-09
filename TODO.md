@@ -6,6 +6,6 @@
 3. install flask
 4. python run.py
 
-## port tracker: 8000. chaange if not working
+## curr tracker: 8000. chaange if not working
 
 
