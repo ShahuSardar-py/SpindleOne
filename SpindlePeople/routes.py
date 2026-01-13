@@ -3,12 +3,19 @@ from app.extensions import db
 from SpindlePeople.models import Employee, Attendance
 from datetime import datetime
 
-bp = Blueprint('spindlepeople', __name__, url_prefix='/hr')
+bp = Blueprint(
+    'spindlepeople',
+    __name__,
+    url_prefix='/hr',
+    template_folder='templates',
+    static_folder='static'
+)
+
 
 @bp.route('/employees',methods=['GET'])
 def employee():
     employees= Employee.query.all()
-    return render_template('spindlepeople/employees.html', employees=employees)
+    return render_template('employees.html', employees=employees)
 
 @bp.route('/employees/add', methods=['GET','POST'])
 def add_employee():
@@ -22,17 +29,17 @@ def add_employee():
         db.session.add(emp)
         db.session.commit()
         return redirect(url_for('spindlepeople.employee'))
-    return render_template('spindlepeople/add_employee.html')
+    return render_template('add_employee.html')
 
 @bp.route('/employees/<int:emp_id>')
 def employee_detail(emp_id):
     employee = Employee.query.get_or_404(emp_id)
-    return render_template('spindlepeople/employee_detail.html', employee=employee)
+    return render_template('employee_detail.html', employee=employee)
 
 @bp.route('/attendance')
 def attendance():
     employees = Employee.query.all()
-    return render_template('spindlepeople/attendance.html', employees=employees)
+    return render_template('attendance.html', employees=employees)
 
 @bp.route('/attendance/login/<int:emp_id>', methods=['POST'])
 def login(emp_id):
