@@ -2,238 +2,141 @@
 
 {% block extra_styles %}
 <style>
-    .page-header {
+    .hero-section {
+        padding: 3rem 0;
         text-align: center;
-        margin-bottom: 3rem;
     }
 
-    .page-title {
+    .hero-title {
         font-size: 2.5rem;
         font-weight: 700;
         color: #1e293b;
         margin-bottom: 0.5rem;
-        letter-spacing: -1px;
     }
 
-    .page-subtitle {
-        font-size: 1rem;
+    .hero-subtitle {
         color: #64748b;
-        font-weight: 400;
+        font-size: 1.1rem;
     }
 
-    .role-selector-container {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        border: 1px solid #e2e8f0;
-        min-width: 350px;
-        flex-shrink: 0;
-    }
-
-    .role-selector-label {
-        display: block;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #334155;
-        margin-bottom: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .role-dropdown {
-        width: 300px;
-        padding: 0.75rem 1rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 8px;
-        font-size: 1rem;
-        color: #1e293b;
-        background: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .role-dropdown:hover {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .role-dropdown:focus {
-        outline: none;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .modules-grid {
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-        margin-top: 2rem;
-        flex-wrap: wrap;
-        justify-content: center;
+    .role-selector-card {
+        max-width: 400px;
+        margin: 0 auto 3rem;
     }
 
     .module-card {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        border: 1px solid #e2e8f0;
         transition: all 0.3s ease;
-        cursor: pointer;
+        border: 1px solid #e2e8f0;
+        height: 100%;
         display: none;
-        width: 300px;
-        flex-shrink: 0;
     }
 
     .module-card.visible {
-        display: flex;
-        flex-direction: column;
+        display: block;
     }
 
     .module-card:hover {
         transform: translateY(-8px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        border-color: #2563eb;
+        border-color: var(--primary-color);
     }
 
     .module-icon {
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 1rem;
-        display: inline-block;
     }
 
-    .module-name {
+    .module-title {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
     }
 
     .module-description {
-        font-size: 0.95rem;
         color: #64748b;
-        line-height: 1.5;
         margin-bottom: 1.5rem;
+        flex-grow: 1;
     }
 
-    .module-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #2563eb;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        font-size: 0.95rem;
+    .btn-module {
         width: 100%;
-        margin-top: auto;
-    }
-
-    .module-button:hover {
-        background: #1d4ed8;
-        transform: scale(1.05);
     }
 
     .finance-icon { color: #10b981; }
     .supply-icon { color: #f59e0b; }
     .people-icon { color: #8b5cf6; }
-
-    .empty-state {
-        text-align: center;
-        padding: 3rem;
-        color: #94a3b8;
-    }
-
-    .empty-state-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-
-    .content-wrapper {
-        min-width: 1000px;
-    }
-    
-    @media (max-width: 768px) {
-        .content-wrapper {
-            min-width: auto;
-        }
-        
-        .page-title {
-            font-size: 2rem;
-        }
-
-        .modules-grid {
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .role-dropdown {
-            max-width: 100%;
-            width: 100%;
-        }
-        
-        .role-selector-container {
-            min-width: auto;
-            width: 100%;
-            flex-shrink: 1;
-        }
-    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="content-wrapper">
-<div class="page-header">
-    <h1 class="page-title">SpindleOne</h1>
-    <p class="page-subtitle">Integrated Management Suite for Modern Enterprises</p>
-</div>
-
-<div class="role-selector-container">
-    <label class="role-selector-label">Select Your Role</label>
-    <select class="role-dropdown" id="roleSelector">
-        <option value="super-admin">Super Admin</option>
-        <option value="store-keeper">Store Keeper</option>
-        <option value="account-dept">Account Department</option>
-        <option value="hr">HR Department</option>
-    </select>
-</div>
-
-<div class="modules-grid">
-    <!-- SpindleFinance Card -->
-    <div class="module-card finance-card" data-roles="super-admin,account-dept">
-        <div class="module-icon finance-icon">💰</div>
-        <h2 class="module-name">SpindleFinance</h2>
-        <p class="module-description">Manage cash flow and analytics with precision and control.</p>
-        <button class="module-button" onclick="navigateTo('finance')">Access Module</button>
+<div class="container py-4">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1 class="hero-title">SpindleOne</h1>
+        <p class="hero-subtitle">Integrated Management Suite for Modern Enterprises</p>
     </div>
 
-    <!-- SpindleSupply Card -->
-    <div class="module-card supply-card" data-roles="super-admin,store-keeper">
-        <div class="module-icon supply-icon">📦</div>
-        <h2 class="module-name">SpindleSupply</h2>
-        <p class="module-description">Track inventory, manage supply chain, and optimize stock levels efficiently.</p>
-        <button class="module-button" onclick="navigateTo('supply')">Access Module</button>
+    <!-- Role Selector -->
+    <div class="card role-selector-card shadow-sm">
+        <div class="card-body">
+            <label for="roleSelector" class="form-label fw-semibold text-uppercase small">Select Your Role</label>
+            <select class="form-select form-select-lg" id="roleSelector">
+                <option value="super-admin">Super Admin</option>
+                <option value="store-keeper">Store Keeper</option>
+                <option value="account-dept">Account Department</option>
+                <option value="hr">HR Department</option>
+            </select>
+        </div>
     </div>
 
-    <!-- SpindlePeople Card -->
-    <div class="module-card people-card" data-roles="super-admin,hr">
-        <div class="module-icon people-icon">👥</div>
-        <h2 class="module-name">SpindlePeople</h2>
-        <p class="module-description">Manage attendace records.</p>
-        <button class="module-button" onclick="navigateTo('people')">Access Module</button>
+    <!-- Modules Grid -->
+    <div class="row g-4">
+        <!-- SpindleFinance -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card module-card finance-card shadow-sm" data-roles="super-admin,account-dept">
+                <div class="card-body d-flex flex-column">
+                    <div class="module-icon finance-icon text-center">💰</div>
+                    <h2 class="module-title">SpindleFinance</h2>
+                    <p class="module-description">Manage cash flow and analytics with precision and control.</p>
+                    <button class="btn btn-primary btn-module" onclick="navigateTo('finance')">
+                        Access Module
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SpindleSupply -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card module-card supply-card shadow-sm" data-roles="super-admin,store-keeper">
+                <div class="card-body d-flex flex-column">
+                    <div class="module-icon supply-icon text-center">📦</div>
+                    <h2 class="module-title">SpindleSupply</h2>
+                    <p class="module-description">Track inventory, manage supply chain, and optimize stock levels efficiently.</p>
+                    <button class="btn btn-primary btn-module" onclick="navigateTo('supply')">
+                        Access Module
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SpindlePeople -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card module-card people-card shadow-sm" data-roles="super-admin,hr">
+                <div class="card-body d-flex flex-column">
+                    <div class="module-icon people-icon text-center">👥</div>
+                    <h2 class="module-title">SpindlePeople</h2>
+                    <p class="module-description">Manage attendance records.</p>
+                    <button class="btn btn-primary btn-module" onclick="navigateTo('people')">
+                        Access Module
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
+{% endblock %}
 
+{% block extra_scripts %}
 <script>
     const roleSelector = document.getElementById('roleSelector');
     const moduleCards = document.querySelectorAll('.module-card');
@@ -261,7 +164,7 @@
 
     function navigateTo(module) {
         if (module === 'people') {
-            window.location.href = '/hr/attendance';
+            window.location.href = '/hr/employees';
         } else if (module === 'finance') {
             alert('SpindleFinance module coming soon!');
         } else if (module === 'supply') {
@@ -270,4 +173,3 @@
     }
 </script>
 {% endblock %}
-

@@ -2,115 +2,194 @@
 
 {% block extra_styles %}
 <style>
+    .sidebar {
+        min-height: calc(100vh - 56px);
+        background-color: white;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .sidebar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .nav-pills .nav-link {
+        color: #6c757d;
+        border-radius: 0;
+        border-right: 3px solid transparent;
+    }
+
+    .nav-pills .nav-link:hover {
+        background-color: #f8f9fa;
+        color: var(--primary-color);
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: #e7f0ff;
+        color: var(--primary-color);
+        border-right-color: var(--primary-color);
+    }
+
+    .main-content {
+        min-height: calc(100vh - 56px);
+    }
+
     .page-header {
-        text-align: center;
         margin-bottom: 2rem;
     }
 
-    .page-title {
-        font-size: 2rem;
+    .datetime-box {
+        text-align: right;
+    }
+
+    .current-date {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .current-time {
+        font-size: 1.75rem;
         font-weight: 700;
         color: #1e293b;
-        margin-bottom: 0.5rem;
-    }
-
-    .attendance-table {
-        width: 100%;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        border: 1px solid #e2e8f0;
-        border-collapse: collapse;
-        overflow: hidden;
-    }
-
-    .attendance-table th,
-    .attendance-table td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #e2e8f0;
-    }
-
-    .attendance-table th {
-        background: #f8fafc;
-        font-weight: 600;
-        color: #334155;
-    }
-
-    .attendance-table tr:last-child td {
-        border-bottom: none;
-    }
-
-    .attendance-table tr:hover {
-        background: #f8fafc;
-    }
-
-    .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: all 0.3s ease;
-    }
-
-    .btn-login {
-        background: #10b981;
-        color: white;
-    }
-
-    .btn-login:hover {
-        background: #059669;
-    }
-
-    .btn-logout {
-        background: #f59e0b;
-        color: white;
-    }
-
-    .btn-logout:hover {
-        background: #d97706;
-    }
-
-    .btn-group {
-        display: flex;
-        gap: 0.5rem;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <h1 class="page-title">Attendance</h1>
-</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 px-0 sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">SpindlePeople</h2>
+            </div>
+            <nav class="nav nav-pills flex-column p-3">
+                <a class="nav-link" href="{{ url_for('spindlepeople.employee') }}">
+                    <i class="bi bi-people me-2"></i> Employees
+                </a>
+                <a class="nav-link active" href="{{ url_for('spindlepeople.attendance') }}">
+                    <i class="bi bi-clipboard-check me-2"></i> Attendance
+                </a>
+            </nav>
+        </div>
 
-<table class="attendance-table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for emp in employees %}
-        <tr>
-            <td>{{ emp.name }}</td>
-            <td>{{ emp.position }}</td>
-            <td>
-                <div class="btn-group">
-                    <form action="{{ url_for('spindlepeople.login', emp_id=emp.id) }}" method="post" style="display:inline;">
-                        <button class="btn btn-login">Login</button>
-                    </form>
-                    <form action="{{ url_for('spindlepeople.logout', emp_id=emp.id) }}" method="post" style="display:inline;">
-                        <button class="btn btn-logout">Logout</button>
-                    </form>
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content">
+            <div class="container-fluid py-4">
+                <!-- Header -->
+                <div class="d-flex justify-content-between align-items-start page-header">
+                    <h1 class="h2 mb-0">Attendance Tracker</h1>
+                    <div class="datetime-box">
+                        <div class="current-date" id="currentDate"></div>
+                        <div class="current-time" id="currentTime"></div>
+                    </div>
                 </div>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+                <!-- Attendance Table -->
+                {% if employees %}
+                <div class="card shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>EMPLOYEE</th>
+                                        <th>POSITION</th>
+                                        <th>STATUS</th>
+                                        <th>LOGIN TIME</th>
+                                        <th>LOGOUT TIME</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for emp in employees %}
+                                    {% set record = attendance_records.get(emp.id) %}
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <strong>{{ emp.name }}</strong>
+                                                <br>
+                                                <small class="text-muted">#{{ emp.id }}</small>
+                                            </div>
+                                        </td>
+                                        <td>{{ emp.position }}</td>
+                                        <td>
+                                            {% if record %}
+                                            <span class="badge bg-success">Present</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">Not Logged In</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if record and record.login_time %}
+                                            <span>{{ record.login_time.strftime('%I:%M %p') }}</span>
+                                            {% else %}
+                                            <span class="text-muted">—</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if record and record.logout_time %}
+                                            <span>{{ record.logout_time.strftime('%I:%M %p') }}</span>
+                                            {% else %}
+                                            <span class="text-muted">—</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <form action="{{ url_for('spindlepeople.login', emp_id=emp.id) }}" method="post" class="d-inline">
+                                                    <button class="btn btn-sm btn-success" {% if record %}disabled{% endif %}>
+                                                        Login
+                                                    </button>
+                                                </form>
+                                                <form action="{{ url_for('spindlepeople.logout', emp_id=emp.id) }}" method="post" class="d-inline">
+                                                    <button class="btn btn-sm btn-warning" {% if not record or record.logout_time %}disabled{% endif %}>
+                                                        Logout
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="card shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-clipboard-check display-1 text-muted opacity-50"></i>
+                        <h3 class="mt-3">No employees to track</h3>
+                        <p class="text-muted">Add employees first to start tracking attendance</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
+{% block extra_scripts %}
+<script>
+    function updateDateTime() {
+        const now = new Date();
+        
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateStr = now.toLocaleDateString('en-US', options);
+        document.getElementById('currentDate').textContent = dateStr;
+        
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById('currentTime').textContent = timeStr;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+</script>
+{% endblock %}
