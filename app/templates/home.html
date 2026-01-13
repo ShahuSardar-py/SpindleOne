@@ -260,9 +260,13 @@
     updateVisibility(savedRole);
 
     function navigateTo(module) {
-        alert(`Navigating to ${module} module...`);
-        // In a real app, this would navigate to the module page
-        // window.location.href = `/modules/${module}`;
+        if (module === 'people') {
+            window.location.href = '/hr/attendance';
+        } else if (module === 'finance') {
+            alert('SpindleFinance module coming soon!');
+        } else if (module === 'supply') {
+            alert('SpindleSupply module coming soon!');
+        }
     }
 </script>
 {% endblock %}

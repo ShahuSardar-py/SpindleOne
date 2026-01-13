@@ -1,0 +1,116 @@
+{% extends "../base.html" %}
+
+{% block extra_styles %}
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .attendance-table {
+        width: 100%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        border: 1px solid #e2e8f0;
+        border-collapse: collapse;
+        overflow: hidden;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .attendance-table th {
+        background: #f8fafc;
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .attendance-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .attendance-table tr:hover {
+        background: #f8fafc;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login {
+        background: #10b981;
+        color: white;
+    }
+
+    .btn-login:hover {
+        background: #059669;
+    }
+
+    .btn-logout {
+        background: #f59e0b;
+        color: white;
+    }
+
+    .btn-logout:hover {
+        background: #d97706;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Attendance</h1>
+</div>
+
+<table class="attendance-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.position }}</td>
+            <td>
+                <div class="btn-group">
+                    <form action="{{ url_for('spindlepeople.login', emp_id=emp.id) }}" method="post" style="display:inline;">
+                        <button class="btn btn-login">Login</button>
+                    </form>
+                    <form action="{{ url_for('spindlepeople.logout', emp_id=emp.id) }}" method="post" style="display:inline;">
+                        <button class="btn btn-logout">Logout</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

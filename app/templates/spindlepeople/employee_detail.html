@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<style>
+    .detail-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        border: 1px solid #e2e8f0;
+    }
+
+    .detail-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .employee-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .employee-position {
+        font-size: 1.1rem;
+        color: #64748b;
+    }
+
+    .info-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 8px;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #334155;
+    }
+
+    .info-value {
+        color: #1e293b;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1 class="employee-name">{{ employee.name }}</h1>
+        <p class="employee-position">{{ employee.position }}</p>
+    </div>
+    
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-label">Employee ID</span>
+            <span class="info-value">{{ employee.id }}</span>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-label">Position</span>
+            <span class="info-value">{{ employee.position }}</span>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-label">Salary</span>
+            <span class="info-value">${{ "%.2f"|format(employee.salary) }}</span>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('spindlepeople.employee') }}" class="back-link">← Back to Employees</a>
+</div>
+{% endblock %}

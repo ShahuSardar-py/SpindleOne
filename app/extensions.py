@@ -1,3 +1,7 @@
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
 def init_extensions(app):
     """Initialize Flask extensions"""
-    pass
+    db.init_app(app)
