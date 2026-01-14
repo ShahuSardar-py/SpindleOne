@@ -83,3 +83,7 @@ def logout(emp_id):
 
     return redirect(url_for('spindlepeople.logattendance'))
 
+@bp.route('/attendance')
+def attendance():
+    records= Attendance.query.join(Employee).order_by(Attendance.date.desc(), Attendance.login_time.desc()).all()
+    return render_template('attendance.html', records=records)

@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="flex min-h-screen bg-gray-50">
-    <!-- Sidebar of spindlepoepl -->
+    <!-- Sidebar -->
     <aside class="w-64 bg-white border-r border-gray-200">
         <div class="p-6 border-b border-gray-200">
             <h2 class="text-xl font-bold text-gray-900">SpindlePeople</h2>
@@ -13,10 +13,15 @@
                 <span class="text-xl">👥</span>
                 <span>Employees</span>
             </a>
-            <a href="{{ url_for('spindlepeople.logattendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 text-primary-600 bg-primary-50 rounded-lg font-medium border-r-4 border-primary-600">
+            <a href="{{ url_for('spindlepeople.loggattendance') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors mb-2">
                 <span class="text-xl">📋</span>
                 <span>Attendance</span>
+            </a>
+            <a href="{{ url_for('spindlepeople.attendance') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-primary-600 bg-primary-50 rounded-lg font-medium border-r-4 border-primary-600">
+                <span class="text-xl">📊</span>
+                <span>Records</span>
             </a>
         </nav>
     </aside>
@@ -24,26 +29,26 @@
     <!-- Main Content -->
     <main class="flex-1 p-8">
         <!-- Header -->
-        <div class="flex justify-between items-start mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Attendance Tracker</h1>
-            <div class="text-right">
-                <div class="text-sm text-gray-600 mb-1" id="currentDate"></div>
-                <div class="text-2xl font-bold text-gray-900" id="currentTime"></div>
-            </div>
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Attendance Records</h1>
+            <p class="text-gray-600">View and analyze historical attendance data</p>
         </div>
 
-        <!-- Table -->
-        {% if employees %}
+        <!-- Statistics Cards -->
+
+
+        <!-- Records Table -->
+        {% if records %}
         <div class="card">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Employee
+                                Date
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Position
+                                Employee
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Status
@@ -55,64 +60,65 @@
                                 Logout Time
                             </th>
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Actions
+                                Work Hours
                             </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        {% for emp in employees %}
-                        {% set record = attendance_records.get(emp.id) %}
+                        {% for record in records %}
                         <tr class="hover:bg-gray-50 transition-colors">
                             <td class="px-6 py-4">
-                                <div>
-                                    <div class="font-semibold text-gray-900">{{ emp.name }}</div>
-                                    <div class="text-sm text-gray-500">#{{ emp.id }}</div>
+                                <div class="flex flex-col">
+                                    <span class="font-semibold text-gray-900">
+                                        {{ record.date.strftime('%b %d, %Y') }}
+                                    </span>
+                                    <span class="text-sm text-gray-500">
+                                        {{ record.date.strftime('%A') }}
+                                    </span>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-gray-600">{{ emp.position }}</td>
                             <td class="px-6 py-4">
-                                {% if record %}
+                                <div>
+                                    <div class="font-semibold text-gray-900">{{ record.employee.name }}</div>
+                                    <div class="text-sm text-gray-500">{{ record.employee.position }}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4">
+                                {% if record.status == 'Present' %}
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
                                     Present
                                 </span>
                                 {% else %}
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-600 border border-gray-200">
-                                    Not Logged In
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800 border border-red-200">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Absent
                                 </span>
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4">
-                                {% if record and record.login_time %}
-                                <span class="text-gray-900 font-medium">{{ record.login_time.strftime('%I:%M %p') }}</span>
+                                {% if record.login_time %}
+                                <span class="text-gray-900 font-medium">
+                                    {{ record.login_time.strftime('%I:%M %p') }}
+                                </span>
                                 {% else %}
                                 <span class="text-gray-400">—</span>
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4">
-                                {% if record and record.logout_time %}
-                                <span class="text-gray-900 font-medium">{{ record.logout_time.strftime('%I:%M %p') }}</span>
+                                {% if record.logout_time %}
+                                <span class="text-gray-900 font-medium">
+                                    {{ record.logout_time.strftime('%I:%M %p') }}
+                                </span>
                                 {% else %}
                                 <span class="text-gray-400">—</span>
                                 {% endif %}
                             </td>
-                            <td class="px-6 py-4">
-                                <div class="flex gap-2">
-                                    <form action="{{ url_for('spindlepeople.login', emp_id=emp.id) }}" method="post">
-                                        <button type="submit" 
-                                                class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
-                                                {% if record %}disabled{% endif %}>
-                                            Login
-                                        </button>
-                                    </form>
-                                    <form action="{{ url_for('spindlepeople.logout', emp_id=emp.id) }}" method="post">
-                                        <button type="submit" 
-                                                class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-lg transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
-                                                {% if not record or record.logout_time %}disabled{% endif %}>
-                                            Logout
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+                            
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -121,29 +127,14 @@
         </div>
         {% else %}
         <div class="card text-center py-16">
-            <div class="text-7xl mb-4 opacity-30">📋</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No employees to track</h3>
-            <p class="text-gray-600">Add employees first to start tracking attendance</p>
+            <div class="text-7xl mb-4 opacity-30">📊</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No records found</h3>
+            <p class="text-gray-600 mb-6">Try adjusting your filters or check back later</p>
+            <a href="{{ url_for('spindlepeople.attendance') }}" class="btn-primary inline-block">
+                Clear Filters
+            </a>
         </div>
         {% endif %}
     </main>
 </div>
-{% endblock %}
-
-{% block extra_scripts %}
-<script>
-    function updateDateTime() {
-        const now = new Date();
-        
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const dateStr = now.toLocaleDateString('en-US', options);
-        document.getElementById('currentDate').textContent = dateStr;
-        
-        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'});
-        document.getElementById('currentTime').textContent = timeStr;
-    }
-
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-</script>
 {% endblock %}
