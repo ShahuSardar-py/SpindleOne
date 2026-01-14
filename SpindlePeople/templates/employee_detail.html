@@ -1,53 +1,92 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm">
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="{{ url_for('spindlepeople.employee') }}" 
+                   class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    <span class="font-medium">Back to Employees</span>
+                </a>
+            </div>
+
+            <!-- Employee Card -->
+            <div class="card">
                 <!-- Header -->
-                <div class="card-header bg-white text-center py-4 border-bottom">
-                    <h1 class="h2 mb-2">{{ employee.name }}</h1>
-                    <p class="text-muted mb-0 h5 fw-normal">{{ employee.position }}</p>
+                <div class="bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 text-center">
+                    <h1 class="text-3xl font-bold mb-2">{{ employee.name }}</h1>
+                    <p class="text-primary-100 text-lg">{{ employee.position }}</p>
                 </div>
-                
-                <!-- Body -->
-                <div class="card-body p-4">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <div class="p-3 bg-light rounded">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fw-semibold text-secondary">Employee ID</span>
-                                    <span class="fw-bold">#{{ employee.id }}</span>
-                                </div>
+
+                <!-- Details -->
+                <div class="p-8">
+                    <div class="space-y-4">
+                        <!-- Employee ID -->
+                        <div class="bg-gray-50 rounded-lg p-5 flex justify-between items-center">
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Employee ID</div>
+                                <div class="text-lg font-bold text-gray-900">#{{ employee.id }}</div>
+                            </div>
+                            <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/>
+                                </svg>
                             </div>
                         </div>
-                        
-                        <div class="col-12">
-                            <div class="p-3 bg-light rounded">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fw-semibold text-secondary">Position</span>
-                                    <span class="fw-bold">{{ employee.position }}</span>
-                                </div>
+
+                        <!-- Position -->
+                        <div class="bg-gray-50 rounded-lg p-5 flex justify-between items-center">
+                            <div>
+                                <div class="text-sm text-gray-600 mb-1">Position</div>
+                                <div class="text-lg font-bold text-gray-900">{{ employee.position }}</div>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
                             </div>
                         </div>
-                        
-                        <div class="col-12">
-                            <div class="p-3 bg-light rounded">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fw-semibold text-secondary">Salary</span>
-                                    <span class="fw-bold text-success">${{ "%.2f"|format(employee.salary) }}</span>
-                                </div>
+
+                        <!-- Salary -->
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-5 flex justify-between items-center border border-green-200">
+                            <div>
+                                <div class="text-sm text-green-700 mb-1 font-medium">Annual Salary</div>
+                                <div class="text-2xl font-bold text-green-900">${{ "%.2f"|format(employee.salary) }}</div>
+                            </div>
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Back Button -->
-                    <div class="mt-4 text-center">
-                        <a href="{{ url_for('spindlepeople.employee') }}" class="btn btn-outline-primary">
-                            <i class="bi bi-arrow-left me-2"></i>Back to Employees
+
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex gap-4">
+                        <a href="{{ url_for('spindlepeople.employee') }}" class="flex-1 btn-primary text-center">
+                            Back to List
                         </a>
+                        <button class="flex-1 btn-secondary">
+                            Edit Employee
+                        </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-primary-600 mb-1">—</div>
+                    <div class="text-sm text-gray-600">Days Present</div>
+                </div>
+                <div class="card p-6 text-center">
+                    <div class="text-3xl font-bold text-gray-900 mb-1">—</div>
+                    <div class="text-sm text-gray-600">Total Hours</div>
                 </div>
             </div>
         </div>

@@ -1,41 +1,97 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h2 class="h4 mb-0">Add New Employee</h2>
-                </div>
-                <div class="card-body p-4">
-                    <form method="POST">
-                        <div class="mb-3">
-                            <label for="id" class="form-label fw-semibold">Employee ID</label>
-                            <input type="number" class="form-control" id="id" name="id" required>
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Add New Employee</h1>
+                <p class="text-gray-600">Fill in the details to add a new employee to the system</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card">
+                <form method="POST" class="p-8">
+                    <div class="space-y-6">
+                        <!-- Employee ID -->
+                        <div>
+                            <label for="id" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Employee ID <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="number" 
+                                id="id" 
+                                name="id" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                placeholder="Enter employee ID">
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+
+                        <!-- Full Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Full Name <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                placeholder="Enter full name">
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="position" class="form-label fw-semibold">Position</label>
-                            <input type="text" class="form-control" id="position" name="position" required>
+
+                        <!-- Position -->
+                        <div>
+                            <label for="position" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Position <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="position" 
+                                name="position" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                placeholder="Enter position/role">
                         </div>
-                        
-                        <div class="mb-4">
-                            <label for="salary" class="form-label fw-semibold">Salary</label>
-                            <input type="number" class="form-control" id="salary" name="salary" step="0.01" required>
+
+                        <!-- Salary -->
+                        <div>
+                            <label for="salary" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Salary <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3.5 text-gray-500">$</span>
+                                <input 
+                                    type="number" 
+                                    id="salary" 
+                                    name="salary" 
+                                    step="0.01" 
+                                    required
+                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    placeholder="0.00">
+                            </div>
                         </div>
-                        
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Add Employee</button>
-                            <a href="{{ url_for('spindlepeople.employee') }}" class="btn btn-outline-secondary">Cancel</a>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-4 mt-8">
+                        <button type="submit" class="flex-1 btn-primary">
+                            Add Employee
+                        </button>
+                        <a href="{{ url_for('spindlepeople.employee') }}" class="flex-1 btn-secondary text-center">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Help Text -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-500">
+                    <span class="text-red-500">*</span> Required fields
+                </p>
             </div>
         </div>
     </div>

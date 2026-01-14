@@ -1,180 +1,159 @@
 {% extends "base.html" %}
 
-{% block extra_styles %}
+{% block content %}
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900">SpindlePeople</h2>
+        </div>
+        <nav class="p-4">
+            <a href="{{ url_for('spindlepeople.employee') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-primary-600 bg-primary-50 rounded-lg font-medium border-r-4 border-primary-600 mb-2">
+                <span class="text-xl">👥</span>
+                <span>Employees</span>
+            </a>
+            <a href="{{ url_for('spindlepeople.logattendance') }}" 
+               class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+                <span class="text-xl">📋</span>
+                <span>Attendance</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Employees</h1>
+            <a href="{{ url_for('spindlepeople.add_employee') }}" class="btn-primary inline-flex items-center gap-2">
+                <span class="text-xl">+</span>
+                <span>Add Employee</span>
+            </a>
+        </div>
+
+        <!-- Table -->
+        {% if employees %}
+        <div class="card">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Employee ID
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Name
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Position
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Salary
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for emp in employees %}
+                        <tr class="hover:bg-gray-50 cursor-pointer transition-colors" 
+                            onclick="showEmployeeDetails({{ emp.id }})">
+                            <td class="px-6 py-4">
+                                <span class="text-gray-500 font-medium">#{{ emp.id }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="font-semibold text-gray-900">{{ emp.name }}</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">{{ emp.position }}</td>
+                            <td class="px-6 py-4 font-semibold text-gray-900">
+                                ${{ "%.2f"|format(emp.salary) }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="card text-center py-16">
+            <div class="text-7xl mb-4 opacity-30">👥</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No employees yet</h3>
+            <p class="text-gray-600">Get started by adding your first employee</p>
+        </div>
+        {% endif %}
+    </main>
+</div>
+
+<!-- Modal -->
+<div id="employeeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full animate-slide-up">
+        <div class="flex justify-between items-center p-6 border-b border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-900" id="modalEmployeeName">Employee Details</h2>
+            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+        </div>
+        <div class="p-6 space-y-4">
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="text-sm text-gray-600 mb-1">Employee ID</div>
+                <div class="font-semibold text-gray-900" id="modalEmployeeId">-</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="text-sm text-gray-600 mb-1">Name</div>
+                <div class="font-semibold text-gray-900" id="modalEmployeeNameValue">-</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="text-sm text-gray-600 mb-1">Position</div>
+                <div class="font-semibold text-gray-900" id="modalEmployeePosition">-</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="text-sm text-gray-600 mb-1">Salary</div>
+                <div class="font-semibold text-green-600" id="modalEmployeeSalary">-</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    .sidebar {
-        min-height: calc(100vh - 56px);
-        background-color: white;
-        border-right: 1px solid #dee2e6;
+    @keyframes slide-up {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
-
-    .sidebar-header {
-        padding: 1.5rem;
-        border-bottom: 1px solid #dee2e6;
-    }
-
-    .sidebar-title {
-        font-size: 1.25rem;
-        font-weight: 700;
-        margin: 0;
-    }
-
-    .nav-pills .nav-link {
-        color: #6c757d;
-        border-radius: 0;
-        border-right: 3px solid transparent;
-    }
-
-    .nav-pills .nav-link:hover {
-        background-color: #f8f9fa;
-        color: var(--primary-color);
-    }
-
-    .nav-pills .nav-link.active {
-        background-color: #e7f0ff;
-        color: var(--primary-color);
-        border-right-color: var(--primary-color);
-    }
-
-    .main-content {
-        min-height: calc(100vh - 56px);
-    }
-
-    .page-header {
-        margin-bottom: 2rem;
-    }
-
-    .table-hover tbody tr {
-        cursor: pointer;
+    .animate-slide-up {
+        animation: slide-up 0.3s ease-out;
     }
 </style>
-{% endblock %}
-
-{% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 col-lg-2 px-0 sidebar">
-            <div class="sidebar-header">
-                <h2 class="sidebar-title">SpindlePeople</h2>
-            </div>
-            <nav class="nav nav-pills flex-column p-3">
-                <a class="nav-link active" href="{{ url_for('spindlepeople.employee') }}">
-                    <i class="bi bi-people me-2"></i> Employees
-                </a>
-                <a class="nav-link" href="{{ url_for('spindlepeople.attendance') }}">
-                    <i class="bi bi-clipboard-check me-2"></i> Attendance
-                </a>
-            </nav>
-        </div>
-
-        <!-- Main Content -->
-        <div class="col-md-9 col-lg-10 main-content">
-            <div class="container-fluid py-4">
-                <!-- Header -->
-                <div class="d-flex justify-content-between align-items-center page-header">
-                    <h1 class="h2 mb-0">Employees</h1>
-                    <a href="{{ url_for('spindlepeople.add_employee') }}" class="btn btn-primary">
-                        <i class="bi bi-plus-lg me-1"></i> Add Employee
-                    </a>
-                </div>
-
-                <!-- Employees Table -->
-                {% if employees %}
-                <div class="card shadow-sm">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>EMPLOYEE ID</th>
-                                        <th>NAME</th>
-                                        <th>POSITION</th>
-                                        <th>SALARY</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for emp in employees %}
-                                    <tr data-bs-toggle="modal" data-bs-target="#employeeModal" 
-                                        onclick="showEmployeeDetails({{ emp.id }})">
-                                        <td><span class="text-muted">#{{ emp.id }}</span></td>
-                                        <td><strong>{{ emp.name }}</strong></td>
-                                        <td>{{ emp.position }}</td>
-                                        <td>${{ "%.2f"|format(emp.salary) }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class="card shadow-sm">
-                    <div class="card-body text-center py-5">
-                        <i class="bi bi-people display-1 text-muted opacity-50"></i>
-                        <h3 class="mt-3">No employees yet</h3>
-                        <p class="text-muted">Get started by adding your first employee</p>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Employee Detail Modal -->
-<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="employeeModalLabel">Employee Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="p-3 bg-light rounded">
-                            <small class="text-muted d-block mb-1">Employee ID</small>
-                            <strong id="modalEmployeeId">-</strong>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-3 bg-light rounded">
-                            <small class="text-muted d-block mb-1">Name</small>
-                            <strong id="modalEmployeeName">-</strong>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-3 bg-light rounded">
-                            <small class="text-muted d-block mb-1">Position</small>
-                            <strong id="modalEmployeePosition">-</strong>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="p-3 bg-light rounded">
-                            <small class="text-muted d-block mb-1">Salary</small>
-                            <strong id="modalEmployeeSalary">-</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
     function showEmployeeDetails(empId) {
-        fetch(`{{ url_for('spindlepeople.employee_detail', emp_id=0) }}`.replace('0', empId))
+        fetch(`{{ url_for('spindlepeople.employee_detail_data', emp_id=0) }}`.replace('0', empId))
+
             .then(response => response.json())
             .then(data => {
-                document.getElementById('modalEmployeeId').textContent = '#' + data.id;
                 document.getElementById('modalEmployeeName').textContent = data.name;
+                document.getElementById('modalEmployeeId').textContent = '#' + data.id;
+                document.getElementById('modalEmployeeNameValue').textContent = data.name;
                 document.getElementById('modalEmployeePosition').textContent = data.position;
                 document.getElementById('modalEmployeeSalary').textContent = '$' + parseFloat(data.salary).toFixed(2);
-            })
-            .catch(error => console.error('Error:', error));
+                
+                document.getElementById('employeeModal').classList.remove('hidden');
+            });
+    }
+
+    function closeModal() {
+        document.getElementById('employeeModal').classList.add('hidden');
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('employeeModal');
+        if (event.target === modal) {
+            closeModal();
+        }
     }
 </script>
 {% endblock %}

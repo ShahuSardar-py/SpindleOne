@@ -1,86 +1,20 @@
 {% extends "base.html" %}
 
-{% block extra_styles %}
-<style>
-    .hero-section {
-        padding: 3rem 0;
-        text-align: center;
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 0.5rem;
-    }
-
-    .hero-subtitle {
-        color: #64748b;
-        font-size: 1.1rem;
-    }
-
-    .role-selector-card {
-        max-width: 400px;
-        margin: 0 auto 3rem;
-    }
-
-    .module-card {
-        transition: all 0.3s ease;
-        border: 1px solid #e2e8f0;
-        height: 100%;
-        display: none;
-    }
-
-    .module-card.visible {
-        display: block;
-    }
-
-    .module-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        border-color: var(--primary-color);
-    }
-
-    .module-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-
-    .module-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-    }
-
-    .module-description {
-        color: #64748b;
-        margin-bottom: 1.5rem;
-        flex-grow: 1;
-    }
-
-    .btn-module {
-        width: 100%;
-    }
-
-    .finance-icon { color: #10b981; }
-    .supply-icon { color: #f59e0b; }
-    .people-icon { color: #8b5cf6; }
-</style>
-{% endblock %}
-
 {% block content %}
-<div class="container py-4">
+<div class="container mx-auto px-4 py-8 max-w-7xl">
     <!-- Hero Section -->
-    <div class="hero-section">
-        <h1 class="hero-title">SpindleOne</h1>
-        <p class="hero-subtitle">Integrated Management Suite for Modern Enterprises</p>
+    <div class="text-center mb-12">
+        <h1 class="text-5xl font-bold text-gray-900 mb-3">SpindleOne</h1>
+        <p class="text-xl text-gray-600">Integrated Management Suite for Modern Enterprises</p>
     </div>
 
     <!-- Role Selector -->
-    <div class="card role-selector-card shadow-sm">
-        <div class="card-body">
-            <label for="roleSelector" class="form-label fw-semibold text-uppercase small">Select Your Role</label>
-            <select class="form-select form-select-lg" id="roleSelector">
+    <div class="max-w-md mx-auto mb-12">
+        <div class="card p-6">
+            <label for="roleSelector" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
+                Select Your Role
+            </label>
+            <select id="roleSelector" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                 <option value="super-admin">Super Admin</option>
                 <option value="store-keeper">Store Keeper</option>
                 <option value="account-dept">Account Department</option>
@@ -90,46 +24,49 @@
     </div>
 
     <!-- Modules Grid -->
-    <div class="row g-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- SpindleFinance -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card module-card finance-card shadow-sm" data-roles="super-admin,account-dept">
-                <div class="card-body d-flex flex-column">
-                    <div class="module-icon finance-icon text-center">💰</div>
-                    <h2 class="module-title">SpindleFinance</h2>
-                    <p class="module-description">Manage cash flow and analytics with precision and control.</p>
-                    <button class="btn btn-primary btn-module" onclick="navigateTo('finance')">
-                        Access Module
-                    </button>
-                </div>
+        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
+             data-roles="super-admin,account-dept">
+            <div class="p-8 flex flex-col h-full">
+                <div class="text-6xl mb-4 text-center">💰</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleFinance</h2>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Manage cash flow and analytics with precision and control.
+                </p>
+                <button onclick="navigateTo('finance')" class="btn-primary w-full">
+                    Access Module
+                </button>
             </div>
         </div>
 
         <!-- SpindleSupply -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card module-card supply-card shadow-sm" data-roles="super-admin,store-keeper">
-                <div class="card-body d-flex flex-column">
-                    <div class="module-icon supply-icon text-center">📦</div>
-                    <h2 class="module-title">SpindleSupply</h2>
-                    <p class="module-description">Track inventory, manage supply chain, and optimize stock levels efficiently.</p>
-                    <button class="btn btn-primary btn-module" onclick="navigateTo('supply')">
-                        Access Module
-                    </button>
-                </div>
+        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
+             data-roles="super-admin,store-keeper">
+            <div class="p-8 flex flex-col h-full">
+                <div class="text-6xl mb-4 text-center">📦</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleSupply</h2>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Track inventory, manage supply chain, and optimize stock levels efficiently.
+                </p>
+                <button onclick="navigateTo('supply')" class="btn-primary w-full">
+                    Access Module
+                </button>
             </div>
         </div>
 
         <!-- SpindlePeople -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card module-card people-card shadow-sm" data-roles="super-admin,hr">
-                <div class="card-body d-flex flex-column">
-                    <div class="module-icon people-icon text-center">👥</div>
-                    <h2 class="module-title">SpindlePeople</h2>
-                    <p class="module-description">Manage attendance records.</p>
-                    <button class="btn btn-primary btn-module" onclick="navigateTo('people')">
-                        Access Module
-                    </button>
-                </div>
+        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
+             data-roles="super-admin,hr">
+            <div class="p-8 flex flex-col h-full">
+                <div class="text-6xl mb-4 text-center">👥</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindlePeople</h2>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Manage attendance records.
+                </p>
+                <button onclick="navigateTo('people')" class="btn-primary w-full">
+                    Access Module
+                </button>
             </div>
         </div>
     </div>
@@ -145,9 +82,9 @@
         moduleCards.forEach(card => {
             const allowedRoles = card.getAttribute('data-roles').split(',');
             if (allowedRoles.includes(selectedRole)) {
-                card.classList.add('visible');
+                card.classList.remove('hidden');
             } else {
-                card.classList.remove('visible');
+                card.classList.add('hidden');
             }
         });
     }
@@ -157,7 +94,6 @@
         localStorage.setItem('selectedRole', e.target.value);
     });
 
-    // Initialize with saved role or default
     const savedRole = localStorage.getItem('selectedRole') || 'super-admin';
     roleSelector.value = savedRole;
     updateVisibility(savedRole);
