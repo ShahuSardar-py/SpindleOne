@@ -4,6 +4,7 @@ from SpindlePeople.models import Employee, Attendance
 from datetime import datetime
 from flask import jsonify
 
+
 bp = Blueprint(
     'spindlepeople',
     __name__,
@@ -11,8 +12,6 @@ bp = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
-
-
 @bp.route('/employees',methods=['GET'])
 def employee():
     employees= Employee.query.all()
