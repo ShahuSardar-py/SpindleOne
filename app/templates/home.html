@@ -54,7 +54,20 @@
                 </button>
             </div>
         </div>
-
+        <!-- SpindleStock -->
+        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
+            data-roles="super-admin,store-keeper">
+            <div class="p-8 flex flex-col h-full">
+                <div class="text-6xl mb-4 text-center">🏭</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleStock</h2>
+                <p class="text-gray-600 mb-6 flex-grow">
+                    Manage raw materials, production, and finished inventory.
+                </p>
+                <button onclick="navigateTo('stock')" class="btn-primary w-full">
+                    Access Module
+                </button>
+            </div>
+        </div>
         <!-- SpindlePeople -->
         <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
              data-roles="super-admin,hr">
@@ -98,14 +111,19 @@
     roleSelector.value = savedRole;
     updateVisibility(savedRole);
 
-    function navigateTo(module) {
-        if (module === 'people') {
-            window.location.href = '/hr/employees';
-        } else if (module === 'finance') {
-            window.location.href = '/finance/add';
-        } else if (module === 'supply') {
-            alert('SpindleSupply module coming soon!');
-        }
+   function navigateTo(module) {
+    if (module === 'people') {
+        window.location.href = '/hr/employees';
+
+    } else if (module === 'finance') {
+        window.location.href = '/finance/add';
+
+    } else if (module === 'supply') {
+        alert('SpindleSupply module coming soon!');
+
+    } else if (module === 'stock') {
+        window.location.href = '/stock/';
     }
+}
 </script>
 {% endblock %}

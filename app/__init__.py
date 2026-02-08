@@ -20,4 +20,8 @@ def create_app(config_class=Config):
     from SpindleFinance import bp as spindlefinance_bp
     app.register_blueprint(spindlefinance_bp)
 
+    # Stock
+    from SpindleStock import routes as spindlestock_routes
+    app.register_blueprint(spindlestock_routes.bp)
+    
     return app
