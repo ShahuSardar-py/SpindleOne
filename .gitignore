@@ -84,3 +84,13 @@ venv.bak/
 
 .mypy_cache/
 
+
+
+
+mfg_env/
+venv/
+env/
+__pycache__/
+*.pyc
+*.db
+instance/
