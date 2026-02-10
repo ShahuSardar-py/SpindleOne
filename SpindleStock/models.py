@@ -1,24 +1,22 @@
 from app.extensions import db
 from datetime import datetime
 
-
-# ---------------- RAW MATERIAL ----------------
+# RAW MATERIAL 
 class RawMaterial(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String(100), nullable=False)
-    quantity = db.Column(db.Float, nullable=False)  # remaining stock
+    quantity = db.Column(db.Float, nullable=False)  
     amount = db.Column(db.Float)
 
-    unit = db.Column(db.String(10))  # kg, pcs
+    unit = db.Column(db.String(10))  # kg,tons
 
     inward_date = db.Column(db.Date)
     expiry_date = db.Column(db.Date)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-# ---------------- PRODUCTION BATCH ----------------
+  
+# PRODUCTION BATCH 
 class Production(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -36,8 +34,7 @@ class Production(db.Model):
         cascade="all, delete-orphan"
     )
 
-
-# ---------------- MATERIAL USED IN PRODUCTION ----------------
+# MATERIAL USED IN PRODUCTION 
 class ProductionMaterial(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
@@ -55,8 +52,7 @@ class ProductionMaterial(db.Model):
 
     raw_material = db.relationship("RawMaterial")
 
-
-# ---------------- FINISHED GOODS STOCK ----------------
+# FINISHED GOODS STOCK
 class FinishedStock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 

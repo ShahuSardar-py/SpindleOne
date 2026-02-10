@@ -16,7 +16,7 @@ bp = Blueprint(
     url_prefix="/stock"
 )
 
-# ---------------- DASHBOARD ----------------
+#  DASHBOARD
 @bp.route("/")
 def dashboard():
 
@@ -41,7 +41,7 @@ def dashboard():
     )
 
 
-# ---------------- RAW MATERIAL ----------------
+# RAW MATERIAL
 @bp.route("/raw", methods=["GET", "POST"])
 def raw_inward():
 
@@ -82,8 +82,7 @@ def raw_inward():
     )
 
 
-# ---------------- PRODUCTION ----------------
-# ---------------- PRODUCTION ----------------
+# PRODUCTION 
 @bp.route("/production", methods=["GET", "POST"])
 def production():
 
@@ -91,7 +90,6 @@ def production():
 
         product = request.form["product"]
         qty_produced = float(request.form["qty_produced"])
-        produced_unit = request.form.get("produced_unit")
 
         expiry = request.form.get("expiry_date")
         expiry_date = (
@@ -125,29 +123,7 @@ def production():
 
             if material and qty > 0:
 
-                # ---- Convert stock to KG ----
-                stock_qty = material.quantity
-                if material.unit == "ton":
-                    stock_qty *= 1000
-
-                # ---- Convert used qty to KG ----
-                used_qty = qty
-                if unit == "ton":
-                    used_qty *= 1000
-
-                # prevent negative stock
-                if used_qty > stock_qty:
-                    used_qty = stock_qty
-
-                remaining_kg = stock_qty - used_qty
-
-                # ---- Convert back to original unit ----
-                if material.unit == "ton":
-                    material.quantity = remaining_kg / 1000
-                else:
-                    material.quantity = remaining_kg
-
-                # store usage
+                # record usage only
                 usage = ProductionMaterial(
                     production_id=prod.id,
                     raw_material_id=material.id,
@@ -176,7 +152,8 @@ def production():
         materials=materials,
         productions=productions
     )
-# ---------------- INVENTORY ----------------
+
+# INVENTORY 
 @bp.route("/inventory")
 def inventory():
 
@@ -194,8 +171,8 @@ def inventory():
     inventory_data = []
     for m in materials:
         used_qty = used_map.get(m.id, 0)
-        remaining = m.quantity - used_qty
 
+        remaining = m.quantity - used_qty
         if remaining < 0:
             remaining = 0
 
