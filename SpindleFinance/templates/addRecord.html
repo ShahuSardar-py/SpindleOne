@@ -26,126 +26,246 @@
         </nav>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 p-8">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Add New Record</h1>
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Add New Records</h1>
+            <p class="text-gray-600">Add transactions manually or upload in bulk via CSV</p>
         </div>
 
-        <!-- Form Card -->
-        <div class="card max-w-2xl">
-            <form method="POST" class="p-8">
-                <div class="space-y-6">
-                    <div>
-                        <label for="txn_date" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Transaction Date <span class="text-red-500">*</span>
-                        </label>
-                        <input 
-                            type="date" 
-                            id="txn_date" 
-                            name="txn_date" 
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-6">
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left Column: Manual Entry Form -->
+            <div class="card">
+                <div class="bg-gradient-to-r from-primary-50 to-blue-50 px-8 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900">Manual Entry</h2>
+                    <p class="text-sm text-gray-600 mt-1">Add a single transaction</p>
+                </div>
+                
+                <form method="POST" class="p-8">
+                    <div class="space-y-6">
+                        <!-- Transaction Date -->
                         <div>
-                            <label for="amount" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Amount <span class="text-red-500">*</span>
+                            <label for="txn_date" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Transaction Date <span class="text-red-500">*</span>
                             </label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-3.5 text-gray-500 font-medium">$</span>
-                                <input 
-                                    type="number" 
-                                    id="amount" 
-                                    name="amount" 
-                                    step="0.01" 
+                            <input 
+                                type="date" 
+                                id="txn_date" 
+                                name="txn_date" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                        </div>
+
+                        <!-- Amount and Type -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="amount" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Amount <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-3.5 text-gray-500 font-medium">₹</span>
+                                    <input 
+                                        type="number" 
+                                        id="amount" 
+                                        name="amount" 
+                                        step="0.01" 
+                                        required
+                                        class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                        placeholder="0.00">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="txn_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Type <span class="text-red-500">*</span>
+                                </label>
+                                <select 
+                                    id="txn_type" 
+                                    name="txn_type" 
                                     required
-                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                    placeholder="0.00">
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+                                    <option value="">Select...</option>
+                                    <option value="INFLOW">💰 Inflow</option>
+                                    <option value="OUTFLOW">💸 Outflow</option>
+                                </select>
                             </div>
                         </div>
 
+                        <!-- Transaction Name -->
                         <div>
-                            <label for="txn_type" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Transaction Type <span class="text-red-500">*</span>
+                            <label for="txn_name" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Transaction Name <span class="text-red-500">*</span>
                             </label>
-                            <select 
-                                id="txn_type" 
-                                name="txn_type" 
+                            <input 
+                                type="text" 
+                                id="txn_name" 
+                                name="txn_name" 
                                 required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-                                <option value="">Select type...</option>
-                                <option value="INFLOW">Inflow (Money In)</option>
-                                <option value="OUTFLOW">Outflow (Money Out)</option>
-                            </select>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                placeholder="e.g., Office Supplies">
                         </div>
-                    </div>
 
-                    <div>
-                        <label for="txn_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Transaction Name <span class="text-red-500">*</span>
-                        </label>
-                        <input 
-                            type="text" 
-                            id="txn_name" 
-                            name="txn_name" 
-                            required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                            placeholder="e.g., Office Supplies Purchase">
-                    </div>
+                        <!-- Account and Reference -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="account_name" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Account Name
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="account_name" 
+                                    name="account_name"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    placeholder="Business Checking">
+                            </div>
 
-                    <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label for="reference_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Reference ID
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="reference_id" 
+                                    name="reference_id"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    placeholder="INV-001">
+                            </div>
+                        </div>
+
+                        <!-- Description -->
                         <div>
-                            <label for="account_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Account Name
+                            <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Description
                             </label>
-                            <input 
-                                type="text" 
-                                id="account_name" 
-                                name="account_name"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="e.g., Business Checking">
+                            <textarea 
+                                id="description" 
+                                name="description" 
+                                rows="3"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
+                                placeholder="Additional details..."></textarea>
                         </div>
 
-                        <div>
-                            <label for="reference_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Reference ID
-                            </label>
-                            <input 
-                                type="text" 
-                                id="reference_id" 
-                                name="reference_id"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="e.g., INV-2024-001">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Description
-                        </label>
-                        <textarea 
-                            id="description" 
-                            name="description" 
-                            rows="4"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
-                            placeholder="Add any additional details about this transaction..."></textarea>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <button type="submit" class="flex-1 btn-primary inline-flex items-center justify-center gap-2">
-                            <span class="text-xl">+</span>
-                            <span>Add Cashflow Record</span>
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full btn-primary inline-flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            <span>Add Record</span>
                         </button>
-                        <a href="{{ url_for('spindlefinance.records') }}" class="flex-1 btn-secondary text-center inline-flex items-center justify-center gap-2">
-                            <span class="text-xl">📋</span>
-                            <span>View Records</span>
-                        </a>
                     </div>
+                </form>
+            </div>
+
+            <!-- Right Column: CSV Bulk Upload -->
+            <div class="card">
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-8 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-bold text-gray-900">Bulk Upload</h2>
+                    <p class="text-sm text-gray-600 mt-1">Upload multiple records using CSV</p>
                 </div>
-            </form>
+
+                <div class="p-8">
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="uploadSuccess" class="hidden mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-center gap-3">
+                            <div class="flex-shrink-0">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-green-900">Upload Successful!</h3>
+                                <p class="text-sm text-green-700 mt-1">Your CSV file has been processed successfully.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Form -->
+                    <form id="csvUploadForm" action="{{ url_for('spindlefinance.uploader') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <!-- Drag & Drop Area -->
+                        <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-500 transition-colors cursor-pointer bg-gray-50">
+                            <div class="space-y-4">
+                                <div class="flex justify-center">
+                                    <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <label for="csvFile" class="cursor-pointer">
+                                        <span class="text-primary-600 font-semibold hover:text-primary-700">Click to upload</span>
+                                        <span class="text-gray-600"> or drag and drop</span>
+                                    </label>
+                                    <p class="text-sm text-gray-500 mt-2">CSV files only (MAX. 10MB)</p>
+                                </div>
+                                <input 
+                                    type="file" 
+                                    id="csvFile" 
+                                    name="file" 
+                                    accept=".csv" 
+                                    class="hidden"
+                                    onchange="handleFileSelect(event)">
+                            </div>
+                        </div>
+
+                        <!-- Selected File Display -->
+                        <div id="fileInfo" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-semibold text-gray-900" id="fileName"></p>
+                                        <p class="text-sm text-gray-600" id="fileSize"></p>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="clearFile()" class="text-red-600 hover:text-red-700">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Upload Button -->
+                        <button type="submit" id="uploadBtn" class="w-full btn-primary inline-flex items-center justify-center gap-2" disabled>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            <span>Upload CSV</span>
+                        </button>
+
+                        <!-- Instructions -->
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-yellow-900 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                CSV Format Requirements
+                            </h4>
+                            <ul class="text-sm text-yellow-800 space-y-1 ml-7">
+                                <li>• Include headers: txn_date, amount, txn_type, txn_name</li>
+                                <li>• Date format: YYYY-MM-DD</li>
+                                <li>• Transaction type: INFLOW or OUTFLOW</li>
+                                <li>• Optional fields: account_name, reference_id, description</li>
+                            </ul>
+                            <a href="#" class="text-sm text-yellow-900 font-semibold hover:underline mt-2 inline-block">
+                                Download Sample CSV Template →
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Link to Records -->
+        <div class="mt-8 text-center">
+            <a href="{{ url_for('spindlefinance.records') }}" class="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+                View All Records
+            </a>
         </div>
     </main>
 </div>
@@ -153,12 +273,95 @@
 
 {% block extra_scripts %}
 <script>
+    // Auto-set today's date
     document.addEventListener('DOMContentLoaded', function() {
         var dateInput = document.getElementById('txn_date');
         if (dateInput && !dateInput.value) {
             dateInput.value = new Date().toISOString().split('T')[0];
         }
+
+        // Check for success message in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('upload') === 'success') {
+            document.getElementById('uploadSuccess').classList.remove('hidden');
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                document.getElementById('uploadSuccess').classList.add('hidden');
+            }, 5000);
+        }
+    });
+
+    // Handle file selection
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Show file info
+            document.getElementById('fileInfo').classList.remove('hidden');
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            
+            // Enable upload button
+            document.getElementById('uploadBtn').disabled = false;
+            document.getElementById('uploadBtn').classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    }
+
+    // Clear file selection
+    function clearFile() {
+        document.getElementById('csvFile').value = '';
+        document.getElementById('fileInfo').classList.add('hidden');
+        document.getElementById('uploadBtn').disabled = true;
+        document.getElementById('uploadBtn').classList.add('opacity-50', 'cursor-not-allowed');
+    }
+
+    // Format file size
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    // Drag and drop functionality
+    const dropZone = document.getElementById('dropZone');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('border-primary-500', 'bg-primary-50');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('border-primary-500', 'bg-primary-50');
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0) {
+            document.getElementById('csvFile').files = files;
+            handleFileSelect({ target: { files: files } });
+        }
+    }
+
+    // Click to select file
+    dropZone.addEventListener('click', () => {
+        document.getElementById('csvFile').click();
     });
 </script>
 {% endblock %}
-

@@ -1,0 +1,1001 @@
+txn_date,txn_name,account_name,amount,txn_type,description,reference_id
+2025-05-24,Refrigeration Maintenance,Axis – Sales Collection Account,34315.03,inflow,Urgent procurement for production run,TXN-40DF50988C5146F398
+2025-10-18,Retail Chain Settlement,SBI – Payroll Account,179038.07,inflow,Temporary labour payment,TXN-700CE0C6CE1C456FAF
+2026-02-06,Retail Chain Settlement,ICICI – Procurement Account,83567.62,outflow,Contractual service charges,TXN-ECB427E2864F4341B4
+2025-11-06,Distributor Payment,ICICI – Procurement Account,168850.23,outflow,Cold chain logistics charges,TXN-EF0CC55EA29840F896
+2025-11-06,Cold Storage Electricity,Axis – Sales Collection Account,12963.24,outflow,Packaging material replenishment,TXN-B1BCA909296E417FB1
+2025-05-15,Cold Storage Electricity,Kotak – Vendor Payments Account,240245.68,inflow,Scheduled maintenance activity,TXN-9F700F4691004A22BA
+2026-01-23,Milk Powder Supply,ICICI – Procurement Account,17290.33,outflow,Contractual service charges,TXN-62362B5AC57D46B3B7
+2025-05-01,Packaging Staff Payroll,SBI – Payroll Account,153233.1,outflow,Scheduled maintenance activity,TXN-7D003BE67472484188
+2025-07-18,Distributor Payment,Axis – Sales Collection Account,90830.42,outflow,Monthly supplier settlement,TXN-1A0890281278420293
+2026-01-28,Factory Worker Payroll,Axis – Sales Collection Account,25583.9,outflow,Invoice settlement,TXN-38B408C420E54009AC
+2026-01-17,Spices Raw Material,Kotak – Vendor Payments Account,6865.78,outflow,Bulk order payment received,TXN-C8C03F3A2EAD4B0F82
+2025-10-23,Retail Chain Settlement,HDFC – Operations Account,54545.94,outflow,Routine operational expense,TXN-F9B79CFC1F4749D0A1
+2026-02-08,Cold Storage Electricity,Kotak – Vendor Payments Account,72070.81,outflow,Cold chain logistics charges,TXN-FEF0BF2BD08B4BD685
+2025-11-01,Wheat Flour Purchase,ICICI – Procurement Account,72835.55,inflow,Urgent procurement for production run,TXN-E349FD1DDC6B4FD1AB
+2025-11-26,Packaging Film Purchase,Kotak – Vendor Payments Account,144014.95,outflow,Urgent procurement for production run,TXN-D08E20FDC8634FE8BE
+2025-11-30,Milk Powder Supply,SBI – Payroll Account,92041.75,outflow,Scheduled maintenance activity,TXN-8D4462AEEB634CD987
+2026-01-16,Quality Inspection Fees,ICICI – Procurement Account,95854.23,outflow,Invoice settlement,TXN-1FAB82E2652C40F8A9
+2026-01-20,Bulk Order Receipt,ICICI – Procurement Account,123964.98,outflow,Contractual service charges,TXN-D4A36F9DB2664A8DAE
+2025-11-26,Packaging Film Purchase,Axis – Sales Collection Account,198189.71,inflow,Urgent procurement for production run,TXN-4B3F367377DE413086
+2025-05-10,Retail Chain Settlement,ICICI – Procurement Account,158634.9,inflow,Bulk order payment received,TXN-07A42F9C5791415DB7
+2026-01-03,Factory Sanitation Charges,HDFC – Operations Account,48299.4,outflow,Routine operational expense,TXN-1DCB06C6727E4DF18A
+2025-11-22,Quality Inspection Fees,HDFC – Operations Account,51379.72,outflow,Invoice settlement,TXN-024D303343D64113A9
+2025-06-13,Wheat Flour Purchase,HDFC – Operations Account,21574.32,outflow,Packaging material replenishment,TXN-93E3B38966264ECEB5
+2025-04-30,Distributor Payment,Kotak – Vendor Payments Account,282109.67,inflow,Packaging material replenishment,TXN-07B2F6F2FD6B413E81
+2025-09-06,Packaging Staff Payroll,Kotak – Vendor Payments Account,117329.69,outflow,Bulk order payment received,TXN-22019F003A4D44F580
+2026-01-12,Packaging Staff Payroll,ICICI – Procurement Account,119159.5,outflow,Bulk order payment received,TXN-587A3C0001E241AABC
+2025-05-23,Factory Sanitation Charges,ICICI – Procurement Account,303834.51,inflow,Bulk order payment received,TXN-467EE6C466C8418E83
+2025-12-31,Retail Chain Settlement,HDFC – Operations Account,103343.53,outflow,Routine operational expense,TXN-3F058BAB1B514474B5
+2025-08-03,Milk Powder Supply,HDFC – Operations Account,271451.29,inflow,Packaging material replenishment,TXN-A78D1C5B5A0C41B89E
+2025-08-24,Refrigeration Maintenance,HDFC – Operations Account,86310.45,inflow,Scheduled maintenance activity,TXN-F50C5AA34FD9426897
+2025-09-06,Packaging Film Purchase,Axis – Sales Collection Account,54794.02,outflow,Packaging material replenishment,TXN-90E6B4ED2E894393B5
+2025-09-15,Refrigeration Maintenance,HDFC – Operations Account,170291.87,outflow,Packaging material replenishment,TXN-95B7AB5C442645AA9D
+2025-11-19,Packaging Film Purchase,Kotak – Vendor Payments Account,146767.97,inflow,Bulk order payment received,TXN-DF89557548794F9A87
+2025-04-30,Sugar Procurement,SBI – Payroll Account,5188.54,outflow,Bulk order payment received,TXN-B290143FB7C443A7B6
+2025-05-19,Edible Oil Purchase,Kotak – Vendor Payments Account,176009.09,outflow,Monthly supplier settlement,TXN-4301709AD8C144C88B
+2025-12-13,Spices Raw Material,ICICI – Procurement Account,106742.17,outflow,Scheduled maintenance activity,TXN-B29D6412A2D2408499
+2026-01-17,Packaging Staff Payroll,ICICI – Procurement Account,78261.06,outflow,Routine operational expense,TXN-0682642A3DF34606B9
+2026-01-26,Packaging Film Purchase,SBI – Payroll Account,47117.18,outflow,Scheduled maintenance activity,TXN-7EE5BE18C5B241D5B0
+2025-09-09,Packaging Film Purchase,ICICI – Procurement Account,141891.79,outflow,Bulk order payment received,TXN-E8453D2F0D03430680
+2025-11-03,Retail Chain Settlement,HDFC – Operations Account,132350.56,outflow,Scheduled maintenance activity,TXN-66B2448D05B84F1F83
+2025-09-08,Quality Inspection Fees,HDFC – Operations Account,165940.91,outflow,Urgent procurement for production run,TXN-555BE78E99FF4507B5
+2025-05-22,Wheat Flour Purchase,Axis – Sales Collection Account,286935.72,inflow,Invoice settlement,TXN-A3D59F4234004C57B8
+2025-10-03,Sugar Procurement,Axis – Sales Collection Account,101592.12,outflow,Routine operational expense,TXN-929359E954F34C26AB
+2025-05-23,Hotel Supply Payment,ICICI – Procurement Account,124412.83,outflow,Scheduled maintenance activity,TXN-479A824194B6436A9B
+2025-12-16,Edible Oil Purchase,SBI – Payroll Account,103051.34,outflow,Contractual service charges,TXN-37C0D752110845F4A0
+2025-08-10,Hotel Supply Payment,SBI – Payroll Account,133484.73,outflow,Contractual service charges,TXN-C0A62B0912074128A4
+2025-07-28,Wheat Flour Purchase,Axis – Sales Collection Account,33713.26,outflow,Bulk order payment received,TXN-769B03686E7D4055B5
+2025-11-16,Refrigeration Maintenance,SBI – Payroll Account,106439.77,outflow,Monthly supplier settlement,TXN-BF74014362F14495AC
+2025-12-17,Retail Chain Settlement,Kotak – Vendor Payments Account,76773.26,outflow,Cold chain logistics charges,TXN-0A4698AC6B1F47FD8A
+2026-02-09,Edible Oil Purchase,Kotak – Vendor Payments Account,25025.32,outflow,Bulk order payment received,TXN-15B866AAC8CB49AC95
+2026-01-18,Packaging Film Purchase,Kotak – Vendor Payments Account,85633.84,outflow,Packaging material replenishment,TXN-08656FB185CB4F32B1
+2025-07-12,Distributor Payment,Kotak – Vendor Payments Account,135692.53,inflow,Cold chain logistics charges,TXN-7C93C989170946BA9D
+2026-01-10,Packaging Staff Payroll,HDFC – Operations Account,152220.0,inflow,Routine operational expense,TXN-4BFF24CB2F3A4113B2
+2026-01-01,Retail Chain Settlement,ICICI – Procurement Account,119534.2,inflow,Scheduled maintenance activity,TXN-37A796A0B7A14BFE98
+2025-04-15,Packaging Film Purchase,ICICI – Procurement Account,22005.85,outflow,Monthly supplier settlement,TXN-7F808C304D6B46F79A
+2025-10-07,Spices Raw Material,HDFC – Operations Account,11493.24,outflow,Packaging material replenishment,TXN-02EEAC40B1734F13A2
+2026-01-19,Cold Storage Electricity,Kotak – Vendor Payments Account,27450.97,inflow,Routine operational expense,TXN-84C1AE0EF8F14BA88D
+2025-05-28,Bulk Order Receipt,Kotak – Vendor Payments Account,164652.7,outflow,Contractual service charges,TXN-74BB878721834A2F97
+2025-05-29,Quality Inspection Fees,Axis – Sales Collection Account,57332.45,outflow,Temporary labour payment,TXN-ED3EAF2DAA794029A0
+2025-11-02,Sugar Procurement,ICICI – Procurement Account,261112.0,inflow,Contractual service charges,TXN-208065E94BA8471AAC
+2025-09-23,Hotel Supply Payment,ICICI – Procurement Account,177926.98,outflow,Packaging material replenishment,TXN-43949429B9C04BF88E
+2026-01-16,Retail Chain Settlement,ICICI – Procurement Account,144742.76,outflow,Contractual service charges,TXN-97AEB639A1854E91BC
+2025-04-18,Quality Inspection Fees,SBI – Payroll Account,217267.72,inflow,Bulk order payment received,TXN-9620E61DF5D748A39E
+2025-04-26,Factory Worker Payroll,SBI – Payroll Account,39816.23,outflow,Routine operational expense,TXN-8924A27BE8394958B3
+2025-11-19,Factory Worker Payroll,Kotak – Vendor Payments Account,60952.02,inflow,Routine operational expense,TXN-C1AF4A08676A4ECE87
+2025-09-18,Packaging Staff Payroll,Axis – Sales Collection Account,130201.44,outflow,Monthly supplier settlement,TXN-61A5C6DDE32B4404B3
+2026-01-03,Factory Sanitation Charges,Kotak – Vendor Payments Account,56722.98,inflow,Urgent procurement for production run,TXN-7FCB26F86852481BBA
+2025-08-20,Retail Chain Settlement,Kotak – Vendor Payments Account,178528.63,outflow,Scheduled maintenance activity,TXN-DD5E4C7B3A0E48CCA6
+2026-01-04,Factory Worker Payroll,ICICI – Procurement Account,163368.05,inflow,Temporary labour payment,TXN-0C3546877712411780
+2025-05-23,Bulk Order Receipt,Axis – Sales Collection Account,7366.55,outflow,Routine operational expense,TXN-CA524B600CFA4395B2
+2025-11-08,Bulk Order Receipt,ICICI – Procurement Account,173803.68,outflow,Bulk order payment received,TXN-7F2D859F86F544669E
+2025-07-31,Milk Powder Supply,SBI – Payroll Account,177534.92,outflow,Invoice settlement,TXN-928F58C24489498F9C
+2026-01-19,Distributor Payment,ICICI – Procurement Account,284278.4,inflow,Monthly supplier settlement,TXN-FBB962A53D6341A29F
+2026-01-16,Factory Worker Payroll,HDFC – Operations Account,151927.7,outflow,Monthly supplier settlement,TXN-02C34FE7C3EB46418A
+2025-10-30,Refrigeration Maintenance,Kotak – Vendor Payments Account,132455.26,outflow,Bulk order payment received,TXN-7038B440673A44819D
+2025-12-15,Retail Chain Settlement,SBI – Payroll Account,172978.91,outflow,Packaging material replenishment,TXN-3759ED88E505475797
+2025-09-21,Milk Powder Supply,ICICI – Procurement Account,143602.41,outflow,Bulk order payment received,TXN-574ACFFD5E52404083
+2025-08-23,Cold Storage Electricity,HDFC – Operations Account,172853.52,inflow,Scheduled maintenance activity,TXN-71DADDEA951E49CB9F
+2025-04-27,Quality Inspection Fees,Axis – Sales Collection Account,99800.14,outflow,Scheduled maintenance activity,TXN-FA0282DE47C24489A5
+2025-06-30,Bulk Order Receipt,Axis – Sales Collection Account,179309.19,inflow,Contractual service charges,TXN-496DADEFCDE74EDEB9
+2025-07-19,Hotel Supply Payment,HDFC – Operations Account,98868.31,outflow,Urgent procurement for production run,TXN-5BDB5910E03B47AA90
+2025-11-14,Retail Chain Settlement,Kotak – Vendor Payments Account,19652.0,outflow,Cold chain logistics charges,TXN-99B9088A79314C259B
+2025-06-05,Quality Inspection Fees,SBI – Payroll Account,57874.76,outflow,Packaging material replenishment,TXN-87C52B33EADC42DA85
+2025-10-05,Sugar Procurement,ICICI – Procurement Account,73750.96,outflow,Contractual service charges,TXN-6C9D9904B7224F86B5
+2025-06-13,Refrigeration Maintenance,SBI – Payroll Account,176080.95,outflow,Packaging material replenishment,TXN-C57F470B41F14D0A90
+2025-05-27,Hotel Supply Payment,Axis – Sales Collection Account,24244.66,outflow,Temporary labour payment,TXN-00E536BBFF4B4E3AA4
+2026-01-11,Edible Oil Purchase,ICICI – Procurement Account,276269.63,inflow,Monthly supplier settlement,TXN-7B6F69E701F446CFB4
+2025-09-19,Factory Sanitation Charges,Kotak – Vendor Payments Account,41644.39,outflow,Urgent procurement for production run,TXN-9A6B75857873411BAD
+2025-09-22,Bulk Order Receipt,ICICI – Procurement Account,106265.65,outflow,Bulk order payment received,TXN-43FEBE72CAC5437E9F
+2025-08-28,Milk Powder Supply,HDFC – Operations Account,22427.72,outflow,Contractual service charges,TXN-53EE81DCFFE242D6A6
+2025-10-26,Wheat Flour Purchase,ICICI – Procurement Account,112451.63,inflow,Scheduled maintenance activity,TXN-03BA6EC4995B43478C
+2025-08-29,Quality Inspection Fees,ICICI – Procurement Account,98137.96,outflow,Packaging material replenishment,TXN-8042FDC0D41F4DCBAB
+2025-12-08,Packaging Film Purchase,Kotak – Vendor Payments Account,147686.12,inflow,Urgent procurement for production run,TXN-0603216EE08D45FE90
+2025-11-09,Wheat Flour Purchase,ICICI – Procurement Account,155883.02,outflow,Bulk order payment received,TXN-9DA994722A60406CAE
+2026-01-23,Edible Oil Purchase,Kotak – Vendor Payments Account,93586.89,outflow,Monthly supplier settlement,TXN-65C1ACB32C804D3E91
+2025-05-05,Hotel Supply Payment,HDFC – Operations Account,60347.4,outflow,Bulk order payment received,TXN-FE2CD060CAEE4EBF80
+2025-10-11,Milk Powder Supply,ICICI – Procurement Account,29861.93,outflow,Cold chain logistics charges,TXN-65B41C012D1547919F
+2025-10-12,Sugar Procurement,SBI – Payroll Account,29525.37,outflow,Temporary labour payment,TXN-886896CAAAF549B6B5
+2026-01-09,Distributor Payment,SBI – Payroll Account,130276.85,outflow,Temporary labour payment,TXN-B0787F7167324F6A88
+2025-05-17,Retail Chain Settlement,ICICI – Procurement Account,4660.25,outflow,Temporary labour payment,TXN-2E5037EE93C4480B91
+2025-11-03,Hotel Supply Payment,ICICI – Procurement Account,97388.7,outflow,Packaging material replenishment,TXN-E02447DFC17242C793
+2025-08-15,Bulk Order Receipt,ICICI – Procurement Account,21978.66,outflow,Routine operational expense,TXN-2DE1DC71FA1346BEBE
+2025-08-31,Edible Oil Purchase,SBI – Payroll Account,23384.64,outflow,Packaging material replenishment,TXN-92FD9E0C4EF4436093
+2026-01-15,Hotel Supply Payment,SBI – Payroll Account,212700.19,inflow,Bulk order payment received,TXN-71D9A47AF50741FBB0
+2025-10-19,Distributor Payment,ICICI – Procurement Account,51344.4,outflow,Bulk order payment received,TXN-A487524D60104E87BE
+2025-06-16,Cold Storage Electricity,ICICI – Procurement Account,251758.89,inflow,Monthly supplier settlement,TXN-1FBD9DED9B63496DB3
+2025-07-03,Factory Worker Payroll,HDFC – Operations Account,24117.74,outflow,Routine operational expense,TXN-AB438BF9676D418A89
+2025-08-20,Milk Powder Supply,ICICI – Procurement Account,171643.09,outflow,Urgent procurement for production run,TXN-FC709A2A3C96452B9F
+2025-11-13,Factory Worker Payroll,HDFC – Operations Account,94499.49,outflow,Urgent procurement for production run,TXN-F7D417CBFC5945CFB6
+2025-11-05,Edible Oil Purchase,Axis – Sales Collection Account,94851.41,inflow,Packaging material replenishment,TXN-50265C56B1A24469B6
+2025-12-19,Edible Oil Purchase,HDFC – Operations Account,173384.74,outflow,Monthly supplier settlement,TXN-6D9A591021E64D759B
+2025-09-28,Edible Oil Purchase,SBI – Payroll Account,259802.28,inflow,Urgent procurement for production run,TXN-2C2E42B5EC5F4ED19D
+2025-04-21,Edible Oil Purchase,ICICI – Procurement Account,165932.42,outflow,Urgent procurement for production run,TXN-62A92CABABEF4D45B9
+2025-10-27,Spices Raw Material,Axis – Sales Collection Account,250786.54,inflow,Packaging material replenishment,TXN-1A32BDFF0C27458C9B
+2025-05-09,Refrigeration Maintenance,HDFC – Operations Account,87801.06,inflow,Monthly supplier settlement,TXN-8DE9220B5B1B46189A
+2025-04-24,Hotel Supply Payment,Axis – Sales Collection Account,120562.91,outflow,Temporary labour payment,TXN-30058B496D2D4BADBA
+2025-09-20,Edible Oil Purchase,SBI – Payroll Account,166895.19,outflow,Bulk order payment received,TXN-D62CA64E47784322BC
+2026-01-11,Factory Worker Payroll,ICICI – Procurement Account,56830.41,inflow,Temporary labour payment,TXN-D632678C4182410E94
+2026-01-25,Factory Worker Payroll,Kotak – Vendor Payments Account,147093.72,outflow,Temporary labour payment,TXN-2DFC031EFE1E41E394
+2025-11-13,Milk Powder Supply,SBI – Payroll Account,121465.44,outflow,Invoice settlement,TXN-6E464985D7C7461BAA
+2026-01-15,Hotel Supply Payment,ICICI – Procurement Account,206777.74,inflow,Temporary labour payment,TXN-823C82E2FADE40B7A8
+2025-04-25,Packaging Staff Payroll,ICICI – Procurement Account,234151.12,inflow,Bulk order payment received,TXN-599887148F6A40DB9B
+2025-04-26,Quality Inspection Fees,Axis – Sales Collection Account,150502.79,outflow,Monthly supplier settlement,TXN-8296999DFB94485996
+2025-10-22,Milk Powder Supply,HDFC – Operations Account,298292.79,inflow,Temporary labour payment,TXN-A536BC84BCF84A1C8C
+2025-09-10,Spices Raw Material,ICICI – Procurement Account,7351.28,outflow,Bulk order payment received,TXN-AE57A88D8C4D4FA78D
+2025-04-14,Packaging Staff Payroll,Kotak – Vendor Payments Account,306045.83,inflow,Bulk order payment received,TXN-3B6481123B4647C891
+2026-02-10,Factory Worker Payroll,Kotak – Vendor Payments Account,79180.22,outflow,Temporary labour payment,TXN-044E5642F682463E8B
+2025-08-25,Milk Powder Supply,SBI – Payroll Account,126835.54,outflow,Temporary labour payment,TXN-8331D83E781B4BEA84
+2025-07-28,Distributor Payment,ICICI – Procurement Account,161855.34,outflow,Urgent procurement for production run,TXN-189BC883D3784DC9B9
+2025-11-23,Factory Sanitation Charges,SBI – Payroll Account,120054.72,inflow,Packaging material replenishment,TXN-54ECFEFC55D3472BBA
+2025-08-09,Wheat Flour Purchase,Kotak – Vendor Payments Account,101027.32,outflow,Packaging material replenishment,TXN-612C1157C4B44DA4A0
+2025-06-12,Factory Sanitation Charges,SBI – Payroll Account,130369.98,outflow,Monthly supplier settlement,TXN-AFA87317AE714A1D96
+2025-06-20,Bulk Order Receipt,Axis – Sales Collection Account,175091.98,inflow,Monthly supplier settlement,TXN-547B7B9AFA624AF9B6
+2025-08-29,Factory Sanitation Charges,Axis – Sales Collection Account,77599.48,inflow,Packaging material replenishment,TXN-D8BBA775CBC1463591
+2025-10-03,Factory Sanitation Charges,Kotak – Vendor Payments Account,150972.93,outflow,Urgent procurement for production run,TXN-304DD71170174DA58E
+2025-07-08,Cold Storage Electricity,Axis – Sales Collection Account,148825.75,inflow,Urgent procurement for production run,TXN-0DFD3FBC360B424B86
+2025-05-10,Retail Chain Settlement,ICICI – Procurement Account,76606.17,inflow,Contractual service charges,TXN-88A084C510B240ABA6
+2025-06-10,Packaging Staff Payroll,SBI – Payroll Account,30106.32,outflow,Scheduled maintenance activity,TXN-1D79323FFB044ADC89
+2025-07-04,Milk Powder Supply,ICICI – Procurement Account,145436.89,outflow,Routine operational expense,TXN-430E547C81554F15B3
+2025-11-30,Factory Worker Payroll,SBI – Payroll Account,151769.87,outflow,Routine operational expense,TXN-290F4C314DEE46E1A6
+2025-07-21,Edible Oil Purchase,Axis – Sales Collection Account,155702.85,outflow,Urgent procurement for production run,TXN-FEA6C4463A71480F97
+2025-08-21,Cold Storage Electricity,ICICI – Procurement Account,17762.83,outflow,Scheduled maintenance activity,TXN-D39A6566F45749BF8E
+2026-01-29,Edible Oil Purchase,Axis – Sales Collection Account,159118.23,inflow,Temporary labour payment,TXN-B9DAFF8A92204D3B98
+2025-04-29,Bulk Order Receipt,SBI – Payroll Account,26929.51,inflow,Cold chain logistics charges,TXN-E4B8424410064DB8AB
+2025-10-17,Edible Oil Purchase,Kotak – Vendor Payments Account,162511.11,outflow,Contractual service charges,TXN-86338A21FD424AFAA8
+2025-12-16,Hotel Supply Payment,SBI – Payroll Account,83418.51,outflow,Packaging material replenishment,TXN-F203FC598658442D81
+2026-02-08,Bulk Order Receipt,Axis – Sales Collection Account,172088.79,outflow,Scheduled maintenance activity,TXN-E5BC67B3A6E24D8E92
+2026-01-21,Retail Chain Settlement,Kotak – Vendor Payments Account,121589.18,outflow,Cold chain logistics charges,TXN-918F54BA8BC447D182
+2025-10-09,Packaging Staff Payroll,SBI – Payroll Account,102130.42,outflow,Packaging material replenishment,TXN-D3693FEB640448968F
+2025-07-29,Bulk Order Receipt,SBI – Payroll Account,89176.75,outflow,Invoice settlement,TXN-E59FF83AC7E44B75A8
+2026-01-23,Retail Chain Settlement,Axis – Sales Collection Account,306597.18,inflow,Urgent procurement for production run,TXN-78F14239E59C4557AA
+2025-06-05,Factory Sanitation Charges,Kotak – Vendor Payments Account,114079.94,outflow,Scheduled maintenance activity,TXN-FFD4DBFC54DE4D1DA5
+2025-06-28,Milk Powder Supply,ICICI – Procurement Account,112162.11,inflow,Contractual service charges,TXN-D06652A9C25B432D87
+2025-04-19,Sugar Procurement,SBI – Payroll Account,135371.06,outflow,Contractual service charges,TXN-8FA4C6E43B2D4D5B98
+2025-08-20,Edible Oil Purchase,SBI – Payroll Account,4427.23,outflow,Urgent procurement for production run,TXN-6435BD5290C842FAB9
+2025-09-06,Refrigeration Maintenance,Axis – Sales Collection Account,16974.25,outflow,Urgent procurement for production run,TXN-1B4FFA77DC8140648F
+2025-10-20,Packaging Film Purchase,Axis – Sales Collection Account,5922.46,outflow,Bulk order payment received,TXN-13F48975BFD54A628B
+2025-12-21,Factory Sanitation Charges,Axis – Sales Collection Account,249872.11,inflow,Routine operational expense,TXN-F9A248B5B96845B98E
+2025-05-14,Wheat Flour Purchase,ICICI – Procurement Account,154719.97,inflow,Invoice settlement,TXN-BF003FFDEAF34FE7BA
+2025-05-07,Packaging Staff Payroll,SBI – Payroll Account,103156.62,outflow,Packaging material replenishment,TXN-62D8F7A4480648D486
+2025-08-20,Hotel Supply Payment,SBI – Payroll Account,46912.24,outflow,Bulk order payment received,TXN-89A3C3E0309C4C7F9E
+2025-10-10,Factory Worker Payroll,Kotak – Vendor Payments Account,318339.22,inflow,Cold chain logistics charges,TXN-709E0C46EF54403482
+2026-02-01,Edible Oil Purchase,Kotak – Vendor Payments Account,35990.31,outflow,Urgent procurement for production run,TXN-7910FA5C52AE42269F
+2025-12-30,Retail Chain Settlement,Axis – Sales Collection Account,15027.87,outflow,Contractual service charges,TXN-8D4D70B64D864AB6BE
+2025-11-01,Packaging Film Purchase,SBI – Payroll Account,15363.54,outflow,Urgent procurement for production run,TXN-662D29B1362D4613B2
+2025-12-24,Bulk Order Receipt,Kotak – Vendor Payments Account,156905.39,outflow,Temporary labour payment,TXN-4522D18334BC4D80BA
+2025-11-10,Factory Worker Payroll,SBI – Payroll Account,187255.87,inflow,Invoice settlement,TXN-20C5D8F3A14E4496B6
+2025-10-21,Distributor Payment,SBI – Payroll Account,240045.55,inflow,Monthly supplier settlement,TXN-EC647F8A3D674A6D86
+2025-05-02,Hotel Supply Payment,Axis – Sales Collection Account,62055.69,inflow,Routine operational expense,TXN-9C99FB359EAC410885
+2025-07-14,Milk Powder Supply,SBI – Payroll Account,40785.49,outflow,Scheduled maintenance activity,TXN-28050A5887184BED81
+2025-05-25,Packaging Film Purchase,Kotak – Vendor Payments Account,125160.62,outflow,Invoice settlement,TXN-07D592F104804FCABA
+2025-11-04,Hotel Supply Payment,Kotak – Vendor Payments Account,16877.91,outflow,Invoice settlement,TXN-1A65354CC9BF4103AD
+2025-06-07,Distributor Payment,HDFC – Operations Account,125114.66,outflow,Contractual service charges,TXN-03462F6DE0244698B1
+2025-09-11,Factory Sanitation Charges,SBI – Payroll Account,44906.24,outflow,Monthly supplier settlement,TXN-B440A799DF5444C3A0
+2026-01-03,Hotel Supply Payment,HDFC – Operations Account,128067.9,outflow,Cold chain logistics charges,TXN-D7711DCE45BC4748A0
+2025-11-22,Refrigeration Maintenance,Axis – Sales Collection Account,37247.91,outflow,Cold chain logistics charges,TXN-A56D13E89F754D9491
+2025-10-23,Factory Worker Payroll,SBI – Payroll Account,3941.35,outflow,Contractual service charges,TXN-FE69100703B843B3A9
+2026-01-27,Quality Inspection Fees,Axis – Sales Collection Account,62646.22,outflow,Temporary labour payment,TXN-B4B323F37DCC49D2AF
+2025-10-10,Bulk Order Receipt,Axis – Sales Collection Account,123302.53,outflow,Temporary labour payment,TXN-CE6F33572AC640BAA1
+2025-07-18,Retail Chain Settlement,ICICI – Procurement Account,48717.78,outflow,Urgent procurement for production run,TXN-3B542243C9814D1487
+2025-08-14,Packaging Staff Payroll,HDFC – Operations Account,158207.83,outflow,Routine operational expense,TXN-A31FC2F323A74D1D92
+2025-07-09,Bulk Order Receipt,Axis – Sales Collection Account,93564.77,outflow,Scheduled maintenance activity,TXN-DDE5C17FD3EE48FD9B
+2025-10-10,Refrigeration Maintenance,HDFC – Operations Account,30842.9,outflow,Monthly supplier settlement,TXN-F1E778AA94AB4FF9AD
+2025-09-12,Cold Storage Electricity,Kotak – Vendor Payments Account,7544.37,outflow,Monthly supplier settlement,TXN-2743D0F5130D43D18F
+2025-12-02,Edible Oil Purchase,ICICI – Procurement Account,87433.37,outflow,Urgent procurement for production run,TXN-2D266045864045658A
+2025-10-11,Distributor Payment,HDFC – Operations Account,23000.48,outflow,Scheduled maintenance activity,TXN-42EF7038A46141A38C
+2025-12-11,Packaging Staff Payroll,Axis – Sales Collection Account,15470.07,outflow,Packaging material replenishment,TXN-DB173E812E0D4C519D
+2025-06-11,Hotel Supply Payment,Axis – Sales Collection Account,91725.18,inflow,Temporary labour payment,TXN-A854E715E52945C486
+2025-05-30,Quality Inspection Fees,Axis – Sales Collection Account,160802.06,outflow,Urgent procurement for production run,TXN-F5EDD5D46F254B69B0
+2025-08-27,Distributor Payment,ICICI – Procurement Account,151820.27,outflow,Bulk order payment received,TXN-6CC4304E2DE14E069C
+2025-12-13,Cold Storage Electricity,Axis – Sales Collection Account,320745.18,inflow,Cold chain logistics charges,TXN-AD96D149DE9B4EE6B1
+2025-09-03,Retail Chain Settlement,Axis – Sales Collection Account,307397.85,inflow,Packaging material replenishment,TXN-AFBA2E2D66BF4ECDA2
+2025-07-18,Hotel Supply Payment,Kotak – Vendor Payments Account,72761.55,inflow,Cold chain logistics charges,TXN-AEC9A167852145BC8D
+2025-10-16,Packaging Staff Payroll,SBI – Payroll Account,51881.92,outflow,Urgent procurement for production run,TXN-44C51E5C26BD44E59F
+2025-06-07,Spices Raw Material,HDFC – Operations Account,36475.61,outflow,Contractual service charges,TXN-3E24B84197DA4E26A2
+2025-04-25,Factory Sanitation Charges,SBI – Payroll Account,94734.49,outflow,Contractual service charges,TXN-86077890723248AF98
+2026-01-15,Refrigeration Maintenance,Kotak – Vendor Payments Account,58071.32,outflow,Invoice settlement,TXN-2EDEEB3CF69944CE86
+2025-07-26,Spices Raw Material,SBI – Payroll Account,177057.57,inflow,Routine operational expense,TXN-6801784508C0479189
+2025-05-04,Sugar Procurement,Axis – Sales Collection Account,196589.03,inflow,Monthly supplier settlement,TXN-3A578EF1C27C4306AF
+2025-09-15,Distributor Payment,Kotak – Vendor Payments Account,162292.6,inflow,Invoice settlement,TXN-99F3C4089CD44535B3
+2025-06-05,Retail Chain Settlement,SBI – Payroll Account,134499.95,inflow,Bulk order payment received,TXN-7F85141CBACB4EC285
+2026-01-25,Bulk Order Receipt,SBI – Payroll Account,152029.31,outflow,Temporary labour payment,TXN-EBC20B84B4FC496595
+2025-12-02,Bulk Order Receipt,SBI – Payroll Account,75363.12,inflow,Temporary labour payment,TXN-3824C0C3A6224FB8A4
+2025-06-02,Spices Raw Material,SBI – Payroll Account,146145.9,inflow,Bulk order payment received,TXN-5B5DD308DE4A461B83
+2025-12-11,Factory Worker Payroll,Axis – Sales Collection Account,179553.43,outflow,Cold chain logistics charges,TXN-5D62C84BB9FA40E7BB
+2025-10-07,Factory Sanitation Charges,Kotak – Vendor Payments Account,72843.32,outflow,Scheduled maintenance activity,TXN-958E041F6AEA4D95B8
+2025-10-30,Packaging Film Purchase,Kotak – Vendor Payments Account,134324.17,outflow,Urgent procurement for production run,TXN-BDE9A458538A4F0FB9
+2025-12-27,Factory Worker Payroll,ICICI – Procurement Account,15790.26,outflow,Routine operational expense,TXN-F50026650A20496795
+2026-01-23,Distributor Payment,Axis – Sales Collection Account,299816.63,inflow,Scheduled maintenance activity,TXN-4DDB361E4B114C82B4
+2025-08-04,Sugar Procurement,Kotak – Vendor Payments Account,69322.59,outflow,Contractual service charges,TXN-DD23A147610343E793
+2025-10-20,Sugar Procurement,Kotak – Vendor Payments Account,27378.3,outflow,Monthly supplier settlement,TXN-C52A1F4781134AEEA6
+2025-08-12,Wheat Flour Purchase,Axis – Sales Collection Account,77912.57,inflow,Packaging material replenishment,TXN-E87CA497BE6342AB97
+2025-12-23,Retail Chain Settlement,ICICI – Procurement Account,140074.79,outflow,Invoice settlement,TXN-C1551C3D17D14EC689
+2026-02-09,Factory Worker Payroll,SBI – Payroll Account,176664.0,inflow,Scheduled maintenance activity,TXN-8D798A12EDD74C84B1
+2025-10-21,Quality Inspection Fees,ICICI – Procurement Account,78555.15,inflow,Cold chain logistics charges,TXN-337D9A3B8BE24CA799
+2025-05-20,Quality Inspection Fees,Kotak – Vendor Payments Account,233672.46,inflow,Bulk order payment received,TXN-C57BACE9FFC74CD3A0
+2025-11-04,Retail Chain Settlement,ICICI – Procurement Account,123053.23,outflow,Routine operational expense,TXN-7827408169AE4B66A4
+2025-09-10,Retail Chain Settlement,ICICI – Procurement Account,172559.15,outflow,Packaging material replenishment,TXN-F33851707DB2423BBB
+2025-09-27,Milk Powder Supply,Axis – Sales Collection Account,195277.03,inflow,Routine operational expense,TXN-A8CA7B49D0094D3E93
+2025-08-30,Spices Raw Material,Axis – Sales Collection Account,154604.84,outflow,Invoice settlement,TXN-5F418EA6C1D34C95A6
+2026-02-09,Bulk Order Receipt,Kotak – Vendor Payments Account,59027.36,outflow,Temporary labour payment,TXN-5BA90AACFAB14A63B9
+2025-12-15,Packaging Staff Payroll,HDFC – Operations Account,335052.59,inflow,Invoice settlement,TXN-DDD30BED0CAC4B8BBA
+2025-11-24,Wheat Flour Purchase,Axis – Sales Collection Account,130025.49,outflow,Scheduled maintenance activity,TXN-31FA2E334F84499CBE
+2025-05-08,Spices Raw Material,SBI – Payroll Account,121660.34,outflow,Temporary labour payment,TXN-8555DECC6B144A6FB5
+2025-07-15,Retail Chain Settlement,ICICI – Procurement Account,72075.03,outflow,Routine operational expense,TXN-3A1D2A06056247C1B0
+2025-08-12,Edible Oil Purchase,HDFC – Operations Account,313753.17,inflow,Temporary labour payment,TXN-BDC196362D0C4A5684
+2025-11-14,Milk Powder Supply,SBI – Payroll Account,179527.33,outflow,Routine operational expense,TXN-7C11FD4704F145E2A8
+2025-05-23,Wheat Flour Purchase,SBI – Payroll Account,15191.82,outflow,Bulk order payment received,TXN-762A5E33FA3B46B4A0
+2025-07-02,Factory Worker Payroll,SBI – Payroll Account,46007.48,outflow,Cold chain logistics charges,TXN-E6018C309976492CA6
+2025-11-06,Factory Sanitation Charges,Axis – Sales Collection Account,37573.18,outflow,Monthly supplier settlement,TXN-03041D03676042199E
+2025-08-30,Retail Chain Settlement,ICICI – Procurement Account,113204.37,outflow,Bulk order payment received,TXN-E2418AAA23BC4D4D8D
+2025-11-21,Cold Storage Electricity,SBI – Payroll Account,56577.63,outflow,Invoice settlement,TXN-BE7058BA49E74B2982
+2025-10-09,Sugar Procurement,Axis – Sales Collection Account,124860.35,outflow,Monthly supplier settlement,TXN-FE69B52989C245C898
+2025-12-30,Packaging Staff Payroll,Axis – Sales Collection Account,60614.45,outflow,Monthly supplier settlement,TXN-7CC88D7DA36B47E0A6
+2025-11-11,Packaging Film Purchase,Kotak – Vendor Payments Account,150674.36,inflow,Temporary labour payment,TXN-66E79B6EBECD443389
+2025-07-22,Sugar Procurement,ICICI – Procurement Account,2658.94,outflow,Contractual service charges,TXN-6001774401F7428490
+2025-05-19,Bulk Order Receipt,HDFC – Operations Account,85616.6,inflow,Monthly supplier settlement,TXN-4FA684C5091C44ABBF
+2026-02-02,Wheat Flour Purchase,HDFC – Operations Account,142534.57,outflow,Cold chain logistics charges,TXN-0F38A43A8831401987
+2025-12-22,Edible Oil Purchase,Kotak – Vendor Payments Account,131762.0,outflow,Contractual service charges,TXN-8D336F47CFCB4C9BB3
+2025-05-14,Distributor Payment,Axis – Sales Collection Account,40298.27,outflow,Monthly supplier settlement,TXN-CE6CC56592E14CD384
+2025-05-11,Edible Oil Purchase,Axis – Sales Collection Account,145783.79,outflow,Routine operational expense,TXN-8DD5C9A2273D43588B
+2025-08-02,Refrigeration Maintenance,Kotak – Vendor Payments Account,336343.49,inflow,Contractual service charges,TXN-91405353D27E4684A9
+2026-01-26,Factory Worker Payroll,ICICI – Procurement Account,43674.88,inflow,Packaging material replenishment,TXN-00651F27AC7A4652A6
+2025-12-03,Hotel Supply Payment,HDFC – Operations Account,76665.53,outflow,Scheduled maintenance activity,TXN-14C774A89B33410CAF
+2025-07-06,Factory Sanitation Charges,SBI – Payroll Account,38171.23,outflow,Scheduled maintenance activity,TXN-280C2DB60CFC4C81A9
+2025-06-16,Hotel Supply Payment,Kotak – Vendor Payments Account,76910.37,outflow,Urgent procurement for production run,TXN-7FFA13BA496C4D8C87
+2025-05-23,Bulk Order Receipt,Kotak – Vendor Payments Account,251024.87,inflow,Contractual service charges,TXN-EAB6BA7360764C7BA5
+2025-09-14,Retail Chain Settlement,Axis – Sales Collection Account,27532.63,outflow,Routine operational expense,TXN-A0288301747D489596
+2025-08-28,Quality Inspection Fees,Kotak – Vendor Payments Account,109247.37,outflow,Scheduled maintenance activity,TXN-6F8D4C1050C14F10AC
+2025-12-27,Hotel Supply Payment,Kotak – Vendor Payments Account,121508.16,inflow,Packaging material replenishment,TXN-ACF7A7004ED04B59B0
+2025-07-03,Edible Oil Purchase,SBI – Payroll Account,256943.39,inflow,Monthly supplier settlement,TXN-1FB12E11C35A4450A0
+2025-10-01,Distributor Payment,SBI – Payroll Account,158522.36,outflow,Scheduled maintenance activity,TXN-122A271D26FD4F04B5
+2025-12-24,Edible Oil Purchase,SBI – Payroll Account,134183.06,inflow,Monthly supplier settlement,TXN-0814BBF0727C40F5BE
+2025-07-02,Cold Storage Electricity,SBI – Payroll Account,89568.69,outflow,Bulk order payment received,TXN-406756C68B8E49B1A9
+2025-05-09,Factory Sanitation Charges,Axis – Sales Collection Account,66303.36,outflow,Urgent procurement for production run,TXN-D7F79C83BA894D9A89
+2025-04-28,Refrigeration Maintenance,SBI – Payroll Account,138375.39,outflow,Invoice settlement,TXN-217DE4BDCE0149AD91
+2025-07-26,Milk Powder Supply,ICICI – Procurement Account,158233.88,outflow,Scheduled maintenance activity,TXN-143137FC43BC4709B1
+2025-10-01,Factory Worker Payroll,ICICI – Procurement Account,173983.07,outflow,Packaging material replenishment,TXN-F5EC8D370923474C87
+2025-05-11,Retail Chain Settlement,HDFC – Operations Account,95672.02,outflow,Temporary labour payment,TXN-8CBCA02E5B4C4E0DAB
+2025-05-19,Refrigeration Maintenance,Kotak – Vendor Payments Account,105410.95,outflow,Bulk order payment received,TXN-748CBB28E53A48AEBE
+2025-10-02,Bulk Order Receipt,SBI – Payroll Account,135707.2,outflow,Urgent procurement for production run,TXN-2D35D3978AC44D9D8F
+2025-06-07,Retail Chain Settlement,Kotak – Vendor Payments Account,27687.24,outflow,Routine operational expense,TXN-FED2F9CC0F1B43E98F
+2025-06-28,Factory Sanitation Charges,ICICI – Procurement Account,106153.09,inflow,Cold chain logistics charges,TXN-486DAE288CC243D586
+2026-01-29,Hotel Supply Payment,HDFC – Operations Account,188601.75,inflow,Bulk order payment received,TXN-0E527146199A41319A
+2025-06-09,Distributor Payment,Kotak – Vendor Payments Account,132021.65,outflow,Bulk order payment received,TXN-ADB93717577F44E8B9
+2026-02-07,Retail Chain Settlement,Kotak – Vendor Payments Account,132570.16,outflow,Temporary labour payment,TXN-E889783B02954224B0
+2025-04-27,Sugar Procurement,ICICI – Procurement Account,88092.62,outflow,Cold chain logistics charges,TXN-E86306A173DF43C3A3
+2025-08-03,Sugar Procurement,HDFC – Operations Account,34880.84,inflow,Invoice settlement,TXN-51388D186F7B4974A0
+2025-05-24,Packaging Film Purchase,Axis – Sales Collection Account,86073.86,outflow,Invoice settlement,TXN-5058070C475648CA8F
+2025-06-20,Sugar Procurement,Kotak – Vendor Payments Account,198301.26,inflow,Contractual service charges,TXN-BE698F598842470EA4
+2025-06-29,Hotel Supply Payment,Kotak – Vendor Payments Account,41200.92,inflow,Temporary labour payment,TXN-9D11678453304A5781
+2025-12-13,Cold Storage Electricity,Kotak – Vendor Payments Account,108804.89,outflow,Cold chain logistics charges,TXN-19487B9CA8FD4E86B9
+2025-11-26,Hotel Supply Payment,SBI – Payroll Account,60824.16,outflow,Bulk order payment received,TXN-2DDFF2EAD0EB4570AF
+2025-12-15,Factory Worker Payroll,HDFC – Operations Account,89342.49,outflow,Cold chain logistics charges,TXN-C06F36EE9EAD4142AE
+2025-08-09,Factory Worker Payroll,SBI – Payroll Account,64427.55,outflow,Scheduled maintenance activity,TXN-4AE788419BB247B4A7
+2025-10-16,Packaging Film Purchase,HDFC – Operations Account,73046.48,outflow,Bulk order payment received,TXN-71BE2517C54D4CF985
+2025-07-10,Factory Worker Payroll,SBI – Payroll Account,81901.26,outflow,Packaging material replenishment,TXN-653B43D9028B40B7AA
+2025-04-25,Spices Raw Material,Kotak – Vendor Payments Account,48670.29,outflow,Routine operational expense,TXN-878ABCEFDA9E455A8F
+2025-10-20,Factory Sanitation Charges,HDFC – Operations Account,165866.52,outflow,Contractual service charges,TXN-A9CB6E5F0935449C92
+2026-01-16,Refrigeration Maintenance,SBI – Payroll Account,53615.4,outflow,Routine operational expense,TXN-CBF3AC6C8F8A48E19E
+2025-08-18,Packaging Staff Payroll,Axis – Sales Collection Account,50611.75,outflow,Bulk order payment received,TXN-486DD5F31B174F29B8
+2026-01-20,Packaging Film Purchase,SBI – Payroll Account,8999.1,outflow,Packaging material replenishment,TXN-92431A129E9744ACA1
+2025-07-23,Milk Powder Supply,Kotak – Vendor Payments Account,233452.83,inflow,Routine operational expense,TXN-C495BDCC2D114BD69E
+2025-06-21,Packaging Staff Payroll,Kotak – Vendor Payments Account,139445.71,outflow,Temporary labour payment,TXN-A658CDD337EA4EAFB3
+2025-10-12,Sugar Procurement,Kotak – Vendor Payments Account,51761.6,outflow,Packaging material replenishment,TXN-08C89D01D779458E97
+2025-07-15,Packaging Staff Payroll,Kotak – Vendor Payments Account,131621.72,outflow,Monthly supplier settlement,TXN-2D6987CDEE2846E780
+2026-01-05,Milk Powder Supply,ICICI – Procurement Account,139446.56,inflow,Urgent procurement for production run,TXN-D18697D27C924710BC
+2025-12-04,Factory Sanitation Charges,Kotak – Vendor Payments Account,63421.41,outflow,Temporary labour payment,TXN-13901381E5C142DFB8
+2025-05-15,Retail Chain Settlement,ICICI – Procurement Account,116506.84,outflow,Packaging material replenishment,TXN-E84F71BF03C04101AD
+2025-12-14,Packaging Staff Payroll,Kotak – Vendor Payments Account,166365.37,inflow,Temporary labour payment,TXN-E8828F3FFDD74DD0B1
+2025-08-20,Hotel Supply Payment,SBI – Payroll Account,5206.86,outflow,Urgent procurement for production run,TXN-3B2CBEB69E034016A3
+2025-12-22,Quality Inspection Fees,ICICI – Procurement Account,85391.53,outflow,Packaging material replenishment,TXN-9FD7000482DE49789C
+2026-01-14,Cold Storage Electricity,ICICI – Procurement Account,86019.81,outflow,Urgent procurement for production run,TXN-A34978D584FE4CBA9A
+2025-11-20,Packaging Staff Payroll,Axis – Sales Collection Account,117293.97,outflow,Packaging material replenishment,TXN-64C2D6B31954428299
+2025-08-29,Packaging Staff Payroll,HDFC – Operations Account,37578.08,outflow,Routine operational expense,TXN-995097E0DB064B24A4
+2025-11-27,Spices Raw Material,HDFC – Operations Account,134233.05,outflow,Monthly supplier settlement,TXN-5205E104D20E45B79B
+2025-04-25,Retail Chain Settlement,ICICI – Procurement Account,144875.84,inflow,Temporary labour payment,TXN-370F83D41AEF45859B
+2025-04-16,Quality Inspection Fees,Axis – Sales Collection Account,141986.47,outflow,Packaging material replenishment,TXN-A44A90B982C04639B5
+2025-10-20,Wheat Flour Purchase,Kotak – Vendor Payments Account,84000.71,outflow,Temporary labour payment,TXN-5222CD206F344C81A1
+2025-09-01,Cold Storage Electricity,ICICI – Procurement Account,39422.15,inflow,Urgent procurement for production run,TXN-FFD0A3DFCB974BC0AD
+2026-02-03,Wheat Flour Purchase,Axis – Sales Collection Account,171476.83,outflow,Bulk order payment received,TXN-28BFDCF86D9F42EF92
+2025-05-20,Packaging Film Purchase,Kotak – Vendor Payments Account,135592.44,outflow,Monthly supplier settlement,TXN-19FB035133494E0092
+2025-09-26,Cold Storage Electricity,Kotak – Vendor Payments Account,11433.58,outflow,Invoice settlement,TXN-521E13C273D242259C
+2025-10-04,Retail Chain Settlement,Axis – Sales Collection Account,53198.76,outflow,Contractual service charges,TXN-D23FA386060C405EB2
+2025-10-14,Retail Chain Settlement,ICICI – Procurement Account,108454.83,outflow,Scheduled maintenance activity,TXN-4EF1FDEE4CFD47C1A2
+2026-01-08,Packaging Film Purchase,SBI – Payroll Account,158114.56,outflow,Scheduled maintenance activity,TXN-F12FFA9B207E44B995
+2025-06-10,Sugar Procurement,ICICI – Procurement Account,154617.56,outflow,Bulk order payment received,TXN-2B2B66B9214240F2BB
+2025-08-13,Bulk Order Receipt,ICICI – Procurement Account,176001.36,inflow,Packaging material replenishment,TXN-57DF8DD38CC64DFB92
+2026-01-05,Spices Raw Material,Kotak – Vendor Payments Account,172283.08,outflow,Scheduled maintenance activity,TXN-F8E2173D2B8748B192
+2025-07-24,Hotel Supply Payment,ICICI – Procurement Account,128986.29,outflow,Temporary labour payment,TXN-CF85DABE39B543E681
+2025-05-29,Hotel Supply Payment,Kotak – Vendor Payments Account,23425.8,outflow,Bulk order payment received,TXN-83366D13D75E4F4AA8
+2025-10-19,Edible Oil Purchase,SBI – Payroll Account,135794.67,inflow,Scheduled maintenance activity,TXN-A6C1643694DE4D1E8F
+2025-12-27,Factory Worker Payroll,Axis – Sales Collection Account,15517.76,outflow,Invoice settlement,TXN-A79FE4F7CA4443B4BC
+2025-12-28,Factory Worker Payroll,Kotak – Vendor Payments Account,100774.83,inflow,Contractual service charges,TXN-E6871B8A9D2C4D6884
+2026-01-19,Edible Oil Purchase,HDFC – Operations Account,335524.15,inflow,Urgent procurement for production run,TXN-0B9ADB1C86234888BA
+2025-12-05,Sugar Procurement,ICICI – Procurement Account,140709.74,outflow,Packaging material replenishment,TXN-91EA942D142241DB9D
+2025-10-10,Refrigeration Maintenance,HDFC – Operations Account,177083.77,outflow,Routine operational expense,TXN-3E6ADE09343F43508B
+2026-01-29,Distributor Payment,Axis – Sales Collection Account,147909.95,outflow,Routine operational expense,TXN-DA84B8FFE24F4D9082
+2025-07-18,Cold Storage Electricity,Axis – Sales Collection Account,84566.8,outflow,Packaging material replenishment,TXN-EE3154F889554AB9A2
+2025-06-06,Cold Storage Electricity,ICICI – Procurement Account,159040.79,outflow,Packaging material replenishment,TXN-F51B1C35CCAB4AECB0
+2025-06-10,Edible Oil Purchase,Kotak – Vendor Payments Account,103150.93,inflow,Cold chain logistics charges,TXN-6DF62F7159EB460EA0
+2026-01-27,Milk Powder Supply,SBI – Payroll Account,168442.02,outflow,Routine operational expense,TXN-7668CC97C43A4F4A97
+2025-11-21,Spices Raw Material,Axis – Sales Collection Account,2569.18,outflow,Invoice settlement,TXN-3C39466D4DEB4FFEB6
+2025-09-20,Quality Inspection Fees,SBI – Payroll Account,176450.97,outflow,Urgent procurement for production run,TXN-4AE4463A12254A4F8E
+2025-05-20,Wheat Flour Purchase,SBI – Payroll Account,25809.48,outflow,Contractual service charges,TXN-7D8C843EE6BA44DBAD
+2025-04-17,Cold Storage Electricity,ICICI – Procurement Account,130041.24,inflow,Bulk order payment received,TXN-C5D0FB40443A41ED9C
+2025-07-21,Spices Raw Material,SBI – Payroll Account,21455.75,outflow,Routine operational expense,TXN-AE096D5D74924A5396
+2025-11-28,Wheat Flour Purchase,SBI – Payroll Account,209297.06,inflow,Urgent procurement for production run,TXN-DCCE08A9D88E4E26A4
+2026-01-22,Wheat Flour Purchase,Axis – Sales Collection Account,147055.25,inflow,Packaging material replenishment,TXN-EA03C56BD6704698AC
+2025-09-19,Cold Storage Electricity,Axis – Sales Collection Account,112123.19,outflow,Invoice settlement,TXN-8461C3AFE4DB40B891
+2025-07-21,Spices Raw Material,Axis – Sales Collection Account,319790.16,inflow,Cold chain logistics charges,TXN-08A2AAF881A948E8BE
+2025-12-30,Edible Oil Purchase,Axis – Sales Collection Account,74648.43,inflow,Temporary labour payment,TXN-71271FF9FA7145DCAF
+2025-12-11,Edible Oil Purchase,Kotak – Vendor Payments Account,3714.75,outflow,Monthly supplier settlement,TXN-0E096571D093403984
+2025-05-24,Hotel Supply Payment,ICICI – Procurement Account,173519.22,inflow,Invoice settlement,TXN-75B3F59AA9364705BA
+2025-12-20,Milk Powder Supply,ICICI – Procurement Account,91192.43,outflow,Contractual service charges,TXN-D73A1DF1B88F4C1E84
+2025-10-13,Refrigeration Maintenance,Axis – Sales Collection Account,86754.52,outflow,Monthly supplier settlement,TXN-3D6506B21CC84B47AE
+2025-05-09,Factory Sanitation Charges,ICICI – Procurement Account,329144.49,inflow,Scheduled maintenance activity,TXN-D2700AF357F749ACA2
+2025-11-03,Factory Sanitation Charges,Axis – Sales Collection Account,60645.76,outflow,Cold chain logistics charges,TXN-CE231F46747C44C9B1
+2025-10-01,Cold Storage Electricity,Axis – Sales Collection Account,14699.14,outflow,Monthly supplier settlement,TXN-F3B9E6206B6B41EA8B
+2025-07-17,Hotel Supply Payment,HDFC – Operations Account,139076.34,outflow,Contractual service charges,TXN-23DD0B5F5345442A9A
+2025-10-08,Factory Sanitation Charges,Axis – Sales Collection Account,92963.28,outflow,Contractual service charges,TXN-73119067E1A045E08A
+2025-08-28,Distributor Payment,SBI – Payroll Account,320851.46,inflow,Invoice settlement,TXN-022CCAF3482C4706AE
+2025-06-26,Distributor Payment,SBI – Payroll Account,122416.06,outflow,Routine operational expense,TXN-312A826969C44C7CB1
+2025-04-27,Refrigeration Maintenance,SBI – Payroll Account,93726.12,outflow,Scheduled maintenance activity,TXN-758CF028269E46F59A
+2025-10-27,Quality Inspection Fees,ICICI – Procurement Account,9086.08,outflow,Invoice settlement,TXN-2E4A8AF2158E49D09B
+2025-12-03,Wheat Flour Purchase,SBI – Payroll Account,136857.76,outflow,Invoice settlement,TXN-3D935B57A8854419BD
+2025-11-22,Retail Chain Settlement,SBI – Payroll Account,2121.02,outflow,Temporary labour payment,TXN-83C893C1ECE04DC59A
+2025-07-05,Packaging Staff Payroll,Kotak – Vendor Payments Account,51014.39,outflow,Bulk order payment received,TXN-2378D4633217456682
+2026-01-01,Hotel Supply Payment,ICICI – Procurement Account,117537.7,outflow,Bulk order payment received,TXN-C027011BB73E4374BC
+2025-10-10,Bulk Order Receipt,SBI – Payroll Account,285168.27,inflow,Urgent procurement for production run,TXN-D0705064A8794AF6BF
+2025-09-11,Refrigeration Maintenance,Axis – Sales Collection Account,69284.9,outflow,Invoice settlement,TXN-85DDD0354C014324BE
+2025-11-19,Cold Storage Electricity,Axis – Sales Collection Account,69782.09,outflow,Monthly supplier settlement,TXN-508FEE09BFE04A75BB
+2026-02-01,Refrigeration Maintenance,HDFC – Operations Account,156840.37,outflow,Urgent procurement for production run,TXN-9B0F8C3F6B544EAE9B
+2025-07-14,Bulk Order Receipt,ICICI – Procurement Account,88719.72,outflow,Urgent procurement for production run,TXN-83254AFA11AA41B482
+2026-01-01,Packaging Staff Payroll,Axis – Sales Collection Account,293447.66,inflow,Bulk order payment received,TXN-8193A9016F314AA1A1
+2025-12-07,Hotel Supply Payment,ICICI – Procurement Account,261755.33,inflow,Scheduled maintenance activity,TXN-ED749014F98B4D74AB
+2025-12-16,Retail Chain Settlement,HDFC – Operations Account,17688.37,outflow,Scheduled maintenance activity,TXN-B6F803A321404D2E8F
+2025-09-07,Wheat Flour Purchase,SBI – Payroll Account,34767.09,outflow,Cold chain logistics charges,TXN-3E5D989A8AF8489FB0
+2025-05-08,Distributor Payment,Kotak – Vendor Payments Account,101359.07,inflow,Routine operational expense,TXN-032F91D37211491B88
+2025-10-03,Wheat Flour Purchase,Kotak – Vendor Payments Account,39092.74,outflow,Invoice settlement,TXN-5F1B731DE74B47C7AA
+2025-06-19,Quality Inspection Fees,Kotak – Vendor Payments Account,40439.7,outflow,Packaging material replenishment,TXN-214211DB96D9475CBC
+2025-06-24,Factory Worker Payroll,SBI – Payroll Account,90686.08,outflow,Packaging material replenishment,TXN-822E5B74CBCB4BB7BE
+2025-09-24,Retail Chain Settlement,Kotak – Vendor Payments Account,345060.83,inflow,Contractual service charges,TXN-895987FCE0D64A9797
+2026-01-09,Cold Storage Electricity,Kotak – Vendor Payments Account,186589.04,inflow,Contractual service charges,TXN-C306F660B142460DA2
+2026-01-22,Cold Storage Electricity,Kotak – Vendor Payments Account,62030.25,outflow,Scheduled maintenance activity,TXN-67272F19858E457BA6
+2026-01-21,Bulk Order Receipt,HDFC – Operations Account,46172.94,outflow,Cold chain logistics charges,TXN-ED3FF09107074FB4B2
+2025-05-24,Factory Sanitation Charges,ICICI – Procurement Account,128338.92,outflow,Urgent procurement for production run,TXN-AC5DA8762DD44FBEBE
+2025-12-07,Spices Raw Material,SBI – Payroll Account,143312.81,outflow,Contractual service charges,TXN-93A971467B3F4B668F
+2025-12-08,Cold Storage Electricity,Kotak – Vendor Payments Account,44376.65,outflow,Temporary labour payment,TXN-EDF413957CF6443498
+2025-12-01,Distributor Payment,HDFC – Operations Account,70595.49,outflow,Urgent procurement for production run,TXN-5E8D05A4CA114577BD
+2025-11-25,Cold Storage Electricity,Kotak – Vendor Payments Account,95121.92,outflow,Temporary labour payment,TXN-149773118348434EB1
+2025-08-23,Refrigeration Maintenance,ICICI – Procurement Account,28323.04,outflow,Contractual service charges,TXN-81F54F59E0584BC6A3
+2025-08-08,Milk Powder Supply,SBI – Payroll Account,90874.63,outflow,Packaging material replenishment,TXN-2EE240EA622345C1AD
+2025-07-14,Factory Worker Payroll,HDFC – Operations Account,55132.22,outflow,Contractual service charges,TXN-A552A939904446BA86
+2025-11-29,Factory Worker Payroll,ICICI – Procurement Account,93325.13,outflow,Monthly supplier settlement,TXN-3623AF6A02684C80B6
+2026-01-17,Milk Powder Supply,Kotak – Vendor Payments Account,159248.12,outflow,Temporary labour payment,TXN-9DDB08D5CD61467094
+2025-12-22,Edible Oil Purchase,Kotak – Vendor Payments Account,113862.25,outflow,Bulk order payment received,TXN-97F8CD530ADB4E1CA5
+2025-05-22,Packaging Film Purchase,HDFC – Operations Account,120184.46,outflow,Scheduled maintenance activity,TXN-942236C2C08045C3A0
+2025-06-02,Bulk Order Receipt,SBI – Payroll Account,51812.16,outflow,Temporary labour payment,TXN-B2CC9E976B414DA688
+2025-06-01,Milk Powder Supply,Axis – Sales Collection Account,185813.81,inflow,Urgent procurement for production run,TXN-988F3B1A48D6448C97
+2025-06-14,Cold Storage Electricity,SBI – Payroll Account,147905.09,outflow,Bulk order payment received,TXN-8B80629BFA194194B7
+2025-06-04,Hotel Supply Payment,ICICI – Procurement Account,97654.49,outflow,Invoice settlement,TXN-3FE4BD9E614447C996
+2025-08-18,Packaging Film Purchase,HDFC – Operations Account,139401.58,outflow,Contractual service charges,TXN-D61322170308458FA0
+2026-01-12,Quality Inspection Fees,HDFC – Operations Account,145715.55,outflow,Invoice settlement,TXN-A56FA91E31AD4C799B
+2025-08-04,Hotel Supply Payment,HDFC – Operations Account,100914.87,outflow,Bulk order payment received,TXN-6491D06B4C0E4CAC85
+2025-06-02,Sugar Procurement,Kotak – Vendor Payments Account,119655.97,inflow,Cold chain logistics charges,TXN-59AF90E57D8D473193
+2025-08-25,Wheat Flour Purchase,HDFC – Operations Account,40470.62,inflow,Temporary labour payment,TXN-1D4BCCC546BA419FA8
+2025-08-19,Packaging Staff Payroll,Kotak – Vendor Payments Account,24085.61,outflow,Routine operational expense,TXN-EA225C5D8FA340279C
+2025-04-28,Quality Inspection Fees,ICICI – Procurement Account,114335.58,outflow,Cold chain logistics charges,TXN-36DB4FE965D74BB39A
+2025-11-06,Cold Storage Electricity,Kotak – Vendor Payments Account,129863.59,inflow,Urgent procurement for production run,TXN-957B5C951CAE40F38C
+2025-04-26,Refrigeration Maintenance,Axis – Sales Collection Account,125831.4,outflow,Urgent procurement for production run,TXN-4C33F6B1988D424D91
+2025-08-31,Quality Inspection Fees,SBI – Payroll Account,27326.4,outflow,Invoice settlement,TXN-F22B88FDEFF8433B9E
+2025-07-29,Bulk Order Receipt,ICICI – Procurement Account,123661.05,outflow,Invoice settlement,TXN-5DECFD1BFBAF46FCA9
+2025-06-13,Spices Raw Material,SBI – Payroll Account,124494.9,inflow,Scheduled maintenance activity,TXN-BD68A65CDDAA41A994
+2025-08-17,Distributor Payment,Kotak – Vendor Payments Account,152734.96,outflow,Monthly supplier settlement,TXN-CE149E68B2624D1BA8
+2025-11-16,Refrigeration Maintenance,HDFC – Operations Account,170702.86,outflow,Contractual service charges,TXN-530A17903295408B87
+2025-12-29,Cold Storage Electricity,HDFC – Operations Account,123138.69,outflow,Packaging material replenishment,TXN-BC3B71B6CF9F4329A5
+2025-05-28,Packaging Film Purchase,SBI – Payroll Account,114080.67,outflow,Urgent procurement for production run,TXN-AE236E6E67A24B6988
+2025-07-01,Hotel Supply Payment,HDFC – Operations Account,346367.32,inflow,Monthly supplier settlement,TXN-1C72A26A809246FC8C
+2025-07-22,Spices Raw Material,HDFC – Operations Account,114309.79,inflow,Scheduled maintenance activity,TXN-E4B3FD37970D4831A1
+2025-06-01,Quality Inspection Fees,Kotak – Vendor Payments Account,149525.7,outflow,Packaging material replenishment,TXN-4E0A044FF7144DABA9
+2025-09-03,Quality Inspection Fees,Axis – Sales Collection Account,77431.91,outflow,Packaging material replenishment,TXN-1FD52B6100C34993BC
+2025-05-29,Distributor Payment,HDFC – Operations Account,88037.1,outflow,Monthly supplier settlement,TXN-0E71062CCDA94F4493
+2025-08-04,Packaging Staff Payroll,Axis – Sales Collection Account,70403.22,outflow,Monthly supplier settlement,TXN-EC0351E2356D499495
+2026-01-29,Hotel Supply Payment,Axis – Sales Collection Account,163858.14,outflow,Temporary labour payment,TXN-A0AC2FA0619C4DAA92
+2025-05-27,Packaging Staff Payroll,SBI – Payroll Account,294811.05,inflow,Scheduled maintenance activity,TXN-01B9743940454F55B2
+2025-07-17,Milk Powder Supply,ICICI – Procurement Account,29576.74,outflow,Packaging material replenishment,TXN-006D80AC6BEB4D6A97
+2025-09-30,Quality Inspection Fees,ICICI – Procurement Account,119146.72,outflow,Monthly supplier settlement,TXN-3A14A5004EF34DC0B5
+2025-05-12,Sugar Procurement,HDFC – Operations Account,174067.27,outflow,Cold chain logistics charges,TXN-ED8A6DB7C83B4D79A8
+2025-10-15,Sugar Procurement,HDFC – Operations Account,345420.26,inflow,Routine operational expense,TXN-7EAA59172731479F84
+2025-10-30,Factory Sanitation Charges,ICICI – Procurement Account,117674.9,outflow,Routine operational expense,TXN-0D41105141804371A3
+2026-01-29,Distributor Payment,HDFC – Operations Account,120472.81,outflow,Contractual service charges,TXN-1770D98DCE6F47BE87
+2026-02-08,Factory Worker Payroll,SBI – Payroll Account,69801.3,outflow,Temporary labour payment,TXN-69CE49D60E8F483DBC
+2025-09-07,Refrigeration Maintenance,HDFC – Operations Account,94573.77,outflow,Cold chain logistics charges,TXN-73EF6E49500B4083B0
+2025-10-04,Wheat Flour Purchase,Axis – Sales Collection Account,21021.99,outflow,Bulk order payment received,TXN-31AC6F19F62746C8B1
+2026-01-16,Quality Inspection Fees,Axis – Sales Collection Account,54805.68,inflow,Temporary labour payment,TXN-68FE51C2728145D7AC
+2026-02-10,Sugar Procurement,Axis – Sales Collection Account,37101.12,outflow,Packaging material replenishment,TXN-D91811B6E8CD4515BA
+2025-12-04,Edible Oil Purchase,Axis – Sales Collection Account,41772.9,outflow,Routine operational expense,TXN-394EFAEBE5514B8482
+2025-09-18,Distributor Payment,Kotak – Vendor Payments Account,76920.37,outflow,Invoice settlement,TXN-B9513C584ED44F7E89
+2026-02-07,Hotel Supply Payment,HDFC – Operations Account,222612.76,inflow,Routine operational expense,TXN-264B319D3F734630AA
+2025-06-15,Factory Worker Payroll,ICICI – Procurement Account,37624.79,outflow,Routine operational expense,TXN-67B647DD104E46BFA6
+2025-09-02,Refrigeration Maintenance,Axis – Sales Collection Account,104771.46,outflow,Packaging material replenishment,TXN-698E428AAA3F452D88
+2025-08-07,Factory Worker Payroll,Axis – Sales Collection Account,151392.95,outflow,Temporary labour payment,TXN-DD30651C206B41E38A
+2025-06-12,Edible Oil Purchase,Axis – Sales Collection Account,35331.78,inflow,Routine operational expense,TXN-B87C6767515946BFA1
+2025-08-13,Factory Sanitation Charges,HDFC – Operations Account,89841.23,inflow,Monthly supplier settlement,TXN-2B7A608A0DAF4D00BC
+2025-08-24,Factory Sanitation Charges,Kotak – Vendor Payments Account,122865.72,outflow,Routine operational expense,TXN-E15687C64FAD438280
+2025-07-11,Factory Worker Payroll,Axis – Sales Collection Account,289648.62,inflow,Invoice settlement,TXN-62C26692CDC240D7A8
+2025-11-08,Bulk Order Receipt,Axis – Sales Collection Account,15444.21,outflow,Monthly supplier settlement,TXN-1628B365C21F42EC85
+2025-10-03,Quality Inspection Fees,HDFC – Operations Account,61859.62,outflow,Scheduled maintenance activity,TXN-8E8997066F3645B8A2
+2025-11-07,Packaging Film Purchase,SBI – Payroll Account,170301.94,outflow,Scheduled maintenance activity,TXN-12211E3454B04EB48F
+2025-09-18,Spices Raw Material,HDFC – Operations Account,114762.5,outflow,Urgent procurement for production run,TXN-6BFE8C376DD84462A4
+2025-10-01,Wheat Flour Purchase,SBI – Payroll Account,86891.56,outflow,Bulk order payment received,TXN-329488F3C59E45649B
+2025-12-19,Factory Sanitation Charges,Kotak – Vendor Payments Account,12706.72,outflow,Temporary labour payment,TXN-50DE1CB139FD428CAE
+2025-07-13,Cold Storage Electricity,Axis – Sales Collection Account,7944.76,outflow,Urgent procurement for production run,TXN-8BFA1B620A2A4E798F
+2026-02-07,Sugar Procurement,SBI – Payroll Account,12369.27,outflow,Temporary labour payment,TXN-0F0650FF99BB4CF3A9
+2026-02-08,Factory Sanitation Charges,Axis – Sales Collection Account,54764.34,outflow,Scheduled maintenance activity,TXN-62B3501AAA5B4717A4
+2026-01-13,Refrigeration Maintenance,SBI – Payroll Account,38781.14,outflow,Scheduled maintenance activity,TXN-27A31005AF6240169D
+2025-12-15,Bulk Order Receipt,SBI – Payroll Account,130520.88,inflow,Urgent procurement for production run,TXN-93AB4F5AF26C460F91
+2025-07-04,Refrigeration Maintenance,SBI – Payroll Account,175080.06,outflow,Scheduled maintenance activity,TXN-C61E6E0B4C5845D2B4
+2025-10-16,Spices Raw Material,SBI – Payroll Account,139189.1,outflow,Bulk order payment received,TXN-6E0AA1D057DC45DABA
+2026-01-20,Factory Sanitation Charges,SBI – Payroll Account,28145.38,inflow,Routine operational expense,TXN-ABA8E467A2AC4BC9AB
+2025-10-27,Packaging Staff Payroll,ICICI – Procurement Account,83481.84,outflow,Monthly supplier settlement,TXN-0FFABF5AAF794365AD
+2025-09-06,Factory Sanitation Charges,Axis – Sales Collection Account,125838.51,outflow,Scheduled maintenance activity,TXN-D539EA98FE2A4EC4BD
+2025-11-23,Milk Powder Supply,Kotak – Vendor Payments Account,308778.98,inflow,Scheduled maintenance activity,TXN-C3A5D2FE9C9C4404B7
+2025-07-12,Wheat Flour Purchase,ICICI – Procurement Account,90731.75,inflow,Cold chain logistics charges,TXN-EAA3572DBBE040BB96
+2025-10-12,Retail Chain Settlement,Kotak – Vendor Payments Account,53526.12,inflow,Scheduled maintenance activity,TXN-F6DFB1F8DADF4F6392
+2025-09-15,Factory Worker Payroll,SBI – Payroll Account,67220.4,outflow,Routine operational expense,TXN-05C6260EFC7C4D9C97
+2025-06-21,Spices Raw Material,SBI – Payroll Account,238158.73,inflow,Contractual service charges,TXN-EA9CDFB9275B4DDFAB
+2025-09-30,Edible Oil Purchase,SBI – Payroll Account,139470.96,inflow,Scheduled maintenance activity,TXN-6A3C8F2A3DBA423AB9
+2025-04-26,Packaging Film Purchase,Kotak – Vendor Payments Account,126841.38,outflow,Urgent procurement for production run,TXN-41EE3A25369249ACA6
+2025-09-27,Wheat Flour Purchase,ICICI – Procurement Account,137619.42,outflow,Invoice settlement,TXN-C5A535AE6C544DCEB2
+2025-08-22,Spices Raw Material,Kotak – Vendor Payments Account,28204.92,outflow,Cold chain logistics charges,TXN-45C241F988C9427888
+2026-01-02,Quality Inspection Fees,ICICI – Procurement Account,118372.17,inflow,Bulk order payment received,TXN-CB0F11A03F0B42DEBA
+2025-11-13,Factory Worker Payroll,HDFC – Operations Account,143240.53,outflow,Scheduled maintenance activity,TXN-EB5BE709A7B142F1B4
+2026-01-11,Spices Raw Material,Axis – Sales Collection Account,160596.79,outflow,Urgent procurement for production run,TXN-4F209A4ED70443AE8F
+2025-10-11,Milk Powder Supply,ICICI – Procurement Account,163579.55,outflow,Bulk order payment received,TXN-D6DA150B49B3452994
+2025-06-01,Hotel Supply Payment,ICICI – Procurement Account,114061.6,outflow,Monthly supplier settlement,TXN-E1B327E0367B43FBB4
+2025-12-16,Factory Worker Payroll,HDFC – Operations Account,20349.54,outflow,Monthly supplier settlement,TXN-28E8DFE96FD64DD4B1
+2026-01-24,Bulk Order Receipt,Axis – Sales Collection Account,58240.29,outflow,Packaging material replenishment,TXN-F78F36EFAFF74D78A7
+2025-12-01,Distributor Payment,SBI – Payroll Account,70206.52,inflow,Contractual service charges,TXN-7454120C58D840E784
+2025-10-17,Wheat Flour Purchase,Kotak – Vendor Payments Account,13436.0,outflow,Packaging material replenishment,TXN-7D4DACF64D954FD1B2
+2025-06-20,Hotel Supply Payment,ICICI – Procurement Account,107066.55,outflow,Cold chain logistics charges,TXN-B823F25FC88F42F8A6
+2025-07-19,Spices Raw Material,SBI – Payroll Account,160205.67,outflow,Contractual service charges,TXN-F71868EC761242DD89
+2026-01-19,Quality Inspection Fees,HDFC – Operations Account,35053.23,outflow,Temporary labour payment,TXN-DFAA642A7DCE4FFEBC
+2026-01-16,Factory Worker Payroll,HDFC – Operations Account,84747.02,inflow,Invoice settlement,TXN-9439590ED2274D66A7
+2025-10-16,Packaging Staff Payroll,HDFC – Operations Account,64442.93,outflow,Urgent procurement for production run,TXN-1B5560BD61FE4076A2
+2026-01-27,Factory Sanitation Charges,Kotak – Vendor Payments Account,106301.02,outflow,Invoice settlement,TXN-B636D2B176AD49BD9E
+2026-01-07,Packaging Film Purchase,ICICI – Procurement Account,45403.22,outflow,Invoice settlement,TXN-B7349515FC2241EC8A
+2025-12-04,Factory Worker Payroll,Kotak – Vendor Payments Account,155804.69,outflow,Routine operational expense,TXN-9B1C51F2F485409F96
+2026-01-29,Bulk Order Receipt,ICICI – Procurement Account,173489.69,outflow,Monthly supplier settlement,TXN-3CADF2E631E743CE9D
+2025-06-02,Quality Inspection Fees,Axis – Sales Collection Account,82917.4,outflow,Scheduled maintenance activity,TXN-16BDBD1806264736BB
+2025-12-28,Factory Sanitation Charges,Kotak – Vendor Payments Account,10998.72,outflow,Cold chain logistics charges,TXN-37E51E3814D4425481
+2025-04-19,Edible Oil Purchase,Axis – Sales Collection Account,294951.9,inflow,Cold chain logistics charges,TXN-DCAEB9BF63AE400C83
+2025-11-13,Edible Oil Purchase,ICICI – Procurement Account,181165.18,inflow,Urgent procurement for production run,TXN-C4FD6A9C9C214C75A1
+2025-05-28,Cold Storage Electricity,ICICI – Procurement Account,100385.14,inflow,Invoice settlement,TXN-39977A960E2C4FF7A1
+2025-04-24,Distributor Payment,Kotak – Vendor Payments Account,69708.82,outflow,Monthly supplier settlement,TXN-C482B81C2244431CA7
+2025-05-17,Wheat Flour Purchase,ICICI – Procurement Account,56883.05,outflow,Invoice settlement,TXN-B68D4408BEC8423C8A
+2025-04-15,Quality Inspection Fees,ICICI – Procurement Account,80304.77,outflow,Cold chain logistics charges,TXN-C6B74842DAA34BBD85
+2025-06-10,Edible Oil Purchase,ICICI – Procurement Account,306081.67,inflow,Monthly supplier settlement,TXN-B5778C4902CE4CDDA6
+2025-05-29,Factory Sanitation Charges,Kotak – Vendor Payments Account,63545.6,outflow,Scheduled maintenance activity,TXN-2475BC97F810458A84
+2025-12-30,Refrigeration Maintenance,Axis – Sales Collection Account,37557.52,outflow,Bulk order payment received,TXN-B7BA3D52D50943B5AC
+2025-05-10,Distributor Payment,Kotak – Vendor Payments Account,178774.12,outflow,Routine operational expense,TXN-C3BF5B0133E2499994
+2025-11-19,Refrigeration Maintenance,ICICI – Procurement Account,94791.31,outflow,Cold chain logistics charges,TXN-DFC0D0C741704940B8
+2025-05-10,Spices Raw Material,Kotak – Vendor Payments Account,242763.29,inflow,Packaging material replenishment,TXN-C64C251DA4E9402594
+2025-10-06,Factory Sanitation Charges,HDFC – Operations Account,73346.77,outflow,Contractual service charges,TXN-6DF901984F7B4DB79A
+2025-04-27,Spices Raw Material,Axis – Sales Collection Account,55466.49,outflow,Bulk order payment received,TXN-4FAF9464D6E146C9BA
+2026-01-29,Refrigeration Maintenance,Kotak – Vendor Payments Account,80061.09,outflow,Bulk order payment received,TXN-1AE59D832F12433D9D
+2025-09-16,Factory Sanitation Charges,Kotak – Vendor Payments Account,26700.76,inflow,Cold chain logistics charges,TXN-9D45D4CE3D534D8194
+2026-01-03,Spices Raw Material,HDFC – Operations Account,125551.04,inflow,Cold chain logistics charges,TXN-F2AD7569424E4DB88F
+2025-08-13,Hotel Supply Payment,HDFC – Operations Account,125945.5,outflow,Temporary labour payment,TXN-4B773B66071E4E8B88
+2026-02-07,Milk Powder Supply,Kotak – Vendor Payments Account,102464.84,outflow,Routine operational expense,TXN-E6695C0C5ADD4DB7BE
+2025-11-10,Edible Oil Purchase,HDFC – Operations Account,98911.49,outflow,Urgent procurement for production run,TXN-591AF5EEB97443C59A
+2025-07-27,Factory Sanitation Charges,Axis – Sales Collection Account,52775.66,outflow,Temporary labour payment,TXN-710C596539494F1BAE
+2025-06-11,Retail Chain Settlement,Kotak – Vendor Payments Account,71656.15,outflow,Routine operational expense,TXN-9EF2DC8DE20145F9B7
+2025-04-17,Cold Storage Electricity,HDFC – Operations Account,103007.67,outflow,Cold chain logistics charges,TXN-51D523BB79A14E47B4
+2025-11-20,Wheat Flour Purchase,SBI – Payroll Account,155440.39,outflow,Temporary labour payment,TXN-EE8EC6B5442E4F75BB
+2025-12-24,Edible Oil Purchase,HDFC – Operations Account,143842.3,outflow,Bulk order payment received,TXN-64DA99C6A6724A09AC
+2025-10-22,Sugar Procurement,Kotak – Vendor Payments Account,158976.74,outflow,Urgent procurement for production run,TXN-CFA3B46DDA8C405DB8
+2025-12-16,Packaging Film Purchase,ICICI – Procurement Account,162839.34,outflow,Packaging material replenishment,TXN-BE937BBFF22145709E
+2025-09-05,Factory Worker Payroll,Kotak – Vendor Payments Account,122920.83,inflow,Temporary labour payment,TXN-0C4DB2578F254F3ABF
+2026-01-20,Factory Sanitation Charges,ICICI – Procurement Account,162616.02,outflow,Invoice settlement,TXN-E91BDAB7CE6E4219B3
+2025-09-25,Refrigeration Maintenance,Axis – Sales Collection Account,5613.57,outflow,Monthly supplier settlement,TXN-3D9B8317089B4378AF
+2025-06-23,Cold Storage Electricity,Kotak – Vendor Payments Account,160845.13,outflow,Monthly supplier settlement,TXN-165DAB32C28E41C4B2
+2026-02-06,Hotel Supply Payment,Axis – Sales Collection Account,102210.62,outflow,Invoice settlement,TXN-52142CCDCE14417283
+2025-09-10,Milk Powder Supply,ICICI – Procurement Account,103322.13,outflow,Routine operational expense,TXN-11BD28C781EC4C6D87
+2025-08-17,Spices Raw Material,ICICI – Procurement Account,3145.35,outflow,Routine operational expense,TXN-BA04DD8FD08C4238B7
+2025-07-27,Edible Oil Purchase,ICICI – Procurement Account,61632.55,outflow,Invoice settlement,TXN-F6BB6BCC78B848D6BE
+2025-08-18,Sugar Procurement,Axis – Sales Collection Account,251348.35,inflow,Bulk order payment received,TXN-383BE0F529D0484A89
+2025-07-06,Retail Chain Settlement,ICICI – Procurement Account,112608.52,outflow,Cold chain logistics charges,TXN-1A8803AEFCBB42178E
+2026-01-18,Factory Worker Payroll,HDFC – Operations Account,275278.79,inflow,Temporary labour payment,TXN-1F47F193D6A14686A2
+2026-01-12,Quality Inspection Fees,ICICI – Procurement Account,58109.35,outflow,Routine operational expense,TXN-5246A00B011343CE93
+2025-08-18,Retail Chain Settlement,Axis – Sales Collection Account,115553.39,outflow,Temporary labour payment,TXN-40E11BA58E984BE194
+2025-12-26,Refrigeration Maintenance,Kotak – Vendor Payments Account,134927.28,outflow,Contractual service charges,TXN-D66FA4E5D6684514AD
+2026-01-30,Distributor Payment,SBI – Payroll Account,19814.29,outflow,Bulk order payment received,TXN-9058CF8CB77440B58B
+2025-05-20,Bulk Order Receipt,Kotak – Vendor Payments Account,135653.57,outflow,Contractual service charges,TXN-67C793CEDDEA47D4A7
+2025-10-04,Quality Inspection Fees,ICICI – Procurement Account,51298.09,outflow,Temporary labour payment,TXN-DEC3D9367CCD450F86
+2026-02-10,Distributor Payment,ICICI – Procurement Account,86045.61,outflow,Invoice settlement,TXN-FE159C53339F4F56B6
+2025-11-29,Packaging Film Purchase,SBI – Payroll Account,55751.77,inflow,Invoice settlement,TXN-A3B8228CC1F44D82A9
+2025-10-21,Packaging Staff Payroll,ICICI – Procurement Account,95209.77,outflow,Invoice settlement,TXN-7839683E568445028A
+2025-06-20,Quality Inspection Fees,Axis – Sales Collection Account,231141.53,inflow,Routine operational expense,TXN-495519D5193E424792
+2025-09-17,Wheat Flour Purchase,Axis – Sales Collection Account,41400.43,outflow,Routine operational expense,TXN-1FC819BE6491470687
+2025-10-13,Sugar Procurement,Kotak – Vendor Payments Account,115530.68,outflow,Bulk order payment received,TXN-1BB5A41229494EDE9A
+2025-08-14,Packaging Staff Payroll,ICICI – Procurement Account,103641.31,outflow,Packaging material replenishment,TXN-A5EDE92B5EFF4DFDA2
+2025-08-15,Cold Storage Electricity,HDFC – Operations Account,19984.71,outflow,Scheduled maintenance activity,TXN-77490686DAA646AC86
+2026-01-19,Refrigeration Maintenance,Kotak – Vendor Payments Account,78521.51,outflow,Routine operational expense,TXN-17019EFD6E454F3E87
+2025-05-20,Packaging Staff Payroll,SBI – Payroll Account,139838.43,outflow,Cold chain logistics charges,TXN-6C7202B626E246CD8C
+2025-04-12,Milk Powder Supply,Kotak – Vendor Payments Account,21607.55,outflow,Packaging material replenishment,TXN-5F35A250102A40C292
+2026-01-07,Retail Chain Settlement,Kotak – Vendor Payments Account,61689.97,inflow,Packaging material replenishment,TXN-34AA1A7937E34A8598
+2025-10-01,Retail Chain Settlement,ICICI – Procurement Account,132085.33,outflow,Routine operational expense,TXN-862AA255AB3C4C7AA8
+2025-05-09,Refrigeration Maintenance,ICICI – Procurement Account,207724.11,inflow,Routine operational expense,TXN-B39BEFC54AC0447F81
+2025-10-20,Retail Chain Settlement,HDFC – Operations Account,78287.26,outflow,Routine operational expense,TXN-FDBB4A31588F42BCAF
+2026-01-23,Sugar Procurement,SBI – Payroll Account,198995.57,inflow,Cold chain logistics charges,TXN-863CD70FE1174E84AD
+2025-12-20,Refrigeration Maintenance,ICICI – Procurement Account,187512.59,inflow,Bulk order payment received,TXN-2055BBC1E42242C399
+2025-06-24,Sugar Procurement,HDFC – Operations Account,123426.02,inflow,Cold chain logistics charges,TXN-F5C98B285F624C95BD
+2025-07-27,Packaging Staff Payroll,HDFC – Operations Account,167844.41,outflow,Cold chain logistics charges,TXN-2B645435DADE499192
+2025-10-15,Factory Sanitation Charges,Axis – Sales Collection Account,27440.78,outflow,Cold chain logistics charges,TXN-C7E56CCE46164B88A0
+2025-06-11,Quality Inspection Fees,SBI – Payroll Account,133005.4,inflow,Invoice settlement,TXN-2BCA4AFEF9C4443DA6
+2025-09-06,Spices Raw Material,Kotak – Vendor Payments Account,152258.99,outflow,Routine operational expense,TXN-9E9EEDA959CE484686
+2025-10-24,Refrigeration Maintenance,Kotak – Vendor Payments Account,277511.87,inflow,Packaging material replenishment,TXN-4BB2A4328ADF4CAAAB
+2026-01-19,Spices Raw Material,HDFC – Operations Account,107306.66,outflow,Temporary labour payment,TXN-2B70EE26462E4D11A5
+2026-02-10,Cold Storage Electricity,SBI – Payroll Account,48034.28,outflow,Urgent procurement for production run,TXN-0D787230FCE74E61A6
+2025-12-28,Edible Oil Purchase,HDFC – Operations Account,105392.84,outflow,Bulk order payment received,TXN-E771AB8080B847FABC
+2025-10-26,Factory Worker Payroll,SBI – Payroll Account,51477.18,outflow,Bulk order payment received,TXN-3EAB385C88734CA39A
+2025-11-22,Quality Inspection Fees,Axis – Sales Collection Account,96927.98,outflow,Cold chain logistics charges,TXN-9A98A14B20B342C3BD
+2025-05-09,Factory Worker Payroll,HDFC – Operations Account,168082.91,outflow,Scheduled maintenance activity,TXN-92A0496645A6482C8D
+2026-02-03,Refrigeration Maintenance,Kotak – Vendor Payments Account,92735.34,outflow,Invoice settlement,TXN-C879444DF3FD4BADAA
+2025-11-27,Factory Worker Payroll,SBI – Payroll Account,86117.94,inflow,Packaging material replenishment,TXN-7526DB2330134E3386
+2025-08-15,Distributor Payment,Kotak – Vendor Payments Account,164845.3,outflow,Monthly supplier settlement,TXN-E9B1699EF73E498181
+2025-07-13,Refrigeration Maintenance,Kotak – Vendor Payments Account,103226.08,outflow,Scheduled maintenance activity,TXN-FEAF2176BEA641DFB3
+2026-01-19,Hotel Supply Payment,Axis – Sales Collection Account,237105.02,inflow,Bulk order payment received,TXN-BDA769E9E4FA4E8681
+2025-04-17,Bulk Order Receipt,HDFC – Operations Account,45972.37,outflow,Urgent procurement for production run,TXN-2DFBE4FE71EA4F51AD
+2025-07-14,Factory Sanitation Charges,SBI – Payroll Account,34383.89,outflow,Bulk order payment received,TXN-5761EC5EE46940EB87
+2025-08-30,Factory Worker Payroll,Kotak – Vendor Payments Account,208022.03,inflow,Invoice settlement,TXN-2AC6BDDB426445CD83
+2025-08-10,Milk Powder Supply,HDFC – Operations Account,88879.41,outflow,Cold chain logistics charges,TXN-09706E0A1C1A4AA59E
+2025-11-28,Refrigeration Maintenance,Kotak – Vendor Payments Account,126533.18,outflow,Contractual service charges,TXN-0A8E90F5F2F7462089
+2025-11-12,Spices Raw Material,SBI – Payroll Account,124461.33,outflow,Bulk order payment received,TXN-A5289EEA82C44714B2
+2025-06-18,Packaging Film Purchase,Axis – Sales Collection Account,71694.92,outflow,Temporary labour payment,TXN-F8E92FFBE65D4503A7
+2025-09-12,Distributor Payment,ICICI – Procurement Account,32081.97,outflow,Packaging material replenishment,TXN-FE57D9F168B44FCAAB
+2025-06-29,Quality Inspection Fees,Kotak – Vendor Payments Account,94752.2,outflow,Cold chain logistics charges,TXN-BAD4513F20C14EE28E
+2026-01-31,Packaging Film Purchase,HDFC – Operations Account,160213.97,outflow,Invoice settlement,TXN-2119E99F609140B599
+2025-12-20,Refrigeration Maintenance,ICICI – Procurement Account,313748.31,inflow,Monthly supplier settlement,TXN-635FEF5AAE9E4EBBBA
+2025-09-23,Quality Inspection Fees,Axis – Sales Collection Account,69949.15,inflow,Urgent procurement for production run,TXN-5A0EDC5757FA4C0885
+2025-09-12,Refrigeration Maintenance,ICICI – Procurement Account,175095.18,outflow,Contractual service charges,TXN-065CFFA2FE24422596
+2025-07-29,Refrigeration Maintenance,HDFC – Operations Account,79014.39,outflow,Routine operational expense,TXN-9292F634248741F0A0
+2025-08-20,Sugar Procurement,ICICI – Procurement Account,63520.78,outflow,Urgent procurement for production run,TXN-F8534A32CE0043AAB7
+2025-12-20,Quality Inspection Fees,Axis – Sales Collection Account,4305.24,outflow,Scheduled maintenance activity,TXN-93C12599A2E74CC3A4
+2025-06-18,Spices Raw Material,SBI – Payroll Account,92019.21,outflow,Contractual service charges,TXN-66E41B6820A441C998
+2026-01-05,Packaging Film Purchase,Axis – Sales Collection Account,81700.57,outflow,Bulk order payment received,TXN-D4AC904FD504447782
+2025-09-19,Edible Oil Purchase,Axis – Sales Collection Account,132093.02,outflow,Monthly supplier settlement,TXN-51CC77C039804770A0
+2026-02-06,Factory Worker Payroll,Axis – Sales Collection Account,19143.85,outflow,Invoice settlement,TXN-14E4F5AB721B4C1390
+2025-06-20,Milk Powder Supply,Kotak – Vendor Payments Account,329140.74,inflow,Temporary labour payment,TXN-F66AC5C9EBF2484EBE
+2026-01-19,Distributor Payment,Kotak – Vendor Payments Account,65816.23,outflow,Cold chain logistics charges,TXN-E8D4D15625F342D581
+2025-08-07,Distributor Payment,ICICI – Procurement Account,86751.98,outflow,Invoice settlement,TXN-650AE097CD424D1A82
+2025-04-13,Packaging Film Purchase,Kotak – Vendor Payments Account,158759.09,outflow,Scheduled maintenance activity,TXN-ED82E310AE4748FCB6
+2025-10-02,Bulk Order Receipt,Kotak – Vendor Payments Account,71623.14,outflow,Cold chain logistics charges,TXN-7218206B96B24501AD
+2025-10-10,Refrigeration Maintenance,ICICI – Procurement Account,309663.98,inflow,Contractual service charges,TXN-4167428B99794ABE80
+2025-11-05,Bulk Order Receipt,Kotak – Vendor Payments Account,168111.76,outflow,Urgent procurement for production run,TXN-C0FB4166A33B49B39E
+2025-09-04,Retail Chain Settlement,ICICI – Procurement Account,142445.51,inflow,Invoice settlement,TXN-9499D361309A4E4484
+2025-12-30,Distributor Payment,Kotak – Vendor Payments Account,150314.98,outflow,Contractual service charges,TXN-25A5112156C1495FB0
+2025-10-06,Bulk Order Receipt,Axis – Sales Collection Account,172776.93,outflow,Temporary labour payment,TXN-A437908E98FD43F1B2
+2025-10-19,Factory Sanitation Charges,Axis – Sales Collection Account,161806.13,inflow,Bulk order payment received,TXN-CF18C6F98E36459EAE
+2026-01-16,Distributor Payment,SBI – Payroll Account,21841.39,outflow,Invoice settlement,TXN-50FCA448BF4A4C1D95
+2025-07-20,Distributor Payment,Kotak – Vendor Payments Account,44167.62,outflow,Invoice settlement,TXN-BC71306F8509411DB2
+2025-04-30,Factory Worker Payroll,Kotak – Vendor Payments Account,178911.58,outflow,Monthly supplier settlement,TXN-9AEBCAB55899456CB8
+2025-10-08,Edible Oil Purchase,Axis – Sales Collection Account,157935.98,outflow,Monthly supplier settlement,TXN-991DBC31B2FE4006B3
+2025-12-15,Factory Worker Payroll,Kotak – Vendor Payments Account,34193.24,outflow,Routine operational expense,TXN-DB48C8FA8F0B44B0B1
+2025-05-17,Factory Worker Payroll,HDFC – Operations Account,5680.59,outflow,Temporary labour payment,TXN-573BF5CD012646C893
+2025-05-25,Edible Oil Purchase,HDFC – Operations Account,138056.08,inflow,Invoice settlement,TXN-99FCC83C590A48A6BF
+2025-05-20,Factory Worker Payroll,ICICI – Procurement Account,9490.12,outflow,Contractual service charges,TXN-DA91686711A24B1AB0
+2025-04-25,Edible Oil Purchase,Axis – Sales Collection Account,254810.63,inflow,Cold chain logistics charges,TXN-38D0ACA124DC4C14B6
+2025-10-23,Factory Sanitation Charges,SBI – Payroll Account,81524.02,outflow,Contractual service charges,TXN-CC2C181E93704A608F
+2025-12-08,Cold Storage Electricity,Kotak – Vendor Payments Account,86498.16,outflow,Cold chain logistics charges,TXN-27E0DE5C70E7418C8C
+2025-12-30,Edible Oil Purchase,ICICI – Procurement Account,119678.64,outflow,Monthly supplier settlement,TXN-8AA85CBE5357441FA4
+2025-10-07,Milk Powder Supply,Kotak – Vendor Payments Account,118177.73,outflow,Contractual service charges,TXN-3BA747929AFE48CBB3
+2025-04-24,Retail Chain Settlement,Axis – Sales Collection Account,30102.75,outflow,Contractual service charges,TXN-89F32A80D49A42CABE
+2025-12-24,Wheat Flour Purchase,SBI – Payroll Account,109536.39,outflow,Packaging material replenishment,TXN-E7A426CC90DF4367AF
+2025-12-20,Retail Chain Settlement,ICICI – Procurement Account,116207.45,outflow,Monthly supplier settlement,TXN-48E61F13C5A64DBC9F
+2025-07-31,Milk Powder Supply,HDFC – Operations Account,80528.12,outflow,Packaging material replenishment,TXN-32CFC44CF55349D19C
+2025-05-15,Wheat Flour Purchase,ICICI – Procurement Account,145010.52,inflow,Urgent procurement for production run,TXN-E0536B545CA741D5A6
+2025-12-25,Packaging Staff Payroll,SBI – Payroll Account,142230.24,inflow,Temporary labour payment,TXN-8AD629680215447893
+2025-12-19,Cold Storage Electricity,Kotak – Vendor Payments Account,88315.83,outflow,Cold chain logistics charges,TXN-A04FA8EB4C614A6E9B
+2025-10-04,Cold Storage Electricity,Kotak – Vendor Payments Account,57144.69,outflow,Bulk order payment received,TXN-D02BA7DA430E4BAA80
+2025-09-18,Hotel Supply Payment,HDFC – Operations Account,123198.15,outflow,Temporary labour payment,TXN-CF346B23B2904A599E
+2025-05-13,Cold Storage Electricity,SBI – Payroll Account,57239.74,outflow,Urgent procurement for production run,TXN-AFC5904E7DEA4376A3
+2026-02-08,Packaging Film Purchase,Axis – Sales Collection Account,89397.25,outflow,Monthly supplier settlement,TXN-0B2C875D34C64BCEAA
+2026-02-04,Milk Powder Supply,SBI – Payroll Account,6511.41,outflow,Bulk order payment received,TXN-D4BB665A849546BE85
+2025-10-27,Hotel Supply Payment,HDFC – Operations Account,93036.85,outflow,Contractual service charges,TXN-220C0DCF68204C94AA
+2025-08-26,Packaging Staff Payroll,ICICI – Procurement Account,189479.37,inflow,Cold chain logistics charges,TXN-B671F8A87ADC494689
+2025-06-23,Factory Sanitation Charges,ICICI – Procurement Account,55930.51,inflow,Contractual service charges,TXN-F0CD0455D39A4A30B5
+2025-06-04,Retail Chain Settlement,Kotak – Vendor Payments Account,28275.06,outflow,Packaging material replenishment,TXN-4B9CAAAB7F1F456B94
+2025-09-08,Spices Raw Material,SBI – Payroll Account,34206.92,inflow,Temporary labour payment,TXN-4393EBAEC0CF4EED93
+2025-06-21,Quality Inspection Fees,Kotak – Vendor Payments Account,60883.16,outflow,Cold chain logistics charges,TXN-25DC95D162DC48FAA7
+2025-11-23,Wheat Flour Purchase,HDFC – Operations Account,175826.62,outflow,Routine operational expense,TXN-8AE0325D2571432C90
+2025-09-10,Wheat Flour Purchase,Kotak – Vendor Payments Account,179283.8,outflow,Cold chain logistics charges,TXN-9FCD5BD726584057AE
+2025-11-23,Edible Oil Purchase,Kotak – Vendor Payments Account,133197.44,outflow,Temporary labour payment,TXN-AAF11EC8565F495B8E
+2025-11-30,Edible Oil Purchase,Kotak – Vendor Payments Account,165936.89,outflow,Cold chain logistics charges,TXN-76EB320642B9477F8D
+2025-09-15,Cold Storage Electricity,ICICI – Procurement Account,22723.67,outflow,Contractual service charges,TXN-2C6822FB58C542528B
+2025-09-26,Bulk Order Receipt,Kotak – Vendor Payments Account,111387.76,inflow,Invoice settlement,TXN-9B0D8212530E45E580
+2025-05-31,Sugar Procurement,Kotak – Vendor Payments Account,85583.09,outflow,Scheduled maintenance activity,TXN-244D92FA80A148F39B
+2025-07-24,Quality Inspection Fees,ICICI – Procurement Account,245078.95,inflow,Scheduled maintenance activity,TXN-C504CF1D01474A9A91
+2025-05-13,Milk Powder Supply,SBI – Payroll Account,100154.34,outflow,Packaging material replenishment,TXN-5EC422B5B5D6408683
+2026-01-30,Hotel Supply Payment,ICICI – Procurement Account,139004.88,outflow,Bulk order payment received,TXN-773334AACB634075AE
+2026-01-29,Cold Storage Electricity,ICICI – Procurement Account,33381.77,outflow,Bulk order payment received,TXN-1DA31D58C0ED4B1186
+2025-09-22,Hotel Supply Payment,ICICI – Procurement Account,77120.18,outflow,Packaging material replenishment,TXN-C368B1A523714AACB7
+2025-12-09,Distributor Payment,ICICI – Procurement Account,114952.94,outflow,Routine operational expense,TXN-E7E38B5AE77A4F8FB8
+2025-09-05,Edible Oil Purchase,ICICI – Procurement Account,22955.5,outflow,Scheduled maintenance activity,TXN-CB8A76FBBDC142699E
+2025-07-26,Cold Storage Electricity,ICICI – Procurement Account,250732.61,inflow,Invoice settlement,TXN-4F49EE902B5F46B184
+2025-10-01,Packaging Film Purchase,Kotak – Vendor Payments Account,39585.36,outflow,Temporary labour payment,TXN-68559FE7D47E4523A0
+2025-04-17,Factory Sanitation Charges,Axis – Sales Collection Account,67852.82,outflow,Cold chain logistics charges,TXN-282D3F58D2EB45109D
+2025-05-22,Factory Sanitation Charges,Axis – Sales Collection Account,50761.3,outflow,Routine operational expense,TXN-840446782DB04407A0
+2025-09-29,Milk Powder Supply,SBI – Payroll Account,149468.38,outflow,Temporary labour payment,TXN-7D3224F6AB8247ADB3
+2025-10-22,Quality Inspection Fees,HDFC – Operations Account,223789.2,inflow,Bulk order payment received,TXN-98E11A830B4446D4AD
+2025-09-05,Retail Chain Settlement,ICICI – Procurement Account,4301.19,outflow,Urgent procurement for production run,TXN-6D9CE813DC2540BBBC
+2025-12-30,Packaging Film Purchase,Axis – Sales Collection Account,131657.06,outflow,Urgent procurement for production run,TXN-EA5DE15A53C34DD680
+2025-10-01,Retail Chain Settlement,Kotak – Vendor Payments Account,31654.22,outflow,Monthly supplier settlement,TXN-DC9C3E86D9564387B5
+2025-12-21,Hotel Supply Payment,SBI – Payroll Account,159697.7,outflow,Monthly supplier settlement,TXN-A960E8C9DEA946CE85
+2026-02-01,Retail Chain Settlement,Kotak – Vendor Payments Account,138258.74,outflow,Urgent procurement for production run,TXN-682D5147F5A94EBB81
+2025-12-05,Spices Raw Material,Axis – Sales Collection Account,218607.99,inflow,Invoice settlement,TXN-1524540D779247AEB3
+2025-07-26,Quality Inspection Fees,SBI – Payroll Account,173636.7,outflow,Temporary labour payment,TXN-B4D30A22FE684F14B0
+2025-07-20,Spices Raw Material,SBI – Payroll Account,88076.85,inflow,Contractual service charges,TXN-83D6AB97D92945DD8D
+2025-12-25,Refrigeration Maintenance,ICICI – Procurement Account,122887.93,outflow,Monthly supplier settlement,TXN-E487CBF3395C4375A4
+2026-01-12,Retail Chain Settlement,Kotak – Vendor Payments Account,99346.52,outflow,Monthly supplier settlement,TXN-B83AC786289B42BFB9
+2025-10-28,Quality Inspection Fees,Axis – Sales Collection Account,348402.3,inflow,Packaging material replenishment,TXN-A340B17AF5CA4D998E
+2025-11-14,Factory Sanitation Charges,Axis – Sales Collection Account,153163.99,outflow,Contractual service charges,TXN-FFFA7BCBB5F04F92AB
+2025-07-13,Edible Oil Purchase,SBI – Payroll Account,10780.6,outflow,Monthly supplier settlement,TXN-32B3AF7249EE42D29A
+2026-02-10,Distributor Payment,HDFC – Operations Account,77054.24,outflow,Urgent procurement for production run,TXN-C0059D9EFC704F8F81
+2025-09-14,Factory Worker Payroll,Axis – Sales Collection Account,109574.9,outflow,Scheduled maintenance activity,TXN-14F090BBD36C49CC8F
+2026-02-07,Packaging Staff Payroll,HDFC – Operations Account,54462.76,outflow,Bulk order payment received,TXN-3E340DAF4152413EBD
+2025-12-09,Distributor Payment,SBI – Payroll Account,74402.38,outflow,Contractual service charges,TXN-E50CBEAD02814CBEAB
+2025-09-21,Hotel Supply Payment,Axis – Sales Collection Account,337941.2,inflow,Routine operational expense,TXN-8D6784A9C7684EC481
+2025-06-23,Packaging Film Purchase,Axis – Sales Collection Account,119338.46,inflow,Scheduled maintenance activity,TXN-CC7F278594514BAD9A
+2026-01-22,Packaging Staff Payroll,Kotak – Vendor Payments Account,80324.61,outflow,Packaging material replenishment,TXN-7CAFA9268B03443E80
+2025-12-11,Bulk Order Receipt,Kotak – Vendor Payments Account,42443.85,outflow,Cold chain logistics charges,TXN-C2C3188898A8444A82
+2025-05-26,Quality Inspection Fees,SBI – Payroll Account,164217.77,outflow,Packaging material replenishment,TXN-0ABC2BC1000B4E2DA1
+2025-08-27,Factory Sanitation Charges,Kotak – Vendor Payments Account,121656.84,outflow,Cold chain logistics charges,TXN-DF9E8681F24F47BE97
+2025-11-17,Factory Worker Payroll,SBI – Payroll Account,141750.17,outflow,Bulk order payment received,TXN-7BD8AD03114E4FAA93
+2025-07-27,Bulk Order Receipt,Axis – Sales Collection Account,152267.57,outflow,Packaging material replenishment,TXN-E205C34BCC96445EAF
+2025-05-26,Factory Worker Payroll,HDFC – Operations Account,38490.62,outflow,Packaging material replenishment,TXN-576E99CF048C4268AB
+2025-12-21,Wheat Flour Purchase,Kotak – Vendor Payments Account,174026.34,outflow,Cold chain logistics charges,TXN-E0C45E0A28F147568E
+2025-11-02,Retail Chain Settlement,Axis – Sales Collection Account,121647.1,outflow,Packaging material replenishment,TXN-A418A35424D74969AE
+2025-08-15,Quality Inspection Fees,ICICI – Procurement Account,126543.95,outflow,Scheduled maintenance activity,TXN-E96D8738A6A64E8EA2
+2025-10-22,Cold Storage Electricity,Axis – Sales Collection Account,123250.57,inflow,Cold chain logistics charges,TXN-836DDC110EC346A28B
+2025-12-14,Factory Sanitation Charges,Axis – Sales Collection Account,124490.88,outflow,Monthly supplier settlement,TXN-B1077491006B4FFB8D
+2025-07-16,Hotel Supply Payment,HDFC – Operations Account,9447.69,outflow,Packaging material replenishment,TXN-763800E15C35474AB5
+2025-12-07,Bulk Order Receipt,HDFC – Operations Account,104244.74,outflow,Cold chain logistics charges,TXN-D10CAA3574354C2B82
+2025-09-06,Hotel Supply Payment,Kotak – Vendor Payments Account,160763.11,outflow,Invoice settlement,TXN-BCC86373B1E7415DBC
+2025-08-25,Packaging Film Purchase,Kotak – Vendor Payments Account,67497.65,outflow,Cold chain logistics charges,TXN-D7708E2CF2D042E197
+2026-02-07,Packaging Staff Payroll,Axis – Sales Collection Account,122018.03,outflow,Scheduled maintenance activity,TXN-33264EF6D7CB4D8F94
+2025-05-15,Hotel Supply Payment,Axis – Sales Collection Account,166965.67,outflow,Urgent procurement for production run,TXN-D7F7752CE74A43AF8A
+2026-01-10,Factory Worker Payroll,ICICI – Procurement Account,70738.52,inflow,Cold chain logistics charges,TXN-900911AABB4244FDB0
+2025-07-29,Quality Inspection Fees,SBI – Payroll Account,66980.93,outflow,Packaging material replenishment,TXN-7ECE791C560148E188
+2025-10-23,Factory Sanitation Charges,SBI – Payroll Account,48225.9,outflow,Packaging material replenishment,TXN-265A3738783C4C6DA8
+2025-09-17,Sugar Procurement,Axis – Sales Collection Account,40839.2,outflow,Packaging material replenishment,TXN-3F5953276C104BBCA9
+2025-10-13,Bulk Order Receipt,ICICI – Procurement Account,42346.78,outflow,Temporary labour payment,TXN-770ACCF4ED644F00AA
+2025-12-21,Sugar Procurement,HDFC – Operations Account,67350.61,outflow,Temporary labour payment,TXN-9E0F0E6DDB4845FCA0
+2025-09-17,Packaging Film Purchase,SBI – Payroll Account,95388.89,outflow,Bulk order payment received,TXN-8926685AEF37439D8A
+2025-12-29,Retail Chain Settlement,Kotak – Vendor Payments Account,122314.48,outflow,Packaging material replenishment,TXN-053A4347B4744ED29B
+2025-08-01,Cold Storage Electricity,HDFC – Operations Account,98579.08,inflow,Invoice settlement,TXN-6197513902E2499EB5
+2025-09-25,Refrigeration Maintenance,ICICI – Procurement Account,137684.82,outflow,Packaging material replenishment,TXN-FC74C71BCD3A4DEAA0
+2025-11-16,Hotel Supply Payment,HDFC – Operations Account,114389.24,outflow,Scheduled maintenance activity,TXN-DE97F8AED2834D3599
+2025-11-04,Milk Powder Supply,ICICI – Procurement Account,120816.53,outflow,Temporary labour payment,TXN-E68B26290EA640D487
+2025-09-29,Refrigeration Maintenance,SBI – Payroll Account,116582.81,inflow,Bulk order payment received,TXN-F3DDF68F22154AAE9C
+2025-09-01,Distributor Payment,ICICI – Procurement Account,262945.14,inflow,Packaging material replenishment,TXN-A63AE1E1D15C4D7CA8
+2025-07-23,Distributor Payment,Kotak – Vendor Payments Account,116127.37,outflow,Monthly supplier settlement,TXN-6C2BA4DEB47B4C069E
+2025-05-01,Packaging Film Purchase,ICICI – Procurement Account,220293.12,inflow,Temporary labour payment,TXN-E88711CBB16B4C34B8
+2025-10-27,Bulk Order Receipt,Axis – Sales Collection Account,43308.69,outflow,Temporary labour payment,TXN-6905843C683744E799
+2025-06-01,Quality Inspection Fees,Kotak – Vendor Payments Account,95748.22,outflow,Packaging material replenishment,TXN-38182779E0024B5696
+2025-12-22,Wheat Flour Purchase,ICICI – Procurement Account,40660.57,outflow,Urgent procurement for production run,TXN-DFD9AC30CABF49549A
+2025-04-15,Factory Worker Payroll,Kotak – Vendor Payments Account,29524.73,outflow,Urgent procurement for production run,TXN-74B4B8EAA464415DB5
+2025-07-06,Retail Chain Settlement,Axis – Sales Collection Account,147897.02,outflow,Contractual service charges,TXN-4EEE17F0B9B74E4F85
+2025-09-07,Packaging Staff Payroll,Kotak – Vendor Payments Account,116394.02,outflow,Invoice settlement,TXN-8A7573CE819A4075B0
+2025-09-09,Quality Inspection Fees,HDFC – Operations Account,66733.77,outflow,Scheduled maintenance activity,TXN-B31E06C9DACE4862B3
+2025-07-19,Factory Worker Payroll,Kotak – Vendor Payments Account,119057.27,outflow,Cold chain logistics charges,TXN-6BBEED127F034BC389
+2025-06-06,Hotel Supply Payment,ICICI – Procurement Account,54156.87,outflow,Monthly supplier settlement,TXN-BCEF58C690C440B59E
+2026-01-20,Hotel Supply Payment,Axis – Sales Collection Account,165447.79,inflow,Cold chain logistics charges,TXN-2AAE136E7FDB4E2697
+2025-05-31,Milk Powder Supply,SBI – Payroll Account,178692.42,outflow,Bulk order payment received,TXN-FF9BECC0F4874FDC91
+2025-08-27,Edible Oil Purchase,SBI – Payroll Account,29484.67,outflow,Bulk order payment received,TXN-C197A9CE466947A7A2
+2026-01-08,Packaging Film Purchase,Kotak – Vendor Payments Account,126532.08,outflow,Monthly supplier settlement,TXN-CE48FA39B56645E79A
+2025-10-27,Bulk Order Receipt,ICICI – Procurement Account,40471.97,outflow,Scheduled maintenance activity,TXN-9C78FCD921824BE388
+2025-05-19,Factory Worker Payroll,HDFC – Operations Account,86631.5,outflow,Bulk order payment received,TXN-813A3244BEC94EAC86
+2025-10-20,Edible Oil Purchase,HDFC – Operations Account,242468.66,inflow,Bulk order payment received,TXN-793F0957EE4145758B
+2025-07-30,Retail Chain Settlement,Axis – Sales Collection Account,166742.05,outflow,Urgent procurement for production run,TXN-15DB124EE5AA407D8D
+2025-05-25,Factory Sanitation Charges,Kotak – Vendor Payments Account,105190.86,outflow,Cold chain logistics charges,TXN-1717D8AF99F9471FBC
+2025-08-08,Retail Chain Settlement,HDFC – Operations Account,75179.07,inflow,Cold chain logistics charges,TXN-298DBEA73BE744A3B4
+2025-12-25,Spices Raw Material,ICICI – Procurement Account,107626.29,outflow,Urgent procurement for production run,TXN-E9D2C68A23F447C1B6
+2026-01-05,Milk Powder Supply,Axis – Sales Collection Account,163108.21,outflow,Contractual service charges,TXN-3BBF700F7BB34CB1B8
+2025-12-31,Edible Oil Purchase,Kotak – Vendor Payments Account,176170.92,outflow,Urgent procurement for production run,TXN-717CBA5D8CFA41BD98
+2025-12-24,Cold Storage Electricity,ICICI – Procurement Account,126443.85,outflow,Packaging material replenishment,TXN-C9D5430203DD46B289
+2025-04-27,Refrigeration Maintenance,SBI – Payroll Account,177930.39,outflow,Contractual service charges,TXN-B26B7C5EF85A4BF080
+2025-08-24,Packaging Staff Payroll,HDFC – Operations Account,202282.09,inflow,Bulk order payment received,TXN-F3C9627BB727453BBF
+2025-10-19,Distributor Payment,ICICI – Procurement Account,79295.2,outflow,Invoice settlement,TXN-B9ADCE9F817E4114A2
+2025-08-01,Edible Oil Purchase,HDFC – Operations Account,126279.83,outflow,Cold chain logistics charges,TXN-B50B073472B04DAF93
+2025-12-13,Sugar Procurement,Axis – Sales Collection Account,322949.43,inflow,Scheduled maintenance activity,TXN-3D5B03B28FFA4C648D
+2025-06-01,Refrigeration Maintenance,SBI – Payroll Account,6285.46,outflow,Monthly supplier settlement,TXN-E307530D5DA64D9A8B
+2025-07-29,Spices Raw Material,ICICI – Procurement Account,123862.77,outflow,Contractual service charges,TXN-A0B4175D5E7245B688
+2025-09-11,Factory Worker Payroll,HDFC – Operations Account,89897.81,outflow,Routine operational expense,TXN-E84EA0D8D4874BD6B2
+2026-01-01,Refrigeration Maintenance,Axis – Sales Collection Account,54043.96,outflow,Invoice settlement,TXN-B512C937118543838D
+2025-04-18,Factory Sanitation Charges,ICICI – Procurement Account,36794.77,outflow,Cold chain logistics charges,TXN-4E9ED6DF080F47F99D
+2025-08-17,Cold Storage Electricity,ICICI – Procurement Account,161596.5,outflow,Contractual service charges,TXN-F3CD10B0ACA847C19C
+2025-04-30,Quality Inspection Fees,SBI – Payroll Account,39875.82,outflow,Packaging material replenishment,TXN-0173DA4B368B44BC9E
+2025-11-04,Milk Powder Supply,ICICI – Procurement Account,85005.76,inflow,Temporary labour payment,TXN-5A6DA2E0C95B490DA0
+2025-07-30,Factory Worker Payroll,Axis – Sales Collection Account,223067.35,inflow,Cold chain logistics charges,TXN-A105CE3CE33643D996
+2025-07-31,Retail Chain Settlement,HDFC – Operations Account,31930.54,outflow,Urgent procurement for production run,TXN-76320046A0B94D75A1
+2025-06-22,Milk Powder Supply,HDFC – Operations Account,50286.44,outflow,Temporary labour payment,TXN-8F70B2154FB64E1ABC
+2025-10-29,Bulk Order Receipt,Kotak – Vendor Payments Account,26945.29,outflow,Scheduled maintenance activity,TXN-D8E9393AE1894BD2B0
+2025-10-21,Edible Oil Purchase,HDFC – Operations Account,138103.74,outflow,Urgent procurement for production run,TXN-70181C90EBF5412A8F
+2025-12-10,Wheat Flour Purchase,Axis – Sales Collection Account,50385.27,outflow,Bulk order payment received,TXN-CA0525EB177A41C1AC
+2025-09-09,Hotel Supply Payment,Axis – Sales Collection Account,145997.28,outflow,Scheduled maintenance activity,TXN-82D232FF158A44AB9B
+2025-12-17,Edible Oil Purchase,ICICI – Procurement Account,30642.36,outflow,Contractual service charges,TXN-A3426A6A5DB645B6BB
+2025-12-12,Milk Powder Supply,Axis – Sales Collection Account,42129.75,inflow,Contractual service charges,TXN-C6ABAF72A89A4B29A6
+2025-12-19,Packaging Film Purchase,Axis – Sales Collection Account,110340.45,outflow,Invoice settlement,TXN-7A4F682259BE489D97
+2025-08-02,Spices Raw Material,Axis – Sales Collection Account,75944.01,outflow,Urgent procurement for production run,TXN-ED37C01C9FDB4731B6
+2025-10-31,Bulk Order Receipt,ICICI – Procurement Account,137822.66,outflow,Temporary labour payment,TXN-6043B73A6C61478DB4
+2026-02-08,Sugar Procurement,Kotak – Vendor Payments Account,46212.99,outflow,Contractual service charges,TXN-54B53ABECFC54AB3B0
+2025-11-07,Packaging Staff Payroll,Kotak – Vendor Payments Account,44856.62,outflow,Packaging material replenishment,TXN-3D73651710374C23BD
+2026-01-12,Factory Worker Payroll,SBI – Payroll Account,171380.47,outflow,Urgent procurement for production run,TXN-04F261C5DBF54AFDA9
+2025-07-11,Distributor Payment,ICICI – Procurement Account,178378.31,outflow,Cold chain logistics charges,TXN-1585001B4BB2425596
+2025-11-17,Bulk Order Receipt,HDFC – Operations Account,88910.73,outflow,Packaging material replenishment,TXN-C185318FE73945DE88
+2025-06-18,Bulk Order Receipt,SBI – Payroll Account,95025.84,inflow,Scheduled maintenance activity,TXN-9B36C6B9C6274F2B83
+2025-12-15,Wheat Flour Purchase,ICICI – Procurement Account,90716.78,outflow,Bulk order payment received,TXN-7A954C813F1642C8B1
+2025-05-18,Factory Sanitation Charges,HDFC – Operations Account,147936.38,inflow,Scheduled maintenance activity,TXN-01DEC04C2DE04A6CAE
+2025-05-13,Hotel Supply Payment,Kotak – Vendor Payments Account,155460.54,outflow,Contractual service charges,TXN-3219F5DEBD774F9BB0
+2025-10-26,Bulk Order Receipt,Kotak – Vendor Payments Account,271837.98,inflow,Scheduled maintenance activity,TXN-27A8D3BDE07C490EAB
+2025-08-05,Cold Storage Electricity,Kotak – Vendor Payments Account,83230.28,outflow,Bulk order payment received,TXN-4BE31DAAD73442D9BC
+2025-07-06,Retail Chain Settlement,Axis – Sales Collection Account,326893.17,inflow,Bulk order payment received,TXN-4BD1A06120E04C368A
+2025-06-06,Milk Powder Supply,Kotak – Vendor Payments Account,168708.54,outflow,Contractual service charges,TXN-BF46DACC94A64FF89C
+2025-09-27,Wheat Flour Purchase,Kotak – Vendor Payments Account,39009.22,outflow,Bulk order payment received,TXN-1FFAA78EFA6D4AD7A8
+2025-09-09,Milk Powder Supply,Axis – Sales Collection Account,200451.94,inflow,Routine operational expense,TXN-B496299F5B3B459C82
+2025-11-19,Milk Powder Supply,Kotak – Vendor Payments Account,13297.04,outflow,Bulk order payment received,TXN-474F1AA2114E4FFBA3
+2025-08-16,Packaging Staff Payroll,HDFC – Operations Account,56856.09,inflow,Packaging material replenishment,TXN-54E28AF435644A3082
+2025-06-01,Hotel Supply Payment,SBI – Payroll Account,146389.84,outflow,Monthly supplier settlement,TXN-AAD10017B3E54DB6B4
+2025-10-25,Cold Storage Electricity,Axis – Sales Collection Account,177096.84,inflow,Packaging material replenishment,TXN-3E88229570B0441ABE
+2025-07-02,Spices Raw Material,Axis – Sales Collection Account,51231.79,outflow,Invoice settlement,TXN-AD9E6412C10747D6A4
+2025-11-06,Hotel Supply Payment,HDFC – Operations Account,48607.67,inflow,Bulk order payment received,TXN-3DE8E9CC780A4DA994
+2025-09-02,Packaging Film Purchase,ICICI – Procurement Account,332502.48,inflow,Monthly supplier settlement,TXN-BF19463E93E34E5F81
+2025-10-22,Distributor Payment,ICICI – Procurement Account,58625.72,outflow,Invoice settlement,TXN-E541605AE34B483388
+2026-01-30,Packaging Film Purchase,SBI – Payroll Account,52419.19,outflow,Monthly supplier settlement,TXN-8787F40FD1AB4A16B2
+2025-12-13,Cold Storage Electricity,HDFC – Operations Account,177011.99,outflow,Invoice settlement,TXN-510975F2D5E5479B86
+2025-06-15,Sugar Procurement,Kotak – Vendor Payments Account,31113.92,outflow,Temporary labour payment,TXN-5715E74BA1F04FC3BA
+2025-10-21,Factory Sanitation Charges,SBI – Payroll Account,307900.54,inflow,Routine operational expense,TXN-4E175317F5124DE89A
+2026-01-27,Bulk Order Receipt,HDFC – Operations Account,81587.76,outflow,Invoice settlement,TXN-DEE1FAF99C2B4BEFA8
+2025-10-20,Bulk Order Receipt,SBI – Payroll Account,18433.77,outflow,Invoice settlement,TXN-4839D703D65F4C7BAC
+2026-01-08,Quality Inspection Fees,Kotak – Vendor Payments Account,3038.12,outflow,Contractual service charges,TXN-C300A455F06D4D7DB2
+2025-09-02,Retail Chain Settlement,ICICI – Procurement Account,96795.78,outflow,Cold chain logistics charges,TXN-D381C8AD3F7C4EE0AD
+2025-12-05,Packaging Staff Payroll,Kotak – Vendor Payments Account,20254.21,outflow,Cold chain logistics charges,TXN-97DACAAB9ED24812B9
+2025-10-10,Packaging Film Purchase,HDFC – Operations Account,166099.47,inflow,Invoice settlement,TXN-3428E34A2EB348CF94
+2025-09-12,Factory Sanitation Charges,HDFC – Operations Account,286002.62,inflow,Urgent procurement for production run,TXN-F828B81150CC4C2C89
+2025-08-09,Packaging Film Purchase,Kotak – Vendor Payments Account,31402.07,outflow,Invoice settlement,TXN-92062F7CEC9E4739B0
+2025-04-19,Refrigeration Maintenance,Axis – Sales Collection Account,170669.74,outflow,Monthly supplier settlement,TXN-6EEEF87A56E54510AF
+2025-06-24,Factory Sanitation Charges,Kotak – Vendor Payments Account,30020.94,outflow,Routine operational expense,TXN-4AF37FACA5564F0E93
+2025-10-21,Spices Raw Material,Kotak – Vendor Payments Account,14384.0,outflow,Contractual service charges,TXN-2E3830E199FF4C598D
+2025-12-27,Milk Powder Supply,SBI – Payroll Account,12547.28,outflow,Contractual service charges,TXN-F1850956C8174EA498
+2025-09-30,Retail Chain Settlement,Kotak – Vendor Payments Account,284459.65,inflow,Routine operational expense,TXN-BB5373F21A7A409AA7
+2025-09-24,Packaging Staff Payroll,SBI – Payroll Account,119166.04,outflow,Urgent procurement for production run,TXN-5104C6605F87403B96
+2025-08-10,Hotel Supply Payment,HDFC – Operations Account,95334.44,outflow,Bulk order payment received,TXN-7BF4C1AF987444F99D
+2025-09-09,Distributor Payment,SBI – Payroll Account,56989.55,outflow,Scheduled maintenance activity,TXN-ACDFA56C1AF14B04B7
+2025-11-28,Quality Inspection Fees,HDFC – Operations Account,70302.8,inflow,Monthly supplier settlement,TXN-7E02ED14017141B4A4
+2025-04-15,Factory Sanitation Charges,ICICI – Procurement Account,94024.29,outflow,Bulk order payment received,TXN-F0551216AD9D4CEA93
+2025-08-10,Edible Oil Purchase,HDFC – Operations Account,88683.13,outflow,Scheduled maintenance activity,TXN-36B6FE0C73824285A3
+2025-09-05,Bulk Order Receipt,Kotak – Vendor Payments Account,35081.86,outflow,Invoice settlement,TXN-456DA02FDFAB403598
+2025-04-16,Refrigeration Maintenance,SBI – Payroll Account,105011.26,inflow,Routine operational expense,TXN-B9FA469AC8544F1FA2
+2025-07-23,Packaging Staff Payroll,Kotak – Vendor Payments Account,198865.92,inflow,Bulk order payment received,TXN-8F64687E34334EC78D
+2025-11-24,Distributor Payment,Kotak – Vendor Payments Account,41851.37,outflow,Monthly supplier settlement,TXN-FDE92C22798443FB99
+2025-04-21,Cold Storage Electricity,Axis – Sales Collection Account,155388.91,inflow,Invoice settlement,TXN-5996A971D87B499DBB
+2025-05-06,Quality Inspection Fees,Axis – Sales Collection Account,32098.36,outflow,Scheduled maintenance activity,TXN-3BAE279F3724457A9C
+2025-05-20,Quality Inspection Fees,SBI – Payroll Account,141379.5,inflow,Routine operational expense,TXN-A3B45542A2414C9E96
+2025-05-19,Quality Inspection Fees,ICICI – Procurement Account,73314.17,outflow,Cold chain logistics charges,TXN-A4A04594E63F4DB5B0
+2025-06-23,Sugar Procurement,ICICI – Procurement Account,40670.3,outflow,Monthly supplier settlement,TXN-1932AB8972654835B2
+2025-05-15,Wheat Flour Purchase,ICICI – Procurement Account,106703.14,outflow,Temporary labour payment,TXN-552C23758B2F41CBBC
+2026-01-24,Bulk Order Receipt,HDFC – Operations Account,156102.53,outflow,Bulk order payment received,TXN-2ACF63DCB9A44A37BE
+2025-07-15,Bulk Order Receipt,HDFC – Operations Account,72928.13,inflow,Scheduled maintenance activity,TXN-22AD23AF3F574408A2
+2025-12-28,Spices Raw Material,Axis – Sales Collection Account,156755.27,outflow,Contractual service charges,TXN-8BFE2C0CFEB24E0FA3
+2025-11-26,Factory Worker Payroll,SBI – Payroll Account,34077.36,outflow,Packaging material replenishment,TXN-BC736D1F0EEF4D46A2
+2025-12-20,Milk Powder Supply,HDFC – Operations Account,125395.98,outflow,Cold chain logistics charges,TXN-AB107395D00441369A
+2025-11-26,Bulk Order Receipt,SBI – Payroll Account,169563.74,outflow,Cold chain logistics charges,TXN-B9392748EC05472490
+2025-10-20,Factory Sanitation Charges,Axis – Sales Collection Account,97400.04,inflow,Urgent procurement for production run,TXN-03ABE03B736F4826AA
+2025-11-27,Packaging Staff Payroll,Kotak – Vendor Payments Account,329280.3,inflow,Invoice settlement,TXN-B9A8D681239945EB85
+2025-08-19,Packaging Film Purchase,HDFC – Operations Account,63624.74,outflow,Monthly supplier settlement,TXN-9D0AB3174C49435C91
+2025-08-02,Retail Chain Settlement,ICICI – Procurement Account,102543.43,outflow,Routine operational expense,TXN-24C441BF30DE41D8A0
+2025-10-08,Milk Powder Supply,Axis – Sales Collection Account,26846.47,outflow,Contractual service charges,TXN-A6550646A6C4474F82
+2025-05-12,Retail Chain Settlement,SBI – Payroll Account,52770.82,outflow,Packaging material replenishment,TXN-69087C4B22EE47BEA7
+2026-01-21,Sugar Procurement,ICICI – Procurement Account,83054.16,outflow,Urgent procurement for production run,TXN-FE5C6B65CB4B43AB98
+2026-01-31,Factory Worker Payroll,Kotak – Vendor Payments Account,96178.11,outflow,Cold chain logistics charges,TXN-CB3982737D5643EEA3
+2025-11-13,Wheat Flour Purchase,Kotak – Vendor Payments Account,125438.44,outflow,Contractual service charges,TXN-9007AF067AD8447990
+2025-12-23,Refrigeration Maintenance,HDFC – Operations Account,53729.73,outflow,Cold chain logistics charges,TXN-5B798281ADC2443798
+2025-09-01,Hotel Supply Payment,ICICI – Procurement Account,86775.08,outflow,Packaging material replenishment,TXN-8832A563F7524F1095
+2025-10-04,Quality Inspection Fees,Kotak – Vendor Payments Account,311327.19,inflow,Cold chain logistics charges,TXN-0015D24FECE24F30BE
+2025-07-16,Wheat Flour Purchase,Axis – Sales Collection Account,78577.07,outflow,Scheduled maintenance activity,TXN-EFD445B1E3A742ECB4
+2026-01-29,Wheat Flour Purchase,ICICI – Procurement Account,132946.64,outflow,Temporary labour payment,TXN-343587AF758C49D7A6
+2025-06-12,Sugar Procurement,ICICI – Procurement Account,260538.57,inflow,Monthly supplier settlement,TXN-AD1F41B5276E4D99A8
+2025-09-13,Factory Worker Payroll,HDFC – Operations Account,309944.41,inflow,Temporary labour payment,TXN-B7FCD47BE8B7477BBD
+2025-12-04,Sugar Procurement,SBI – Payroll Account,166128.69,outflow,Cold chain logistics charges,TXN-1D78FD7D5AE940B093
+2025-05-24,Refrigeration Maintenance,HDFC – Operations Account,40895.55,outflow,Monthly supplier settlement,TXN-9428AB68A5D34DB484
+2025-04-18,Packaging Film Purchase,ICICI – Procurement Account,105080.52,outflow,Temporary labour payment,TXN-06174B5911D24F2DBD
+2025-06-17,Factory Sanitation Charges,SBI – Payroll Account,79315.79,outflow,Urgent procurement for production run,TXN-9BDD9599FF604CEDBB
+2026-02-01,Hotel Supply Payment,HDFC – Operations Account,128492.05,inflow,Invoice settlement,TXN-532E1AE84A114FB6BC
+2025-11-29,Packaging Staff Payroll,ICICI – Procurement Account,177269.25,outflow,Temporary labour payment,TXN-CDEBE64635CC4559A7
+2025-11-15,Edible Oil Purchase,ICICI – Procurement Account,46539.94,outflow,Bulk order payment received,TXN-B3A6E5488A5F431B91
+2025-07-30,Packaging Film Purchase,Axis – Sales Collection Account,129055.24,inflow,Contractual service charges,TXN-C2737971FE0A4C3C86
+2025-09-30,Refrigeration Maintenance,SBI – Payroll Account,147273.88,outflow,Contractual service charges,TXN-F2099E02BC9C4BD2B7
+2025-10-11,Factory Sanitation Charges,Kotak – Vendor Payments Account,28441.1,outflow,Scheduled maintenance activity,TXN-CB013738C1D149158C
+2025-06-16,Distributor Payment,Axis – Sales Collection Account,18526.81,outflow,Scheduled maintenance activity,TXN-BD61EC83E4A64F75BE
+2025-06-14,Spices Raw Material,SBI – Payroll Account,42183.76,outflow,Invoice settlement,TXN-CA6B54AE76A54F06B6
+2025-12-24,Sugar Procurement,ICICI – Procurement Account,18251.76,outflow,Scheduled maintenance activity,TXN-AA6CCB307622416491
+2025-07-05,Sugar Procurement,Kotak – Vendor Payments Account,170433.68,outflow,Bulk order payment received,TXN-1933CA4CE2354347A8
+2025-10-26,Cold Storage Electricity,ICICI – Procurement Account,264094.56,inflow,Monthly supplier settlement,TXN-A12354CCDB6B41EF9C
+2025-06-18,Milk Powder Supply,HDFC – Operations Account,97379.23,outflow,Temporary labour payment,TXN-0054D430F6694CC49B
+2025-09-04,Wheat Flour Purchase,Kotak – Vendor Payments Account,171693.34,outflow,Monthly supplier settlement,TXN-902F1EF2C6E9477092
+2025-06-05,Retail Chain Settlement,Axis – Sales Collection Account,122918.69,outflow,Invoice settlement,TXN-3061EB379017446B88
+2025-08-29,Hotel Supply Payment,Axis – Sales Collection Account,29001.25,inflow,Invoice settlement,TXN-2EEA8913141341E3A5
+2026-02-03,Bulk Order Receipt,Axis – Sales Collection Account,62224.83,outflow,Contractual service charges,TXN-085D9D93C21245D19B
+2025-08-19,Factory Sanitation Charges,ICICI – Procurement Account,151853.14,inflow,Urgent procurement for production run,TXN-94D212062732407EB0
+2025-07-14,Retail Chain Settlement,Kotak – Vendor Payments Account,134990.3,outflow,Packaging material replenishment,TXN-6BEF2D4D0CA14EC8A4
+2025-05-18,Hotel Supply Payment,Axis – Sales Collection Account,293115.86,inflow,Packaging material replenishment,TXN-54FBF71F8F854C6289
+2025-10-29,Refrigeration Maintenance,Axis – Sales Collection Account,36199.91,outflow,Packaging material replenishment,TXN-5ACDDA29D3884957B8
+2025-11-13,Wheat Flour Purchase,HDFC – Operations Account,170706.44,outflow,Monthly supplier settlement,TXN-85B87972D48441A189
+2025-11-13,Factory Worker Payroll,ICICI – Procurement Account,155878.9,outflow,Routine operational expense,TXN-A5133855ADE84E8AA2
+2025-05-07,Cold Storage Electricity,Axis – Sales Collection Account,85520.72,outflow,Invoice settlement,TXN-48E0C37369BE42DF8D
+2025-12-07,Packaging Staff Payroll,HDFC – Operations Account,119257.77,outflow,Bulk order payment received,TXN-EA781BE7932F40948F
+2025-04-13,Sugar Procurement,Axis – Sales Collection Account,173111.58,inflow,Invoice settlement,TXN-F36EA413EB6D438EA7
+2025-07-12,Sugar Procurement,HDFC – Operations Account,159582.38,outflow,Routine operational expense,TXN-418779B2247043929F
+2026-01-16,Bulk Order Receipt,Axis – Sales Collection Account,305078.23,inflow,Packaging material replenishment,TXN-8410E17422AF41099B
+2025-09-11,Refrigeration Maintenance,Kotak – Vendor Payments Account,120201.55,outflow,Scheduled maintenance activity,TXN-DBEE87E4C7174B96B6
+2026-02-06,Quality Inspection Fees,SBI – Payroll Account,67383.4,outflow,Invoice settlement,TXN-A24D699039B44A19B2
+2025-09-02,Packaging Film Purchase,Kotak – Vendor Payments Account,20412.75,outflow,Bulk order payment received,TXN-C5A2F2800C9E44AEAE
+2025-09-06,Sugar Procurement,Axis – Sales Collection Account,41376.59,outflow,Bulk order payment received,TXN-152D1946CBD6435389
+2025-09-18,Retail Chain Settlement,ICICI – Procurement Account,27609.23,inflow,Routine operational expense,TXN-10E1E53B6F754818AC
+2025-11-15,Bulk Order Receipt,Kotak – Vendor Payments Account,77896.25,outflow,Urgent procurement for production run,TXN-D3284E93DC2643A696
+2025-07-27,Cold Storage Electricity,Kotak – Vendor Payments Account,158382.09,outflow,Temporary labour payment,TXN-6446B168175B44388D
+2025-10-14,Packaging Staff Payroll,ICICI – Procurement Account,147309.32,outflow,Cold chain logistics charges,TXN-2A34B5B9860447F69F
+2025-09-29,Factory Sanitation Charges,ICICI – Procurement Account,58625.83,outflow,Routine operational expense,TXN-6CE201C25C8E42608D
+2025-12-25,Spices Raw Material,HDFC – Operations Account,32500.51,outflow,Contractual service charges,TXN-12E0041940FF425B86
+2025-07-22,Milk Powder Supply,SBI – Payroll Account,73500.23,outflow,Urgent procurement for production run,TXN-F01CB9775F7B4E9A9B
+2025-08-08,Quality Inspection Fees,Kotak – Vendor Payments Account,90174.59,outflow,Cold chain logistics charges,TXN-5FE1128475644740A7
+2025-08-10,Retail Chain Settlement,SBI – Payroll Account,140650.9,outflow,Invoice settlement,TXN-89D59AFED397496F9B
+2026-02-09,Factory Worker Payroll,ICICI – Procurement Account,71468.09,outflow,Scheduled maintenance activity,TXN-2E74A249BEF842D5BB
+2025-10-16,Edible Oil Purchase,Kotak – Vendor Payments Account,157269.27,outflow,Contractual service charges,TXN-D9406167553E4D0283
+2025-05-04,Packaging Staff Payroll,ICICI – Procurement Account,37668.95,outflow,Invoice settlement,TXN-53D3A1F808314D15AC
+2025-04-16,Factory Worker Payroll,Kotak – Vendor Payments Account,165187.24,inflow,Routine operational expense,TXN-FB5B20796AA1467681
+2025-06-28,Bulk Order Receipt,ICICI – Procurement Account,146774.19,inflow,Monthly supplier settlement,TXN-6A4CE38F42DB4C1295
+2025-07-31,Cold Storage Electricity,Kotak – Vendor Payments Account,133149.25,outflow,Bulk order payment received,TXN-4E26141393914614AD
+2025-11-21,Bulk Order Receipt,Axis – Sales Collection Account,140496.37,outflow,Contractual service charges,TXN-E4AC7F210C9F496E87
+2025-11-22,Distributor Payment,Axis – Sales Collection Account,33401.33,outflow,Cold chain logistics charges,TXN-E94F060601F94D17B1
+2025-06-24,Factory Sanitation Charges,Kotak – Vendor Payments Account,54958.99,outflow,Packaging material replenishment,TXN-A0793AD86AC9473F9B
+2025-08-16,Packaging Staff Payroll,SBI – Payroll Account,240804.68,inflow,Cold chain logistics charges,TXN-70444F2F39A04BC8B9
+2025-10-06,Sugar Procurement,Axis – Sales Collection Account,70084.22,outflow,Contractual service charges,TXN-8196E99051A34D2EBF
+2025-10-06,Milk Powder Supply,Kotak – Vendor Payments Account,108327.22,outflow,Temporary labour payment,TXN-41AB53698B174AE895
+2026-01-27,Bulk Order Receipt,ICICI – Procurement Account,338838.63,inflow,Cold chain logistics charges,TXN-8EB802B8E07F4F02AF
+2025-07-30,Spices Raw Material,Kotak – Vendor Payments Account,35573.11,outflow,Contractual service charges,TXN-4B60DB72A20E4B7FAE
+2025-12-11,Cold Storage Electricity,HDFC – Operations Account,164987.23,inflow,Monthly supplier settlement,TXN-7211F3BAAFE14AD3B8
+2025-04-19,Packaging Film Purchase,Axis – Sales Collection Account,143451.92,outflow,Temporary labour payment,TXN-A4C2EAF8E5744BABB2
+2025-06-08,Bulk Order Receipt,HDFC – Operations Account,77209.98,outflow,Bulk order payment received,TXN-3C32182C0FD54513A3
+2025-10-06,Edible Oil Purchase,ICICI – Procurement Account,59883.4,outflow,Invoice settlement,TXN-F7026473E4604D4D9C
+2025-05-01,Factory Sanitation Charges,Kotak – Vendor Payments Account,172567.28,outflow,Invoice settlement,TXN-19C5EB6EB237463DAB
+2026-01-07,Edible Oil Purchase,SBI – Payroll Account,114903.27,outflow,Temporary labour payment,TXN-485F654467AF4D9D89
+2026-01-27,Milk Powder Supply,Kotak – Vendor Payments Account,169559.39,outflow,Monthly supplier settlement,TXN-C9F9F0689F75488498
+2025-05-29,Packaging Film Purchase,Axis – Sales Collection Account,313086.9,inflow,Temporary labour payment,TXN-4B839FE7C3E44F18AE
+2025-04-23,Retail Chain Settlement,ICICI – Procurement Account,194933.0,inflow,Contractual service charges,TXN-2DDEE77FC2B341B4B3
+2025-05-31,Factory Worker Payroll,ICICI – Procurement Account,126377.47,outflow,Urgent procurement for production run,TXN-65D3BA09376E4040B5
+2025-12-06,Spices Raw Material,HDFC – Operations Account,48221.16,outflow,Routine operational expense,TXN-EE33C51B0FB0405DAB
+2025-09-26,Sugar Procurement,Axis – Sales Collection Account,117940.57,inflow,Contractual service charges,TXN-5576A67A06FA48AB8E
+2025-05-02,Milk Powder Supply,SBI – Payroll Account,91676.36,outflow,Urgent procurement for production run,TXN-F114824F7C5B410C88
+2025-09-11,Hotel Supply Payment,ICICI – Procurement Account,208799.46,inflow,Scheduled maintenance activity,TXN-1132F31AFBA94DDBB5
+2025-11-04,Cold Storage Electricity,SBI – Payroll Account,113237.07,outflow,Invoice settlement,TXN-2366D9499F4741F8A6
+2025-04-30,Quality Inspection Fees,HDFC – Operations Account,169112.16,outflow,Bulk order payment received,TXN-C3DE0DDFA1004BDC82
+2025-06-01,Milk Powder Supply,Axis – Sales Collection Account,117109.26,outflow,Monthly supplier settlement,TXN-E6BC2E4A3F9549FEA6
+2025-12-12,Edible Oil Purchase,SBI – Payroll Account,116359.89,outflow,Contractual service charges,TXN-5BB1653396564F0E97
+2025-11-19,Factory Worker Payroll,SBI – Payroll Account,100724.33,outflow,Routine operational expense,TXN-8B2F0CEA96F24C3E9D
+2025-09-25,Hotel Supply Payment,ICICI – Procurement Account,138743.88,outflow,Urgent procurement for production run,TXN-E0613F5914524A35B7
+2025-07-13,Quality Inspection Fees,HDFC – Operations Account,52046.8,outflow,Urgent procurement for production run,TXN-B767D8E224C843BF81
+2025-10-16,Edible Oil Purchase,HDFC – Operations Account,306190.87,inflow,Invoice settlement,TXN-7F6939861A374C0B98
+2025-05-18,Quality Inspection Fees,HDFC – Operations Account,175797.3,outflow,Monthly supplier settlement,TXN-8979623918944FF585
+2025-11-24,Sugar Procurement,HDFC – Operations Account,154254.0,inflow,Temporary labour payment,TXN-114A48B422094B3CB8
+2025-08-10,Distributor Payment,SBI – Payroll Account,102513.58,outflow,Packaging material replenishment,TXN-9276D6B2F90E43FEB6
+2025-08-12,Wheat Flour Purchase,HDFC – Operations Account,148501.88,outflow,Packaging material replenishment,TXN-6395E0D0DDC74B24BE
+2025-08-08,Milk Powder Supply,Axis – Sales Collection Account,107823.97,outflow,Monthly supplier settlement,TXN-2997FFAF502C410685
+2025-04-25,Spices Raw Material,Kotak – Vendor Payments Account,39311.89,outflow,Scheduled maintenance activity,TXN-CDDF2EF49CAF4F8A9A
+2025-09-20,Spices Raw Material,ICICI – Procurement Account,48712.99,outflow,Packaging material replenishment,TXN-E25E10411D6D493093
+2025-05-07,Wheat Flour Purchase,SBI – Payroll Account,104382.23,outflow,Contractual service charges,TXN-F184DA6D4F124B0689
+2025-11-10,Distributor Payment,Kotak – Vendor Payments Account,167326.15,inflow,Urgent procurement for production run,TXN-B4A462FA056648889E
+2025-10-18,Quality Inspection Fees,ICICI – Procurement Account,144020.64,outflow,Packaging material replenishment,TXN-FDD9C9B5C3334C32AE
+2025-10-08,Factory Worker Payroll,ICICI – Procurement Account,104291.4,outflow,Packaging material replenishment,TXN-EF24899463904689BE
+2025-11-28,Bulk Order Receipt,Kotak – Vendor Payments Account,37987.25,outflow,Monthly supplier settlement,TXN-A577A138A78F48BEB2
+2025-11-05,Retail Chain Settlement,SBI – Payroll Account,28690.89,outflow,Invoice settlement,TXN-840AB9958CA347889D
+2025-05-14,Packaging Staff Payroll,HDFC – Operations Account,36415.96,outflow,Invoice settlement,TXN-BECFE9863F1D40A9A5
+2025-09-13,Factory Sanitation Charges,ICICI – Procurement Account,100802.53,outflow,Scheduled maintenance activity,TXN-9D4A1611CCDD48188A
+2025-11-29,Distributor Payment,HDFC – Operations Account,155513.3,inflow,Contractual service charges,TXN-1E2F9D0200B44257A3
+2025-05-06,Sugar Procurement,ICICI – Procurement Account,71308.26,inflow,Scheduled maintenance activity,TXN-6DFC1FC6B37A4CC5BA
+2025-10-20,Factory Sanitation Charges,HDFC – Operations Account,12982.23,outflow,Temporary labour payment,TXN-D9A0FCBEC5C0452B9F
+2025-10-12,Hotel Supply Payment,SBI – Payroll Account,73212.83,outflow,Cold chain logistics charges,TXN-447F6A73C0DA4CDD8F
+2025-06-18,Spices Raw Material,Kotak – Vendor Payments Account,340381.42,inflow,Packaging material replenishment,TXN-91EB1E0ED41E4BA28C
+2026-01-25,Wheat Flour Purchase,SBI – Payroll Account,113514.22,outflow,Monthly supplier settlement,TXN-AEA8CE4E78A84CAEB1
+2025-08-10,Packaging Film Purchase,Axis – Sales Collection Account,174012.52,inflow,Invoice settlement,TXN-D7FA9A0E9DEA4B8794
+2025-05-31,Spices Raw Material,Axis – Sales Collection Account,118545.66,outflow,Bulk order payment received,TXN-E6FB805DFB86465CA0
+2025-10-25,Factory Sanitation Charges,SBI – Payroll Account,73486.27,outflow,Urgent procurement for production run,TXN-85CE58D95F7B484387
+2025-06-17,Factory Sanitation Charges,Axis – Sales Collection Account,36770.16,outflow,Scheduled maintenance activity,TXN-9FFD7C9322DB40A4AB
+2025-08-12,Retail Chain Settlement,SBI – Payroll Account,155694.86,outflow,Bulk order payment received,TXN-7A6685213ABA4EA08F
+2025-08-27,Packaging Staff Payroll,Axis – Sales Collection Account,150926.59,outflow,Contractual service charges,TXN-F4EA5F8A345F4B2DAA
+2025-12-04,Factory Sanitation Charges,Kotak – Vendor Payments Account,174250.69,outflow,Routine operational expense,TXN-8EF900C8C6E8436880
+2025-04-25,Packaging Staff Payroll,SBI – Payroll Account,109536.0,outflow,Temporary labour payment,TXN-8DA3BD8C3AD14D4ABE
+2025-07-27,Hotel Supply Payment,ICICI – Procurement Account,70116.67,inflow,Monthly supplier settlement,TXN-3D7E2CD598634FB693
+2025-11-09,Quality Inspection Fees,SBI – Payroll Account,46896.86,inflow,Packaging material replenishment,TXN-D940837388084806AA
+2025-04-18,Packaging Staff Payroll,Axis – Sales Collection Account,167786.64,outflow,Invoice settlement,TXN-30CC1494212D4D2AB9
+2025-09-17,Factory Sanitation Charges,SBI – Payroll Account,80843.97,outflow,Invoice settlement,TXN-ADB55D3E910B4C10A4
+2025-12-09,Retail Chain Settlement,HDFC – Operations Account,11244.95,outflow,Scheduled maintenance activity,TXN-DF34800FAB574F1DA2
+2026-01-08,Wheat Flour Purchase,Kotak – Vendor Payments Account,182279.02,inflow,Routine operational expense,TXN-1E5CB6DBD49D4DAE93
+2025-08-06,Hotel Supply Payment,SBI – Payroll Account,8636.72,outflow,Routine operational expense,TXN-EFD37C9138674C69AD
+2025-06-06,Refrigeration Maintenance,ICICI – Procurement Account,173131.37,outflow,Invoice settlement,TXN-BF2D0B2FC2464CF9A0
+2025-05-13,Quality Inspection Fees,Axis – Sales Collection Account,100364.98,outflow,Routine operational expense,TXN-F6258937150245FCB3
+2025-08-29,Refrigeration Maintenance,SBI – Payroll Account,148630.29,outflow,Packaging material replenishment,TXN-2BF99868303645CD87
+2025-07-15,Bulk Order Receipt,SBI – Payroll Account,85488.91,outflow,Cold chain logistics charges,TXN-FA77406DFB5E44B295
+2025-09-12,Spices Raw Material,HDFC – Operations Account,165014.23,outflow,Scheduled maintenance activity,TXN-A888541A7F53472794
+2026-02-05,Hotel Supply Payment,HDFC – Operations Account,204360.72,inflow,Cold chain logistics charges,TXN-7CE9B6BDEC6E49B8A0
+2025-09-30,Wheat Flour Purchase,HDFC – Operations Account,140771.82,outflow,Routine operational expense,TXN-19781372C00B4439B5
+2025-11-28,Retail Chain Settlement,HDFC – Operations Account,49505.89,outflow,Temporary labour payment,TXN-C51BC4FA5D8E44AA95
+2025-09-01,Packaging Staff Payroll,Kotak – Vendor Payments Account,217695.25,inflow,Bulk order payment received,TXN-6B2802A20E7E4C1793
+2025-11-11,Quality Inspection Fees,Kotak – Vendor Payments Account,172501.64,outflow,Contractual service charges,TXN-D497BCA27CD74A1797
+2025-08-26,Factory Worker Payroll,ICICI – Procurement Account,45920.71,inflow,Invoice settlement,TXN-FD19313BDD7D4BB2A4
+2025-07-15,Wheat Flour Purchase,Kotak – Vendor Payments Account,70160.84,outflow,Temporary labour payment,TXN-52E1EB82FE9F455A9F
+2025-08-11,Packaging Staff Payroll,ICICI – Procurement Account,28495.88,outflow,Routine operational expense,TXN-E396A7EBF5AF473A8F
+2025-11-25,Milk Powder Supply,HDFC – Operations Account,56160.82,outflow,Temporary labour payment,TXN-4C44F25BD7C5400494
+2025-12-01,Packaging Film Purchase,SBI – Payroll Account,216657.39,inflow,Scheduled maintenance activity,TXN-9896F2902B2C45F6BB
+2025-08-13,Quality Inspection Fees,HDFC – Operations Account,188168.35,inflow,Routine operational expense,TXN-E5759002020C4401B9
+2026-01-05,Bulk Order Receipt,Axis – Sales Collection Account,146611.56,outflow,Monthly supplier settlement,TXN-3DB479D4D1AF490FBD
+2025-06-28,Factory Sanitation Charges,ICICI – Procurement Account,166810.4,outflow,Temporary labour payment,TXN-29D7F0D3D14D4E3990
+2025-12-09,Quality Inspection Fees,Kotak – Vendor Payments Account,125589.92,outflow,Packaging material replenishment,TXN-BB778C59FA2B4D84BA
+2025-10-11,Quality Inspection Fees,Kotak – Vendor Payments Account,66597.38,outflow,Temporary labour payment,TXN-29938AAE4A2C4298A9
+2025-12-09,Quality Inspection Fees,HDFC – Operations Account,175191.43,outflow,Monthly supplier settlement,TXN-F3FF05D82D4C4A0680
+2025-07-10,Factory Worker Payroll,Axis – Sales Collection Account,220480.86,inflow,Packaging material replenishment,TXN-80DF29B9A7BA42E8B7
+2025-11-04,Packaging Film Purchase,HDFC – Operations Account,40190.95,outflow,Routine operational expense,TXN-EC6A5BE8D7A34E9CB8
+2025-05-15,Packaging Staff Payroll,Kotak – Vendor Payments Account,91147.86,outflow,Temporary labour payment,TXN-F146756C208C485C8B
+2025-06-11,Cold Storage Electricity,ICICI – Procurement Account,76243.38,outflow,Bulk order payment received,TXN-96A50CF5DA5546579E
+2025-05-10,Packaging Staff Payroll,Axis – Sales Collection Account,117374.14,outflow,Routine operational expense,TXN-701D945AFC9046F38D
+2025-12-08,Milk Powder Supply,Kotak – Vendor Payments Account,54013.04,outflow,Routine operational expense,TXN-B28BAE3AAB4D48F892
+2025-08-24,Distributor Payment,ICICI – Procurement Account,20346.0,outflow,Contractual service charges,TXN-EF5714ABD9604EB28E
+2026-02-01,Wheat Flour Purchase,Kotak – Vendor Payments Account,40515.13,outflow,Contractual service charges,TXN-FA3C2968046A40218F
+2025-07-09,Bulk Order Receipt,HDFC – Operations Account,168101.63,inflow,Routine operational expense,TXN-D990A43E83394924BD
+2025-09-03,Bulk Order Receipt,ICICI – Procurement Account,247775.74,inflow,Urgent procurement for production run,TXN-1E33A3B892954A14AE
+2026-01-08,Spices Raw Material,SBI – Payroll Account,140906.6,outflow,Invoice settlement,TXN-E2A446066D764DF98C
+2025-10-18,Edible Oil Purchase,HDFC – Operations Account,135357.44,inflow,Bulk order payment received,TXN-62B8511CB51A42738C
+2025-11-02,Spices Raw Material,Kotak – Vendor Payments Account,166824.75,outflow,Routine operational expense,TXN-A8639FBAA54D4576B5
+2025-08-21,Bulk Order Receipt,Kotak – Vendor Payments Account,168798.67,outflow,Temporary labour payment,TXN-BEF28EEAD1E24383BF
+2025-08-08,Factory Worker Payroll,Kotak – Vendor Payments Account,68289.53,outflow,Monthly supplier settlement,TXN-0E612D6E44704CA49A
+2025-12-29,Sugar Procurement,Axis – Sales Collection Account,94672.0,outflow,Scheduled maintenance activity,TXN-87622F581F4F4C1785
+2026-02-02,Spices Raw Material,HDFC – Operations Account,92719.44,outflow,Monthly supplier settlement,TXN-183990A8BAE544879E
+2025-11-08,Refrigeration Maintenance,HDFC – Operations Account,98342.16,outflow,Monthly supplier settlement,TXN-47A71C527667490DA5
+2025-06-08,Edible Oil Purchase,SBI – Payroll Account,169121.74,outflow,Urgent procurement for production run,TXN-F24395C70C7C4C2EB6
+2025-07-20,Factory Sanitation Charges,Axis – Sales Collection Account,10449.91,outflow,Scheduled maintenance activity,TXN-E602153E1520455C9F
+2025-05-07,Refrigeration Maintenance,Kotak – Vendor Payments Account,6074.88,outflow,Temporary labour payment,TXN-3719BF27B447445EAA
+2025-05-16,Packaging Film Purchase,Kotak – Vendor Payments Account,58489.76,inflow,Packaging material replenishment,TXN-539A571FAA5240DFA3
+2025-06-12,Packaging Film Purchase,HDFC – Operations Account,177429.9,outflow,Temporary labour payment,TXN-973FF2EF96DF4721AF
+2025-12-05,Hotel Supply Payment,Kotak – Vendor Payments Account,179525.36,outflow,Packaging material replenishment,TXN-CFBB4BF6E0A5478684
+2025-04-17,Retail Chain Settlement,ICICI – Procurement Account,72207.21,outflow,Contractual service charges,TXN-93FE36D52E804B9DB2
+2025-05-03,Milk Powder Supply,Axis – Sales Collection Account,251104.43,inflow,Bulk order payment received,TXN-CD01CD72371F42B598
+2025-09-15,Sugar Procurement,Kotak – Vendor Payments Account,66987.33,outflow,Monthly supplier settlement,TXN-1C4A9FC3D60C44D8B5
+2025-12-29,Edible Oil Purchase,SBI – Payroll Account,43905.89,outflow,Monthly supplier settlement,TXN-16D72514FF3747F692
+2025-10-12,Refrigeration Maintenance,HDFC – Operations Account,38869.69,inflow,Contractual service charges,TXN-6D3991C1B10148C1A9
+2025-06-29,Quality Inspection Fees,SBI – Payroll Account,113211.81,inflow,Scheduled maintenance activity,TXN-8CD5A2821412473389
+2025-11-16,Packaging Staff Payroll,SBI – Payroll Account,78337.18,outflow,Urgent procurement for production run,TXN-89718D32F55B4FAD9B
+2025-09-05,Hotel Supply Payment,ICICI – Procurement Account,51288.43,outflow,Temporary labour payment,TXN-D224364221924FAC8B
+2025-08-09,Factory Sanitation Charges,Kotak – Vendor Payments Account,99339.73,outflow,Packaging material replenishment,TXN-4D19CD9444C34BA699
+2025-09-04,Factory Worker Payroll,HDFC – Operations Account,322743.44,inflow,Scheduled maintenance activity,TXN-F9EEB4EA4FAF45EBBC
+2025-12-05,Refrigeration Maintenance,HDFC – Operations Account,99669.01,outflow,Packaging material replenishment,TXN-3645F9F427144D33A9
+2025-04-16,Distributor Payment,ICICI – Procurement Account,290473.46,inflow,Contractual service charges,TXN-2B773375EFC343CD8D
+2025-08-04,Sugar Procurement,Kotak – Vendor Payments Account,80109.9,outflow,Cold chain logistics charges,TXN-91C161C0AF4046608D
+2025-09-16,Cold Storage Electricity,Axis – Sales Collection Account,29009.25,outflow,Packaging material replenishment,TXN-B2B01886682149F1A0
+2026-01-30,Retail Chain Settlement,HDFC – Operations Account,133403.14,outflow,Bulk order payment received,TXN-6236D1CB8B2F47928A
+2025-06-12,Retail Chain Settlement,ICICI – Procurement Account,34214.56,outflow,Monthly supplier settlement,TXN-53FC84ABEE114DAA96
+2025-06-19,Factory Worker Payroll,Kotak – Vendor Payments Account,113847.45,inflow,Cold chain logistics charges,TXN-8EF1035860E24F0F96
+2025-05-28,Hotel Supply Payment,Axis – Sales Collection Account,53379.34,outflow,Temporary labour payment,TXN-D528E9451A71462088
+2025-10-27,Bulk Order Receipt,ICICI – Procurement Account,162903.67,outflow,Invoice settlement,TXN-DA1A57F2D83F41A4AA
+2025-11-16,Distributor Payment,SBI – Payroll Account,34023.05,outflow,Packaging material replenishment,TXN-F1FACB0DF11C4A60B9
+2025-10-02,Packaging Film Purchase,ICICI – Procurement Account,109695.68,outflow,Monthly supplier settlement,TXN-07149327FDC544DAAA
+2026-01-03,Wheat Flour Purchase,Kotak – Vendor Payments Account,94063.31,outflow,Monthly supplier settlement,TXN-BF31ABF6F6764CAFA9
+2026-01-30,Cold Storage Electricity,ICICI – Procurement Account,120090.93,outflow,Monthly supplier settlement,TXN-7CB37E474D5B46658D
+2025-09-06,Retail Chain Settlement,ICICI – Procurement Account,65762.28,outflow,Contractual service charges,TXN-24A0C492F8B345C6A8
+2026-01-25,Refrigeration Maintenance,HDFC – Operations Account,124893.85,inflow,Urgent procurement for production run,TXN-71C60F0F512C4E9B87
+2025-06-15,Spices Raw Material,HDFC – Operations Account,122497.41,outflow,Invoice settlement,TXN-3489C975654B49858C
+2025-05-11,Milk Powder Supply,ICICI – Procurement Account,172672.3,outflow,Urgent procurement for production run,TXN-57035935051849C5B3
+2026-01-21,Wheat Flour Purchase,SBI – Payroll Account,108105.82,outflow,Invoice settlement,TXN-C885D8B6DE2341E897

@@ -1,0 +1,1001 @@
+date,transaction amount,inflow or outflow,bank account name,transaction name,refrence ID,categroy
+2025-10-17,50595.05,outflow,HDFC - Operations Account,Water Treatment Charges,FOOD-2ED4F534,operational cost
+2025-03-05,77347.85,outflow,HDFC - Operations Account,Maize,FOOD-29BAE4FA,raw materials
+2025-06-24,276983.4,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-1A2E3884,client fees
+2025-07-18,8371.57,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-58BC80CF,operational cost
+2025-09-18,16748.78,outflow,HDFC - Operations Account,Water Treatment Charges,FOOD-068D66BA,operational cost
+2025-11-18,112439.92,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-95E3D069,raw materials
+2026-01-19,38730.49,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-9C529432,operational cost
+2025-03-19,62657.42,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-66C77002,operational cost
+2025-08-26,261478.14,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-52DD481F,client fees
+2025-09-09,89895.29,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-6801EDF5,workforce
+2025-10-22,206910.72,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-60E7E6FA,client fees
+2025-05-18,10138.33,outflow,HDFC - Operations Account,Wheat Flour,FOOD-6307C748,raw materials
+2025-03-16,326829.77,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-2F4FAEFD,client fees
+2026-01-11,124956.86,outflow,Kotak - Vendor Payments,Plastic Containers,FOOD-2E5785DC,raw materials
+2025-06-29,74320.08,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-2904D254,operational cost
+2025-08-31,97987.76,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-7BB8A3E2,workforce
+2026-01-30,33171.28,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-923D279F,operational cost
+2025-05-11,105831.76,outflow,ICICI - Procurement Account,Milk Powder,FOOD-09339ED2,raw materials
+2025-07-28,214777.08,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-A0009296,client fees
+2025-08-07,16211.53,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-CC084001,workforce
+2025-07-26,110512.93,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-10F5B465,workforce
+2025-02-24,74974.31,outflow,ICICI - Procurement Account,Plant Cleaning & Sanitation,FOOD-D713C55A,operational cost
+2025-08-07,17440.69,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-4F1442A6,operational cost
+2025-10-17,22814.58,outflow,SBI - Payroll Account,Quality Inspection Charges,FOOD-28DE0D4B,operational cost
+2025-03-22,28114.95,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-CFA1ED47,operational cost
+2025-05-27,32942.66,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-49B38683,raw materials
+2025-04-05,145449.07,outflow,HDFC - Operations Account,Cocoa Powder,FOOD-CE5036BE,raw materials
+2025-02-02,122197.7,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-35A1D23C,client fees
+2026-01-03,26492.96,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-9BCD3F35,operational cost
+2025-02-05,297419.45,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-7692756C,client fees
+2025-06-17,51236.44,outflow,HDFC - Operations Account,Rice,FOOD-77870F2B,raw materials
+2025-07-12,166714.5,outflow,SBI - Payroll Account,Cocoa Powder,FOOD-3A7EFAC8,raw materials
+2025-06-16,175183.6,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-C949BD3E,client fees
+2025-12-15,86231.03,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-0B33E212,workforce
+2025-08-05,18339.07,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-CFF386C9,operational cost
+2025-10-10,26670.07,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-95C7330C,workforce
+2025-07-03,84391.89,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-29077718,client fees
+2025-09-12,15068.42,outflow,HDFC - Operations Account,Salt,FOOD-B3001516,raw materials
+2025-07-18,90506.9,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-C0087569,workforce
+2025-08-09,140161.96,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-5D3D36C5,client fees
+2026-01-03,35101.18,outflow,SBI - Payroll Account,Cold Chain Logistics,FOOD-A5335829,operational cost
+2025-05-28,60827.58,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-B7ADE958,operational cost
+2025-06-16,85029.19,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-30E7EF6E,operational cost
+2025-11-26,53415.8,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-EC526316,client fees
+2025-06-28,42314.87,outflow,Kotak - Vendor Payments,Water Treatment Charges,FOOD-AF7DD313,operational cost
+2025-04-04,98695.44,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-18A3F6B9,workforce
+2025-03-10,153158.03,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-14F91E70,client fees
+2025-10-12,235581.79,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-02125538,client fees
+2025-02-15,12722.81,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-48350E1D,operational cost
+2026-01-19,62381.46,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-408CAF9E,operational cost
+2025-03-10,114077.7,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-7B43AB1C,client fees
+2026-01-22,13799.22,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-F248006B,raw materials
+2025-09-29,84042.44,outflow,Axis - Sales Collection Account,Equipment Maintenance,FOOD-783C5BCE,operational cost
+2025-07-10,59159.89,outflow,SBI - Payroll Account,Carton Boxes,FOOD-7C39476D,raw materials
+2025-08-26,276296.44,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-4190C145,client fees
+2026-01-11,212038.47,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-1AC8E5C5,client fees
+2025-08-19,25634.77,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-668C78FF,client fees
+2025-12-29,45665.9,outflow,Axis - Sales Collection Account,Cocoa Powder,FOOD-BFC7FE82,raw materials
+2025-12-16,61081.8,outflow,ICICI - Procurement Account,Temporary Labour Wages,FOOD-D988034C,workforce
+2025-06-18,337266.24,inflow,HDFC - Operations Account,Retail Chain Order Payment,FOOD-8422B29D,client fees
+2025-06-24,105544.01,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-2D9C9D57,workforce
+2025-03-28,144909.76,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-D499E97A,client fees
+2025-04-10,43359.58,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-448317CC,raw materials
+2025-03-27,10079.4,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-A07D9CF3,operational cost
+2025-09-17,55840.2,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-334BEB32,workforce
+2025-07-11,51644.43,outflow,ICICI - Procurement Account,Water Treatment Charges,FOOD-A109F1A4,operational cost
+2025-05-31,112644.69,outflow,Axis - Sales Collection Account,Temporary Labour Wages,FOOD-98AC7023,workforce
+2025-10-05,151356.6,outflow,HDFC - Operations Account,Packaging Film,FOOD-E1BE5F56,raw materials
+2025-07-16,111621.93,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-98530A5B,client fees
+2025-11-14,17808.22,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-2DDEDB54,workforce
+2025-09-09,26211.45,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-E1C00842,raw materials
+2025-08-23,74112.81,outflow,SBI - Payroll Account,Spices Mix,FOOD-B340CEB4,raw materials
+2026-01-04,83543.98,outflow,SBI - Payroll Account,Overtime Payments,FOOD-96768457,workforce
+2026-02-01,131351.91,outflow,SBI - Payroll Account,Milk Powder,FOOD-38077430,raw materials
+2025-05-23,132580.76,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-02729FEF,client fees
+2025-11-06,37762.9,outflow,SBI - Payroll Account,Packaging Film,FOOD-3AD61FD4,raw materials
+2025-03-12,15379.34,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-A252FD54,workforce
+2025-03-09,268296.53,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-773C31E1,client fees
+2025-05-03,165726.15,outflow,Kotak - Vendor Payments,Cocoa Powder,FOOD-354767C4,raw materials
+2025-05-21,93376.72,outflow,ICICI - Procurement Account,Maize,FOOD-83F73EF1,raw materials
+2025-06-20,98046.55,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-147EAD0F,workforce
+2025-06-26,54421.93,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-D210BFE2,workforce
+2025-04-01,65791.05,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-50208BF4,workforce
+2025-12-18,59261.47,outflow,ICICI - Procurement Account,Preservatives,FOOD-3FA0DBD0,raw materials
+2025-12-18,151981.8,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-1AF8596B,client fees
+2025-02-17,119073.58,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-E00709CF,workforce
+2025-06-22,44952.0,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-1A23740C,operational cost
+2025-08-11,105813.36,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-FEA856D2,workforce
+2026-01-04,126204.1,outflow,ICICI - Procurement Account,Food Additives,FOOD-BD55A95A,raw materials
+2025-03-28,82677.13,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-C5F51250,operational cost
+2025-11-10,19942.74,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-7AD2EC15,operational cost
+2025-06-12,72612.12,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-EBC218DE,operational cost
+2025-08-30,331771.5,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-F327EDBD,client fees
+2025-08-25,140319.99,inflow,HDFC - Operations Account,Retail Chain Order Payment,FOOD-502D36C8,client fees
+2025-08-25,80141.65,outflow,SBI - Payroll Account,Spices Mix,FOOD-6CBF806B,raw materials
+2025-02-21,127008.73,outflow,ICICI - Procurement Account,Spices Mix,FOOD-8C663C89,raw materials
+2026-01-20,133561.78,outflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-7380CB97,client fees
+2025-02-08,54544.8,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-383C18F1,workforce
+2025-04-25,164808.35,outflow,Axis - Sales Collection Account,Rice,FOOD-A87BB3F1,raw materials
+2026-01-14,88740.46,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-86F87FD9,operational cost
+2025-06-15,72023.5,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-D8D60298,workforce
+2025-12-17,24918.11,outflow,SBI - Payroll Account,Overtime Payments,FOOD-E1D490F9,workforce
+2025-03-07,114838.36,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-D063B4C3,workforce
+2025-05-05,76365.01,outflow,ICICI - Procurement Account,Food Additives,FOOD-3375E171,raw materials
+2026-01-25,105787.47,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-8E873818,client fees
+2025-05-27,76474.58,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-B59F1FBA,raw materials
+2026-01-05,139740.14,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-82367D93,client fees
+2025-06-28,113806.7,outflow,HDFC - Operations Account,Overtime Payments,FOOD-2CEB14C7,workforce
+2025-06-08,38094.61,outflow,SBI - Payroll Account,Overtime Payments,FOOD-C05FE221,workforce
+2025-07-22,60939.92,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-594E5639,operational cost
+2025-04-08,82979.77,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-C97219C1,workforce
+2025-06-18,16549.33,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-869E3A60,workforce
+2025-05-22,261738.74,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-DDE2E699,client fees
+2025-07-18,91983.79,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-6A93DD4B,raw materials
+2025-11-06,75591.57,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-754D5862,operational cost
+2025-09-14,95770.29,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-8FDFABA8,workforce
+2025-11-03,5504.56,outflow,Kotak - Vendor Payments,Equipment Maintenance,FOOD-B093B557,operational cost
+2025-11-29,89743.18,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-6D162E88,operational cost
+2025-09-02,142157.32,outflow,HDFC - Operations Account,Plastic Containers,FOOD-D3884140,raw materials
+2025-10-25,45557.76,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-0366AD49,operational cost
+2026-01-10,80573.98,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-5407BDCB,operational cost
+2025-12-28,17339.75,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-CB456322,workforce
+2025-11-01,15642.5,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-A30C5CB1,operational cost
+2025-12-01,37900.76,outflow,HDFC - Operations Account,Overtime Payments,FOOD-5E268647,workforce
+2025-07-29,288393.32,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-4BE2ABC1,client fees
+2025-05-31,158194.65,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-71142553,client fees
+2025-04-19,15282.27,outflow,Kotak - Vendor Payments,Packaging Staff Payroll,FOOD-CABD6D8C,workforce
+2025-10-01,16121.17,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-9C632D31,workforce
+2025-12-12,114171.4,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-0BA216A9,client fees
+2025-05-28,30097.99,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-25D844FB,client fees
+2025-04-01,184629.88,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-685854C1,client fees
+2025-08-05,68779.16,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-72A543AE,workforce
+2025-09-26,176279.89,outflow,HDFC - Operations Account,Wheat Flour,FOOD-E9F242CE,raw materials
+2025-03-01,72483.52,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-BF3A7DC6,client fees
+2026-01-30,34830.27,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-1EE4DAF8,workforce
+2025-02-21,79458.85,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-C695053B,operational cost
+2025-11-16,61875.42,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-43D26B24,workforce
+2025-06-13,17648.61,outflow,Kotak - Vendor Payments,Packaging Staff Payroll,FOOD-DC01DA1A,workforce
+2025-12-05,65293.06,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-3192302B,workforce
+2025-03-22,13576.06,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-CBF45532,operational cost
+2025-11-03,52804.19,outflow,HDFC - Operations Account,Rice,FOOD-E2CAB6E8,raw materials
+2025-11-24,58678.08,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-1DFEA57B,client fees
+2025-04-07,70300.72,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-13504B32,operational cost
+2025-02-28,210095.92,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-0239EAD0,client fees
+2025-11-28,101663.07,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-A9E1FFCF,workforce
+2026-01-26,114603.25,outflow,Axis - Sales Collection Account,Wheat Flour,FOOD-1F9DFDFB,raw materials
+2025-03-22,84638.45,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-3EFA7476,workforce
+2025-03-15,61431.91,outflow,Axis - Sales Collection Account,Maize,FOOD-5B665049,raw materials
+2025-10-01,56168.2,outflow,Axis - Sales Collection Account,Equipment Maintenance,FOOD-24D274C7,operational cost
+2025-07-31,82220.2,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-8264BBF1,operational cost
+2025-07-19,39397.3,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-BE2BE5CB,operational cost
+2025-06-14,180807.86,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-9C36159F,client fees
+2025-06-03,126569.26,outflow,HDFC - Operations Account,Food Additives,FOOD-E7B0D942,raw materials
+2025-09-16,59555.32,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-409AE42D,client fees
+2025-04-19,142832.54,outflow,Kotak - Vendor Payments,Plastic Containers,FOOD-573A5ED3,raw materials
+2025-04-07,34280.0,outflow,HDFC - Operations Account,Rice,FOOD-2743AF53,raw materials
+2025-11-09,97942.6,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-B20A46C7,workforce
+2025-06-10,35776.72,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-184006FB,raw materials
+2025-07-04,128583.63,outflow,Axis - Sales Collection Account,Preservatives,FOOD-260E4BF7,raw materials
+2025-08-01,313540.0,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-6AA697B7,client fees
+2025-05-24,20774.62,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-A8CF476C,client fees
+2025-06-12,70997.16,outflow,Axis - Sales Collection Account,Equipment Maintenance,FOOD-5D39123E,operational cost
+2026-01-14,39236.17,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-01210F58,workforce
+2025-06-18,31478.24,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-922E15C5,operational cost
+2025-12-23,306004.01,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-05A394BA,client fees
+2025-05-25,38618.3,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-695C1D10,operational cost
+2025-06-18,161767.99,outflow,Kotak - Vendor Payments,Preservatives,FOOD-E7A461C4,raw materials
+2025-07-02,123808.97,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-0E19AD23,client fees
+2025-04-19,140092.1,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-E0ED1EB0,raw materials
+2025-02-03,31371.22,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-A60E2E98,operational cost
+2025-05-31,58030.26,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-B024DC14,workforce
+2025-11-22,173424.6,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-3880C3A1,client fees
+2025-02-12,6466.03,outflow,SBI - Payroll Account,Quality Inspection Charges,FOOD-6D9A448D,operational cost
+2025-10-01,71405.9,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-2CBBC332,operational cost
+2025-05-09,215537.33,outflow,ICICI - Procurement Account,Distributor Settlement,FOOD-4C830354,client fees
+2025-09-07,112783.91,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-DE8E2394,client fees
+2025-07-07,159773.53,outflow,HDFC - Operations Account,Food Additives,FOOD-98369EE6,raw materials
+2025-05-16,113049.47,inflow,HDFC - Operations Account,Retail Chain Order Payment,FOOD-473B05C8,client fees
+2025-09-15,97866.77,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-FFEAE98E,workforce
+2025-12-07,105176.38,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-B59B4775,workforce
+2025-02-19,116484.05,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-D46935FC,workforce
+2025-09-08,95667.65,outflow,SBI - Payroll Account,Overtime Payments,FOOD-CE80CB55,workforce
+2025-07-10,46569.29,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-1AEB4C87,operational cost
+2025-10-18,33723.64,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-BA9C1792,workforce
+2026-01-23,227180.54,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-80318A9F,client fees
+2025-10-22,251133.92,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-4475460A,client fees
+2025-04-07,138550.55,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-DFA2925F,client fees
+2025-04-24,251581.98,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-68390CCE,client fees
+2025-11-02,85627.61,outflow,HDFC - Operations Account,Carton Boxes,FOOD-E8E3421F,raw materials
+2025-11-22,134661.54,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-5BF94050,raw materials
+2025-11-09,66208.51,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-DA7D55A5,client fees
+2025-11-06,160710.33,outflow,SBI - Payroll Account,Packaging Film,FOOD-F577F9F3,raw materials
+2025-11-22,71200.34,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-8CC13BD0,operational cost
+2025-09-13,89200.68,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-C32F9EAA,client fees
+2025-03-23,38484.05,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-D98DB5C1,operational cost
+2025-07-01,79508.22,outflow,Axis - Sales Collection Account,Maize,FOOD-4F7B3C45,raw materials
+2025-06-13,76433.15,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-1041CA6D,workforce
+2025-12-12,144266.32,outflow,ICICI - Procurement Account,Salt,FOOD-F62F7FCF,raw materials
+2025-03-21,70391.04,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-E2E73EF6,operational cost
+2025-12-03,316738.8,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-B2B09414,client fees
+2025-08-20,177037.63,outflow,SBI - Payroll Account,Carton Boxes,FOOD-E95B1D5E,raw materials
+2025-03-30,177899.15,outflow,Axis - Sales Collection Account,Sugar,FOOD-20202476,raw materials
+2025-04-13,55895.09,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-47A54722,workforce
+2025-07-12,48694.45,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-B3ACCA48,workforce
+2026-01-11,74009.85,outflow,ICICI - Procurement Account,Food Additives,FOOD-E9CBF588,raw materials
+2025-12-21,37699.5,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-F915A16E,client fees
+2025-06-06,90579.02,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-605EB692,client fees
+2025-05-24,91923.72,outflow,SBI - Payroll Account,Packaging Film,FOOD-BCB83343,raw materials
+2025-04-29,195121.06,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-9BE10E32,client fees
+2025-04-02,12754.68,outflow,HDFC - Operations Account,Edible Oil,FOOD-8755EA2E,raw materials
+2025-12-02,118666.9,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-4CE54C52,client fees
+2025-08-12,37368.45,outflow,ICICI - Procurement Account,Milk Powder,FOOD-0FAE74BC,raw materials
+2025-03-30,73705.18,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-8FEB1E3A,client fees
+2025-12-28,69793.2,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-46BFDFFB,operational cost
+2025-11-29,91264.5,outflow,HDFC - Operations Account,Overtime Payments,FOOD-CEAFCC30,workforce
+2025-05-21,10638.33,outflow,Kotak - Vendor Payments,Maize,FOOD-8663543E,raw materials
+2026-01-23,25092.92,outflow,Axis - Sales Collection Account,Plastic Containers,FOOD-B6EACFC0,raw materials
+2025-10-09,121138.7,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-C8FD643F,client fees
+2025-03-17,22493.32,outflow,HDFC - Operations Account,Food Additives,FOOD-8D4B26BC,raw materials
+2025-11-30,15711.85,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-0E6EA865,operational cost
+2025-03-06,40948.3,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-EB5FF556,operational cost
+2025-07-30,254881.54,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-A541C00C,client fees
+2025-04-16,44684.33,outflow,Axis - Sales Collection Account,Milk Powder,FOOD-9975640B,raw materials
+2025-09-28,168698.46,outflow,Axis - Sales Collection Account,Salt,FOOD-81D3488A,raw materials
+2025-12-11,199798.49,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-DE52E77F,client fees
+2025-05-06,85188.54,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-DB1601A2,client fees
+2025-08-29,89629.05,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-B098F1FE,operational cost
+2025-09-05,216267.3,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-20ED9DF0,client fees
+2025-11-27,119956.58,outflow,ICICI - Procurement Account,Spices Mix,FOOD-6ED81CB1,raw materials
+2025-04-16,28371.84,outflow,HDFC - Operations Account,Maize,FOOD-3D9D6A1E,raw materials
+2025-07-10,43745.9,outflow,HDFC - Operations Account,Plastic Containers,FOOD-96F5B14D,raw materials
+2025-06-13,3202.84,outflow,Kotak - Vendor Payments,Water Treatment Charges,FOOD-621E70C4,operational cost
+2025-08-03,89350.17,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-C3E43343,workforce
+2025-07-11,31542.92,outflow,Axis - Sales Collection Account,Overtime Payments,FOOD-5798DF34,workforce
+2025-04-28,17630.54,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-2C90E778,operational cost
+2025-10-14,114142.36,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-93F65910,workforce
+2025-09-24,54267.93,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-6CE2B703,operational cost
+2025-05-23,53214.81,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-13DE38FA,workforce
+2025-11-02,47452.87,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-A291C681,raw materials
+2026-01-21,116380.21,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-BEB608D9,workforce
+2026-02-02,148219.04,outflow,Kotak - Vendor Payments,Packaging Film,FOOD-FD593E1F,raw materials
+2025-12-07,115976.17,outflow,Axis - Sales Collection Account,Overtime Payments,FOOD-30941F74,workforce
+2026-01-23,107924.81,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-64726A11,workforce
+2025-03-10,43557.4,outflow,HDFC - Operations Account,Overtime Payments,FOOD-7CC70EFC,workforce
+2025-03-23,33281.19,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-519B3368,workforce
+2025-05-30,223008.67,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-5EA581A0,client fees
+2025-09-03,34160.68,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-8EE2582F,operational cost
+2025-04-18,173187.57,outflow,Kotak - Vendor Payments,Cocoa Powder,FOOD-CBFFA715,raw materials
+2025-12-10,78163.29,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-449D5EA6,client fees
+2025-09-19,304170.07,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-0C6A80EE,client fees
+2025-03-25,56380.04,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-6433C0F6,workforce
+2025-07-08,32311.8,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-E057C1C3,workforce
+2025-11-12,27686.14,outflow,ICICI - Procurement Account,Water Treatment Charges,FOOD-257BB4E7,operational cost
+2025-11-28,95783.96,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-3B481A31,workforce
+2025-07-03,128552.11,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-70BFD89D,client fees
+2025-10-25,75729.42,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-DAD29660,operational cost
+2025-06-24,88354.45,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-5A49071E,operational cost
+2025-10-07,19032.06,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-DE5A1FDE,operational cost
+2025-06-16,224881.45,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-597AD652,client fees
+2025-06-22,57626.1,outflow,SBI - Payroll Account,Wheat Flour,FOOD-00014AF0,raw materials
+2025-08-26,333992.81,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-3ABF97FD,client fees
+2026-01-10,174457.91,outflow,SBI - Payroll Account,Plastic Containers,FOOD-D14ED45A,raw materials
+2025-08-28,130130.91,outflow,ICICI - Procurement Account,Cocoa Powder,FOOD-D2CBA5D6,raw materials
+2025-03-29,60448.36,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-08A6A90B,operational cost
+2025-08-16,121303.87,outflow,Axis - Sales Collection Account,Sugar,FOOD-5F54AAF2,raw materials
+2025-09-05,19411.04,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-C2C058E7,workforce
+2025-04-23,110066.68,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-2AF17034,workforce
+2025-04-14,8053.68,outflow,SBI - Payroll Account,Equipment Maintenance,FOOD-79DF68B6,operational cost
+2025-09-12,65982.05,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-2EB2FEBB,workforce
+2025-08-08,156052.94,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-06865192,client fees
+2025-08-12,56911.08,outflow,HDFC - Operations Account,Food Additives,FOOD-5C70D27C,raw materials
+2025-03-22,35342.06,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-F76D4DF1,operational cost
+2025-06-03,303411.02,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-87414551,client fees
+2025-08-20,19958.49,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-B67EC282,workforce
+2025-05-01,8454.69,outflow,ICICI - Procurement Account,Sugar,FOOD-EE7D243F,raw materials
+2025-09-13,85303.44,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-0F529C9C,workforce
+2025-10-17,79655.53,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-6BD3A2DE,client fees
+2025-02-02,77565.48,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-1ADD7EE3,workforce
+2025-11-12,40918.22,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-BF46ADA1,workforce
+2025-08-29,82624.25,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-F7089C7A,workforce
+2025-11-06,43267.27,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-6BC2F629,operational cost
+2025-11-10,60154.0,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-532F76AF,operational cost
+2025-05-23,217596.84,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-EA02E285,client fees
+2025-10-29,75169.5,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-A93F31BA,operational cost
+2025-11-25,153805.61,outflow,Axis - Sales Collection Account,Plastic Containers,FOOD-DEAB50AD,raw materials
+2025-06-10,121656.39,outflow,SBI - Payroll Account,Cocoa Powder,FOOD-63B5ED45,raw materials
+2025-12-19,15076.25,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-F47C8445,workforce
+2025-06-19,108683.9,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-ACF95C48,workforce
+2025-09-11,24946.21,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-450B6306,operational cost
+2025-12-22,85934.53,outflow,HDFC - Operations Account,Cold Chain Logistics,FOOD-931761C7,operational cost
+2025-08-17,101744.14,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-AE180226,client fees
+2026-01-11,95418.73,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-C0B9AA91,client fees
+2025-03-06,97423.5,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-D7A0C2E6,workforce
+2025-06-13,69980.06,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-CF16C371,client fees
+2025-12-17,168840.57,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-38FC798F,client fees
+2025-06-03,210402.22,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-08983A19,client fees
+2025-12-14,79085.72,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-7DC765CB,workforce
+2025-04-14,152086.33,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-DBC3C5AE,client fees
+2025-11-01,82467.81,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-B222250E,operational cost
+2025-05-30,37031.06,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-9F9F82B3,operational cost
+2026-01-03,65155.54,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-48F64A9A,workforce
+2025-10-08,62569.18,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-A3738C05,workforce
+2025-03-29,108313.01,outflow,HDFC - Operations Account,Carton Boxes,FOOD-9BB743F6,raw materials
+2025-07-29,24484.15,outflow,ICICI - Procurement Account,Salt,FOOD-AF46CB0F,raw materials
+2025-07-12,53122.65,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-89283884,workforce
+2025-10-19,102188.32,outflow,Axis - Sales Collection Account,Edible Oil,FOOD-BC115B29,raw materials
+2025-05-06,62147.87,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-F14A2894,workforce
+2025-03-30,112120.12,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-6C8B37A2,workforce
+2025-08-07,117692.3,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-D7D8C8DB,workforce
+2025-06-16,49205.52,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-F7825262,operational cost
+2025-11-16,15295.67,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-2E8BB291,operational cost
+2025-12-17,51006.31,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-8F26DC90,workforce
+2025-11-25,94015.38,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-5CB763C6,workforce
+2025-10-11,89810.21,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-1FBB5B60,operational cost
+2025-05-06,164008.71,outflow,Axis - Sales Collection Account,Cocoa Powder,FOOD-D46BF115,raw materials
+2025-06-22,33951.82,outflow,Axis - Sales Collection Account,Carton Boxes,FOOD-29D4C81B,raw materials
+2025-05-18,126883.6,outflow,SBI - Payroll Account,Packaging Film,FOOD-A57E5A5F,raw materials
+2025-06-04,144105.58,outflow,SBI - Payroll Account,Spices Mix,FOOD-9093F88C,raw materials
+2025-05-11,46132.75,outflow,ICICI - Procurement Account,Plant Cleaning & Sanitation,FOOD-9E0CE61E,operational cost
+2025-07-30,9059.02,outflow,Axis - Sales Collection Account,Rice,FOOD-AB530AF7,raw materials
+2025-02-04,128186.73,outflow,Kotak - Vendor Payments,Cocoa Powder,FOOD-F5E6619C,raw materials
+2025-10-12,276098.75,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-BC810930,client fees
+2025-02-08,50991.43,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-C50BEA0C,operational cost
+2025-12-27,159660.17,outflow,ICICI - Procurement Account,Maize,FOOD-409687F2,raw materials
+2025-06-25,165072.3,outflow,HDFC - Operations Account,Spices Mix,FOOD-D6DEFEC8,raw materials
+2025-08-02,279683.99,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-5C90473B,client fees
+2025-10-16,113124.49,outflow,Kotak - Vendor Payments,Food Additives,FOOD-1CB4F09E,raw materials
+2025-12-21,273191.86,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-B18D5CA1,client fees
+2025-10-04,41299.97,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-F4BA76A3,operational cost
+2026-01-21,331444.06,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-0BF9D58B,client fees
+2025-06-26,5721.15,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-C0A28433,operational cost
+2025-06-07,241672.17,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-AA6C96C2,client fees
+2025-03-10,9040.9,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-3C809058,operational cost
+2025-05-18,21096.36,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-EBC4A0C8,client fees
+2026-01-05,247711.08,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-79B892E2,client fees
+2025-04-05,313062.45,outflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-717CBF5D,client fees
+2025-12-19,71292.11,outflow,SBI - Payroll Account,Equipment Maintenance,FOOD-591CA18F,operational cost
+2025-11-27,25595.36,outflow,Kotak - Vendor Payments,Wheat Flour,FOOD-0ABB36CC,raw materials
+2025-05-17,238633.09,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-5F463852,client fees
+2025-08-05,77205.11,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-3D2E4031,workforce
+2025-12-17,212911.22,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-83577CB0,client fees
+2026-01-26,65829.45,outflow,SBI - Payroll Account,Rice,FOOD-421CF71B,raw materials
+2025-07-08,38774.16,outflow,Axis - Sales Collection Account,Cocoa Powder,FOOD-9E19AC18,raw materials
+2025-05-07,206333.9,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-F3E6C260,client fees
+2025-08-25,129462.96,outflow,SBI - Payroll Account,Preservatives,FOOD-ACEAF3AF,raw materials
+2025-06-07,47492.98,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-6CEA8041,workforce
+2025-08-05,213897.29,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-3B38202B,client fees
+2025-02-09,38503.77,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-85CAFF2F,operational cost
+2025-05-02,71285.75,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-21C0AB65,client fees
+2025-09-21,33487.73,outflow,ICICI - Procurement Account,Spices Mix,FOOD-C844D11B,raw materials
+2025-07-22,94046.97,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-BD7D7BA8,workforce
+2025-11-05,119533.92,outflow,Kotak - Vendor Payments,Plastic Containers,FOOD-6C18F36A,raw materials
+2025-12-30,94721.25,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-DF5ACB4D,workforce
+2025-02-21,38268.61,outflow,ICICI - Procurement Account,Edible Oil,FOOD-3FE84979,raw materials
+2025-06-02,119113.68,outflow,SBI - Payroll Account,Plastic Containers,FOOD-F39735E4,raw materials
+2025-10-30,14956.93,outflow,Kotak - Vendor Payments,Factory Power Charges,FOOD-5423BDDD,operational cost
+2025-09-07,28739.59,outflow,ICICI - Procurement Account,Plastic Containers,FOOD-2571A201,raw materials
+2025-07-02,71661.44,outflow,HDFC - Operations Account,Sugar,FOOD-F85DD626,raw materials
+2025-11-02,40535.77,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-4C5054E9,operational cost
+2025-05-03,66766.79,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-842FE4F5,operational cost
+2025-11-04,26139.39,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-38CAFFE3,workforce
+2025-07-01,17804.03,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-15DA6E61,operational cost
+2026-01-04,85379.6,outflow,Kotak - Vendor Payments,Line Supervisor Salary,FOOD-98F86097,workforce
+2025-03-07,83155.54,outflow,SBI - Payroll Account,Overtime Payments,FOOD-14E6150E,workforce
+2025-11-22,130409.38,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-FE00EF93,client fees
+2025-02-24,122176.14,outflow,Kotak - Vendor Payments,Spices Mix,FOOD-045D4A79,raw materials
+2025-05-28,44336.63,outflow,ICICI - Procurement Account,Edible Oil,FOOD-7047DE3E,raw materials
+2025-02-21,105062.16,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-7CF49236,workforce
+2025-08-18,20326.79,outflow,SBI - Payroll Account,Wheat Flour,FOOD-A7A1D714,raw materials
+2025-07-20,15619.4,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-BB4ED71B,operational cost
+2025-12-22,77018.95,outflow,ICICI - Procurement Account,Sugar,FOOD-526CBBD5,raw materials
+2025-04-27,49678.04,outflow,Axis - Sales Collection Account,Rice,FOOD-CCB4116F,raw materials
+2025-03-16,85006.58,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-A4C5B540,operational cost
+2025-03-22,29849.26,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-D2575FFB,operational cost
+2025-02-21,160433.73,outflow,Kotak - Vendor Payments,Wheat Flour,FOOD-8B40EA4F,raw materials
+2025-09-07,121070.69,outflow,Kotak - Vendor Payments,Rice,FOOD-367FF1B8,raw materials
+2025-08-30,8103.54,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-D4DDF9C5,operational cost
+2025-02-14,79658.38,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-55B8A078,operational cost
+2025-04-10,103259.09,outflow,Axis - Sales Collection Account,Food Additives,FOOD-F2A6F058,raw materials
+2025-08-15,81765.73,outflow,HDFC - Operations Account,Cold Storage Electricity Bill,FOOD-D6EB4281,operational cost
+2025-02-28,121895.4,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-733C808F,client fees
+2025-10-23,32948.05,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-B5F7263D,operational cost
+2026-01-16,102190.77,outflow,ICICI - Procurement Account,Spices Mix,FOOD-AC2A9FB4,raw materials
+2025-10-08,52397.7,outflow,Kotak - Vendor Payments,Spices Mix,FOOD-8176B677,raw materials
+2025-05-04,22659.44,outflow,HDFC - Operations Account,Preservatives,FOOD-604428F7,raw materials
+2025-04-28,53907.84,outflow,HDFC - Operations Account,Cold Chain Logistics,FOOD-082ED2E8,operational cost
+2025-04-01,33227.52,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-CF00DF25,workforce
+2025-02-25,23715.27,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-E6A5472F,operational cost
+2025-11-28,160718.06,outflow,Kotak - Vendor Payments,Salt,FOOD-7AA6AC8C,raw materials
+2025-03-02,51295.38,outflow,HDFC - Operations Account,Cocoa Powder,FOOD-78CF3E46,raw materials
+2025-06-09,3696.35,outflow,SBI - Payroll Account,Equipment Maintenance,FOOD-E95C3F7A,operational cost
+2026-01-10,188813.6,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-8999D534,client fees
+2025-07-27,115070.06,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-907D5507,workforce
+2025-06-01,102759.69,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-27633615,workforce
+2025-11-05,229907.56,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-8D77BD79,client fees
+2025-09-09,40420.21,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-62D971F6,workforce
+2025-12-29,25176.34,outflow,HDFC - Operations Account,Cold Storage Electricity Bill,FOOD-78214CB6,operational cost
+2025-04-11,83345.5,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-77FC4AF5,client fees
+2026-01-26,20531.46,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-D4AE0A33,operational cost
+2025-03-29,107736.91,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-E5561240,workforce
+2025-06-21,54210.46,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-F40A180E,workforce
+2025-05-06,107116.94,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-8BF5D6EA,workforce
+2025-05-11,193471.79,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-CDAD077E,client fees
+2025-02-06,74495.77,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-7C85B828,workforce
+2025-06-22,154964.15,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-5C1020C3,client fees
+2025-08-10,29404.77,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-64C3DF29,workforce
+2026-01-30,227938.53,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-29048AA9,client fees
+2025-03-03,55089.41,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-759824FB,operational cost
+2025-10-19,145183.28,outflow,ICICI - Procurement Account,Plastic Containers,FOOD-E26F6788,raw materials
+2025-07-02,58836.07,outflow,ICICI - Procurement Account,Rice,FOOD-A238C4C6,raw materials
+2025-03-11,78447.05,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-313E0646,workforce
+2025-04-29,73754.7,outflow,Axis - Sales Collection Account,Wheat Flour,FOOD-AE01A1F4,raw materials
+2025-04-13,63582.37,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-68AE13D0,operational cost
+2025-02-13,133177.82,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-3D2012C3,client fees
+2025-06-11,172083.12,outflow,SBI - Payroll Account,Milk Powder,FOOD-E221F885,raw materials
+2025-03-13,195678.38,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-8F0F51D3,client fees
+2025-04-30,342043.93,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-65700A5C,client fees
+2025-04-14,16822.07,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-89E329B7,workforce
+2025-02-09,76191.65,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-B50343EF,workforce
+2025-11-14,28760.82,outflow,Kotak - Vendor Payments,Equipment Maintenance,FOOD-FEF480FF,operational cost
+2025-11-04,279811.3,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-989B0D2A,client fees
+2025-06-20,75115.47,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-4E45D821,operational cost
+2026-01-25,33293.33,outflow,Kotak - Vendor Payments,Factory Power Charges,FOOD-362E3BFD,operational cost
+2025-06-12,100811.06,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-F819BFAE,workforce
+2025-09-04,210130.76,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-11A13007,client fees
+2025-10-20,30772.65,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-2B3A0D60,operational cost
+2025-02-14,247221.79,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-2BC178E7,client fees
+2025-04-05,192264.84,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-EFB5D00E,client fees
+2026-01-29,13477.28,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-A6067CD4,operational cost
+2025-07-30,41527.14,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-C268C2AB,workforce
+2025-02-20,54447.42,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-FBF06456,workforce
+2025-12-26,34191.32,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-227376EB,workforce
+2025-10-20,11855.61,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-933977CC,operational cost
+2025-06-02,89190.19,outflow,HDFC - Operations Account,Cold Chain Logistics,FOOD-18473B2D,operational cost
+2025-05-19,28963.97,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-24383E7B,operational cost
+2025-12-14,168984.19,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-0768408E,client fees
+2025-10-17,81286.55,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-32FD28E0,operational cost
+2026-01-13,58712.65,outflow,HDFC - Operations Account,Cold Storage Electricity Bill,FOOD-912D6201,operational cost
+2025-11-15,18800.9,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-1951F800,operational cost
+2025-03-18,17136.55,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-2870C494,operational cost
+2026-01-21,219275.05,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-2D07DDBD,client fees
+2025-05-21,302681.4,inflow,HDFC - Operations Account,Retail Chain Order Payment,FOOD-EC3E5F16,client fees
+2026-01-10,51304.93,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-ACE5139C,client fees
+2025-10-19,53985.62,outflow,Axis - Sales Collection Account,Wheat Flour,FOOD-577EF6AF,raw materials
+2025-05-11,190885.27,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-CF872DA3,client fees
+2025-07-12,47499.83,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-C3FB0638,client fees
+2025-11-15,176322.92,outflow,ICICI - Procurement Account,Preservatives,FOOD-B227586A,raw materials
+2025-03-23,22901.49,outflow,SBI - Payroll Account,Carton Boxes,FOOD-20E221CC,raw materials
+2025-02-14,70114.95,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-B2207565,operational cost
+2025-08-18,270214.52,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-EFB510D8,client fees
+2025-07-13,56074.71,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-442F5CC1,operational cost
+2025-12-05,262072.56,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-98790F7B,client fees
+2026-01-17,73521.14,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-31000FC7,workforce
+2025-07-27,44866.02,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-827D1A3C,operational cost
+2025-10-03,83820.73,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-ED5F6F5D,workforce
+2025-07-02,16012.58,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-65394077,workforce
+2025-04-21,158130.19,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-34D27D15,client fees
+2025-05-04,62769.16,outflow,ICICI - Procurement Account,Food Additives,FOOD-4661D66C,raw materials
+2025-09-19,117299.69,outflow,SBI - Payroll Account,Plastic Containers,FOOD-D4BF77AD,raw materials
+2025-03-08,80580.7,outflow,Kotak - Vendor Payments,Maize,FOOD-D77741EA,raw materials
+2026-02-01,36868.77,outflow,HDFC - Operations Account,Spices Mix,FOOD-D8D9B233,raw materials
+2025-04-05,59656.08,outflow,Axis - Sales Collection Account,Carton Boxes,FOOD-8B634062,raw materials
+2025-11-02,34079.11,outflow,ICICI - Procurement Account,Rice,FOOD-DBBFB90E,raw materials
+2025-12-24,6867.17,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-64B90931,operational cost
+2025-10-07,88811.42,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-E8D27C1A,operational cost
+2025-05-07,31371.77,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-68DA205E,operational cost
+2025-04-12,3062.33,outflow,HDFC - Operations Account,Quality Inspection Charges,FOOD-390D4F3F,operational cost
+2025-03-22,40015.53,outflow,ICICI - Procurement Account,Cold Chain Logistics,FOOD-4CEBCAAF,operational cost
+2025-07-14,124289.73,outflow,SBI - Payroll Account,Packaging Film,FOOD-2DCB3DBC,raw materials
+2025-09-16,315413.27,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-E2A2A650,client fees
+2025-07-25,77378.42,outflow,Axis - Sales Collection Account,Sugar,FOOD-C91D4FF0,raw materials
+2025-07-15,59881.35,outflow,Kotak - Vendor Payments,Equipment Maintenance,FOOD-69F24775,operational cost
+2025-07-24,318908.11,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-57CF9C07,client fees
+2025-07-23,118438.9,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-F369D24E,workforce
+2025-09-16,101338.7,outflow,Kotak - Vendor Payments,Plastic Containers,FOOD-2055E125,raw materials
+2025-12-30,154262.79,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-BEAFEE9D,client fees
+2025-07-07,85939.87,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-B8151A5C,workforce
+2025-05-29,18562.92,outflow,SBI - Payroll Account,Food Additives,FOOD-6AADB2B0,raw materials
+2025-06-07,84711.14,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-30DF9F5D,client fees
+2025-12-09,38956.63,outflow,Kotak - Vendor Payments,Line Supervisor Salary,FOOD-AFCB16E6,workforce
+2025-12-20,169213.76,outflow,SBI - Payroll Account,Rice,FOOD-E5F6B454,raw materials
+2025-03-19,45936.64,outflow,Kotak - Vendor Payments,Packaging Staff Payroll,FOOD-84EDED6C,workforce
+2025-10-08,9454.21,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-920B82AC,operational cost
+2025-08-17,108983.85,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-FE1F2ABD,workforce
+2025-10-08,177035.83,outflow,SBI - Payroll Account,Wheat Flour,FOOD-3A2614A8,raw materials
+2026-01-20,61730.42,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-1C7F9EC9,operational cost
+2025-02-05,8929.4,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-FE6F6E9C,operational cost
+2025-03-03,5618.76,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-D71ED802,operational cost
+2025-02-12,89761.61,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-7A9EBF9C,operational cost
+2025-06-26,89257.79,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-101FB315,operational cost
+2025-04-16,71147.98,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-AB1DCCE9,operational cost
+2025-07-25,215070.47,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-0685CB35,client fees
+2025-02-02,34715.23,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-E589C7CB,operational cost
+2026-01-21,60440.63,outflow,HDFC - Operations Account,Cold Chain Logistics,FOOD-99232240,operational cost
+2025-09-05,125687.12,outflow,Axis - Sales Collection Account,Wheat Flour,FOOD-30D9275B,raw materials
+2025-12-23,225492.37,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-9ACEE6DC,client fees
+2026-01-09,5572.37,outflow,Kotak - Vendor Payments,Water Treatment Charges,FOOD-22B37349,operational cost
+2025-06-28,143726.78,outflow,Axis - Sales Collection Account,Wheat Flour,FOOD-72A3F43D,raw materials
+2025-03-08,29618.08,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-3BA9B6A5,workforce
+2026-01-30,73892.63,outflow,Kotak - Vendor Payments,Water Treatment Charges,FOOD-D2D411FC,operational cost
+2025-02-13,15848.08,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-0A3459E0,operational cost
+2025-07-14,31617.58,outflow,SBI - Payroll Account,Cold Chain Logistics,FOOD-544E344A,operational cost
+2025-10-23,88726.33,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-273918D8,client fees
+2025-10-09,7457.15,outflow,SBI - Payroll Account,Cold Chain Logistics,FOOD-031615DA,operational cost
+2025-11-23,77918.82,outflow,HDFC - Operations Account,Rice,FOOD-18ED24B2,raw materials
+2025-11-17,107560.43,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-B61F8DC5,workforce
+2025-10-05,21290.69,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-D40FD443,workforce
+2026-01-08,74752.84,outflow,Axis - Sales Collection Account,Temporary Labour Wages,FOOD-C8F7AEEC,workforce
+2025-04-10,95633.81,outflow,ICICI - Procurement Account,Cocoa Powder,FOOD-612A59C6,raw materials
+2025-11-03,35294.98,outflow,ICICI - Procurement Account,Temporary Labour Wages,FOOD-C9A95F01,workforce
+2025-04-22,103910.21,outflow,Kotak - Vendor Payments,Carton Boxes,FOOD-EDA48D43,raw materials
+2025-05-07,343332.78,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-8A905482,client fees
+2026-01-23,129232.85,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-202CA481,client fees
+2025-04-16,62220.31,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-3896BB7E,workforce
+2025-05-13,43110.07,outflow,HDFC - Operations Account,Salt,FOOD-50DE8BD2,raw materials
+2025-02-12,35214.17,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-37613427,client fees
+2025-04-03,18219.9,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-FB393963,operational cost
+2025-08-24,76812.68,outflow,SBI - Payroll Account,Overtime Payments,FOOD-F455C5DF,workforce
+2025-07-29,143034.94,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-F9812A66,raw materials
+2025-03-27,17433.48,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-67ECE7AA,operational cost
+2025-10-20,4259.82,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-F5C998AB,operational cost
+2025-04-16,64277.25,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-FA5D23C0,client fees
+2025-10-19,57815.54,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-1E8847B0,operational cost
+2025-05-06,156179.31,outflow,Axis - Sales Collection Account,Plastic Containers,FOOD-06C10FBE,raw materials
+2026-01-13,78146.13,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-2BC5A032,operational cost
+2025-10-17,194860.56,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-86E75C04,client fees
+2025-11-20,87820.47,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-40548DBA,workforce
+2025-03-06,73156.41,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-F8B883D3,operational cost
+2025-10-14,91005.64,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-5B3359BE,client fees
+2025-02-24,117549.16,outflow,Kotak - Vendor Payments,Line Supervisor Salary,FOOD-0B36935D,workforce
+2025-05-28,42978.77,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-1E5B55B5,workforce
+2025-03-05,77405.24,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-BB4ABA6F,operational cost
+2025-09-29,175267.46,outflow,HDFC - Operations Account,Preservatives,FOOD-5704FB65,raw materials
+2025-02-24,78332.85,outflow,SBI - Payroll Account,Salt,FOOD-B6809A44,raw materials
+2025-06-15,286668.5,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-EDC5216F,client fees
+2025-08-11,54458.12,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-A453BD2B,operational cost
+2025-03-31,56125.69,outflow,Kotak - Vendor Payments,Packaging Staff Payroll,FOOD-6FC18A8A,workforce
+2025-07-17,209812.33,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-2D0CC5D6,client fees
+2025-09-28,60636.67,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-34220280,workforce
+2025-08-20,176136.51,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-6EDA4D33,client fees
+2025-10-11,332117.17,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-829FCDC2,client fees
+2025-11-17,80021.95,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-0306A34B,operational cost
+2025-10-05,131122.0,outflow,HDFC - Operations Account,Maize,FOOD-AAF8496A,raw materials
+2025-04-16,40709.2,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-2ADF74D3,raw materials
+2025-08-14,48744.95,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-F009BEDB,workforce
+2025-11-04,138036.5,outflow,HDFC - Operations Account,Sugar,FOOD-5CB2EC6B,raw materials
+2025-06-20,34992.77,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-5DE7CDD5,workforce
+2025-09-26,51219.26,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-93AB1074,workforce
+2025-04-29,12873.29,outflow,HDFC - Operations Account,Cocoa Powder,FOOD-25E4E851,raw materials
+2025-06-20,257671.33,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-5550C460,client fees
+2025-02-18,64379.45,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-A87587AB,workforce
+2025-06-26,168767.71,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-58528299,client fees
+2025-06-19,334526.69,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-1DCDD311,client fees
+2025-04-30,83555.19,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-E235DA0A,workforce
+2025-05-23,91735.4,inflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-E7EE6351,client fees
+2025-12-17,104545.94,outflow,Axis - Sales Collection Account,Overtime Payments,FOOD-3B8C6009,workforce
+2026-01-26,19862.42,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-9513138A,operational cost
+2025-07-17,75404.04,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-DA5D1501,client fees
+2025-10-08,42874.26,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-F5E99EFE,operational cost
+2025-12-27,55790.53,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-9FCF1C4F,operational cost
+2025-06-25,316384.17,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-6C234772,client fees
+2025-07-04,61487.73,outflow,SBI - Payroll Account,Overtime Payments,FOOD-EBF848AE,workforce
+2025-04-18,316965.68,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-3A7525C9,client fees
+2025-12-11,66800.01,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-D5C8BBA2,operational cost
+2025-08-20,53068.22,outflow,Axis - Sales Collection Account,Rice,FOOD-C31C31B4,raw materials
+2025-09-13,35111.05,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-04730E63,operational cost
+2025-11-10,71317.52,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-B35AD02B,client fees
+2025-12-18,45609.44,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-517C2781,raw materials
+2025-05-15,80897.39,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-BE779C67,client fees
+2025-02-20,46093.56,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-9264A698,operational cost
+2025-11-29,60918.98,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-4A074491,client fees
+2025-06-10,60746.65,outflow,Kotak - Vendor Payments,Cold Storage Electricity Bill,FOOD-57960B77,operational cost
+2025-11-17,232974.1,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-8E11D508,client fees
+2025-11-12,109920.57,outflow,SBI - Payroll Account,Spices Mix,FOOD-EEC283E7,raw materials
+2025-12-26,66922.6,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-BB53ED4F,operational cost
+2025-05-15,165075.5,outflow,Axis - Sales Collection Account,Plastic Containers,FOOD-1D43461B,raw materials
+2025-08-14,310395.4,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-39C81CA4,client fees
+2025-09-01,304417.49,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-F009226D,client fees
+2025-06-28,51640.48,outflow,HDFC - Operations Account,Edible Oil,FOOD-37B8E10E,raw materials
+2025-06-21,134017.77,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-67A307F6,client fees
+2025-06-19,57314.37,outflow,Kotak - Vendor Payments,Rice,FOOD-CDE15A45,raw materials
+2025-05-19,219792.7,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-1208BC29,client fees
+2026-01-05,53867.25,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-3E7F8701,workforce
+2025-07-08,94494.34,outflow,Axis - Sales Collection Account,Food Additives,FOOD-87434EF6,raw materials
+2025-11-18,94182.18,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-CBBC2B54,workforce
+2026-01-26,65696.18,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-3A37AEEC,workforce
+2025-10-25,52960.04,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-72FA076E,workforce
+2025-07-12,74612.21,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-3F8FB8A8,workforce
+2025-06-02,65014.45,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-1AAD27EE,operational cost
+2026-01-17,21791.63,outflow,Kotak - Vendor Payments,Line Supervisor Salary,FOOD-DB6730EB,workforce
+2025-12-25,63673.12,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-B5234DD4,workforce
+2025-10-08,11151.25,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-5C5528D4,operational cost
+2025-03-23,43810.24,outflow,HDFC - Operations Account,Maize,FOOD-0169681E,raw materials
+2025-06-05,88214.12,outflow,HDFC - Operations Account,Quality Inspection Charges,FOOD-34CCEE13,operational cost
+2025-03-14,34779.89,outflow,Kotak - Vendor Payments,Line Supervisor Salary,FOOD-8B718354,workforce
+2026-01-25,54780.45,outflow,Axis - Sales Collection Account,Rice,FOOD-E92F7CA6,raw materials
+2025-12-22,67358.24,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-605D5D2D,workforce
+2025-05-15,257634.97,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-902B5F13,client fees
+2025-08-10,53619.58,outflow,HDFC - Operations Account,Cold Chain Logistics,FOOD-308CCC55,operational cost
+2025-05-04,44049.24,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-EFC34912,operational cost
+2025-08-05,232482.0,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-C1DD5A74,client fees
+2025-07-10,37807.0,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-C8672AD9,operational cost
+2025-08-31,55152.94,outflow,Axis - Sales Collection Account,Food Additives,FOOD-D8BE40DC,raw materials
+2025-04-26,13824.85,outflow,HDFC - Operations Account,Salt,FOOD-65743AF1,raw materials
+2025-02-04,139215.0,outflow,SBI - Payroll Account,Salt,FOOD-307D45D5,raw materials
+2025-08-17,72974.59,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-80D26765,operational cost
+2025-02-21,223639.59,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-16A36E64,client fees
+2025-11-06,112677.23,outflow,SBI - Payroll Account,Packaging Film,FOOD-478B585B,raw materials
+2026-01-22,46953.86,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-C80A771D,operational cost
+2025-09-29,94201.8,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-3A7F9434,workforce
+2025-10-29,72458.87,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-2ECC17DC,client fees
+2025-11-25,51230.45,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-F1929491,workforce
+2025-06-09,67234.5,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-8D6D927A,operational cost
+2025-04-29,100158.75,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-9100AA18,workforce
+2025-05-27,242613.43,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-163E5382,client fees
+2025-02-03,349156.29,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-BB1E4FF5,client fees
+2025-02-20,32088.08,outflow,HDFC - Operations Account,Overtime Payments,FOOD-8C4C3D68,workforce
+2025-03-13,89347.21,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-1671EA54,workforce
+2025-07-09,38701.77,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-0718C420,workforce
+2025-06-30,21039.55,outflow,HDFC - Operations Account,Hotel Supply Invoice,FOOD-8F1CC914,client fees
+2026-01-18,136749.77,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-C09E7AB2,client fees
+2025-09-12,81088.95,outflow,Kotak - Vendor Payments,Equipment Maintenance,FOOD-738FE12E,operational cost
+2026-01-09,22704.98,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-16BB7883,client fees
+2025-12-22,41625.98,outflow,ICICI - Procurement Account,Cold Chain Logistics,FOOD-BAC8E543,operational cost
+2025-12-18,95000.48,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-981308ED,workforce
+2025-05-17,166467.86,outflow,Kotak - Vendor Payments,Salt,FOOD-C15DFFDF,raw materials
+2025-05-06,76738.44,outflow,Axis - Sales Collection Account,Factory Power Charges,FOOD-1AF4A371,operational cost
+2025-04-25,20871.24,outflow,SBI - Payroll Account,Rice,FOOD-A5407735,raw materials
+2025-08-05,60436.78,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-5BE8FA58,client fees
+2025-07-10,107739.75,outflow,SBI - Payroll Account,Overtime Payments,FOOD-822DCD2E,workforce
+2025-10-08,229110.77,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-777AB8FF,client fees
+2025-08-06,55815.06,outflow,ICICI - Procurement Account,Plant Cleaning & Sanitation,FOOD-59021A25,operational cost
+2025-07-07,89464.32,outflow,Kotak - Vendor Payments,Plastic Containers,FOOD-679513F4,raw materials
+2025-05-10,38420.3,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-F2475B61,operational cost
+2025-12-03,93312.81,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-85A052FD,client fees
+2025-07-05,347784.46,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-CA561DD3,client fees
+2025-10-14,37077.99,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-88B28B78,operational cost
+2025-12-19,9907.26,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-71D99C5C,operational cost
+2026-01-17,117492.97,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-9A83E19D,workforce
+2026-01-05,219363.74,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-C1222698,client fees
+2025-10-18,92582.21,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-51B6F5D7,workforce
+2025-02-23,230159.64,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-822A85C7,client fees
+2025-05-07,41343.38,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-BAA12516,operational cost
+2025-05-14,64176.37,outflow,Kotak - Vendor Payments,Preservatives,FOOD-D3F93357,raw materials
+2025-10-19,64396.14,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-CA3D04C4,workforce
+2025-05-26,62785.82,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-290A3868,operational cost
+2025-06-06,57116.35,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-30CEE1A9,client fees
+2026-01-24,42519.25,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-3EA8CB99,operational cost
+2025-05-09,243978.08,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-54F29774,client fees
+2025-10-31,286346.76,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-C3846661,client fees
+2026-01-02,170265.61,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-6D270191,client fees
+2025-06-24,168032.5,outflow,Kotak - Vendor Payments,Spices Mix,FOOD-D04E2ADC,raw materials
+2025-02-22,46726.86,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-5639CDAB,client fees
+2025-03-31,19001.87,outflow,Kotak - Vendor Payments,Factory Power Charges,FOOD-6B39AB87,operational cost
+2025-05-27,312192.76,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-722DDBD3,client fees
+2025-02-05,325103.92,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-82450761,client fees
+2025-10-28,47298.53,outflow,SBI - Payroll Account,Refrigeration Maintenance,FOOD-13F15C42,operational cost
+2025-06-04,47740.6,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-9A92DB6A,operational cost
+2025-11-03,110191.06,outflow,SBI - Payroll Account,Salt,FOOD-D1FA23B1,raw materials
+2025-12-18,100447.56,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-EBD68AD4,workforce
+2025-09-02,239334.9,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-623F0744,client fees
+2025-09-12,91431.73,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-AAA5C0B7,workforce
+2025-05-27,16756.39,outflow,SBI - Payroll Account,Edible Oil,FOOD-82A8FD8D,raw materials
+2025-10-27,44521.02,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-DE492CB9,workforce
+2025-03-06,41885.01,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-36B57FD5,workforce
+2025-10-11,36649.83,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-76F7E400,operational cost
+2025-10-10,39833.11,outflow,ICICI - Procurement Account,Milk Powder,FOOD-BE50A270,raw materials
+2025-10-08,12067.78,outflow,HDFC - Operations Account,Quality Inspection Charges,FOOD-8E852CB2,operational cost
+2025-10-16,57187.71,outflow,Kotak - Vendor Payments,Plant Cleaning & Sanitation,FOOD-BE81686C,operational cost
+2025-08-07,44062.83,outflow,Axis - Sales Collection Account,Maize,FOOD-05D59135,raw materials
+2026-01-23,60245.01,outflow,ICICI - Procurement Account,Cold Chain Logistics,FOOD-10093358,operational cost
+2026-01-18,74323.65,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-D2EFE248,workforce
+2025-02-08,81895.72,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-ABFD7532,workforce
+2025-02-17,66929.34,outflow,ICICI - Procurement Account,Temporary Labour Wages,FOOD-B529B30B,workforce
+2025-12-19,51400.54,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-4CBCC30B,operational cost
+2025-11-22,37419.24,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-DE592AFF,client fees
+2026-01-09,104447.04,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-23BF14B1,client fees
+2025-05-17,88530.41,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-6EC03AA5,workforce
+2025-12-15,205775.7,inflow,HDFC - Operations Account,Retail Chain Order Payment,FOOD-A58A7802,client fees
+2025-04-28,38051.33,outflow,HDFC - Operations Account,Milk Powder,FOOD-D6AC7BE3,raw materials
+2025-12-15,22018.26,outflow,Axis - Sales Collection Account,Cold Chain Logistics,FOOD-E4943EE2,operational cost
+2025-03-03,34475.47,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-9FC757F6,operational cost
+2025-08-13,67787.67,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-0C1546F2,operational cost
+2025-02-14,99064.15,outflow,SBI - Payroll Account,Spices Mix,FOOD-FB13D7EA,raw materials
+2025-10-21,53164.36,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-77854F0A,operational cost
+2026-01-27,110695.67,outflow,HDFC - Operations Account,Spices Mix,FOOD-828E2E8E,raw materials
+2025-10-17,37663.78,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-B8912197,operational cost
+2025-07-18,53075.39,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-40C3642E,operational cost
+2025-10-18,112400.05,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-EEFE65BD,client fees
+2025-08-15,29419.79,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-503DBBD8,operational cost
+2025-11-13,109275.84,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-466834F4,workforce
+2025-02-08,35923.81,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-6BF81BFB,raw materials
+2025-09-07,202674.9,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-9D2CA80E,client fees
+2025-06-29,97529.76,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-423EFF0F,workforce
+2025-05-12,282454.0,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-4FCA03B4,client fees
+2025-07-24,51619.78,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-8346FB72,operational cost
+2025-02-26,110316.48,outflow,ICICI - Procurement Account,Plastic Containers,FOOD-03F48208,raw materials
+2025-10-27,40714.63,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-82B0A749,workforce
+2025-10-30,37889.28,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-4007126E,operational cost
+2026-01-30,83351.2,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-9FE010DE,workforce
+2025-10-12,94174.42,outflow,HDFC - Operations Account,Carton Boxes,FOOD-AD4200F7,raw materials
+2025-10-17,60445.46,outflow,Kotak - Vendor Payments,Refrigeration Maintenance,FOOD-A8E0A5E8,operational cost
+2025-10-31,79930.09,outflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-3F80E4EB,client fees
+2025-07-27,97675.45,outflow,SBI - Payroll Account,Overtime Payments,FOOD-039E035D,workforce
+2025-03-03,163119.59,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-5E0C422F,client fees
+2025-09-13,134163.26,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-60D59434,client fees
+2026-01-10,65857.69,outflow,HDFC - Operations Account,Refrigeration Maintenance,FOOD-389719AD,operational cost
+2025-06-13,72292.82,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-A6E2F4E1,operational cost
+2025-12-28,36613.03,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-95AA28C0,workforce
+2025-10-12,69381.98,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-FFBB9300,workforce
+2025-09-20,47208.89,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-27C6BDA3,operational cost
+2025-08-28,60486.98,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-8388A85A,workforce
+2026-01-04,61609.05,outflow,ICICI - Procurement Account,Plant Cleaning & Sanitation,FOOD-C57F9BA7,operational cost
+2025-05-11,46098.83,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-83732F51,workforce
+2025-12-23,21845.79,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-A07933D9,operational cost
+2025-03-25,34760.59,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-17BCF6D1,operational cost
+2025-09-22,25921.29,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-93F6A2A3,workforce
+2025-10-05,308959.85,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-60707021,client fees
+2026-02-02,39181.39,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-93FA0BC1,client fees
+2025-10-27,100910.51,outflow,HDFC - Operations Account,Sugar,FOOD-B20901D2,raw materials
+2025-05-23,286343.28,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-11030ED5,client fees
+2025-09-14,130317.03,inflow,Kotak - Vendor Payments,Hotel Supply Invoice,FOOD-630248EF,client fees
+2025-09-08,10378.44,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-8B5B794F,raw materials
+2025-12-28,275175.75,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-D9CADE84,client fees
+2025-06-12,23071.98,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-446496E7,operational cost
+2025-11-22,81715.46,outflow,Kotak - Vendor Payments,Rice,FOOD-9CE27224,raw materials
+2025-04-05,17608.61,outflow,HDFC - Operations Account,Cocoa Powder,FOOD-A489ED2B,raw materials
+2025-04-07,76851.18,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-E4619881,client fees
+2026-01-04,26190.22,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-F0BA0DD9,workforce
+2025-12-01,88004.67,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-84E583B5,operational cost
+2025-09-22,58130.3,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-3697AB25,operational cost
+2025-05-25,119162.48,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-2B174293,workforce
+2025-07-27,38479.27,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-4F665149,operational cost
+2025-12-14,42703.65,outflow,SBI - Payroll Account,Cold Chain Logistics,FOOD-F6174690,operational cost
+2026-01-17,62898.76,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-114AA6F8,operational cost
+2025-06-01,321826.02,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-FCFE8B45,client fees
+2026-01-05,89394.69,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-37F9A827,operational cost
+2025-09-20,64676.65,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-43BD7704,client fees
+2025-03-17,77287.58,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-AF105C45,operational cost
+2025-03-07,137413.95,outflow,ICICI - Procurement Account,Preservatives,FOOD-DB8387F6,raw materials
+2025-09-16,21143.85,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-A2851DE5,workforce
+2025-12-14,36427.37,outflow,Kotak - Vendor Payments,Milk Powder,FOOD-08ACC446,raw materials
+2025-11-05,93669.15,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-A8ED55EB,workforce
+2025-06-10,91814.88,outflow,ICICI - Procurement Account,Preservatives,FOOD-76F47546,raw materials
+2025-05-17,171044.31,outflow,Axis - Sales Collection Account,Carton Boxes,FOOD-3005EE6E,raw materials
+2025-09-12,76367.84,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-B213B73A,operational cost
+2025-03-21,66141.48,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-6B9CEC23,operational cost
+2025-08-10,79788.75,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-4FC66FE5,operational cost
+2025-02-14,309755.07,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-D9F4B6EA,client fees
+2025-06-02,110806.52,outflow,Kotak - Vendor Payments,Packaging Staff Payroll,FOOD-0AD9925E,workforce
+2025-06-01,78596.65,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-BD8D0AF0,operational cost
+2025-05-22,89448.63,outflow,ICICI - Procurement Account,Preservatives,FOOD-B2447C09,raw materials
+2025-02-15,107339.79,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-F2B19F16,workforce
+2025-10-18,284076.58,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-0EAAC62C,client fees
+2025-12-30,23220.59,outflow,Axis - Sales Collection Account,Edible Oil,FOOD-C0B268D3,raw materials
+2025-09-26,349218.13,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-AF348A02,client fees
+2025-03-21,158137.85,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-AB9CF999,client fees
+2025-07-27,78578.12,outflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-D46C48BC,client fees
+2025-09-22,36818.49,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-DEB8CFEF,workforce
+2026-01-15,85536.84,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-884FFCB7,workforce
+2025-04-16,176834.07,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-55FC6044,client fees
+2025-12-28,73174.78,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-4E57D475,workforce
+2025-04-23,87623.77,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-B9010D18,workforce
+2026-01-22,98713.57,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-B3933AFE,workforce
+2025-06-22,136150.57,outflow,Kotak - Vendor Payments,Food Additives,FOOD-61E12A80,raw materials
+2025-07-29,126418.58,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-EB32E91D,client fees
+2025-04-19,86495.84,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-59E752AA,client fees
+2025-05-07,37966.31,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-4B7B3F63,client fees
+2025-04-18,60900.52,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-25850D6E,workforce
+2025-03-20,50631.19,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-BC180949,operational cost
+2025-10-24,167880.85,outflow,Kotak - Vendor Payments,Milk Powder,FOOD-4305BD1D,raw materials
+2025-02-10,57163.53,outflow,HDFC - Operations Account,Plastic Containers,FOOD-97350CC4,raw materials
+2025-05-01,57614.85,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-68C04ABC,client fees
+2025-10-08,111236.87,outflow,Axis - Sales Collection Account,Cocoa Powder,FOOD-F08689F1,raw materials
+2025-07-10,45201.35,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-3C10BD77,operational cost
+2025-11-05,86099.26,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-80845108,workforce
+2025-04-04,319049.55,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-17FAF1E6,client fees
+2025-12-05,86146.06,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-73B599DF,client fees
+2025-12-10,100787.11,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-C4FDFFA4,workforce
+2025-08-29,52384.9,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-5B983A92,workforce
+2025-09-19,20017.11,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-1C91AB42,workforce
+2025-12-23,49921.56,outflow,Axis - Sales Collection Account,Spices Mix,FOOD-D83211EB,raw materials
+2025-11-14,13155.69,outflow,HDFC - Operations Account,Cold Storage Electricity Bill,FOOD-C4F3E813,operational cost
+2025-05-29,121882.49,outflow,Axis - Sales Collection Account,Edible Oil,FOOD-AA9314C3,raw materials
+2026-01-19,323764.07,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-56FEAE08,client fees
+2025-05-09,70160.61,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-3B3A45E5,operational cost
+2025-11-10,118696.52,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-B5BBD94E,workforce
+2025-12-20,81281.28,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-1D50411C,operational cost
+2025-02-11,209530.84,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-04EAD963,client fees
+2025-06-29,277334.66,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-67828655,client fees
+2025-10-03,271934.69,inflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-254941A4,client fees
+2025-03-30,251551.46,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-1F885AAF,client fees
+2025-02-28,143258.64,outflow,SBI - Payroll Account,Plastic Containers,FOOD-55184762,raw materials
+2025-12-25,29225.26,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-C4D4AFE9,operational cost
+2025-06-28,92953.79,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-1C8BEC29,workforce
+2025-12-27,63569.17,outflow,ICICI - Procurement Account,Edible Oil,FOOD-CAF97634,raw materials
+2025-06-24,340348.8,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-6EDA40AD,client fees
+2026-01-23,25681.6,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-C7559A95,client fees
+2025-11-16,20707.85,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-F2528819,workforce
+2025-08-21,88622.64,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-D8371F00,workforce
+2025-05-14,89530.91,outflow,HDFC - Operations Account,Plant Cleaning & Sanitation,FOOD-41A520C3,operational cost
+2025-02-19,256255.26,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-42C2DF13,client fees
+2025-08-02,280752.88,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-68069BC3,client fees
+2025-02-09,53497.07,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-7DE15E03,raw materials
+2026-01-25,15784.97,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-6975D18C,operational cost
+2025-05-30,92615.45,outflow,Axis - Sales Collection Account,Spices Mix,FOOD-D9EFE1A7,raw materials
+2025-10-25,19108.48,outflow,ICICI - Procurement Account,Temporary Labour Wages,FOOD-BC8C5BF5,workforce
+2025-05-23,79311.98,outflow,ICICI - Procurement Account,Cold Chain Logistics,FOOD-A73C3064,operational cost
+2025-09-12,69802.59,outflow,HDFC - Operations Account,Quality Inspection Charges,FOOD-3DD000AB,operational cost
+2025-05-15,69467.47,outflow,SBI - Payroll Account,Cold Storage Electricity Bill,FOOD-74342807,operational cost
+2025-03-03,285336.2,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-BB428EE2,client fees
+2025-04-23,105671.43,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-840F765F,workforce
+2025-09-07,60748.03,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-D5923F94,operational cost
+2025-03-13,156904.64,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-8EFACA03,client fees
+2025-11-10,103648.42,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-C6D95CC5,workforce
+2025-05-12,22995.66,outflow,HDFC - Operations Account,Overtime Payments,FOOD-544D7421,workforce
+2025-07-04,100866.59,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-30DD4E99,workforce
+2025-05-20,87383.87,outflow,HDFC - Operations Account,Sugar,FOOD-654A1E3B,raw materials
+2025-06-15,38547.27,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-A323E1E6,client fees
+2025-10-27,53411.01,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-F2D9CEE0,client fees
+2025-05-04,90509.27,outflow,SBI - Payroll Account,Edible Oil,FOOD-97538822,raw materials
+2025-10-19,32999.75,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-CA4FD273,operational cost
+2025-11-26,14566.83,outflow,ICICI - Procurement Account,Cold Chain Logistics,FOOD-452458D9,operational cost
+2025-08-02,113040.12,outflow,SBI - Payroll Account,Retail Chain Order Payment,FOOD-53E7EC56,client fees
+2025-04-16,47486.43,outflow,SBI - Payroll Account,Packaging Film,FOOD-D6C6A42A,raw materials
+2025-07-10,77180.13,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-8E5AE1E3,operational cost
+2025-05-04,16937.7,outflow,SBI - Payroll Account,Equipment Maintenance,FOOD-E765D144,operational cost
+2025-04-20,47804.65,outflow,HDFC - Operations Account,Carton Boxes,FOOD-401724D8,raw materials
+2025-10-24,109141.8,outflow,SBI - Payroll Account,Milk Powder,FOOD-D964F409,raw materials
+2025-10-12,69192.05,outflow,SBI - Payroll Account,Maize,FOOD-A3EF49FB,raw materials
+2025-12-23,125353.31,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-295310F9,client fees
+2025-05-05,36492.6,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-6BBA00F3,operational cost
+2025-05-08,277655.06,inflow,HDFC - Operations Account,Distributor Settlement,FOOD-FA357F6B,client fees
+2025-05-19,33961.75,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-F7F2F0BE,operational cost
+2025-09-16,78592.42,outflow,ICICI - Procurement Account,Wheat Flour,FOOD-5AA8DBDE,raw materials
+2025-03-27,171725.19,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-1638EEDE,client fees
+2025-04-08,64990.67,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-0EA84C6F,workforce
+2025-07-10,12677.49,outflow,Kotak - Vendor Payments,Sugar,FOOD-3336100D,raw materials
+2025-03-11,46785.71,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-FE9778FE,operational cost
+2025-09-12,77035.28,outflow,Axis - Sales Collection Account,Refrigeration Maintenance,FOOD-45B5999C,operational cost
+2025-08-18,76840.66,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-9EA86E5D,workforce
+2025-10-29,99644.4,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-E802CCDB,workforce
+2026-01-08,119921.36,outflow,HDFC - Operations Account,Salt,FOOD-D28DA61F,raw materials
+2025-08-25,97512.46,outflow,ICICI - Procurement Account,Carton Boxes,FOOD-7D54B172,raw materials
+2025-09-21,96062.9,inflow,Kotak - Vendor Payments,Export Order Receipt,FOOD-1DC796C0,client fees
+2025-12-23,82128.71,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-E949E4AC,workforce
+2025-02-19,36912.33,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-71F3957E,operational cost
+2025-12-20,43655.4,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-EA0232C7,client fees
+2025-12-23,12403.7,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-3FDAE6FC,operational cost
+2025-11-18,55481.11,outflow,ICICI - Procurement Account,Cocoa Powder,FOOD-D2F0EE57,raw materials
+2025-12-11,83513.78,outflow,SBI - Payroll Account,Packaging Film,FOOD-B49D6128,raw materials
+2025-02-28,70672.83,outflow,ICICI - Procurement Account,Salt,FOOD-15A9FE99,raw materials
+2025-03-21,308289.28,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-73E54AB5,client fees
+2025-03-31,83160.0,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-53F04BC6,operational cost
+2025-03-06,93572.21,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-9C4F31CA,workforce
+2025-09-17,19578.84,outflow,HDFC - Operations Account,Factory Power Charges,FOOD-1715DDD1,operational cost
+2025-09-10,224665.74,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-1CCCCCF5,client fees
+2025-12-01,102766.26,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-9D665E4F,workforce
+2025-06-25,32866.38,outflow,Kotak - Vendor Payments,Factory Power Charges,FOOD-6F7F70C2,operational cost
+2025-07-22,86444.13,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-1A845857,workforce
+2025-11-17,111454.09,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-2A939FCB,workforce
+2025-02-03,95980.95,outflow,Kotak - Vendor Payments,Spices Mix,FOOD-8DF03BFC,raw materials
+2025-08-21,250986.39,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-1737FB79,client fees
+2025-05-17,87190.38,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-410EE8FC,client fees
+2025-07-19,125854.5,outflow,ICICI - Procurement Account,Packaging Film,FOOD-F27BE120,raw materials
+2025-07-31,30559.73,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-2B18E7B8,operational cost
+2025-11-19,123207.59,outflow,SBI - Payroll Account,Spices Mix,FOOD-D0ED323F,raw materials
+2025-05-30,208510.61,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-0175DEBB,client fees
+2025-12-16,67354.93,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-5A2C0B5F,workforce
+2025-03-13,196886.28,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-AA737B1D,client fees
+2025-12-08,40046.04,inflow,HDFC - Operations Account,Bulk Buyer Payment,FOOD-F4EE157A,client fees
+2025-03-30,255642.16,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-7B41A77A,client fees
+2025-08-09,52167.22,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-1E65DA00,workforce
+2025-10-24,195828.6,inflow,HDFC - Operations Account,Export Order Receipt,FOOD-96F873F1,client fees
+2025-04-14,36506.18,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-9DAE8DB2,client fees
+2025-09-16,319289.35,inflow,Kotak - Vendor Payments,Distributor Settlement,FOOD-929379E0,client fees
+2025-09-20,120934.74,outflow,SBI - Payroll Account,Rice,FOOD-81F72F67,raw materials
+2025-10-01,45596.36,outflow,Axis - Sales Collection Account,Equipment Maintenance,FOOD-663AAEC5,operational cost
+2025-06-22,41092.5,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-BB747AC0,operational cost
+2025-11-23,151535.15,outflow,ICICI - Procurement Account,Milk Powder,FOOD-F0E32250,raw materials
+2025-06-30,156448.2,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-33053DE3,client fees
+2025-02-12,69312.45,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-1E9DFB32,client fees
+2025-08-26,201451.23,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-62ACC374,client fees
+2025-06-10,109760.03,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-403B7520,workforce
+2026-01-06,24425.11,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-28D7D48A,workforce
+2025-03-29,9652.02,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-1877E18E,raw materials
+2025-05-07,145734.63,outflow,Kotak - Vendor Payments,Maize,FOOD-007E1E36,raw materials
+2025-07-01,93445.07,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-890A49C9,workforce
+2025-03-16,252162.32,inflow,Axis - Sales Collection Account,Export Order Receipt,FOOD-C72B2943,client fees
+2025-02-08,12645.49,outflow,Kotak - Vendor Payments,Maize,FOOD-2001A96E,raw materials
+2026-02-01,104678.78,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-41490622,workforce
+2026-01-12,257593.28,inflow,ICICI - Procurement Account,Retail Chain Order Payment,FOOD-20CA7497,client fees
+2025-02-17,147548.43,outflow,HDFC - Operations Account,Carton Boxes,FOOD-985E8FFB,raw materials
+2025-07-28,98113.68,outflow,Axis - Sales Collection Account,Line Supervisor Salary,FOOD-EFBC2236,workforce
+2025-05-27,79310.5,outflow,Axis - Sales Collection Account,Temporary Labour Wages,FOOD-77AB30F3,workforce
+2025-07-02,251877.7,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-73A5C990,client fees
+2025-03-02,65992.12,outflow,Axis - Sales Collection Account,Overtime Payments,FOOD-827F9FBF,workforce
+2025-11-16,112388.57,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-E3FAE0DD,workforce
+2025-10-23,44694.23,outflow,ICICI - Procurement Account,Temporary Labour Wages,FOOD-C441F3FB,workforce
+2025-12-23,24350.17,outflow,HDFC - Operations Account,Line Supervisor Salary,FOOD-A93FFC73,workforce
+2025-11-06,66473.17,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-66141FB0,operational cost
+2025-11-05,94044.9,outflow,HDFC - Operations Account,Carton Boxes,FOOD-DBE04A9F,raw materials
+2025-03-12,18409.44,outflow,SBI - Payroll Account,Line Supervisor Salary,FOOD-03E4DC8B,workforce
+2025-03-03,52948.4,outflow,Axis - Sales Collection Account,Temporary Labour Wages,FOOD-574D689D,workforce
+2025-08-15,94057.51,outflow,HDFC - Operations Account,Food Additives,FOOD-BA6D2F17,raw materials
+2025-12-02,86024.56,outflow,HDFC - Operations Account,Plastic Containers,FOOD-802D8234,raw materials
+2026-01-22,73314.4,outflow,Kotak - Vendor Payments,Equipment Maintenance,FOOD-789D8F4C,operational cost
+2026-01-16,104773.77,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-6F7D4485,workforce
+2026-01-27,309990.99,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-FDF3D7B6,client fees
+2025-03-13,19233.72,outflow,ICICI - Procurement Account,Factory Power Charges,FOOD-958D6C62,operational cost
+2025-10-17,43931.25,outflow,ICICI - Procurement Account,Equipment Maintenance,FOOD-E3AEA366,operational cost
+2025-11-28,31404.03,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-C4B9D3CF,workforce
+2026-01-15,69248.31,outflow,SBI - Payroll Account,Factory Power Charges,FOOD-3C967FC6,operational cost
+2025-04-09,129248.2,outflow,HDFC - Operations Account,Spices Mix,FOOD-C24A47BB,raw materials
+2026-01-16,49940.89,outflow,ICICI - Procurement Account,Packaging Film,FOOD-E337AC04,raw materials
+2025-09-28,141273.99,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-6262FB98,client fees
+2025-05-08,125384.92,outflow,ICICI - Procurement Account,Cocoa Powder,FOOD-E27BE136,raw materials
+2025-12-01,15046.66,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-48E09C6C,operational cost
+2025-06-26,83252.92,outflow,Axis - Sales Collection Account,Water Treatment Charges,FOOD-0C200D99,operational cost
+2025-06-29,78259.23,outflow,Axis - Sales Collection Account,Quality Inspection Charges,FOOD-3AF28ED7,operational cost
+2025-07-01,24886.66,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-E6529BDF,workforce
+2025-12-17,101857.41,outflow,SBI - Payroll Account,Sugar,FOOD-14725695,raw materials
+2025-12-18,80499.53,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-7B5B47DE,client fees
+2025-12-06,86211.79,outflow,SBI - Payroll Account,Overtime Payments,FOOD-C49E2B2E,workforce
+2025-04-12,105601.8,outflow,Axis - Sales Collection Account,Rice,FOOD-AC01045B,raw materials
+2025-05-10,65277.58,outflow,Axis - Sales Collection Account,Sugar,FOOD-A86009E7,raw materials
+2025-11-23,84338.45,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-83C1BD2F,operational cost
+2025-07-21,296045.17,outflow,ICICI - Procurement Account,Distributor Settlement,FOOD-F7552F09,client fees
+2025-11-14,24499.3,outflow,HDFC - Operations Account,Factory Worker Payroll,FOOD-D409D65A,workforce
+2025-10-13,88620.48,inflow,ICICI - Procurement Account,Distributor Settlement,FOOD-B3ED9C0F,client fees
+2025-11-07,24884.54,outflow,Kotak - Vendor Payments,Factory Worker Payroll,FOOD-64EE2E90,workforce
+2025-04-11,30837.24,outflow,Kotak - Vendor Payments,Quality Inspection Charges,FOOD-724D2519,operational cost
+2025-09-06,28468.47,inflow,Axis - Sales Collection Account,Hotel Supply Invoice,FOOD-1AA2BB61,client fees
+2025-07-12,285116.09,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-17991C42,client fees
+2025-08-25,190350.81,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-F30C05A1,client fees
+2025-05-08,252195.51,inflow,Kotak - Vendor Payments,Retail Chain Order Payment,FOOD-2254E93A,client fees
+2025-04-10,299366.38,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-178853B2,client fees
+2025-09-30,210635.22,inflow,SBI - Payroll Account,Distributor Settlement,FOOD-3879F4A0,client fees
+2025-03-11,97381.63,outflow,HDFC - Operations Account,Sugar,FOOD-F187946C,raw materials
+2025-09-11,54716.22,outflow,ICICI - Procurement Account,Cold Storage Electricity Bill,FOOD-50931BF6,operational cost
+2025-06-28,232772.16,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-D7D53345,client fees
+2025-10-14,315663.21,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-42A534A5,client fees
+2025-12-16,22931.97,outflow,HDFC - Operations Account,Cold Storage Electricity Bill,FOOD-94398F28,operational cost
+2025-08-04,40376.29,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-43BF5AB5,client fees
+2025-08-02,10905.18,outflow,Axis - Sales Collection Account,Sugar,FOOD-05BCD22A,raw materials
+2025-04-29,269412.88,inflow,ICICI - Procurement Account,Bulk Buyer Payment,FOOD-69B48CBF,client fees
+2025-07-07,133519.07,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-1607F443,raw materials
+2025-12-28,102070.74,outflow,ICICI - Procurement Account,Maize,FOOD-CCE9472A,raw materials
+2025-12-19,21016.63,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-A4AB8C2B,workforce
+2025-03-03,34525.37,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-4AD587DA,workforce
+2025-04-02,49586.37,outflow,Axis - Sales Collection Account,Cold Storage Electricity Bill,FOOD-E9D43062,operational cost
+2026-01-04,170152.56,outflow,Axis - Sales Collection Account,Spices Mix,FOOD-EE306D0D,raw materials
+2025-08-07,62714.44,outflow,ICICI - Procurement Account,Overtime Payments,FOOD-0DA53128,workforce
+2025-10-14,88748.69,outflow,SBI - Payroll Account,Rice,FOOD-FAA286FE,raw materials
+2025-11-16,87881.18,outflow,SBI - Payroll Account,Wheat Flour,FOOD-59C44EF8,raw materials
+2025-10-14,50166.84,outflow,HDFC - Operations Account,Milk Powder,FOOD-078DC780,raw materials
+2025-02-23,158364.02,outflow,Kotak - Vendor Payments,Wheat Flour,FOOD-12D3AC8B,raw materials
+2025-12-19,87457.8,outflow,SBI - Payroll Account,Temporary Labour Wages,FOOD-8CF2301F,workforce
+2025-08-22,14817.01,outflow,ICICI - Procurement Account,Quality Inspection Charges,FOOD-68A3F46C,operational cost
+2025-10-20,180012.47,inflow,SBI - Payroll Account,Export Order Receipt,FOOD-BF393C75,client fees
+2025-07-28,46529.93,inflow,Kotak - Vendor Payments,Bulk Buyer Payment,FOOD-3844DA69,client fees
+2025-12-28,54496.17,outflow,ICICI - Procurement Account,Refrigeration Maintenance,FOOD-4EF76CCD,operational cost
+2025-12-04,41015.44,outflow,ICICI - Procurement Account,Packaging Staff Payroll,FOOD-A723E0D0,workforce
+2026-01-20,63886.5,outflow,HDFC - Operations Account,Packaging Staff Payroll,FOOD-20B6C2E0,workforce
+2025-10-01,225127.81,inflow,ICICI - Procurement Account,Hotel Supply Invoice,FOOD-33E72733,client fees
+2025-06-07,88149.65,inflow,Axis - Sales Collection Account,Retail Chain Order Payment,FOOD-A82C1494,client fees
+2025-11-12,49628.05,outflow,SBI - Payroll Account,Plant Cleaning & Sanitation,FOOD-201CFB7B,operational cost
+2025-03-02,36705.46,outflow,Axis - Sales Collection Account,Maize,FOOD-32DCCEE1,raw materials
+2025-03-01,137786.68,outflow,Axis - Sales Collection Account,Salt,FOOD-A948FCC4,raw materials
+2025-02-27,118123.21,outflow,SBI - Payroll Account,Salt,FOOD-E53A0582,raw materials
+2025-02-19,27441.37,inflow,SBI - Payroll Account,Hotel Supply Invoice,FOOD-F3BA9900,client fees
+2025-05-09,154502.61,outflow,Axis - Sales Collection Account,Milk Powder,FOOD-009EA2B6,raw materials
+2026-01-04,52750.37,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-B19213CD,workforce
+2026-01-13,43920.39,outflow,ICICI - Procurement Account,Line Supervisor Salary,FOOD-31B159F2,workforce
+2025-08-09,64932.94,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-74CCBCD6,raw materials
+2025-07-15,68958.85,outflow,SBI - Payroll Account,Water Treatment Charges,FOOD-E50A2DFF,operational cost
+2025-12-13,33670.52,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-34258F69,client fees
+2025-09-15,264017.33,inflow,Axis - Sales Collection Account,Distributor Settlement,FOOD-EB665651,client fees
+2025-09-22,96253.12,outflow,Kotak - Vendor Payments,Temporary Labour Wages,FOOD-3A6306F3,workforce
+2025-09-06,30120.81,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-3F4EFB0B,workforce
+2026-01-12,23552.68,outflow,Axis - Sales Collection Account,Factory Worker Payroll,FOOD-0D327F03,workforce
+2025-09-05,101492.18,outflow,SBI - Payroll Account,Packaging Staff Payroll,FOOD-934D4DFC,workforce
+2025-05-24,42372.16,outflow,HDFC - Operations Account,Equipment Maintenance,FOOD-EED4A7D2,operational cost
+2025-06-10,118805.5,outflow,Axis - Sales Collection Account,Packaging Film,FOOD-21DCA23F,raw materials
+2026-01-18,41124.03,outflow,Kotak - Vendor Payments,Cold Chain Logistics,FOOD-77D8090A,operational cost
+2025-07-10,75840.63,inflow,ICICI - Procurement Account,Export Order Receipt,FOOD-3365F5B4,client fees
+2026-01-07,104652.9,outflow,Kotak - Vendor Payments,Overtime Payments,FOOD-59C58437,workforce
+2025-08-18,23314.95,outflow,Axis - Sales Collection Account,Plant Cleaning & Sanitation,FOOD-16774907,operational cost
+2025-10-30,25638.47,outflow,HDFC - Operations Account,Overtime Payments,FOOD-EE28CE51,workforce
+2025-09-19,78546.66,outflow,ICICI - Procurement Account,Rice,FOOD-1ACF2625,raw materials
+2026-01-15,86212.41,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-966828A1,workforce
+2025-03-02,39382.21,outflow,SBI - Payroll Account,Equipment Maintenance,FOOD-ABA731E6,operational cost
+2025-10-12,35017.7,outflow,SBI - Payroll Account,Factory Worker Payroll,FOOD-1EAEBB21,workforce
+2025-11-28,245817.13,inflow,SBI - Payroll Account,Bulk Buyer Payment,FOOD-1EE06180,client fees
+2025-02-10,229563.82,inflow,Axis - Sales Collection Account,Bulk Buyer Payment,FOOD-0565337D,client fees
+2025-11-01,20532.02,outflow,ICICI - Procurement Account,Factory Worker Payroll,FOOD-7CA45E08,workforce
+2025-02-10,174288.67,outflow,SBI - Payroll Account,Food Additives,FOOD-599C769F,raw materials
+2025-09-17,29671.98,outflow,HDFC - Operations Account,Overtime Payments,FOOD-551B83A2,workforce
+2025-10-19,59330.74,outflow,Axis - Sales Collection Account,Packaging Staff Payroll,FOOD-F6DC7A61,workforce
+2025-07-13,55422.09,outflow,HDFC - Operations Account,Temporary Labour Wages,FOOD-2D5669F0,workforce

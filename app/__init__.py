@@ -1,12 +1,12 @@
 from flask import Flask
 from app.config import Config
 from app.extensions import init_extensions
-
+import os 
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-
+    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
     init_extensions(app)
 
     # Core home

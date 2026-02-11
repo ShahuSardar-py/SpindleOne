@@ -3,6 +3,11 @@ from app.extensions import db
 from .models import AccountCashflow
 from datetime import datetime, timedelta
 from . import bp
+import os
+from werkzeug.utils import secure_filename
+from flask import flash
+#need to figure out start balance 
+starting_balance = 10000.00
 
 @bp.route('/')
 def index():
@@ -12,17 +17,13 @@ def index():
 def dashboard():
     cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
     
-    # Calculate summary statistics
     total_inflow = sum(c.amount for c in cashflows if c.txn_type == 'INFLOW')
     total_outflow = sum(c.amount for c in cashflows if c.txn_type == 'OUTFLOW')
     
-    # Get latest balance
     latest_balance = cashflows[0].current_balance if cashflows else 0
     
-    # Get recent transactions (last 5)
     recent_transactions = cashflows[:5] if cashflows else []
     
-    # Group by month manually for charts
     monthly_inflows = {}
     monthly_outflows = {}
     
@@ -33,10 +34,8 @@ def dashboard():
         else:
             monthly_outflows[month_key] = monthly_outflows.get(month_key, 0) + c.amount
     
-    # Get all unique months and sort them
     all_months = sorted(set(monthly_inflows.keys()) | set(monthly_outflows.keys()))
     
-    # Get last 6 months for display
     six_months_data = []
     for i in range(5, -1, -1):
         d = datetime.utcnow().date() - timedelta(days=30 * i)
@@ -52,7 +51,6 @@ def dashboard():
         inflows.append(monthly_inflows.get(m, 0))
         outflows.append(monthly_outflows.get(m, 0))
     
-    # Transaction type distribution
     inflow_count = sum(1 for c in cashflows if c.txn_type == 'INFLOW')
     outflow_count = sum(1 for c in cashflows if c.txn_type == 'OUTFLOW')
     
@@ -76,7 +74,7 @@ def dashboard():
 @bp.route('/add', methods=['GET', 'POST'])
 def cashflow():
     if request.method == 'POST':
-        starting_balance = 10000.00
+        
         amount = float(request.form['amount'])
         txn_type = request.form['txn_type']
         
@@ -103,3 +101,23 @@ def records():
     cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
     return render_template('records.html', cashflows=cashflows)
 
+from .services.transaction_ingestion import ingest_data
+from flask import current_app 
+@bp.route('/upload', methods=['POST'])
+def uploader():
+    file= request.files.get('file')
+    if not file:
+        return {"error": "No file"}, 400
+    filename = secure_filename(file.filename)
+
+    path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+
+    file.save(path)
+
+    try:
+        count = ingest_data(path)
+    except Exception as e:
+        current_app.logger.exception(e)
+        return {"error": str(e)}, 400
+
+    return {"inserted": count}
