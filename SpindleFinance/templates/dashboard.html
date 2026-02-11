@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900">SpindleFinance</h2>
+        </div>
+        <nav class="p-4">
+            <a href="{{ url_for('spindlefinance.dashboard') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.records') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.records' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📋</span>
+                <span>Cashflow Records</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.cashflow') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlefinance.cashflow' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">💰</span>
+                <span>Add Records</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Current Balance</p>
+                        <p class="text-2xl font-bold text-gray-900">Rs.{{ "%.2f"|format(latest_balance) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">📈</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Total Inflow</p>
+                        <p class="text-2xl font-bold text-green-600">Rs.{{ "%.2f"|format(total_inflow) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">📉</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Total Outflow</p>
+                        <p class="text-2xl font-bold text-red-600">Rs.{{ "%.2f"|format(total_outflow) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Transactions</p>
+                        <p class="text-2xl font-bold text-blue-600">{{ cashflows|length }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Income vs Expense</h3>
+                <div class="h-72">
+                    <canvas id="incomeExpenseChart"></canvas>
+                </div>
+            </div>
+            <div class="card p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Transaction Distribution</h3>
+                <div class="h-72">
+                    <canvas id="txnDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="card">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+                <a href="{{ url_for('spindlefinance.records') }}" class="text-sm text-primary-600 hover:text-primary-700">View All</a>
+            </div>
+            {% if recent_transactions %}
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Transaction</th>
+                            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Type</th>
+                            <th class="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for txn in recent_transactions %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-900">{{ txn.txn_date.strftime('%b %d, %Y') }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">{{ txn.txn_name }}</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex px-2 py-0.5 rounded text-xs font-medium {% if txn.txn_type == 'INFLOW' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                    {{ txn.txn_type }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-right text-sm font-semibold {% if txn.txn_type == 'INFLOW' %}text-green-600{% else %}text-red-600{% endif %}">
+                                {% if txn.txn_type == 'INFLOW' %}+{% else %}-{% endif %}Rs.{{ "%.2f"|format(txn.amount) }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="p-12 text-center">
+                <div class="text-6xl mb-4 opacity-30">💰</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">No transactions yet</h3>
+                <p class="text-gray-600 mb-4">Start tracking your finances by adding your first record</p>
+                <a href="{{ url_for('spindlefinance.cashflow') }}" class="btn-primary inline-flex items-center gap-2">
+                    <span class="text-xl">+</span>
+                    <span>Add Record</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var monthsData = {{ months|tojson }};
+        var inflowsData = {{ inflows|tojson }};
+        var outflowsData = {{ outflows|tojson }};
+        var txnTypesData = {{ txn_types|tojson }};
+        var txnCountsData = {{ txn_counts|tojson }};
+
+        var incomeExpenseCtx = document.getElementById('incomeExpenseChart');
+        if (incomeExpenseCtx) {
+            new Chart(incomeExpenseCtx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: monthsData,
+                    datasets: [
+                        {
+                            label: 'Inflow',
+                            data: inflowsData,
+                            backgroundColor: 'rgba(34, 197, 94, 0.8)',
+                            borderColor: 'rgb(34, 197, 94)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Outflow',
+                            data: outflowsData,
+                            backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                            borderColor: 'rgb(239, 68, 68)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rs.' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        var txnDistCtx = document.getElementById('txnDistributionChart');
+        if (txnDistCtx) {
+            new Chart(txnDistCtx.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: txnTypesData,
+                    datasets: [{
+                        data: txnCountsData,
+                        backgroundColor: [
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(239, 68, 68, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(34, 197, 94)',
+                            'rgb(239, 68, 68)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+

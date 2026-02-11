@@ -2,6 +2,7 @@ from flask import Flask
 from app.config import Config
 from app.extensions import init_extensions
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
@@ -22,6 +23,7 @@ def create_app(config_class=Config):
 
     # Stock
     from SpindleStock import routes as spindlestock_routes
+    from SpindleStock import models 
     app.register_blueprint(spindlestock_routes.bp)
     
     return app

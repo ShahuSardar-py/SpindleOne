@@ -1,274 +1,173 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50 py-8">
-    <div class="container mx-auto px-4">
-        <div class="max-w-7xl mx-auto">
-
-            <div class="flex justify-between items-start mb-8">
-                <div>
-                    <h1 class="text-4xl font-bold text-gray-900 mb-2">Cashflow</h1>
-                    <p class="text-gray-600">Track all your financial transactions</p>
-                </div>
-                
-                <!-- Current Balance  -->
-                {% if cashflows %}
-                <div class="bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-2xl shadow-lg p-6 min-w-[280px]">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-primary-100 text-sm font-medium">Current Balance</span>
-                        <svg class="w-6 h-6 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div class="text-3xl font-bold">
-                        ₹{{ "%.2f"|format(cashflows[0].current_balance) }}
-                    </div>
-                    <div class="text-primary-100 text-xs mt-2">
-                        Last updated: {{ cashflows[0].txn_date.strftime('%b %d, %Y') }}
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex gap-3">
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                            </svg>
-                            Filter
-                        </span>
-                    </button>
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium text-gray-700">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                            </svg>
-                            Export
-                        </span>
-                    </button>
-                </div>
-                
-                <a href="{{ url_for('spindlefinance.cashflow') }}" class="btn-primary inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Add Record
-                </a>
-            </div>
-
-            {% if cashflows %}
-            <div class="card overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
-                            <tr>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Date
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Transaction
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Type
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Account
-                                </th>
-                                <th class="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Reference
-                                </th>
-                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Amount
-                                </th>
-                                <th class="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
-                                    Balance
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            {% for cashflow in cashflows %}
-                            <tr class="hover:bg-gray-50 transition-colors cursor-pointer" onclick="showDetails({{ cashflow.id }})">
-                                <!-- Date -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex flex-col">
-                                        <span class="font-semibold text-gray-900">
-                                            {{ cashflow.txn_date.strftime('%b %d') }}
-                                        </span>
-                                        <span class="text-xs text-gray-500">
-                                            {{ cashflow.txn_date.strftime('%Y') }}
-                                        </span>
-                                    </div>
-                                </td>
-
-                                <!-- Transaction Name -->
-                                <td class="px-6 py-4">
-                                    <div class="flex flex-col">
-                                        <span class="font-semibold text-gray-900">
-                                            {{ cashflow.txn_name }}
-                                        </span>
-                                        {% if cashflow.description %}
-                                        <span class="text-sm text-gray-500 truncate max-w-xs">
-                                            {{ cashflow.description[:50] }}{% if cashflow.description|length > 50 %}...{% endif %}
-                                        </span>
-                                        {% endif %}
-                                    </div>
-                                </td>
-
-                                <!-- Type -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    {% if cashflow.txn_type == 'INFLOW' %}
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-300">
-                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd"/>
-                                        </svg>
-                                        Inflow
-                                    </span>
-                                    {% else %}
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-300">
-                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd" transform="rotate(180 10 10)"/>
-                                        </svg>
-                                        Outflow
-                                    </span>
-                                    {% endif %}
-                                </td>
-
-                                <!-- Account -->
-                                <td class="px-6 py-4">
-                                    <span class="text-gray-900">
-                                        {{ cashflow.account_name or '—' }}
-                                    </span>
-                                </td>
-
-                                <!-- Reference -->
-                                <td class="px-6 py-4">
-                                    {% if cashflow.reference_id %}
-                                    <span class="inline-flex items-center px-2 py-1 rounded bg-gray-100 text-xs font-mono text-gray-700">
-                                        {{ cashflow.reference_id }}
-                                    </span>
-                                    {% else %}
-                                    <span class="text-gray-400">—</span>
-                                    {% endif %}
-                                </td>
-
-                                <!-- Amount -->
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    {% if cashflow.txn_type == 'INFLOW' %}
-                                    <span class="text-lg font-bold text-green-600">
-                                        +₹{{ "%.2f"|format(cashflow.amount) }}
-                                    </span>
-                                    {% else %}
-                                    <span class="text-lg font-bold text-red-600">
-                                        -₹{{ "%.2f"|format(cashflow.amount) }}
-                                    </span>
-                                    {% endif %}
-                                </td>
-
-                                <!-- Balance -->
-                                <td class="px-6 py-4 text-right whitespace-nowrap">
-                                    <span class="text-gray-900 font-semibold">
-                                        ₹{{ "%.2f"|format(cashflow.current_balance) }}
-                                    </span>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Summary Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <!-- Total Inflow -->
-                <div class="card p-6 border-l-4 border-green-500">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-gray-600 mb-1">Total Inflow</p>
-                            <p class="text-2xl font-bold text-green-600">
-                                ₹{{ "%.2f"|format(cashflows|selectattr('txn_type', 'equalto', 'INFLOW')|map(attribute='amount')|sum) }}
-                            </p>
-                        </div>
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Total Outflow -->
-                <div class="card p-6 border-l-4 border-red-500">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-gray-600 mb-1">Total Outflow</p>
-                            <p class="text-2xl font-bold text-red-600">
-                                ₹{{ "%.2f"|format(cashflows|selectattr('txn_type', 'equalto', 'OUTFLOW')|map(attribute='amount')|sum) }}
-                            </p>
-                        </div>
-                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Total Transactions -->
-                <div class="card p-6 border-l-4 border-blue-500">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-gray-600 mb-1">Total Transactions</p>
-                            <p class="text-2xl font-bold text-blue-600">
-                                {{ cashflows|length }}
-                            </p>
-                        </div>
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {% else %}
-            <!-- Empty State -->
-            <div class="card text-center py-16">
-                <div class="text-7xl mb-4 opacity-30">💰</div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">No cashflow records yet</h3>
-                <p class="text-gray-600 mb-6">Start tracking your finances by adding your first transaction</p>
-                <a href="{{ url_for('spindlefinance.add') }}" class="btn-primary inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    Add Your First Record
-                </a>
-            </div>
-            {% endif %}
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900">SpindleFinance</h2>
         </div>
-    </div>
+        <nav class="p-4">
+            <a href="{{ url_for('spindlefinance.dashboard') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.records') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.records' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📋</span>
+                <span>Cashflow Records</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.cashflow') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlefinance.cashflow' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">💰</span>
+                <span>Add Records</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Cashflow Records</h1>
+            <a href="{{ url_for('spindlefinance.cashflow') }}" class="btn-primary inline-flex items-center gap-2">
+                <span class="text-xl">+</span>
+                <span>Add Record</span>
+            </a>
+        </div>
+
+        {% if cashflows %}
+        <!-- Table -->
+        <div class="card overflow-hidden mb-8">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Date
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Transaction
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Type
+                            </th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Account
+                            </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Amount
+                            </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Balance
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        {% for cashflow in cashflows %}
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-gray-900 font-medium">{{ cashflow.txn_date.strftime('%b %d') }}</span>
+                                <span class="text-gray-500 text-sm ml-1">{{ cashflow.txn_date.strftime('%Y') }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="font-semibold text-gray-900">{{ cashflow.txn_name }}</span>
+                                {% if cashflow.description %}
+                                <span class="text-gray-500 text-sm block truncate max-w-xs">{{ cashflow.description[:50] }}{% if cashflow.description|length > 50 %}...{% endif %}</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if cashflow.txn_type == 'INFLOW' %}
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-300">
+                                    Inflow
+                                </span>
+                                {% else %}
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-300">
+                                    Outflow
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 text-gray-600">
+                                {{ cashflow.account_name or '—' }}
+                            </td>
+                            <td class="px-6 py-4 text-right whitespace-nowrap">
+                                {% if cashflow.txn_type == 'INFLOW' %}
+                                <span class="text-lg font-bold text-green-600">
+                                    +Rs.{{ "%.2f"|format(cashflow.amount) }}
+                                </span>
+                                {% else %}
+                                <span class="text-lg font-bold text-red-600">
+                                    -Rs.{{ "%.2f"|format(cashflow.amount) }}
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 text-right whitespace-nowrap font-semibold text-gray-900">
+                                Rs.{{ "%.2f"|format(cashflow.current_balance) }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-3 gap-6">
+            <div class="card p-6 border-l-4 border-green-500">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">📈</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Total Inflow</p>
+                        <p class="text-2xl font-bold text-green-600">
+                            Rs.{{ "%.2f"|format(cashflows|selectattr('txn_type', 'equalto', 'INFLOW')|map(attribute='amount')|sum) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-6 border-l-4 border-red-500">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">📉</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Total Outflow</p>
+                        <p class="text-2xl font-bold text-red-600">
+                            Rs.{{ "%.2f"|format(cashflows|selectattr('txn_type', 'equalto', 'OUTFLOW')|map(attribute='amount')|sum) }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card p-6 border-l-4 border-blue-500">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Total Transactions</p>
+                        <p class="text-2xl font-bold text-blue-600">
+                            {{ cashflows|length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="card text-center py-16">
+            <div class="text-7xl mb-4 opacity-30">💰</div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">No cashflow records yet</h3>
+            <p class="text-gray-600 mb-6">Start tracking your finances by adding your first transaction</p>
+            <a href="{{ url_for('spindlefinance.cashflow') }}" class="btn-primary inline-flex items-center gap-2">
+                <span class="text-xl">+</span>
+                <span>Add Your First Record</span>
+            </a>
+        </div>
+        {% endif %}
+    </main>
 </div>
-
-
 {% endblock %}
 
-{% block extra_scripts %}
-<script>
-    function showDetails(id) {
-        console.log('Show details for transaction:', id);
-    }
-
-    function closeModal() {
-        document.getElementById('detailsModal').classList.add('hidden');
-    }
-
-    window.onclick = function(event) {
-        const modal = document.getElementById('detailsModal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    }
-</script>
-{% endblock %}

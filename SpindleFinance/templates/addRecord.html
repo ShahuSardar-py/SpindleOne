@@ -1,205 +1,164 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50 py-12">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-            <!-- Header -->
-            <div class="mb-8">
-                <a href="javascript:history.back()" 
-                   class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                    <span class="font-medium">Back</span>
-                </a>
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">Add New Record</h1>
-                <p class="text-gray-600">Enter the transaction details to add a new cashflow record</p>
-            </div>
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900">SpindleFinance</h2>
+        </div>
+        <nav class="p-4">
+            <a href="{{ url_for('spindlefinance.dashboard') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.records') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlefinance.records' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📋</span>
+                <span>Cashflow Records</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.cashflow') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlefinance.cashflow' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">💰</span>
+                <span>Add Records</span>
+            </a>
+        </nav>
+    </aside>
 
-            <!-- Form Card -->
-            <div class="card">
-                <form method="POST" class="p-8">
-                    <div class="space-y-6">
-                        <!-- Row 1: Date -->
-                        <div class="grid grid-cols-1 gap-6">
-                            <!-- Date -->
-                            <div>
-                                <label for="txn_date" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Transaction Date <span class="text-red-500">*</span>
-                                </label>
-                                <input 
-                                    type="date" 
-                                    id="txn_date" 
-                                    name="txn_date" 
-                                    required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
-                            </div>
-                        </div>
+    <!-- Main Content -->
+    <main class="flex-1 p-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Add New Record</h1>
+        </div>
 
-                        <!-- Row 2: Amount and Transaction Type -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Amount -->
-                            <div>
-                                <label for="amount" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Amount <span class="text-red-500">*</span>
-                                </label>
-                                <div class="relative">
-                                    <span class="absolute left-4 top-3.5 text-gray-500 font-medium">$</span>
-                                    <input 
-                                        type="number" 
-                                        id="amount" 
-                                        name="amount" 
-                                        step="0.01" 
-                                        required
-                                        class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                        placeholder="0.00">
-                                </div>
-                            </div>
+        <!-- Form Card -->
+        <div class="card max-w-2xl">
+            <form method="POST" class="p-8">
+                <div class="space-y-6">
+                    <div>
+                        <label for="txn_date" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Transaction Date <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            id="txn_date" 
+                            name="txn_date" 
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
 
-                            <!-- Transaction Type -->
-                            <div>
-                                <label for="txn_type" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Transaction Type <span class="text-red-500">*</span>
-                                </label>
-                                <select 
-                                    id="txn_type" 
-                                    name="txn_type" 
-                                    required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all appearance-none bg-white cursor-pointer">
-                                    <option value="">Select type...</option>
-                                    <option value="INFLOW">💰 Inflow (Money In)</option>
-                                    <option value="OUTFLOW">💸 Outflow (Money Out)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Transaction Name -->
+                    <div class="grid grid-cols-2 gap-6">
                         <div>
-                            <label for="txn_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Transaction Name <span class="text-red-500">*</span>
+                            <label for="amount" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Amount <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3.5 text-gray-500 font-medium">$</span>
+                                <input 
+                                    type="number" 
+                                    id="amount" 
+                                    name="amount" 
+                                    step="0.01" 
+                                    required
+                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                    placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="txn_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Transaction Type <span class="text-red-500">*</span>
+                            </label>
+                            <select 
+                                id="txn_type" 
+                                name="txn_type" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Select type...</option>
+                                <option value="INFLOW">Inflow (Money In)</option>
+                                <option value="OUTFLOW">Outflow (Money Out)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="txn_name" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Transaction Name <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="txn_name" 
+                            name="txn_name" 
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            placeholder="e.g., Office Supplies Purchase">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="account_name" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Account Name
                             </label>
                             <input 
                                 type="text" 
-                                id="txn_name" 
-                                name="txn_name" 
-                                required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                placeholder="e.g., Office Supplies Purchase">
+                                id="account_name" 
+                                name="account_name"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="e.g., Business Checking">
                         </div>
 
-                        <!-- Row 3: Account Name and Reference ID -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="account_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Account Name
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="account_name" 
-                                    name="account_name"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                    placeholder="e.g., Business Checking">
-                            </div>
-
-                            <div>
-                                <label for="reference_id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                    Reference ID
-                                </label>
-                                <input 
-                                    type="text" 
-                                    id="reference_id" 
-                                    name="reference_id"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                    placeholder="e.g., INV-2024-001">
-                            </div>
-                        </div>
-
-                        <!-- Description -->
                         <div>
-                            <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Description
+                            <label for="reference_id" class="block text-sm font-semibold text-gray-700 mb-2">
+                                Reference ID
                             </label>
-                            <textarea 
-                                id="description" 
-                                name="description" 
-                                rows="4"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all resize-none"
-                                placeholder="Add any additional details about this transaction..."></textarea>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="border-t border-gray-200 pt-6">
-                            <!-- Info Box -->
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                                <div class="flex gap-3">
-                                    <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                    <div class="text-sm text-blue-800">
-                                        <p class="font-semibold mb-1">Quick Tips:</p>
-                                        <ul class="list-disc list-inside space-y-1 text-blue-700">
-                                            <li>Use <strong>Inflow</strong> for income, sales, or deposits</li>
-                                            <li>Use <strong>Outflow</strong> for expenses, purchases, or withdrawals</li>
-                                            <li>Fields marked with <span class="text-red-500">*</span> are required</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="flex gap-4">
-                                <button type="submit" class="flex-1 btn-primary inline-flex items-center justify-center gap-2">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                    </svg>
-                                    Add Cashflow Record
-                                </button>
-                                <a href="{{ url_for('spindlefinance.records') }}" class="flex-1 btn-secondary text-center inline-flex items-center justify-center gap-2">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                    </svg>
-                                    View Cashflow Records 
-                                </a>
-                            </div>
+                            <input 
+                                type="text" 
+                                id="reference_id" 
+                                name="reference_id"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="e.g., INV-2024-001">
                         </div>
                     </div>
-                </form>
-            </div>
 
-            <!-- Help Text -->
-            <div class="mt-6 text-center">
-                <p class="text-sm text-gray-500">
-                    <span class="text-red-500">*</span> Required fields must be filled out
-                </p>
-            </div>
+                    <div>
+                        <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Description
+                        </label>
+                        <textarea 
+                            id="description" 
+                            name="description" 
+                            rows="4"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+                            placeholder="Add any additional details about this transaction..."></textarea>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <button type="submit" class="flex-1 btn-primary inline-flex items-center justify-center gap-2">
+                            <span class="text-xl">+</span>
+                            <span>Add Cashflow Record</span>
+                        </button>
+                        <a href="{{ url_for('spindlefinance.records') }}" class="flex-1 btn-secondary text-center inline-flex items-center justify-center gap-2">
+                            <span class="text-xl">📋</span>
+                            <span>View Records</span>
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
+    </main>
 </div>
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
-    // Auto-set today's date
     document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.getElementById('txn_date');
-        if (!dateInput.value) {
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.value = today;
-        }
-    });
-
-    const txnTypeSelect = document.getElementById('txn_type');
-    txnTypeSelect.addEventListener('change', function() {
-        if (this.value === 'INFLOW') {
-            this.classList.add('border-green-500', 'bg-green-50');
-            this.classList.remove('border-red-500', 'bg-red-50');
-        } else if (this.value === 'OUTFLOW') {
-            this.classList.add('border-red-500', 'bg-red-50');
-            this.classList.remove('border-green-500', 'bg-green-50');
-        } else {
-            this.classList.remove('border-green-500', 'bg-green-50', 'border-red-500', 'bg-red-50');
+        var dateInput = document.getElementById('txn_date');
+        if (dateInput && !dateInput.value) {
+            dateInput.value = new Date().toISOString().split('T')[0];
         }
     });
 </script>
 {% endblock %}
+
