@@ -62,6 +62,9 @@
                             <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                 Balance
                             </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -104,6 +107,16 @@
                             </td>
                             <td class="px-6 py-4 text-right whitespace-nowrap font-semibold text-gray-900">
                                 Rs.{{ "%.2f"|format(cashflow.current_balance) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right">
+                                <button onclick="openModal({{ cashflow.id }})" 
+                                        class="text-blue-600 hover:text-blue-800 transition-colors p-2 rounded-lg hover:bg-blue-50"
+                                        title="View Details">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -169,5 +182,126 @@
         {% endif %}
     </main>
 </div>
+
+<!-- Modal for Transaction Details -->
+<div id="transactionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" onclick="closeModal(event)">
+    <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden" onclick="event.stopPropagation()">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+            <h3 class="text-xl font-bold text-white">Transaction Details</h3>
+        </div>
+        <div class="p-6 space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Date</label>
+                    <p id="modalDate" class="text-gray-900 font-semibold mt-1">-</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Type</label>
+                    <p id="modalType" class="text-gray-900 font-semibold mt-1">-</p>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Transaction Name</label>
+                <p id="modalTxnName" class="text-gray-900 font-semibold mt-1">-</p>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Account</label>
+                <p id="modalAccount" class="text-gray-900 mt-1">-</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Amount</label>
+                    <p id="modalAmount" class="text-gray-900 font-semibold mt-1">-</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Balance</label>
+                    <p id="modalBalance" class="text-gray-900 font-semibold mt-1">-</p>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Description</label>
+                <p id="modalDescription" class="text-gray-600 mt-1 bg-gray-50 p-3 rounded-lg">-</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Reference ID</label>
+                    <p id="modalReference" class="text-gray-600 mt-1">-</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-500 uppercase tracking-wider">Source</label>
+                    <p id="modalSource" class="text-gray-600 mt-1">-</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-6 py-4 flex justify-end">
+            <button onclick="closeModalDirect()" class="btn-secondary px-6 py-2">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Transaction Data -->
+<script>
+const transactions = {
+{% for cashflow in cashflows %}
+    {{ cashflow.id }}: {
+        id: {{ cashflow.id }},
+        txn_date: "{{ cashflow.txn_date.strftime('%B %d, %Y') }}",
+        txn_name: "{{ cashflow.txn_name }}",
+        account_name: "{{ cashflow.account_name or '' }}",
+        amount: {{ cashflow.amount }},
+        txn_type: "{{ cashflow.txn_type }}",
+        description: "{{ cashflow.description or '' }}",
+        reference_id: "{{ cashflow.reference_id or '' }}",
+        current_balance: {{ cashflow.current_balance }},
+        source: "{{ cashflow.source or '' }}"
+    }{% if not loop.last %},{% endif %}
+{% endfor %}
+};
+
+function openModal(id) {
+    const txn = transactions[id];
+    if (!txn) return;
+    
+    document.getElementById('modalDate').textContent = txn.txn_date;
+    document.getElementById('modalTxnName').textContent = txn.txn_name;
+    document.getElementById('modalAccount').textContent = txn.account_name || '—';
+    document.getElementById('modalDescription').textContent = txn.description || 'No description';
+    document.getElementById('modalReference').textContent = txn.reference_id || '—';
+    document.getElementById('modalSource').textContent = txn.source || '—';
+    
+    const amountEl = document.getElementById('modalAmount');
+    amountEl.textContent = 'Rs.' + txn.amount.toFixed(2);
+    amountEl.className = txn.txn_type === 'INFLOW' ? 'text-green-600 font-semibold mt-1' : 'text-red-600 font-semibold mt-1';
+    
+    document.getElementById('modalBalance').textContent = 'Rs.' + txn.current_balance.toFixed(2);
+    
+    const typeEl = document.getElementById('modalType');
+    typeEl.textContent = txn.txn_type === 'INFLOW' ? 'Inflow' : 'Outflow';
+    typeEl.className = txn.txn_type === 'INFLOW' ? 'text-green-600 font-semibold mt-1' : 'text-red-600 font-semibold mt-1';
+    
+    document.getElementById('transactionModal').classList.remove('hidden');
+    document.getElementById('transactionModal').classList.add('flex');
+}
+
+function closeModal(event) {
+    if (event.target.id === 'transactionModal') {
+        closeModalDirect();
+    }
+}
+
+function closeModalDirect() {
+    document.getElementById('transactionModal').classList.add('hidden');
+    document.getElementById('transactionModal').classList.remove('flex');
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModalDirect();
+    }
+});
+</script>
 {% endblock %}
 

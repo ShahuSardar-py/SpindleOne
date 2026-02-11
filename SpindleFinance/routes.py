@@ -95,7 +95,7 @@ def cashflow():
         )
         db.session.add(cashflow)
         db.session.commit()
-        return redirect(url_for('spindlefinance.records'))
+        return redirect(url_for('spindlefinance.cashflow'))
     return render_template('addRecord.html')
 
 @bp.route('/records')
