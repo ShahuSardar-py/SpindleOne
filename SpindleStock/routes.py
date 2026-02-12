@@ -34,7 +34,7 @@ def dashboard():
         )
 
     return render_template(
-        "dashboard.html",
+        "dashboardStock.html",
         total_materials=total_materials,
         total_quantity=total_quantity,
         product_data=product_data
