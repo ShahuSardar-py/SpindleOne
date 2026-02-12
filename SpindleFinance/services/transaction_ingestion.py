@@ -1,7 +1,18 @@
 import pandas as pd 
 from ..models import AccountCashflow
 from app.extensions import db
-from ..routes import starting_balance 
+
+def get_balance():
+    latest= AccountCashflow.query.order_by(
+        AccountCashflow.txn_date.desc(), 
+        AccountCashflow.id.desc()
+        ).first()
+    if latest:
+        return latest.current_balance
+    else:
+        return 0.00
+
+    
 def ingest_data(file_path):
     #loader 
     df= pd.read_csv(file_path)
@@ -30,10 +41,25 @@ def ingest_data(file_path):
     #data type validation and transoform
     df['txn_date'] = pd.to_datetime(df['txn_date'],errors='coerce').dt.date
     df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
-    df["current_balance"] = starting_balance
+    #df["current_balance"] = starting_balance
     df["source"] = "File_Upload"
 
-    df= df[df['txn_type'].isin(["inflow", "outflow"])]
+    # Normalize case for filtering - convert to lowercase
+    df['txn_type'] = df['txn_type'].str.upper()
+    df = df[df['txn_type'].isin(["inflow", "outflow"])]
+
+    running_bal = get_balance()
+
+    balances=[]
+    for _, row in df.iterrows():
+        if row['txn_type'] == 'INFLOW':
+            running_bal += row['amount']
+        else:
+            running_bal -= row['amount']
+        balances.append(running_bal)
+
+    df["current_balance"] = balances
+
 
     objects = [
         AccountCashflow(**row)

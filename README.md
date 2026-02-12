@@ -1,6 +1,6 @@
 # SpindleOne 🏭
 
-**SpindleOne** is an open‑source, modular operational suite designed for small‑to‑medium manufacturing factories. It focuses on clarity, usability, and extensibility — providing essential factory tools without the bloat of traditional ERP systems.
+**SpindleOne** is a modular operational suite designed for small‑to‑medium manufacturing factories. It focuses on clarity, usability, and extensibility — providing essential factory tools without the bloat of traditional ERP systems.
 
 Think of SpindleOne as a **lightweight ERP foundation** that grows with your factory.
 
@@ -36,20 +36,13 @@ Track factory cash flow with clarity and accuracy.
 
 **Features:**
 
-* Add cash inflow & outflow records
-* View records in a clean, intuitive table
-* Auto‑calculated current balance
+* Add cash inflow & outflow records manualyy
+* Add cash flow records in bulk with CSV 
+* View added records in a table 
+
 
 ---
 
-## 🧱 Architecture Highlights
-
-* Modular Flask architecture (Blueprint‑based)
-* Clear separation of concerns (routes, models, templates)
-* Designed to scale module‑by‑module
-* Database‑first approach to ensure data integrity
-
----
 
 ## 🔮 Upcoming Features
 
@@ -59,7 +52,7 @@ Track factory cash flow with clarity and accuracy.
 
 ### Finance Module
 
-* Upload CSV / bank statements
+
 * Bulk cash‑flow ingestion (ETL)
 * Monthly & yearly financial summaries
 

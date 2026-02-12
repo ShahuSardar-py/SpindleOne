@@ -6,9 +6,7 @@ from . import bp
 import os
 from werkzeug.utils import secure_filename
 from flask import flash
-#need to figure out start balance 
-starting_balance = 10000.00
-
+from .services.transaction_ingestion import get_balance
 @bp.route('/')
 def index():
     return redirect(url_for('spindlefinance.dashboard'))
@@ -74,11 +72,16 @@ def dashboard():
 @bp.route('/add', methods=['GET', 'POST'])
 def cashflow():
     if request.method == 'POST':
-        
         amount = float(request.form['amount'])
         txn_type = request.form['txn_type']
         
-        new_balance = starting_balance + amount if txn_type == 'INFLOW' else starting_balance - amount
+        current_bal = get_balance()
+
+        if txn_type == 'INFLOW':
+            new_bal = current_bal + amount
+        else:
+            new_bal = current_bal - amount
+
         
         cashflow = AccountCashflow(
             txn_date=datetime.strptime(request.form['txn_date'], '%Y-%m-%d').date(),
@@ -88,7 +91,7 @@ def cashflow():
             txn_type=txn_type,
             description=request.form.get('description', ''),
             reference_id=request.form.get('reference_id', ''),
-            current_balance=new_balance,
+            current_balance= new_bal,
             source='MANUAL'
         )
         db.session.add(cashflow)
