@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from datetime import datetime
+from flask import render_template, request, redirect, url_for, flash
 
 from app.extensions import db
 from .models import (
@@ -82,7 +83,6 @@ def raw_inward():
     )
 
 
-# PRODUCTION 
 @bp.route("/production", methods=["GET", "POST"])
 def production():
 
@@ -97,7 +97,6 @@ def production():
             if expiry else None
         )
 
-        # create production batch
         prod = Production(
             product_name=product,
             quantity_produced=qty_produced,
@@ -107,7 +106,6 @@ def production():
         db.session.add(prod)
         db.session.flush()
 
-        # materials used
         material_ids = request.form.getlist("material_ids[]")
         quantities_used = request.form.getlist("qty_used[]")
         used_units = request.form.getlist("used_unit[]")
@@ -123,16 +121,42 @@ def production():
 
             if material and qty > 0:
 
-                # record usage only
+                # Convert usage to KG
+                used_kg = qty * 1000 if unit == "ton" else qty
+
+                # Convert stock to KG
+                stock_kg = (
+                    material.quantity * 1000
+                    if material.unit == "ton"
+                    else material.quantity
+                )
+
+                # 🚨 STOCK CHECK
+                if used_kg > stock_kg:
+                    flash(
+                        f"Not enough {material.name} in stock. "
+                        f"Available: {stock_kg} kg only."
+                    )
+                    db.session.rollback()
+                    return redirect(url_for("spindlestock.production"))
+
+                # subtract stock
+                remaining_kg = stock_kg - used_kg
+
+                # store back in original unit
+                if material.unit == "ton":
+                    material.quantity = remaining_kg / 1000
+                else:
+                    material.quantity = remaining_kg
+
                 usage = ProductionMaterial(
                     production_id=prod.id,
                     raw_material_id=material.id,
-                    quantity_used=qty
+                    quantity_used=used_kg
                 )
 
                 db.session.add(usage)
 
-        # finished goods entry
         finished = FinishedStock(
             product_name=product,
             quantity=qty_produced,
@@ -142,6 +166,7 @@ def production():
         db.session.add(finished)
         db.session.commit()
 
+        flash(f"{product} production saved successfully!")
         return redirect(url_for("spindlestock.production"))
 
     materials = RawMaterial.query.all()
@@ -152,33 +177,17 @@ def production():
         materials=materials,
         productions=productions
     )
-
-# INVENTORY 
 @bp.route("/inventory")
 def inventory():
 
     materials = RawMaterial.query.all()
-    usages = ProductionMaterial.query.all()
-
-    # total used per material
-    used_map = {}
-    for u in usages:
-        used_map[u.raw_material_id] = (
-            used_map.get(u.raw_material_id, 0)
-            + u.quantity_used
-        )
 
     inventory_data = []
+
     for m in materials:
-        used_qty = used_map.get(m.id, 0)
-
-        remaining = m.quantity - used_qty
-        if remaining < 0:
-            remaining = 0
-
         inventory_data.append({
             "name": m.name,
-            "remaining": remaining,
+            "remaining": m.quantity,
             "unit": m.unit,
             "inward_date": m.inward_date,
             "expiry_date": m.expiry_date

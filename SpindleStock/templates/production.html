@@ -1,240 +1,229 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Production</title>
+{% extends "base.html" %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block title %}Production{% endblock %}
 
-<style>
-body {
-    background:#f4f6f9;
-    font-family: system-ui;
-}
+{% block content %}
+<div class="flex h-[calc(100vh-72px)]">
 
-/* Sidebar */
-.sidebar {
-    height:100vh;
-    background:#0f172a;
-    padding:20px;
-    position:sticky;
-    top:0;
-}
+    <!-- Sidebar -->
+    <div class="w-64 bg-white border-r overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-black">SpindleStock</h2>
+        </div>
 
-.sidebar-title {
-    color:white;
-    font-weight:600;
-}
+    <div class="p-4">
 
-.menu-link {
-    display:flex;
-    align-items:center;
-    padding:12px;
-    color:#cbd5f5;
-    text-decoration:none;
-    border-radius:10px;
-    margin-bottom:8px;
-    transition:0.2s;
-    font-size:15px;
-}
+    <a href="/stock/"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
+       {% if request.endpoint == 'spindlestock.dashboard' %}
+           bg-primary-50 text-primary-600 border-r-4 border-primary-600
+       {% else %}
+           text-gray-600 hover:bg-gray-50
+       {% endif %}">
+        <span class="text-xl">📊</span>
+        <span>Dashboard</span>
+    </a>
 
-.menu-link:hover {
-    background:#1e293b;
-    color:#38bdf8;
-}
+    <a href="/stock/raw"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
+       {% if request.endpoint == 'spindlestock.raw_material' %}
+           bg-primary-50 text-primary-600 border-r-4 border-primary-600
+       {% else %}
+           text-gray-600 hover:bg-gray-50
+       {% endif %}">
+        <span class="text-xl">📦</span>
+        <span>Raw Material</span>
+    </a>
 
-.menu-link.active {
-    background:#2563eb;
-    color:white;
-}
+    <a href="/stock/production"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
+       {% if request.endpoint == 'spindlestock.production' %}
+           bg-primary-50 text-primary-600 border-r-4 border-primary-600
+       {% else %}
+           text-gray-600 hover:bg-gray-50
+       {% endif %}">
+        <span class="text-xl">🏭</span>
+        <span>Production</span>
+    </a>
 
-/* Cards */
-.card {
-    border:none;
-    border-radius:14px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.05);
-}
-
-/* Inputs */
-label {
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:4px;
-}
-
-.input-group-text {
-    background:#e5e7eb;
-}
-
-.table th {
-    font-size:13px;
-    color:#475569;
-}
-
-.table td {
-    vertical-align:middle;
-}
-
-.header-title {
-    font-weight:600;
-}
-
-/* Buttons */
-.btn-primary {
-    border-radius:10px;
-    padding:8px 20px;
-    font-weight:500;
-}
-</style>
-</head>
-
-<body>
-
-<div class="container-fluid">
-<div class="row">
-
-<!-- Sidebar -->
-<div class="col-2 sidebar">
-
-<h4 class="sidebar-title">Spindle Stock</h4>
-<hr style="color:#334155;">
-
-<a class="menu-link" href="/stock/">Dashboard</a>
-<a class="menu-link" href="/stock/raw">Raw Material</a>
-<a class="menu-link active" href="/stock/production">Production</a>
-<a class="menu-link" href="/stock/inventory">Stock Balance</a>
+    <a href="/stock/inventory"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
+       {% if request.endpoint == 'spindlestock.inventory' %}
+           bg-primary-50 text-primary-600 border-r-4 border-primary-600
+       {% else %}
+           text-gray-600 hover:bg-gray-50
+       {% endif %}">
+        <span class="text-xl">📋</span>
+        <span>Stock Balance</span>
+    </a>
 
 </div>
+    </div>
 
+    <!-- Content -->
+    <div class="flex-1 p-6 overflow-y-auto">
 
+        <!-- Flash Toast -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="toast"
+            class="fixed top-20 right-5 z-50 bg-white text-green-600 px-6 py-3 rounded-lg shadow-lg
+            opacity-0 translate-y-[-20px] transition-all duration-500">
+            🎉✅ {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Production Entry -->
+        <div class="card p-6 mb-6">
+            <h4 class="text-lg font-semibold mb-4">
+                Production Entry
+            </h4>
+
+            <form method="POST" class="space-y-4">
+
+                <div class="grid grid-cols-4 gap-4">
+
+                    <div>
+                        <label class="text-sm font-medium">Product Name</label>
+                        <input name="product" required
+                               class="w-full border rounded-lg px-3 py-2">
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium">Quantity Produced</label>
+                        <input type="number" step="0.01" min="0"
+                               name="qty_produced" required
+                               class="w-full border rounded-lg px-3 py-2">
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium">Unit</label>
+                        <select name="produced_unit"
+                                class="w-full border rounded-lg px-3 py-2">
+                            <option value="kg">kg</option>
+                            <option value="ton">ton</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm font-medium">Expiry Date</label>
+                        <input type="date" name="expiry_date"
+                               class="w-full border rounded-lg px-3 py-2">
+                    </div>
+
+                </div>
+
+                <div>
+                    <h6 class="font-semibold mt-4 mb-2">
+                        Raw Materials Used
+                    </h6>
+
+                    <div id="materials-container" class="space-y-2"></div>
+
+                    <button type="button"
+                            onclick="addMaterialRow()"
+                            class="btn-secondary mt-3">
+                        + Add Material
+                    </button>
+                </div>
+
+                <button class="btn-primary mt-4">
+                    Save Production
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Production Records -->
+        <div class="card p-6">
+            <h5 class="font-semibold mb-4">
+                Production Records
+            </h5>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="border-b bg-gray-50 text-gray-600">
+                        <tr>
+                            <th class="px-4 py-3 text-left">Product</th>
+                            <th class="px-4 py-3 text-left">Produced Qty</th>
+                            <th class="px-4 py-3 text-left">Expiry</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y">
+                        {% for p in productions %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-medium">
+                                {{ p.product_name }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ p.quantity_produced }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ p.expiry_date }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ p.date.strftime("%d %b %Y") }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
 <script>
 function addMaterialRow() {
     let container = document.getElementById("materials-container");
 
     let row = document.createElement("div");
-    row.className = "row g-2 mb-2";
+    row.className = "grid grid-cols-3 gap-3";
 
     row.innerHTML = `
-        <div class="col">
-            <select class="form-select" name="material_ids[]">
-                {% for m in materials %}
-                <option value="{{ m.id }}">
-                    {{ m.name }} ({{ m.quantity }} {{ m.unit }})
-                </option>
-                {% endfor %}
-            </select>
-        </div>
+        <select class="border rounded-lg px-3 py-2"
+                name="material_ids[]">
+            {% for m in materials %}
+            <option value="{{ m.id }}">
+                {{ m.name }} ({{ m.quantity }} {{ m.unit }})
+            </option>
+            {% endfor %}
+        </select>
 
-        <div class="col">
-            <input type="number" step="0.01" min="0"
-                   class="form-control"
-                   name="qty_used[]"
-                   placeholder="Quantity Used" required>
-        </div>
+        <input type="number" step="0.01" min="0"
+               name="qty_used[]" required
+               placeholder="Quantity Used"
+               class="border rounded-lg px-3 py-2">
 
-        <div class="col">
-            <select class="form-select" name="used_unit[]">
-                <option value="kg">kg</option>
-                <option value="ton">ton</option>
-            </select>
-        </div>
+        <select name="used_unit[]"
+                class="border rounded-lg px-3 py-2">
+            <option value="kg">kg</option>
+            <option value="ton">ton</option>
+        </select>
     `;
 
     container.appendChild(row);
 }
+
+addMaterialRow();
+
+/* Toast animation */
+const toast = document.getElementById("toast");
+if (toast) {
+    setTimeout(() => {
+        toast.classList.remove("opacity-0", "translate-y-[-20px]");
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.add("opacity-0");
+    }, 3000);
+}
 </script>
-
-</head>
-
-<body>
-
-
-<!-- Main Content -->
-<div class="col-10 p-4">
-
-<div class="card p-4 mb-4">
-<h4>Production Entry</h4>
-
-<form method="POST">
-
-<div class="row g-2 mb-3">
-
-<div class="col">
-<label>Product Name</label>
-<input class="form-control" name="product" required>
-</div>
-
-<div class="col">
-<label>Quantity Produced</label>
-<input type="number" step="0.01" min="0"
-       class="form-control"
-       name="qty_produced" required>
-</div>
-
-<div class="col">
-<label>Unit</label>
-<select class="form-select" name="produced_unit" required>
-<option value="kg">kg</option>
-<option value="ton">ton</option>
-</select>
-</div>
-
-<div class="col">
-<label>Expiry Date</label>
-<input type="date"
-       class="form-control" name="expiry_date">
-</div>
-
-</div>
-
-<h6>Raw Materials Used</h6>
-
-<div id="materials-container"></div>
-
-<button type="button"
-class="btn btn-secondary mt-2"
-onclick="addMaterialRow()">
-+ Add Material
-</button>
-
-<br><br>
-
-<button class="btn btn-primary">Save Production</button>
-
-</form>
-</div>
-
-<!-- Production Records -->
-<div class="card p-3">
-<h5>Production Records</h5>
-
-<table class="table table-hover">
-<tr>
-<th>Product</th>
-<th>Produced Qty</th>
-<th>Expiry</th>
-<th>Date</th>
-</tr>
-
-{% for p in productions %}
-<tr>
-<td>{{ p.product_name }}</td>
-<td>{{ p.quantity_produced }}</td>
-<td>{{ p.expiry_date }}</td>
-<td>{{ p.date.strftime("%d %b %Y") }}</td>
-</tr>
-{% endfor %}
-
-</table>
-
-</div>
-
-</div>
-</div>
-</div>
-
-<script>
-addMaterialRow();  // sstart with one row
-</script>
-
-</body>
-</html>
+{% endblock %}
