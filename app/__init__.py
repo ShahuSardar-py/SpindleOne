@@ -25,5 +25,5 @@ def create_app(config_class=Config):
     from SpindleStock import routes as spindlestock_routes
     from SpindleStock import models 
     app.register_blueprint(spindlestock_routes.bp)
-    
+    app.config["SECRET_KEY"] = "spindle-secret"
     return app
