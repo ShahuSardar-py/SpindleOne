@@ -19,6 +19,7 @@ def create_app(config_class=Config):
 
     # Finance
     from SpindleFinance import bp as spindlefinance_bp
+    from SpindleFinance import models
     app.register_blueprint(spindlefinance_bp)
 
     # Stock

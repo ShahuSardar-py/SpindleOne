@@ -74,7 +74,7 @@ Track factory cash flow with clarity and accuracy.
 
 ## 🤝 Contributing
 
-SpindleOne is open‑source and contributions are welcome.
+SpindleOne | contributions are welcome.
 
 * Fork the repo
 * Create a feature branch
