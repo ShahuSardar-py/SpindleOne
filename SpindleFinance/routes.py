@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from app.extensions import db
-from .models import AccountCashflow
+from .models import AccountCashflow, Invoice, Client
 from datetime import datetime, timedelta
 from . import bp
+from flask import jsonify
 import os
 from werkzeug.utils import secure_filename
 from flask import flash
 from .services.transaction_ingestion import get_balance
+
 @bp.route('/')
 def index():
     return redirect(url_for('spindlefinance.dashboard'))
@@ -97,7 +99,14 @@ def cashflow():
         db.session.add(cashflow)
         db.session.commit()
         return redirect(url_for('spindlefinance.cashflow'))
-    return render_template('addRecord.html')
+        # Pass invoices joined with client name for the dropdown
+    invoices = (
+        db.session.query(Invoice, Client)
+        .join(Client, Invoice.client_id == Client.id)
+        .order_by(Invoice.inv_id.desc())
+        .all()
+    )
+    return render_template('addRecord.html', invoices=invoices)
 
 @bp.route('/records')
 def records():
@@ -124,3 +133,88 @@ def uploader():
         return {"error": str(e)}, 400
 
     return {"inserted": count}
+
+
+@bp.route('/receivables')
+def receivables():
+    return render_template('receivables.html')
+
+@bp.route("/clients", methods=["POST"])
+def add_client():
+
+    data = request.get_json()
+
+    client = Client(
+        name=data["name"],
+        contact_info=data.get("contact_info")
+    )
+
+    db.session.add(client)
+    db.session.commit()
+
+    return jsonify({"message": "Client created", "client_id": client.id}), 201
+
+@bp.route("/clients", methods=["GET"])
+def list_clients():
+
+    clients = Client.query.order_by(Client.created_at.desc()).all()
+
+    result = []
+    for c in clients:
+        result.append({
+            "client_id": c.id,
+            "name": c.name,
+            "contact_info": c.contact_info,
+            "created_at": c.created_at
+        })
+
+    return jsonify(result)
+
+@bp.route("/invoices", methods=["POST"])
+def add_invoice():
+
+    data = request.get_json()
+
+    # basic safety check
+    client = Client.query.get(data["client_id"])
+    if not client:
+        return jsonify({"error": "Client not found"}), 404
+
+    invoice = Invoice(
+        client_id=data["client_id"],
+        product_name=data["product_name"],
+        amt_recievable=data["amt_recievable"],
+        due_date=datetime.strptime(data["due_date"], "%Y-%m-%d").date(),
+        status=data.get("status", "OPEN")
+    )
+
+    db.session.add(invoice)
+    db.session.commit()
+
+    return jsonify({"message": "Invoice created", "invoice_id": invoice.inv_id}), 201
+
+@bp.route("/invoices", methods=["GET"])
+def list_invoices():
+
+    invoices = (
+        db.session.query(Invoice, Client)
+        .join(Client, Invoice.client_id == Client.id)
+        .order_by(Invoice.created_at.desc())
+        .all()
+    )
+
+    result = []
+
+    for inv, client in invoices:
+        result.append({
+            "invoice_id": inv.inv_id,
+            "client_id": client.id,
+            "client_name": client.name,
+            "product_name": inv.product_name,
+            "amt_recievable": inv.amt_recievable,
+            "due_date": inv.due_date,
+            "status": inv.status,
+            "created_at": inv.created_at
+        })
+
+    return jsonify(result)

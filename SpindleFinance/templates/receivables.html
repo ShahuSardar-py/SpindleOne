@@ -1,0 +1,540 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen bg-gray-50">
+
+    <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900">SpindleFinance</h2>
+        </div>
+        <nav class="p-4 space-y-1">
+            <a href="{{ url_for('spindlefinance.dashboard') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
+                      {% if request.endpoint == 'spindlefinance.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📊</span><span>Dashboard</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.records') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
+                      {% if request.endpoint == 'spindlefinance.records' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📋</span><span>Cashflow Records</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.cashflow') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
+                      {% if request.endpoint == 'spindlefinance.cashflow' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">💰</span><span>Add Records</span>
+            </a>
+            <a href="{{ url_for('spindlefinance.receivables') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
+                      {% if request.endpoint == 'spindlefinance.receivables' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">🧾</span><span>Receivables</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ═══════════════════ MAIN ═══════════════════ -->
+    <main class="flex-1 p-8 min-w-0">
+
+        <!-- Page header -->
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-1">Receivables</h1>
+            <p class="text-gray-500">Manage your invoices and client directory</p>
+        </div>
+
+        <!-- Tab switch + CTA -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="inline-flex bg-gray-100 rounded-xl p-1 gap-1">
+                <button id="tabInvoices" onclick="switchTab('invoices')"
+                    class="tab-btn px-6 py-2.5 rounded-lg text-sm font-semibold transition-all">
+                    🧾 Invoices
+                </button>
+                <button id="tabClients" onclick="switchTab('clients')"
+                    class="tab-btn px-6 py-2.5 rounded-lg text-sm font-semibold transition-all">
+                    👥 Clients
+                </button>
+            </div>
+
+            <button id="ctaBtn" onclick="openModal()"
+                class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span id="ctaBtnLabel">New Invoice</span>
+            </button>
+        </div>
+
+        <!-- ══════════ INVOICES PANEL ══════════ -->
+        <div id="panelInvoices">
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Total Receivable</p>
+                    <p id="statTotal" class="text-2xl font-bold text-gray-900">—</p>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Open</p>
+                    <p id="statOpen" class="text-2xl font-bold text-amber-500">—</p>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Overdue</p>
+                    <p id="statOverdue" class="text-2xl font-bold text-red-500">—</p>
+                </div>
+            </div>
+
+            <!-- Invoices table -->
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                <th class="px-6 py-4 text-left">Invoice ID</th>
+                                <th class="px-6 py-4 text-left">Client</th>
+                                <th class="px-6 py-4 text-left">Product / Service</th>
+                                <th class="px-6 py-4 text-right">Amount</th>
+                                <th class="px-6 py-4 text-left">Due Date</th>
+                                <th class="px-6 py-4 text-left">Status</th>
+                                <th class="px-6 py-4 text-left">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceTableBody">
+                            <tr>
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-400 text-sm">
+                                    Loading invoices...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════ CLIENTS PANEL ══════════ -->
+        <div id="panelClients" class="hidden">
+            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                <th class="px-6 py-4 text-left">Client ID</th>
+                                <th class="px-6 py-4 text-left">Name</th>
+                                <th class="px-6 py-4 text-left">Contact Info</th>
+                                <th class="px-6 py-4 text-left">Added On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTableBody">
+                            <tr>
+                                <td colspan="4" class="px-6 py-12 text-center text-gray-400 text-sm">
+                                    Loading clients...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ═══════════════════ BACKDROP ═══════════════════ -->
+<div id="modalBackdrop" onclick="closeModal()"
+     class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
+
+<!-- ═══════════════════ INVOICE MODAL ═══════════════════ -->
+<div id="invoiceModal"
+     class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50
+            w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+    <div class="bg-gradient-to-r from-primary-50 to-blue-50 px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+            <h2 class="text-lg font-bold text-gray-900">New Invoice</h2>
+            <p class="text-sm text-gray-500 mt-0.5">Create a receivable for a client</p>
+        </div>
+        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <form id="invoiceForm" onsubmit="submitInvoice(event)" class="p-6 space-y-5">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Client <span class="text-red-500">*</span>
+            </label>
+            <select id="inv_client_id" name="client_id" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
+                <option value="">Select a client...</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Product / Service <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="inv_product_name" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
+                placeholder="e.g., Website Design — Phase 1">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Amount Receivable <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <span class="absolute left-4 top-3 text-gray-500 font-medium text-sm">₹</span>
+                    <input type="number" id="inv_amount" step="0.01" required
+                        class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
+                        placeholder="0.00">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                <select id="inv_status"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
+                    <option value="OPEN">Open</option>
+                    <option value="PAID">Paid</option>
+                    <option value="OVERDUE">Overdue</option>
+                    <option value="CANCELLED">Cancelled</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Due Date <span class="text-red-500">*</span>
+            </label>
+            <input type="date" id="inv_due_date" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
+        </div>
+
+        <div id="invoiceError" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg"></div>
+
+        <div class="flex gap-3 pt-2">
+            <button type="button" onclick="closeModal()"
+                class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all text-sm">
+                Cancel
+            </button>
+            <button type="submit" id="invoiceSubmitBtn"
+                class="flex-1 px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-all text-sm">
+                Create Invoice
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- ═══════════════════ CLIENT MODAL ═══════════════════ -->
+<div id="clientModal"
+     class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50
+            w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
+
+    <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <div>
+            <h2 class="text-lg font-bold text-gray-900">New Client</h2>
+            <p class="text-sm text-gray-500 mt-0.5">Add a client to your directory</p>
+        </div>
+        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <form id="clientForm" onsubmit="submitClient(event)" class="p-6 space-y-5">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Client Name <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="cli_name" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
+                placeholder="e.g., Acme Corp">
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Contact Info
+                <span class="text-gray-400 font-normal ml-1">(optional)</span>
+            </label>
+            <textarea id="cli_contact" rows="3"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm resize-none"
+                placeholder="Email, phone, address..."></textarea>
+        </div>
+
+        <div id="clientError" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg"></div>
+
+        <div class="flex gap-3 pt-2">
+            <button type="button" onclick="closeModal()"
+                class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all text-sm">
+                Cancel
+            </button>
+            <button type="submit" id="clientSubmitBtn"
+                class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-sm transition-all text-sm">
+                Add Client
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<!-- API URLs injected safely via Jinja url_for — never hardcode paths -->
+<script>
+    const API = {
+        invoices:   "{{ url_for('spindlefinance.list_invoices') }}",
+        addInvoice: "{{ url_for('spindlefinance.add_invoice') }}",
+        clients:    "{{ url_for('spindlefinance.list_clients') }}",
+        addClient:  "{{ url_for('spindlefinance.add_client') }}",
+    };
+</script>
+
+<script>
+    // ── State ──────────────────────────────────────────────────────────
+    let currentTab   = 'invoices';
+    let clientsCache = [];
+
+    // ── Tab switching ──────────────────────────────────────────────────
+    function switchTab(tab) {
+        currentTab = tab;
+
+        document.getElementById('panelInvoices').classList.toggle('hidden', tab !== 'invoices');
+        document.getElementById('panelClients').classList.toggle('hidden',  tab !== 'clients');
+
+        ['invoices', 'clients'].forEach(t => {
+            const btn = document.getElementById(t === 'invoices' ? 'tabInvoices' : 'tabClients');
+            if (t === tab) {
+                btn.classList.add('bg-white', 'text-primary-600', 'shadow-sm');
+                btn.classList.remove('text-gray-500');
+            } else {
+                btn.classList.remove('bg-white', 'text-primary-600', 'shadow-sm');
+                btn.classList.add('text-gray-500');
+            }
+        });
+
+        document.getElementById('ctaBtnLabel').textContent = tab === 'invoices' ? 'New Invoice' : 'New Client';
+    }
+
+    // ── Modal ──────────────────────────────────────────────────────────
+    function openModal() {
+        document.getElementById('modalBackdrop').classList.remove('hidden');
+        if (currentTab === 'invoices') {
+            populateClientDropdown();
+            document.getElementById('invoiceModal').classList.remove('hidden');
+            document.getElementById('clientModal').classList.add('hidden');
+        } else {
+            document.getElementById('clientModal').classList.remove('hidden');
+            document.getElementById('invoiceModal').classList.add('hidden');
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('modalBackdrop').classList.add('hidden');
+        document.getElementById('invoiceModal').classList.add('hidden');
+        document.getElementById('clientModal').classList.add('hidden');
+        document.getElementById('invoiceForm').reset();
+        document.getElementById('clientForm').reset();
+        document.getElementById('invoiceError').classList.add('hidden');
+        document.getElementById('clientError').classList.add('hidden');
+    }
+
+    // ── Load Invoices ──────────────────────────────────────────────────
+    async function loadInvoices() {
+        const tbody = document.getElementById('invoiceTableBody');
+        try {
+            const res  = await fetch(API.invoices);
+            const data = await res.json();
+
+            const today = new Date().toISOString().split('T')[0];
+            let total = 0, openCount = 0, overdueCount = 0;
+
+            data.forEach(inv => {
+                total += inv.amt_recievable || 0;
+                if (inv.status === 'OPEN') {
+                    openCount++;
+                    if (inv.due_date && inv.due_date < today) overdueCount++;
+                }
+                if (inv.status === 'OVERDUE') overdueCount++;
+            });
+
+            document.getElementById('statTotal').textContent   = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+            document.getElementById('statOpen').textContent    = openCount;
+            document.getElementById('statOverdue').textContent = overdueCount;
+
+            if (data.length === 0) {
+                tbody.innerHTML = emptyRow(7, 'No invoices yet. Create your first one!');
+                return;
+            }
+
+            tbody.innerHTML = data.map(inv => `
+                <tr class="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm font-semibold text-primary-600">INV-${inv.invoice_id}</td>
+                    <td class="px-6 py-4 font-medium text-gray-800">${esc(inv.client_name)}</td>
+                    <td class="px-6 py-4 text-gray-600">${esc(inv.product_name)}</td>
+                    <td class="px-6 py-4 text-right font-semibold text-gray-800">
+                        ₹${Number(inv.amt_recievable).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">${fmtDate(inv.due_date)}</td>
+                    <td class="px-6 py-4">${statusBadge(inv.status)}</td>
+                    <td class="px-6 py-4 text-gray-400 text-xs">${fmtDate(inv.created_at)}</td>
+                </tr>
+            `).join('');
+
+        } catch (err) {
+            tbody.innerHTML = emptyRow(7, 'Failed to load invoices.');
+            console.error(err);
+        }
+    }
+
+    // ── Load Clients ───────────────────────────────────────────────────
+    async function loadClients() {
+        const tbody = document.getElementById('clientTableBody');
+        try {
+            const res  = await fetch(API.clients);
+            const data = await res.json();
+            clientsCache = data;
+
+            if (data.length === 0) {
+                tbody.innerHTML = emptyRow(4, 'No clients yet. Add your first one!');
+                return;
+            }
+
+            tbody.innerHTML = data.map(c => `
+                <tr class="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
+                    <td class="px-6 py-4 font-mono text-sm text-gray-500">#${c.client_id}</td>
+                    <td class="px-6 py-4 font-semibold text-gray-800">${esc(c.name)}</td>
+                    <td class="px-6 py-4 text-gray-600 text-sm whitespace-pre-wrap">${esc(c.contact_info || '—')}</td>
+                    <td class="px-6 py-4 text-gray-400 text-xs">${fmtDate(c.created_at)}</td>
+                </tr>
+            `).join('');
+
+        } catch (err) {
+            tbody.innerHTML = emptyRow(4, 'Failed to load clients.');
+            console.error(err);
+        }
+    }
+
+    // ── Populate client dropdown in invoice modal ──────────────────────
+    function populateClientDropdown() {
+        const sel = document.getElementById('inv_client_id');
+        sel.innerHTML = '<option value="">Select a client...</option>' +
+            clientsCache.map(c =>
+                `<option value="${c.client_id}">${esc(c.name)}</option>`
+            ).join('');
+    }
+
+    // ── Submit Invoice ─────────────────────────────────────────────────
+    async function submitInvoice(e) {
+        e.preventDefault();
+        const btn    = document.getElementById('invoiceSubmitBtn');
+        const errBox = document.getElementById('invoiceError');
+        errBox.classList.add('hidden');
+        btn.disabled    = true;
+        btn.textContent = 'Creating...';
+
+        const payload = {
+            client_id:      parseInt(document.getElementById('inv_client_id').value),
+            product_name:   document.getElementById('inv_product_name').value.trim(),
+            amt_recievable: parseFloat(document.getElementById('inv_amount').value),
+            due_date:       document.getElementById('inv_due_date').value,
+            status:         document.getElementById('inv_status').value,
+        };
+
+        try {
+            const res  = await fetch(API.addInvoice, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                errBox.textContent = data.error || 'Something went wrong.';
+                errBox.classList.remove('hidden');
+            } else {
+                closeModal();
+                loadInvoices();
+            }
+        } catch (err) {
+            errBox.textContent = 'Network error. Please try again.';
+            errBox.classList.remove('hidden');
+        }
+
+        btn.disabled    = false;
+        btn.textContent = 'Create Invoice';
+    }
+
+    // ── Submit Client ──────────────────────────────────────────────────
+    async function submitClient(e) {
+        e.preventDefault();
+        const btn    = document.getElementById('clientSubmitBtn');
+        const errBox = document.getElementById('clientError');
+        errBox.classList.add('hidden');
+        btn.disabled    = true;
+        btn.textContent = 'Adding...';
+
+        const payload = {
+            name:         document.getElementById('cli_name').value.trim(),
+            contact_info: document.getElementById('cli_contact').value.trim() || null,
+        };
+
+        try {
+            const res  = await fetch(API.addClient, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(payload),
+            });
+            const data = await res.json();
+
+            if (!res.ok) {
+                errBox.textContent = data.error || 'Something went wrong.';
+                errBox.classList.remove('hidden');
+            } else {
+                closeModal();
+                await loadClients();
+            }
+        } catch (err) {
+            errBox.textContent = 'Network error. Please try again.';
+            errBox.classList.remove('hidden');
+        }
+
+        btn.disabled    = false;
+        btn.textContent = 'Add Client';
+    }
+
+    // ── Helpers ────────────────────────────────────────────────────────
+    function statusBadge(status) {
+        const map = {
+            OPEN:      'bg-amber-50 text-amber-700 border-amber-200',
+            PAID:      'bg-green-50 text-green-700 border-green-200',
+            OVERDUE:   'bg-red-50 text-red-700 border-red-200',
+            CANCELLED: 'bg-gray-100 text-gray-500 border-gray-200',
+        };
+        const cls = map[status] || 'bg-gray-100 text-gray-500 border-gray-200';
+        return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${cls}">${status}</span>`;
+    }
+
+    function fmtDate(val) {
+        if (!val) return '—';
+        const d = new Date(val);
+        if (isNaN(d)) return val;
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function esc(str) {
+        return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function emptyRow(cols, msg) {
+        return `<tr><td colspan="${cols}" class="px-6 py-12 text-center text-gray-400 text-sm">${msg}</td></tr>`;
+    }
+
+    // ── Init ───────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        switchTab('invoices');
+        loadInvoices();
+        loadClients();
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    });
+</script>
+{% endblock %}
