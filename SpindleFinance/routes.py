@@ -8,6 +8,9 @@ import os
 from werkzeug.utils import secure_filename
 from flask import flash
 from .services.transaction_ingestion import get_balance
+from .services.transaction_ingestion import ingest_data
+from flask import current_app 
+from .services.invoice_status import update_invoice_status
 
 @bp.route('/')
 def index():
@@ -84,6 +87,13 @@ def cashflow():
         else:
             new_bal = current_bal - amount
 
+        # Get invoice_id from form (if provided)
+        invoice_id = request.form.get('invoice_id')
+        # Convert to int only if it's a non-empty string
+        if invoice_id and invoice_id.strip():
+            invoice_id = int(invoice_id)
+        else:
+            invoice_id = None
         
         cashflow = AccountCashflow(
             txn_date=datetime.strptime(request.form['txn_date'], '%Y-%m-%d').date(),
@@ -94,10 +104,17 @@ def cashflow():
             description=request.form.get('description', ''),
             reference_id=request.form.get('reference_id', ''),
             current_balance= new_bal,
-            source='MANUAL'
+            source='MANUAL',
+            invoice_id=invoice_id
         )
+
         db.session.add(cashflow)
         db.session.commit()
+        
+        # Update invoice status after cashflow is saved
+        if invoice_id:
+            update_invoice_status(invoice_id)
+
         return redirect(url_for('spindlefinance.cashflow'))
         # Pass invoices joined with client name for the dropdown
     invoices = (
@@ -113,8 +130,7 @@ def records():
     cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
     return render_template('records.html', cashflows=cashflows)
 
-from .services.transaction_ingestion import ingest_data
-from flask import current_app 
+
 @bp.route('/upload', methods=['POST'])
 def uploader():
     file= request.files.get('file')
@@ -195,6 +211,11 @@ def add_invoice():
 
 @bp.route("/invoices", methods=["GET"])
 def list_invoices():
+
+    # Update invoice statuses dynamically before returning
+    invoices_to_update = Invoice.query.all()
+    for inv in invoices_to_update:
+        update_invoice_status(inv.inv_id)
 
     invoices = (
         db.session.query(Invoice, Client)
