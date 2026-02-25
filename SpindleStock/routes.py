@@ -83,6 +83,7 @@ def raw_inward():
     )
 
 
+
 @bp.route("/production", methods=["GET", "POST"])
 def production():
 
@@ -182,7 +183,8 @@ def inventory():
 
     materials = RawMaterial.query.all()
 
-    inventory_data = []
+    inventory_data = [] 
+    
 
     for m in materials:
         inventory_data.append({
@@ -197,3 +199,4 @@ def inventory():
         "inventory.html",
         materials=inventory_data
     )
+

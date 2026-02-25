@@ -28,3 +28,5 @@ def create_app(config_class=Config):
     app.register_blueprint(spindlestock_routes.bp)
     app.config["SECRET_KEY"] = "spindle-secret"
     return app
+ 
+ 
