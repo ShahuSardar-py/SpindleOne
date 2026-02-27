@@ -36,20 +36,21 @@ def upgrade():
     sa.ForeignKeyConstraint(['client_id'], ['clients.id'], ),
     sa.PrimaryKeyConstraint('inv_id')
     )
-    op.create_table('AccountCashflow',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('invoice_id', sa.Integer(), nullable=True),
-    sa.Column('txn_date', sa.Date(), nullable=True),
-    sa.Column('txn_name', sa.String(length=100), nullable=False),
-    sa.Column('account_name', sa.String(length=250), nullable=False),
-    sa.Column('amount', sa.Float(), nullable=False),
-    sa.Column('txn_type', sa.String(length=8), nullable=False),
-    sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('reference_id', sa.String(length=25), nullable=True),
-    sa.Column('current_balance', sa.Float(), nullable=False),
-    sa.Column('source', sa.String(length=50), nullable=True),
-    sa.ForeignKeyConstraint(['invoice_id'], ['Invoice.inv_id'], ),
-    sa.PrimaryKeyConstraint('id')
+    # AccountCashflow table already exists in the initial migration.  
+    # Instead of recreating it, we'll add just the foreign key constraint to
+    # the newly-added Invoice table.  Any column additions (invoice_id) are
+    # handled in a subsequent revision (756c34bf27be).
+    # (Alembic autogenerate mistakenly generated a full create here when the
+    # table was modified after the initial migration.)
+    #
+    # Note: the upgrade path ensures Invoice is present before we create the
+    # foreign key.
+    op.create_foreign_key(
+        'fk_accountcashflow_invoice',
+        'AccountCashflow',
+        'Invoice',
+        ['invoice_id'],
+        ['inv_id'],
     )
 
     # ### end Alembic commands ###
