@@ -63,50 +63,145 @@
             </button>
         </div>
 
-        <!-- ══════════ INVOICES PANEL ══════════ -->
-        <div id="panelInvoices">
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Total Receivable</p>
-                    <p id="statTotal" class="text-2xl font-bold text-gray-900">—</p>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Open</p>
-                    <p id="statOpen" class="text-2xl font-bold text-amber-500">—</p>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-                    <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Overdue</p>
-                    <p id="statOverdue" class="text-2xl font-bold text-red-500">—</p>
-                </div>
-            </div>
+       <!-- ══════════ INVOICES PANEL ══════════ -->
+<div id="panelInvoices">
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Total Receivable</p>
+            <p id="statTotal" class="text-2xl font-bold text-gray-900">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Open</p>
+            <p id="statOpen" class="text-2xl font-bold text-amber-500">—</p>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
+            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Overdue</p>
+            <p id="statOverdue" class="text-2xl font-bold text-red-500">—</p>
+        </div>
+    </div>
 
-            <!-- Invoices table -->
-            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                <th class="px-6 py-4 text-left">Invoice ID</th>
-                                <th class="px-6 py-4 text-left">Client</th>
-                                <th class="px-6 py-4 text-left">Product / Service</th>
-                                <th class="px-6 py-4 text-right">Amount</th>
-                                <th class="px-6 py-4 text-left">Due Date</th>
-                                <th class="px-6 py-4 text-left">Status</th>
-                                <th class="px-6 py-4 text-left">Created</th>
-                            </tr>
-                        </thead>
-                        <tbody id="invoiceTableBody">
-                            <tr>
-                                <td colspan="7" class="px-6 py-12 text-center text-gray-400 text-sm">
-                                    Loading invoices...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <!-- Invoices table -->
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <th class="px-6 py-4 text-left">Invoice ID</th>
+                        <th class="px-6 py-4 text-left">Client</th>
+                        <th class="px-6 py-4 text-left">Product / Service</th>
+                        <th class="px-6 py-4 text-right">Amount</th>
+                        <th class="px-6 py-4 text-left">Due Date</th>
+                        <th class="px-6 py-4 text-left">Status</th>
+                        <th class="px-6 py-4 text-left">Created On</th>
+                        <th class="px-6 py-4 text-center">DigiCopy</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                    <tr>
+                        <td colspan="8" class="px-6 py-12 text-center text-gray-400 text-sm">
+                            Loading invoices...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ══════════ INVOICE MODAL OVERLAY ══════════ -->
+<div id="invoiceModalOverlay"
+     class="fixed inset-0 z-50 flex items-start justify-end pointer-events-none"
+     aria-hidden="true">
+
+    <!-- Backdrop -->
+    <div id="invoiceBackdrop"
+         class="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"
+         onclick="closeInvoiceModal()">
+    </div>
+
+    <!-- Drawer panel -->
+    <div id="invoiceDrawer"
+         class="relative w-full max-w-2xl h-full bg-white shadow-2xl flex flex-col
+                translate-x-full transition-transform duration-300 ease-out pointer-events-auto overflow-y-auto">
+
+        <!-- Drawer Header bar -->
+        <div class="flex items-center justify-between px-8 py-5 border-b border-gray-100 bg-gray-50 sticky top-0 z-10">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6M4 6h16M4 10h4M4 14h4M4 18h16"/>
+                </svg>
+                <span class="font-semibold text-gray-700 text-sm">DigiInvoice</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="printInvoice()"
+                        class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 bg-white border border-gray-200 hover:border-gray-400 rounded-lg px-3 py-1.5 transition-all">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/>
+                    </svg>
+                    Print
+                </button>
+                <button onclick="closeInvoiceModal()"
+                        class="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
         </div>
+
+        <!-- Invoice Content -->
+        <div id="invoiceContent" class="flex-1 px-10 py-8 space-y-8">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+</div>
+
+<style>
+    #invoiceModalOverlay.is-open {
+        pointer-events: auto;
+    }
+    #invoiceModalOverlay.is-open #invoiceBackdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    #invoiceModalOverlay.is-open #invoiceDrawer {
+        transform: translateX(0);
+    }
+
+    /* Eye button */
+    .btn-view-invoice {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        color: #9ca3af;
+        transition: background 0.15s, color 0.15s;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+    }
+    .btn-view-invoice:hover {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    /* Status badges */
+    .badge-paid    { background:#dcfce7; color:#166534; }
+    .badge-open    { background:#fef9c3; color:#854d0e; }
+    .badge-overdue { background:#fee2e2; color:#991b1b; }
+    .badge-draft   { background:#f3f4f6; color:#6b7280; }
+
+    @media print {
+        body > *:not(#invoiceModalOverlay) { display: none !important; }
+        #invoiceModalOverlay, #invoiceDrawer { all: unset; display: block !important; }
+        #invoiceBackdrop, .sticky { display: none !important; }
+        #invoiceContent { padding: 0 !important; }
+    }
+</style>
 
         <!-- ══════════ CLIENTS PANEL ══════════ -->
         <div id="panelClients" class="hidden">
@@ -223,6 +318,7 @@
         </div>
     </form>
 </div>
+    
 
 <!-- ═══════════════════ CLIENT MODAL ═══════════════════ -->
 <div id="clientModal"
@@ -279,7 +375,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<!-- API URLs injected safely via Jinja url_for — never hardcode paths -->
+
 <script>
     const API = {
         invoices:   "{{ url_for('spindlefinance.list_invoices') }}",
@@ -363,22 +459,9 @@
 
             if (data.length === 0) {
                 tbody.innerHTML = emptyRow(7, 'No invoices yet. Create your first one!');
-                return;
+            } else {
+                populateInvoiceTable(data);
             }
-
-            tbody.innerHTML = data.map(inv => `
-                <tr class="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
-                    <td class="px-6 py-4 font-mono text-sm font-semibold text-primary-600">INV-${inv.invoice_id}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">${esc(inv.client_name)}</td>
-                    <td class="px-6 py-4 text-gray-600">${esc(inv.product_name)}</td>
-                    <td class="px-6 py-4 text-right font-semibold text-gray-800">
-                        ₹${Number(inv.amt_recievable).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                    </td>
-                    <td class="px-6 py-4 text-gray-600">${fmtDate(inv.due_date)}</td>
-                    <td class="px-6 py-4">${statusBadge(inv.status)}</td>
-                    <td class="px-6 py-4 text-gray-400 text-xs">${fmtDate(inv.created_at)}</td>
-                </tr>
-            `).join('');
 
         } catch (err) {
             tbody.innerHTML = emptyRow(7, 'Failed to load invoices.');
@@ -527,6 +610,211 @@
 
     function emptyRow(cols, msg) {
         return `<tr><td colspan="${cols}" class="px-6 py-12 text-center text-gray-400 text-sm">${msg}</td></tr>`;
+    }
+
+    // ─── Invoice preview utilities ──────────────────────────────────
+    function openInvoiceModal(invoiceData) {
+        renderInvoice(invoiceData);
+        const overlay = document.getElementById('invoiceModalOverlay');
+        overlay.setAttribute('aria-hidden', 'false');
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeInvoiceModal() {
+        const overlay = document.getElementById('invoiceModalOverlay');
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    function printInvoice() {
+        window.print();
+    }
+
+    // close preview on escape key
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeInvoiceModal();
+    });
+
+    function renderInvoice(inv) {
+        const fmt = (n) => '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        const taxRate = 0.18;
+        const subtotal = inv.amount / (1 + taxRate);
+        const tax = inv.amount - subtotal;
+
+        const statusClass = {
+            paid: 'badge-paid', open: 'badge-open',
+            overdue: 'badge-overdue', draft: 'badge-draft'
+        }[inv.status?.toLowerCase()] || 'badge-draft';
+
+        const lineItems = inv.lineItems || [
+            { description: inv.service || inv.product || 'Professional Services', qty: 1, rate: subtotal, amount: subtotal }
+        ];
+
+        const lineRows = lineItems.map(li => `
+            <tr class="border-b border-gray-50">
+                <td class="py-3 pr-4 text-gray-800">${li.description}</td>
+                <td class="py-3 px-4 text-center text-gray-600">${li.qty}</td>
+                <td class="py-3 px-4 text-right text-gray-600">${fmt(li.rate)}</td>
+                <td class="py-3 pl-4 text-right font-medium text-gray-900">${fmt(li.amount)}</td>
+            </tr>
+        `).join('');
+
+        document.getElementById('invoiceContent').innerHTML = `
+        <!-- ── Header ── -->
+        <div class="flex items-start justify-between">
+            <div>
+                <div class="text-2xl font-black text-gray-900 tracking-tight mb-0.5">Shivleela Foods</div>
+                <div class="text-sm text-gray-400 leading-relaxed">
+                    Loni<br>
+                    Maharashtra 411028, India<br>
+                    shivleelafoods@gmail.com · +91 7774851593
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-3xl font-black text-gray-900 tracking-tight">INVOICE</div>
+                <div class="mt-1 text-base font-semibold text-gray-500">${inv.id}</div>
+                <span class="mt-2 inline-block text-xs font-semibold px-2.5 py-1 rounded-full ${statusClass} capitalize">
+                    ${inv.status || 'Draft'}
+                </span>
+            </div>
+        </div>
+
+        <!-- ── Divider ── -->
+        <div class="h-px bg-gray-100"></div>
+
+        <!-- ── Meta grid ── -->
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Bill To</p>
+                <p class="font-semibold text-gray-900 text-base">${inv.client}</p>
+                // <p class="text-sm text-gray-500 mt-0.5">${inv.clientEmail || 'client@email.com'}</p>
+                // <p class="text-sm text-gray-500">${inv.clientAddress || ''}</p>
+            </div>
+            <div class="text-right space-y-2">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Issue Date</p>
+                    <p class="text-sm font-medium text-gray-700">${inv.created || '—'}</p>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Due Date</p>
+                    <p class="text-sm font-medium ${inv.status?.toLowerCase() === 'overdue' ? 'text-red-500 font-semibold' : 'text-gray-700'}">${inv.due || '—'}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Line Items ── -->
+        <div>
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b-2 border-gray-900">
+                        <th class="pb-2 text-left text-xs font-semibold uppercase tracking-widest text-gray-500">Description</th>
+                        <th class="pb-2 px-4 text-center text-xs font-semibold uppercase tracking-widest text-gray-500">Qty</th>
+                        <th class="pb-2 px-4 text-right text-xs font-semibold uppercase tracking-widest text-gray-500">Rate</th>
+                        <th class="pb-2 pl-4 text-right text-xs font-semibold uppercase tracking-widest text-gray-500">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>${lineRows}</tbody>
+            </table>
+        </div>
+
+        <!-- ── Totals ── -->
+        <div class="flex justify-end">
+            <div class="w-64 space-y-2 text-sm">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span>${fmt(subtotal)}</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                    <span>GST (18%)</span>
+                    <span>${fmt(tax)}</span>
+                </div>
+                <div class="h-px bg-gray-200"></div>
+                <div class="flex justify-between font-bold text-gray-900 text-base">
+                    <span>Total</span>
+                    <span>${fmt(inv.amount)}</span>
+                </div>
+                ${inv.status?.toLowerCase() === 'paid' ? `
+                <div class="flex justify-between text-green-600 font-semibold">
+                    <span>Amount Paid</span>
+                    <span>${fmt(inv.amount)}</span>
+                </div>
+                <div class="flex justify-between font-bold text-green-700 text-sm">
+                    <span>Balance Due</span>
+                    <span>₹0.00</span>
+                </div>` : `
+                <div class="flex justify-between font-bold text-gray-900 pt-1 border-t border-gray-900">
+                    <span>Balance Due</span>
+                    <span>${fmt(inv.amount)}</span>
+                </div>`}
+            </div>
+        </div>
+
+        <!-- ── Footer notes ── -->
+        <div class="border-t border-gray-100 pt-6 text-xs text-gray-400 space-y-1">
+            <p class="font-semibold text-gray-500">Payment Terms</p>
+            <p>${inv.terms || 'Payment due within 30 days of invoice date. Please include the invoice number in your payment reference.'}</p>
+            <p class="mt-2">Bank: HDFC Bank · Account: 1234567890 · IFSC: HDFC0001234</p>
+            <p class="mt-3 text-center text-gray-300">Thank you for your business.</p>
+        </div>
+    `;
+    }
+
+    function buildInvoiceRow(inv) {
+        const invoiceData = {
+            id:      inv.invoice_id || inv.id,
+            client:  inv.client_name || inv.client,
+            service: inv.product_service || inv.service,
+            amount:  parseFloat(inv.amount) || 0,
+            due:     inv.due_date || inv.due,
+            status:  inv.status,
+            created: inv.created_at || inv.created,
+            clientEmail:   inv.client_email,
+            clientAddress: inv.client_address,
+            lineItems:     inv.line_items,
+            terms:         inv.payment_terms,
+        };
+
+        const statusBadge = {
+            paid:    '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-paid">Paid</span>',
+            open:    '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-open">Open</span>',
+            overdue: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-overdue">Overdue</span>',
+            draft:   '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-draft">Draft</span>',
+        }[invoiceData.status?.toLowerCase()] || invoiceData.status;
+
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-gray-50 hover:bg-gray-50/60 transition-colors';
+        tr.innerHTML = `
+            <td class="px-6 py-4 font-mono text-xs text-gray-500">${invoiceData.id}</td>
+            <td class="px-6 py-4 font-medium text-gray-900">${invoiceData.client}</td>
+            <td class="px-6 py-4 text-gray-600">${invoiceData.service || '—'}</td>
+            <td class="px-6 py-4 text-right font-semibold text-gray-900">₹${Number(invoiceData.amount).toLocaleString('en-IN', {minimumFractionDigits:2})}</td>
+            <td class="px-6 py-4 text-gray-600">${invoiceData.due || '—'}</td>
+            <td class="px-6 py-4">${statusBadge}</td>
+            <td class="px-6 py-4 text-gray-500">${invoiceData.created || '—'}</td>
+            <td class="px-6 py-4 text-center">
+                <button class="btn-view-invoice" title="View Invoice">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </button>
+            </td>
+        `;
+
+        tr.querySelector('.btn-view-invoice').addEventListener('click', () => openInvoiceModal(invoiceData));
+        return tr;
+    }
+
+    function populateInvoiceTable(invoices) {
+        const tbody = document.getElementById('invoiceTableBody');
+        tbody.innerHTML = '';
+        if (!invoices.length) {
+            tbody.innerHTML = `<tr><td colspan="8" class="px-6 py-12 text-center text-gray-400 text-sm">No invoices found.</td></tr>`;
+            return;
+        }
+        invoices.forEach(inv => tbody.appendChild(buildInvoiceRow(inv)));
     }
 
     // ── Init ───────────────────────────────────────────────────────────
