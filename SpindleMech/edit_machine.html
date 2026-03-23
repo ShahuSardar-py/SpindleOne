@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ machine.name }} – SpindleMech{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-6 py-8">
+
+  <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+    <a href="{{ url_for('spindlemech.index') }}" class="hover:text-primary-600 transition-colors">SpindleMech</a>
+    <span class="text-gray-300">/</span>
+    <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}"
+       class="hover:text-primary-600 transition-colors">{{ machine.name }}</a>
+    <span class="text-gray-300">/</span>
+    <span class="text-gray-800 font-medium">Edit</span>
+  </nav>
+
+  <div class="card">
+    <div class="px-6 py-5 border-b border-gray-100">
+      <h1 class="text-xl font-bold text-gray-900">Edit Machine</h1>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="mx-6 mt-4 px-4 py-3 rounded-lg text-sm border
+          {% if category == 'success' %}bg-green-50 text-green-800 border-green-200
+          {% else %}bg-red-50 text-red-800 border-red-200{% endif %}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+
+    <form method="POST" class="p-6 space-y-4">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Machine Name <span class="text-red-500">*</span></label>
+          <input type="text" name="name" required value="{{ machine.name }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Machine Code <span class="text-red-500">*</span></label>
+          <input type="text" name="machine_code" required value="{{ machine.machine_code }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+          <input type="text" name="category" value="{{ machine.category or '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Manufacturer</label>
+          <input type="text" name="manufacturer" value="{{ machine.manufacturer or '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Model Number</label>
+          <input type="text" name="model_number" value="{{ machine.model_number or '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Serial Number</label>
+          <input type="text" name="serial_number" value="{{ machine.serial_number or '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Purchase Date</label>
+          <input type="date" name="purchase_date"
+            value="{{ machine.purchase_date.strftime('%Y-%m-%d') if machine.purchase_date else '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Location / Bay</label>
+          <input type="text" name="location" value="{{ machine.location or '' }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
+        <select name="status"
+          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+          {% for s in ['Operational', 'Under Maintenance', 'Decommissioned'] %}
+          <option value="{{ s }}" {% if machine.status == s %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">Notes</label>
+        <textarea name="notes" rows="3"
+          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">{{ machine.notes or '' }}</textarea>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}" class="btn-secondary">Cancel</a>
+        <button type="submit" class="btn-primary">Update Machine</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

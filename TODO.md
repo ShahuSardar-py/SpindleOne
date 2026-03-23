@@ -1,19 +1,7 @@
-# TODO - SpindleFinance Error Fixes
+# TODO: Fix SpindleMech TemplateNotFound Error
 
-## Step 1: Fix models.py ✅
-- [x] Rename `Client.id` to `Client.client_id`
-- [x] Change `Client.contact_info` from Integer to String(255)
-- [x] Change `Invoice.created_at` from Date to DateTime
-- [x] Fix `Invoice` foreign key reference to use `clients.client_id`
-
-## Step 2: Fix routes.py ✅
-- [x] Fix `list_clients` to return correct client_id field
-- [x] Fix `list_invoices` to return correct client_id field
-
-## Step 3: Fix frontend templates ✅
-- [x] Update receivables.html to use correct API URLs (/finance/invoices, /finance/clients)
-- [x] Update addRecord.html to use correct API URLs
-
-## Step 4: Create new migration ✅
-- [x] Create alembic migration for field changes (fix_spindlefinance_fields.py)
-
+## Steps:
+1. [x] Edit SpindleMech/routes.py: Change 'SpindleMech/index.html' to 'index.html' in render_template call.
+2. [x] Test by accessing /mech/ endpoint.
+3. [x] Check other templates use relative paths.
+4. [x] attempt_completion

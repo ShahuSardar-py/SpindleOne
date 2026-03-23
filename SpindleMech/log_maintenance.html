@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}Log Maintenance – SpindleMech{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-6 py-8">
+
+  <!-- Breadcrumb -->
+  <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
+    <a href="{{ url_for('spindlemech.index') }}" class="hover:text-primary-600 transition-colors">SpindleMech</a>
+    <span class="text-gray-300">/</span>
+    <span class="text-gray-800 font-medium">Log Maintenance</span>
+  </nav>
+
+  <div class="card">
+    <div class="px-6 py-5 border-b border-gray-100">
+      <h1 class="text-xl font-bold text-gray-900">Log Maintenance Record</h1>
+      <p class="text-sm text-gray-500 mt-0.5">Manually record a maintenance activity for any machine</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="mx-6 mt-4 px-4 py-3 rounded-lg text-sm border
+          {% if category == 'success' %}bg-green-50 text-green-800 border-green-200
+          {% else %}bg-red-50 text-red-800 border-red-200{% endif %}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+
+    {% if machines %}
+    <form method="POST" class="p-6 space-y-4">
+
+      <!-- Machine selector -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">
+          Machine <span class="text-red-500">*</span>
+        </label>
+        <select name="machine_id" required
+          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+          <option value="" disabled {% if not preselect %}selected{% endif %}>— Select a machine —</option>
+          {% for m in machines %}
+          <option value="{{ m.id }}" {% if preselect == m.id %}selected{% endif %}>
+            {{ m.machine_code }} — {{ m.name }}{% if m.location %} ({{ m.location }}){% endif %}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Type + Date -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">
+            Maintenance Type <span class="text-red-500">*</span>
+          </label>
+          <select name="maintenance_type" required
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            <option value="Preventive">Preventive</option>
+            <option value="Corrective">Corrective</option>
+            <option value="Inspection">Inspection</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">
+            Date Performed <span class="text-red-500">*</span>
+          </label>
+          <input type="date" name="performed_on" required value="{{ today }}"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <!-- Performed by + Next due -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Performed By</label>
+          <input type="text" name="performed_by" placeholder="Technician / vendor name"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Next Due Date</label>
+          <input type="date" name="next_due"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <!-- Cost + Downtime -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Cost (₹)</label>
+          <input type="number" name="cost" step="0.01" min="0" placeholder="0.00"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1.5">Downtime (hours)</label>
+          <input type="number" name="downtime_hours" step="0.5" min="0" placeholder="0"
+            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">
+          Description <span class="text-red-500">*</span>
+        </label>
+        <textarea name="description" rows="3" required
+          placeholder="Describe the work performed, observations, issues found…"
+          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+      </div>
+
+      <!-- Parts replaced -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1.5">Parts Replaced</label>
+        <input type="text" name="parts_replaced"
+          placeholder="e.g. Bearing #6205, V-belt A42, Oil filter"
+          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+      </div>
+
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <a href="{{ url_for('spindlemech.index') }}" class="btn-secondary">Cancel</a>
+        <button type="submit" class="btn-primary">Save Record</button>
+      </div>
+
+    </form>
+
+    {% else %}
+    <!-- No machines registered yet -->
+    <div class="p-12 text-center">
+      <p class="text-gray-500 text-sm mb-4">No machines in the system yet. Add a machine first.</p>
+      <a href="{{ url_for('spindlemech.add_machine') }}" class="btn-primary inline-block text-sm">Add Machine</a>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

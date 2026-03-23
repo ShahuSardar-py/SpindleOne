@@ -1,0 +1,22 @@
+model
+
+CLEINT
+- DETAILS - 1,1 -> 
+A - 101
+A - 102
+
+INVOICE 
+- INVOICE DETAILS 
+
+
+101
+5000
+28/2
+clear late
+
+
+
+CASHFLOW
+- INVOICE 
+3000 - 25
+2000 - 2nd march 
