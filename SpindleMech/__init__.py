@@ -4,7 +4,7 @@ bp = Blueprint(
     'spindlemech',
     __name__,
     url_prefix='/mech',
-    template_folder='templates'
+    template_folder='mechtemplates'
 )
 
 from . import routes

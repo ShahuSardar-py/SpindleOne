@@ -1,7 +1,8 @@
-# TODO: Fix SpindleMech TemplateNotFound Error
+# SpindleFinance Template Rename Task
 
 ## Steps:
-1. [x] Edit SpindleMech/routes.py: Change 'SpindleMech/index.html' to 'index.html' in render_template call.
-2. [x] Test by accessing /mech/ endpoint.
-3. [x] Check other templates use relative paths.
-4. [x] attempt_completion
+- [x] Plan approved by user
+- [x] Step 1: Edit SpindleFinance/routes.py - Update render_template from 'dashboard.html' to 'Financedashboard.html'\n- [x] Step 2: Verify no other template references
+- [x] Step 3: Test /finance/dashboard route
+- [x] Step 4: Update TODO with completion\n- [x] Step 5: Attempt completion
+

@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex min-h-screen bg-gray-50">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-blue-600 uppercase tracking-wider">SpindlePeople</h2>
+        </div>
+        <nav class="p-4">
+            <a href="{{ url_for('spindlepeople.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-blue-600 bg-blue-50 border-r-4 border-blue-600">
+                📊 Dashboard
+            </a>
+            <a href="{{ url_for('spindlepeople.employee') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
+                🧑‍💼 Employees
+            </a>
+            <a href="{{ url_for('spindlepeople.logattendance') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
+                ⏱ Log Attendance
+            </a>
+            <a href="{{ url_for('spindlepeople.attendance') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:bg-gray-50">
+                📅 Attendance Records
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-8">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">HR Dashboard</h1>
+        </div>
+
+        <!-- 🔥 Workforce KPIs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Total Employees</p>
+                <p class="text-2xl font-bold text-gray-900">{{ total_employees }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Total Payroll</p>
+                <p class="text-2xl font-bold text-blue-600">₹ {{ "%.2f"|format(total_payroll) }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Avg Salary</p>
+                <p class="text-2xl font-bold text-gray-800">₹ {{ "%.2f"|format(avg_salary) }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Attendance Rate</p>
+                <p class="text-2xl font-bold text-green-600">{{ "%.1f"|format(attendance_rate) }}%</p>
+            </div>
+        </div>
+
+        <!-- ⚠️ Attendance KPIs -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Present Today</p>
+                <p class="text-2xl font-bold text-green-600">{{ present_today }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Absent Today</p>
+                <p class="text-2xl font-bold text-red-600">{{ absent_today }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Late Logins</p>
+                <p class="text-2xl font-bold text-yellow-600">{{ late_logins }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Not Logged Out</p>
+                <p class="text-2xl font-bold text-orange-600">{{ not_logged_out }}</p>
+            </div>
+        </div>
+
+        <!-- 📊 Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- Attendance Trend -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border">
+                <h3 class="font-bold text-gray-800 mb-4">Attendance Trend (7 Days)</h3>
+                <div class="h-64">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Role Distribution -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <h3 class="font-bold text-gray-800 mb-4">Role Distribution</h3>
+                <div class="h-64">
+                    <canvas id="roleChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 📈 Productivity -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Avg Working Hours</p>
+                <p class="text-2xl font-bold text-blue-600">{{ "%.2f"|format(avg_working_hours) }} hrs</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Top Performer (hrs)</p>
+                <p class="text-2xl font-bold text-green-600">{{ "%.2f"|format(top_performer) }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border">
+                <p class="text-sm text-gray-500">Least Active (hrs)</p>
+                <p class="text-2xl font-bold text-red-600">{{ "%.2f"|format(least_active) }}</p>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Attendance Trend Chart
+    const ctxAttendance = document.getElementById('attendanceChart').getContext('2d');
+
+    new Chart(ctxAttendance, {
+        type: 'line',
+        data: {
+            labels: {{ days|tojson }},
+            datasets: [
+                {
+                    label: 'Present',
+                    data: {{ present_counts|tojson }},
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16,185,129,0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Absent',
+                    data: {{ absent_counts|tojson }},
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239,68,68,0.1)',
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Role Distribution Chart
+    const ctxRole = document.getElementById('roleChart').getContext('2d');
+
+    new Chart(ctxRole, {
+        type: 'doughnut',
+        data: {
+            labels: {{ role_labels|tojson }},
+            datasets: [{
+                data: {{ role_counts|tojson }},
+                backgroundColor: [
+                    '#3b82f6',
+                    '#10b981',
+                    '#f59e0b',
+                    '#ef4444',
+                    '#8b5cf6'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+{% endblock %}

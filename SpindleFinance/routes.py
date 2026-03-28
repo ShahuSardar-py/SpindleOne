@@ -11,6 +11,7 @@ from .services.transaction_ingestion import get_balance
 from .services.transaction_ingestion import ingest_data
 from flask import current_app 
 from .services.invoice_status import update_invoice_status
+from .services.dashboardCalc import get_dashboard_context
 
 @bp.route('/')
 def index():
@@ -18,150 +19,9 @@ def index():
 
 @bp.route('/dashboard')
 def dashboard():
-    # --- Fetch Data ---
-    cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
-    all_invoices = Invoice.query.all()
-    today = datetime.utcnow().date()
-
-    # --- Cashflow Core Metrics ---
-    total_inflow = sum(c.amount for c in cashflows if c.txn_type == 'INFLOW')
-    total_outflow = sum(c.amount for c in cashflows if c.txn_type == 'OUTFLOW')
-    net_cashflow = total_inflow - total_outflow
-
-    latest_balance = cashflows[0].current_balance if cashflows else 0
-    recent_transactions = cashflows[:5] if cashflows else []
-
-    avg_transaction = (
-        sum(c.amount for c in cashflows) / len(cashflows)
-        if cashflows else 0
-    )
-
-    savings_rate = (
-        (net_cashflow / total_inflow) * 100
-        if total_inflow > 0 else 0
-    )
-
-    # --- Invoice Metrics ---
-    total_receivable = sum(
-        inv.amt_recievable for inv in all_invoices
-        if inv.status.upper() == 'OPEN'
-    )
-
-    overdue_count = sum(
-        1 for inv in all_invoices
-        if inv.status.upper() == 'OPEN' and inv.due_date < today
-    )
-
-    overdue_amount = sum(
-        inv.amt_recievable for inv in all_invoices
-        if inv.status.upper() == 'OPEN' and inv.due_date < today
-    )
-
-    paid_invoices = sum(
-        1 for inv in all_invoices if inv.status.upper() == 'PAID'
-    )
-
-    open_invoices = sum(
-        1 for inv in all_invoices if inv.status.upper() == 'OPEN'
-    )
-
-    total_paid_amount = sum(
-        inv.amt_recievable for inv in all_invoices
-        if inv.status.upper() == 'PAID'
-    )
-
-    total_invoice_amount = sum(inv.amt_recievable for inv in all_invoices)
-
-    collection_efficiency = (
-        (total_paid_amount / total_invoice_amount) * 100
-        if total_invoice_amount > 0 else 0
-    )
-
-    # --- Monthly Aggregation ---
-    monthly_inflows = {}
-    monthly_outflows = {}
-
-    for c in cashflows:
-        month_key = c.txn_date.strftime('%Y-%m')
-        if c.txn_type == 'INFLOW':
-            monthly_inflows[month_key] = monthly_inflows.get(month_key, 0) + c.amount
-        else:
-            monthly_outflows[month_key] = monthly_outflows.get(month_key, 0) + c.amount
-
-    # --- Last 6 Months Data ---
-    months = []
-    inflows = []
-    outflows = []
-
-    for i in range(5, -1, -1):
-        month_date = today - timedelta(days=30 * i)
-        month_str = month_date.strftime('%Y-%m')
-
-        months.append(month_date.strftime('%b %Y'))
-        inflows.append(monthly_inflows.get(month_str, 0))
-        outflows.append(monthly_outflows.get(month_str, 0))
-
-    # --- Cashflow Trend Change (Momentum) ---
-    current_month = today.strftime('%Y-%m')
-    prev_month = (today - timedelta(days=30)).strftime('%Y-%m')
-
-    current_net = monthly_inflows.get(current_month, 0) - monthly_outflows.get(current_month, 0)
-    prev_net = monthly_inflows.get(prev_month, 0) - monthly_outflows.get(prev_month, 0)
-
-    cashflow_change = current_net - prev_net
-
-    # --- Transaction Distribution ---
-    inflow_count = sum(1 for c in cashflows if c.txn_type == 'INFLOW')
-    outflow_count = sum(1 for c in cashflows if c.txn_type == 'OUTFLOW')
-
-    # --- Top Expense Category ---
-    from collections import defaultdict
-
-    expense_categories = defaultdict(float)
-    for c in cashflows:
-        if c.txn_type == 'OUTFLOW':
-            expense_categories[c.account_name] += c.amount
-
-    top_expense_category = (
-        max(expense_categories, key=expense_categories.get)
-        if expense_categories else None
-    )
-
-    # --- Render ---
-    return render_template(
-        'dashboard.html',
-
-        # Core
-        cashflows=cashflows,
-        recent_transactions=recent_transactions,
-        latest_balance=latest_balance,
-
-        # Cashflow Metrics
-        total_inflow=total_inflow,
-        total_outflow=total_outflow,
-        net_cashflow=net_cashflow,
-        cashflow_change=cashflow_change,
-        savings_rate=savings_rate,
-        avg_transaction=avg_transaction,
-
-        # Invoice Metrics
-        total_receivable=total_receivable,
-        overdue_count=overdue_count,
-        overdue_amount=overdue_amount,
-        paid_invoices=paid_invoices,
-        open_invoices=open_invoices,
-        collection_efficiency=collection_efficiency,
-
-        # Charts
-        months=months,
-        inflows=inflows,
-        outflows=outflows,
-        txn_types=['Inflow', 'Outflow'],
-        txn_counts=[inflow_count, outflow_count],
-
-        # Insights
-        top_expense_category=top_expense_category
-    )
+    context = get_dashboard_context()
+    return render_template('Financedashboard.html', **context)
+ 
 
 @bp.route('/add', methods=['GET', 'POST'])
 def cashflow():
