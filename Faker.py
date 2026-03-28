@@ -52,12 +52,12 @@ records = []
 for _ in range(N):
 
     txn_type = random.choices(
-        ["inflow", "outflow"],
+        ["INFLOW", "OUTFLOW"],   # ✅ FIXED
         weights=[0.25, 0.75]
     )[0]
 
-    # slightly realistic amount ranges
-    if txn_type == "inflow":
+    # realistic amount ranges
+    if txn_type == "INFLOW":
         amount = round(random.uniform(25000, 350000), 2)
     else:
         amount = round(random.uniform(2000, 180000), 2)
@@ -69,10 +69,17 @@ for _ in range(N):
         "amount": amount,
         "txn_type": txn_type,
         "description": random.choice(descriptions),
-        "reference_id": "TXN-" + uuid.uuid4().hex[:18].upper()
+        "reference_id": "TXN-" + uuid.uuid4().hex[:18].upper(),
+        
+        # NEW FIELDS (aligned with model)
+        "invoice_id": None,              # since no invoice table linkage here
+        "source": "Faker_Test_Data"      # helps you track origin
     })
 
 df = pd.DataFrame(records)
+
+# IMPORTANT: sort for realistic balance calculation later
+df = df.sort_values(by=["txn_date"])
 
 print(df.head())
 
