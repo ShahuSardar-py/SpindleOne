@@ -10,7 +10,6 @@ Think of SpindleOne as a **lightweight ERP foundation** that grows with your fac
 
 ### 🌐 Homepage
 
-* Intuitive landing page
 * Easy access to different operational modules
 
 ---
@@ -24,7 +23,6 @@ Manage employees and track attendance with a clean, structured workflow.
 * Add employees
 * Store employee details (role, salary, etc.)
 * Attendance tracking system
-
   * Login & logout tracking per employee
   * Daily attendance records
 
@@ -36,28 +34,25 @@ Track factory cash flow with clarity and accuracy.
 
 **Features:**
 
-* Add cash inflow & outflow records manualyy
-* Add cash flow records in bulk with CSV 
-* View added records in a table 
-
+* Dashboard Service — Centralized view of all financial activity
+* Add cash inflow & outflow records manually
+* Bulk Upload — Import transactions from CSV template for efficient data entry
+* View all records in a sortable, filterable table
 
 ---
-
 
 ## 🔮 Upcoming Features
 
 ### HR Module
 * Employee analytics
-
+* Payroll integration
 
 ### Finance Module
-
-
-* Bulk cash‑flow ingestion (ETL)
 * Monthly & yearly financial summaries
+* Advanced reporting and analytics
+* Export financial data (CSV / PDF)
 
 ### Platform
-
 * Role‑based access control
 * Factory‑level configuration
 * Exportable reports (CSV / PDF)
@@ -74,7 +69,7 @@ Track factory cash flow with clarity and accuracy.
 
 ## 🤝 Contributing
 
-SpindleOne | contributions are welcome.
+SpindleOne welcomes contributions.
 
 * Fork the repo
 * Create a feature branch
