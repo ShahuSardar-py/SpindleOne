@@ -1,237 +1,738 @@
 {% extends "base.html" %}
 
+{% block extra_styles %}
+<style>
+  /* ── Custom properties (light theme on top of Tailwind) ── */
+  :root {
+    --green:   #059669;
+    --green-l: #d1fae5;
+    --red:     #dc2626;
+    --red-l:   #fee2e2;
+    --amber:   #d97706;
+    --amber-l: #fef3c7;
+    --blue:    #2563eb;
+    --blue-l:  #dbeafe;
+    --slate:   #64748b;
+  }
+
+  /* KPI mini-bar */
+  .mini-bar { height: 3px; background: #f1f5f9; border-radius: 99px; margin-top: 10px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; border-radius: 99px; transition: width .6s ease; }
+
+  /* Aging bars */
+  .aging-bar { height: 6px; border-radius: 99px; transition: width .6s ease; }
+
+  /* Stat badge */
+  .badge {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 10px; font-weight: 600; padding: 2px 7px;
+    border-radius: 4px; line-height: 1.6;
+  }
+  .badge-up   { background: var(--green-l); color: var(--green); }
+  .badge-down { background: var(--red-l);   color: var(--red);   }
+  .badge-warn { background: var(--amber-l); color: var(--amber); }
+  .badge-info { background: var(--blue-l);  color: var(--blue);  }
+  .badge-neutral { background: #f1f5f9; color: var(--slate); }
+
+  /* Insight strip */
+  .insight-icon {
+    width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+
+  /* Table row hover */
+  .txn-row:hover { background: #f8fafc; }
+
+  /* Source row */
+  .source-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Chart canvas wrapper */
+  .chart-wrap { position: relative; }
+
+  /* Concentration bar */
+  .conc-bar { height: 6px; border-radius: 99px; overflow: hidden; background: #f1f5f9; }
+  .conc-fill { height: 100%; border-radius: 99px; }
+
+  /* Sidebar active */
+  .nav-active { background: #eff6ff; color: #2563eb; border-right: 3px solid #2563eb; }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.1px;
+    text-transform: uppercase; color: #94a3b8; margin-bottom: 10px;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="flex min-h-screen bg-gray-50">
-    
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-blue-600 uppercase tracking-wider">SpindleFinance</h2>
+<div class="flex min-h-screen bg-slate-50">
+
+  <!-- ═══════════════════════════════ SIDEBAR ═══════════════════════════════ -->
+  <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
+    <div class="p-6 border-b border-gray-200">
+      <h2 class="text-xl font-bold text-blue-600 uppercase tracking-wider">SpindleFinance</h2>
+    </div>
+    <nav class="p-4">
+      <a href="{{ url_for('spindlefinance.dashboard') }}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 nav-active">
+        <span>📊</span> Dashboard
+      </a>
+      <a href="{{ url_for('spindlefinance.records') }}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
+        <span>📋</span> Cashflow Records
+      </a>
+      <a href="{{ url_for('spindlefinance.cashflow') }}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
+        <span>💰</span> Add Records
+      </a>
+      <a href="{{ url_for('spindlefinance.receivables') }}"
+         class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:bg-gray-50">
+        <span>🧾</span> Receivables
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ════════════════════════════════ MAIN ════════════════════════════════ -->
+  <main class="flex-1 p-8 overflow-y-auto">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Financial Overview</h1>
+        <p class="text-sm text-gray-400 mt-0.5">{{ today.strftime('%A, %d %B %Y') }}</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-xs font-medium text-green-600 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Live
+        </span>
+        <a href="{{ url_for('spindlefinance.cashflow') }}"
+           class="btn-primary text-sm">+ New Transaction</a>
+      </div>
+    </div>
+
+    <!-- ─────────────────── ROW 1 — Core Cashflow KPIs ─────────────────── -->
+    <p class="section-label">Core Cashflow</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+
+      <!-- Cash Balance -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Cash Balance</p>
+        <p class="text-2xl font-bold text-gray-900 tracking-tight">
+          ₹ {{ "{:,.0f}".format(latest_balance) }}
+        </p>
+        <p class="text-xs text-gray-400 mt-1">Current account balance</p>
+        <div class="mini-bar mt-3">
+          <div class="mini-bar-fill bg-blue-500"
+               style="width: {{ [([latest_balance / (latest_balance + total_outflow) * 100, 100]|min), 4]|max }}%"></div>
         </div>
-        <nav class="p-4">
-            <a href="{{ url_for('spindlefinance.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-blue-600 bg-blue-50 border-r-4 border-blue-600">
-                <span>📊</span> Dashboard
-            </a>
-            <a href="{{ url_for('spindlefinance.records') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
-                <span>📋</span> Cashflow Records
-            </a>
-            <a href="{{ url_for('spindlefinance.cashflow') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 text-gray-600 hover:bg-gray-50">
-                <span>💰</span> Add Records
-            </a>
-            <a href="{{ url_for('spindlefinance.receivables') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-gray-600 hover:bg-gray-50">
-                <span>🧾</span> Receivables
-            </a>
-        </nav>
-    </aside>
+      </div>
 
-    <!-- Main -->
-    <main class="flex-1 p-8">
-        
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Financial Overview</h1>
-            <a href="{{ url_for('spindlefinance.cashflow') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
-                + New Transaction
-            </a>
+      <!-- Total Inflow -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Total Inflow</p>
+        <p class="text-2xl font-bold text-emerald-600 tracking-tight">
+          ₹ {{ "{:,.0f}".format(total_inflow) }}
+        </p>
+        <div class="mt-1">
+          {% if inflow_mom_pct >= 0 %}
+            <span class="badge badge-up">↑ {{ "%.1f"|format(inflow_mom_pct) }}%</span>
+          {% else %}
+            <span class="badge badge-down">↓ {{ "%.1f"|format(inflow_mom_pct|abs) }}%</span>
+          {% endif %}
+          <span class="text-xs text-gray-400 ml-1">vs last month</span>
         </div>
+        <div class="mini-bar">
+          <div class="mini-bar-fill bg-emerald-500"
+               style="width: {{ [total_inflow / ([total_inflow, total_outflow]|max) * 100, 100]|min }}%"></div>
+        </div>
+      </div>
 
-        <!-- 🔥 KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Outflow -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Total Outflow</p>
+        <p class="text-2xl font-bold text-red-600 tracking-tight">
+          ₹ {{ "{:,.0f}".format(total_outflow) }}
+        </p>
+        <div class="mt-1">
+          {% if outflow_mom_pct <= 0 %}
+            <span class="badge badge-up">↓ {{ "%.1f"|format(outflow_mom_pct|abs) }}%</span>
+          {% else %}
+            <span class="badge badge-down">↑ {{ "%.1f"|format(outflow_mom_pct) }}%</span>
+          {% endif %}
+          <span class="text-xs text-gray-400 ml-1">vs last month</span>
+        </div>
+        <div class="mini-bar">
+          <div class="mini-bar-fill bg-red-500"
+               style="width: {{ [total_outflow / ([total_inflow, total_outflow]|max) * 100, 100]|min }}%"></div>
+        </div>
+      </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Cash Balance</p>
-                <p class="text-2xl font-bold text-gray-900">₹ {{ "%.2f"|format(latest_balance) }}</p>
+      <!-- Net Cashflow -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5 {{ 'border-l-4 border-l-red-400' if net_cashflow < 0 else 'border-l-4 border-l-emerald-400' }}">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Net Cashflow</p>
+        <p class="text-2xl font-bold tracking-tight {{ 'text-red-600' if net_cashflow < 0 else 'text-emerald-600' }}">
+          {{ '–' if net_cashflow < 0 else '+' }}₹ {{ "{:,.0f}".format(net_cashflow|abs) }}
+        </p>
+        <div class="mt-1">
+          {% if cashflow_change >= 0 %}
+            <span class="badge badge-up">↑ ₹{{ "{:,.0f}".format(cashflow_change|abs) }}</span>
+          {% else %}
+            <span class="badge badge-down">↓ ₹{{ "{:,.0f}".format(cashflow_change|abs) }}</span>
+          {% endif %}
+          <span class="text-xs text-gray-400 ml-1">better MoM</span>
+        </div>
+        <div class="mini-bar">
+          <div class="mini-bar-fill {{ 'bg-red-400' if net_cashflow < 0 else 'bg-emerald-400' }}"
+               style="width: {{ [net_cashflow|abs / ([total_inflow, 1]|max) * 100, 100]|min }}%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────── ROW 2 — Receivables KPIs ─────────────────── -->
+    <p class="section-label">Receivables &amp; Collections</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Open Receivables</p>
+        <p class="text-2xl font-bold text-amber-600 tracking-tight">
+          ₹ {{ "{:,.0f}".format(total_receivable) }}
+        </p>
+        <p class="text-xs text-gray-400 mt-1">{{ open_invoices }} open invoice{{ 's' if open_invoices != 1 }}</p>
+        <div class="mini-bar">
+          <div class="mini-bar-fill bg-amber-400"
+               style="width: {{ [total_receivable / ([total_invoice_amount|default(1), 1]|max) * 100, 100]|min if total_receivable > 0 else 4 }}%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Collection Efficiency</p>
+        <p class="text-2xl font-bold tracking-tight {{ 'text-emerald-600' if collection_efficiency >= 70 else ('text-amber-600' if collection_efficiency >= 40 else 'text-red-600') }}">
+          {{ "%.1f"|format(collection_efficiency) }}%
+        </p>
+        <p class="text-xs text-gray-400 mt-1">of all invoiced amount collected</p>
+        <div class="mini-bar">
+          <div class="mini-bar-fill {{ 'bg-emerald-400' if collection_efficiency >= 70 else 'bg-amber-400' }}"
+               style="width: {{ collection_efficiency }}%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Overdue Exposure</p>
+        <p class="text-2xl font-bold tracking-tight {{ 'text-red-600' if overdue_amount > 0 else 'text-emerald-600' }}">
+          {{ '–' if overdue_amount == 0 else '' }}₹ {{ "{:,.0f}".format(overdue_amount) }}
+        </p>
+        <div class="mt-1">
+          {% if overdue_count == 0 %}
+            <span class="badge badge-up">✓ None overdue</span>
+          {% else %}
+            <span class="badge badge-down">{{ overdue_count }} overdue</span>
+          {% endif %}
+        </div>
+        <div class="mini-bar">
+          <div class="mini-bar-fill {{ 'bg-red-400' if overdue_amount > 0 else 'bg-emerald-400' }}"
+               style="width: {{ [overdue_amount / ([total_receivable, 1]|max) * 100, 100]|min if overdue_amount > 0 else 0 }}%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Paid (All Time)</p>
+        <p class="text-2xl font-bold text-emerald-600 tracking-tight">
+          ₹ {{ "{:,.0f}".format(total_paid_amount) }}
+        </p>
+        <p class="text-xs text-gray-400 mt-1">{{ paid_invoices }} paid invoice{{ 's' if paid_invoices != 1 }}</p>
+        <div class="mini-bar">
+          <div class="mini-bar-fill bg-emerald-500" style="width: {{ collection_efficiency }}%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────────── INSIGHT STRIP ─────────────────── -->
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-4 mb-6 flex flex-wrap gap-4">
+
+      <div class="flex items-center gap-3 flex-1 min-w-48">
+        <div class="insight-icon {{ 'bg-red-50 text-red-500' if net_cashflow < 0 else 'bg-emerald-50 text-emerald-500' }}">
+          {{ '↓' if net_cashflow < 0 else '↑' }}
+        </div>
+        <p class="text-xs text-gray-600">
+          Net cashflow is <strong class="{{ 'text-red-600' if net_cashflow < 0 else 'text-emerald-600' }}">
+          {{ 'negative' if net_cashflow < 0 else 'positive' }}</strong>.
+          {% if net_cashflow < 0 %}Outflow exceeds inflow — review top expense account.{% endif %}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 flex-1 min-w-48">
+        <div class="insight-icon bg-amber-50 text-amber-500">!</div>
+        <p class="text-xs text-gray-600">
+          Top expense: <strong class="text-gray-800">{{ top_expense_category or 'N/A' }}</strong>.
+          Accounts for the largest share of outflows.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 flex-1 min-w-48">
+        <div class="insight-icon {{ 'bg-red-50 text-red-500' if overdue_count > 0 else 'bg-emerald-50 text-emerald-500' }}">
+          {{ '!' if overdue_count > 0 else '✓' }}
+        </div>
+        <p class="text-xs text-gray-600">
+          {% if overdue_count > 0 %}
+            <strong class="text-red-600">{{ overdue_count }} invoice{{ 's' if overdue_count != 1 }} overdue</strong>
+            — ₹{{ "{:,.0f}".format(overdue_amount) }} at risk.
+          {% else %}
+            <strong class="text-emerald-600">No overdue invoices</strong> — collections on track.
+          {% endif %}
+        </p>
+      </div>
+
+      {% if concentration_risk == 'high' %}
+      <div class="flex items-center gap-3 flex-1 min-w-48">
+        <div class="insight-icon bg-red-50 text-red-500">⚠</div>
+        <p class="text-xs text-gray-600">
+          <strong class="text-red-600">High concentration risk</strong> —
+          {{ concentration_pct }}% of receivables in 1 client.
+        </p>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <!-- ─────────────────── ROW 3 — Charts ─────────────────── -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+
+      <!-- Trend Chart (2/3 width) -->
+      <div class="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Cashflow Trend</p>
+            <p class="text-xs text-gray-400">Monthly inflow, outflow &amp; net — last 6 months</p>
+          </div>
+          <div class="flex gap-3">
+            <span class="flex items-center gap-1.5 text-xs text-gray-500">
+              <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span>Inflow
+            </span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-500">
+              <span class="w-2.5 h-2.5 rounded-sm bg-red-400 inline-block"></span>Outflow
+            </span>
+            <span class="flex items-center gap-1.5 text-xs text-gray-500">
+              <span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span>Net
+            </span>
+          </div>
+        </div>
+        <div class="chart-wrap h-56">
+          <canvas id="cashflowChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Expense Donut (1/3 width) -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <div class="mb-4">
+          <p class="text-sm font-semibold text-gray-800">Expense Breakdown</p>
+          <p class="text-xs text-gray-400">Top outflow categories</p>
+        </div>
+        <div class="chart-wrap h-36">
+          <canvas id="expenseChart"></canvas>
+        </div>
+        <div class="mt-3 space-y-1.5">
+          {% for i in range(expense_labels|length) %}
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-sm inline-block flex-shrink-0"
+                    style="background: {{ ['#ef4444','#f59e0b','#3b82f6','#8b5cf6','#6b7280'][i % 5] }}"></span>
+              <span class="text-gray-600 truncate max-w-28">{{ expense_labels[i] }}</span>
             </div>
+            <span class="font-semibold text-gray-700">{{ expense_pcts[i] }}%</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Net Cashflow</p>
-                <p class="text-2xl font-bold {{ 'text-green-600' if net_cashflow >= 0 else 'text-red-600' }}">
-                    ₹ {{ "%.2f"|format(net_cashflow) }}
+    <!-- ─────────────────── ROW 4 — Aging + Clients + Source ─────────────────── -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+
+      <!-- Invoice Aging -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-sm font-semibold text-gray-800 mb-1">Invoice Aging</p>
+        <p class="text-xs text-gray-400 mb-4">Outstanding days buckets</p>
+
+        {% set aging_data = [
+          ('0–30d',  aging_buckets['0_30'],   aging_counts['0_30'],  'bg-emerald-400'),
+          ('31–60d', aging_buckets['31_60'],  aging_counts['31_60'], 'bg-amber-400'),
+          ('61–90d', aging_buckets['61_90'],  aging_counts['61_90'], 'bg-orange-500'),
+          ('90d+',   aging_buckets['90_plus'],aging_counts['90_plus'],'bg-red-600'),
+        ] %}
+        {% for label, amt, cnt, color in aging_data %}
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-xs text-gray-500 w-12 flex-shrink-0">{{ label }}</span>
+          <div class="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+            <div class="{{ color }} aging-bar"
+                 style="width: {{ (amt / aging_max * 100)|round(1) }}%"></div>
+          </div>
+          <span class="text-xs font-semibold text-gray-700 w-20 text-right">
+            ₹{{ "{:,.0f}".format(amt) }}
+          </span>
+          <span class="text-xs text-gray-400 w-6 text-right">{{ cnt }}</span>
+        </div>
+        {% endfor %}
+
+        <div class="mt-4 pt-3 border-t border-gray-100 flex gap-4 text-xs text-gray-500">
+          <span>{{ open_invoices }} total open</span>
+          <span class="{{ 'text-red-600 font-semibold' if overdue_count > 0 else 'text-emerald-600' }}">
+            {{ overdue_count }} at risk
+          </span>
+        </div>
+      </div>
+
+      <!-- Top Clients by Exposure -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-sm font-semibold text-gray-800 mb-1">Client Exposure</p>
+        <p class="text-xs text-gray-400 mb-4">Open receivables by client</p>
+
+        {% if top_clients %}
+          {% for client in top_clients %}
+          <div class="mb-3">
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="text-xs font-medium text-gray-700 truncate max-w-32">{{ client.name }}</span>
+              <span class="text-xs font-semibold text-amber-600">₹{{ "{:,.0f}".format(client.amount) }}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-amber-400 h-1.5 rounded-full transition-all duration-500"
+                     style="width: {{ client.bar_pct }}%"></div>
+              </div>
+              <span class="text-xs text-gray-400 w-8 text-right">{{ client.pct }}%</span>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-xs text-gray-400 text-center py-6">No open receivables</p>
+        {% endif %}
+
+        <!-- Concentration risk -->
+        <div class="mt-4 pt-3 border-t border-gray-100">
+          <div class="flex justify-between items-center mb-1.5">
+            <span class="text-xs text-gray-500">Concentration risk</span>
+            <span class="badge
+              {% if concentration_risk == 'high' %}badge-down
+              {% elif concentration_risk == 'medium' %}badge-warn
+              {% else %}badge-up{% endif %}">
+              {{ concentration_risk|upper }}
+            </span>
+          </div>
+          <div class="conc-bar">
+            <div class="conc-fill
+              {% if concentration_risk == 'high' %}bg-red-400
+              {% elif concentration_risk == 'medium' %}bg-amber-400
+              {% else %}bg-emerald-400{% endif %}"
+              style="width: {{ concentration_pct }}%">
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-1">{{ concentration_pct }}% in top client</p>
+        </div>
+      </div>
+
+      <!-- Transaction Source Mix -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+        <p class="text-sm font-semibold text-gray-800 mb-1">Transaction Source Mix</p>
+        <p class="text-xs text-gray-400 mb-4">By source field on cashflows</p>
+
+        <div class="chart-wrap h-32 mb-4">
+          <canvas id="sourceChart"></canvas>
+        </div>
+
+        {% set source_colors = ['#3b82f6','#8b5cf6','#20c9a6','#f59e0b','#6b7280'] %}
+        <div class="space-y-2">
+          {% for i in range(source_labels|length) %}
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="source-dot"
+                    style="background: {{ source_colors[i % 5] }}"></span>
+              <span class="text-xs text-gray-600">{{ source_labels[i] }}</span>
+            </div>
+            <span class="text-xs font-semibold text-gray-700">{{ source_amounts[i] }}%</span>
+          </div>
+          {% endfor %}
+          {% if not source_labels %}
+          <p class="text-xs text-gray-400 text-center py-4">No source data</p>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─────────────────── ROW 5 — Tables ─────────────────── -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+      <!-- Recent Transactions -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Recent Transactions</p>
+            <p class="text-xs text-gray-400">Latest 5 cashflow entries</p>
+          </div>
+          <a href="{{ url_for('spindlefinance.records') }}"
+             class="text-xs text-blue-600 font-medium hover:underline">View all →</a>
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-100">
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Name</th>
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Account</th>
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Type</th>
+              <th class="px-5 py-2.5 text-right text-xs font-semibold text-gray-400 uppercase tracking-wide">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for txn in recent_transactions %}
+            <tr class="txn-row border-b border-gray-50 last:border-0 transition">
+              <td class="px-5 py-3">
+                <p class="text-xs font-semibold text-gray-800">{{ txn.txn_name }}</p>
+                <p class="text-xs text-gray-400">{{ txn.txn_date.strftime('%d %b %Y') }}</p>
+              </td>
+              <td class="px-5 py-3 text-xs text-gray-500 max-w-24 truncate">{{ txn.account_name }}</td>
+              <td class="px-5 py-3">
+                <span class="badge {{ 'badge-up' if txn.txn_type == 'INFLOW' else 'badge-down' }}">
+                  {{ txn.txn_type }}
+                </span>
+              </td>
+              <td class="px-5 py-3 text-right text-xs font-bold
+                         {{ 'text-emerald-600' if txn.txn_type == 'INFLOW' else 'text-red-600' }}">
+                {{ '+' if txn.txn_type == 'INFLOW' else '–' }}₹{{ "{:,.0f}".format(txn.amount) }}
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="px-5 py-8 text-center text-xs text-gray-400">No transactions yet</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Invoice Pipeline -->
+      <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+          <div>
+            <p class="text-sm font-semibold text-gray-800">Invoice Pipeline</p>
+            <p class="text-xs text-gray-400">Open invoices by due date</p>
+          </div>
+          <a href="{{ url_for('spindlefinance.receivables') }}"
+             class="text-xs text-blue-600 font-medium hover:underline">View all →</a>
+        </div>
+        <table class="w-full">
+          <thead>
+            <tr class="bg-gray-50 border-b border-gray-100">
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Client</th>
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Product</th>
+              <th class="px-5 py-2.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">Due</th>
+              <th class="px-5 py-2.5 text-right text-xs font-semibold text-gray-400 uppercase tracking-wide">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for inv in open_invoices_list[:5] %}
+            {% set days_left = (inv.due_date - today).days %}
+            <tr class="txn-row border-b border-gray-50 last:border-0 transition">
+              <td class="px-5 py-3">
+                <p class="text-xs font-semibold text-gray-800">
+                  {# Look up client name — requires client_id join or pass client map #}
+                  Client #{{ inv.client_id }}
                 </p>
-                <p class="text-xs text-gray-400 mt-1">
-                    {{ '+' if cashflow_change >= 0 else '' }}{{ "%.2f"|format(cashflow_change) }} vs last month
+              </td>
+              <td class="px-5 py-3 text-xs text-gray-500 truncate max-w-24">{{ inv.product_name }}</td>
+              <td class="px-5 py-3">
+                <p class="text-xs font-medium
+                  {{ 'text-red-600' if days_left < 0 else ('text-amber-600' if days_left <= 7 else 'text-gray-600') }}">
+                  {{ inv.due_date.strftime('%d %b') }}
                 </p>
-            </div>
+                <p class="text-xs text-gray-400">
+                  {% if days_left < 0 %}{{ days_left|abs }}d overdue
+                  {% elif days_left == 0 %}Due today
+                  {% else %}{{ days_left }}d left{% endif %}
+                </p>
+              </td>
+              <td class="px-5 py-3 text-right text-xs font-bold text-amber-600">
+                ₹{{ "{:,.0f}".format(inv.amt_recievable) }}
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="px-5 py-8 text-center text-xs text-gray-400">No open invoices</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Savings Rate</p>
-                <p class="text-2xl font-bold text-blue-600">{{ "%.1f"|format(savings_rate) }}%</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Receivables</p>
-                <p class="text-2xl font-bold text-orange-600">₹ {{ "%.2f"|format(total_receivable) }}</p>
-                <p class="text-xs text-gray-400">{{ open_invoices }} open invoices</p>
-            </div>
+        <!-- Mini summary footer -->
+        <div class="px-5 py-3 border-t border-gray-100 bg-gray-50 flex gap-6">
+          <div>
+            <p class="text-xs text-gray-400">Open</p>
+            <p class="text-sm font-bold text-amber-600">₹{{ "{:,.0f}".format(total_receivable) }}</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400">Overdue</p>
+            <p class="text-sm font-bold {{ 'text-red-600' if overdue_amount > 0 else 'text-emerald-600' }}">
+              ₹{{ "{:,.0f}".format(overdue_amount) }}
+            </p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400">Collected</p>
+            <p class="text-sm font-bold text-emerald-600">₹{{ "{:,.0f}".format(total_paid_amount) }}</p>
+          </div>
+          <div class="ml-auto flex items-center">
+            <span class="badge {{ 'badge-up' if collection_efficiency >= 70 else 'badge-warn' }}">
+              {{ "%.0f"|format(collection_efficiency) }}% efficiency
+            </span>
+          </div>
         </div>
+      </div>
 
-        <!-- ⚠️ Secondary Metrics -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    </div>
+    <!-- end main grid -->
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Overdue Amount</p>
-                <p class="text-2xl font-bold text-red-600">₹ {{ "%.2f"|format(overdue_amount) }}</p>
-                <p class="text-xs text-gray-400">{{ overdue_count }} invoices overdue</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Collection Efficiency</p>
-                <p class="text-2xl font-bold text-green-600">{{ "%.1f"|format(collection_efficiency) }}%</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <p class="text-sm text-gray-500">Avg Transaction</p>
-                <p class="text-2xl font-bold text-gray-800">₹ {{ "%.2f"|format(avg_transaction) }}</p>
-            </div>
-        </div>
-
-        <!-- 📊 Charts -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-
-            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border">
-                <h3 class="font-bold text-gray-800 mb-4">Cashflow Trend</h3>
-                <div class="h-64">
-                    <canvas id="cashflowChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-xl shadow-sm border">
-                <h3 class="font-bold text-gray-800 mb-4">Inflow vs Outflow</h3>
-                <div class="h-64">
-                    <canvas id="mixChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- 🧠 Insights -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border mb-8">
-            <h3 class="font-bold text-gray-800 mb-3">Insights</h3>
-            <ul class="text-sm text-gray-600 space-y-2">
-                <li>
-                    • Net cashflow is 
-                    <span class="{{ 'text-green-600' if net_cashflow >= 0 else 'text-red-600' }}">
-                        {{ 'positive' if net_cashflow >= 0 else 'negative' }}
-                    </span>
-                </li>
-                <li>
-                    • You are saving <strong>{{ "%.1f"|format(savings_rate) }}%</strong> of your inflow
-                </li>
-                <li>
-                    • Top expense category: 
-                    <strong>{{ top_expense_category if top_expense_category else 'N/A' }}</strong>
-                </li>
-                <li>
-                    • {{ overdue_count }} invoices need attention
-                </li>
-            </ul>
-        </div>
-
-        <!-- 💸 Transactions -->
-        <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="font-bold text-gray-800">Recent Transactions</h3>
-                <a href="{{ url_for('spindlefinance.records') }}" class="text-blue-600 text-sm font-medium">
-                    View All
-                </a>
-            </div>
-
-            <table class="w-full text-left">
-                <thead class="bg-gray-50 text-gray-500 text-xs uppercase">
-                    <tr>
-                        <th class="px-6 py-3">Date</th>
-                        <th class="px-6 py-3">Reference</th>
-                        <th class="px-6 py-3">Type</th>
-                        <th class="px-6 py-3 text-right">Amount</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    {% for txn in recent_transactions %}
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 text-sm">
-                            {{ txn.txn_date.strftime('%d %b') }}
-                        </td>
-                        <td class="px-6 py-4 text-sm font-medium">
-                            {{ txn.txn_name }}
-                        </td>
-                        <td class="px-6 py-4 text-xs">
-                            <span class="px-2 py-1 rounded-full font-semibold 
-                                {{ 'bg-green-100 text-green-700' if txn.txn_type == 'INFLOW' else 'bg-red-100 text-red-700' }}">
-                                {{ txn.txn_type }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-right font-bold 
-                            {{ 'text-green-600' if txn.txn_type == 'INFLOW' else 'text-red-600' }}">
-                            ₹ {{ "%.2f"|format(txn.amount) }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-    </main>
+  </main>
 </div>
 {% endblock %}
+
 
 {% block extra_scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ctxFlow = document.getElementById('cashflowChart').getContext('2d');
+/* ── Pass Jinja data to JS ── */
+const months   = {{ months   | tojson }};
+const inflows  = {{ inflows  | tojson }};
+const outflows = {{ outflows | tojson }};
+const nets     = {{ nets     | tojson }};
 
-    new Chart(ctxFlow, {
+const expenseLabels  = {{ expense_labels  | tojson }};
+const expenseAmounts = {{ expense_amounts | tojson }};
+
+const sourceLabels  = {{ source_labels  | tojson }};
+const sourceAmounts = {{ source_amounts | tojson }};
+
+const PALETTE = ['#ef4444','#f59e0b','#3b82f6','#8b5cf6','#6b7280'];
+const SOURCE_PALETTE = ['#3b82f6','#8b5cf6','#20c9a6','#f59e0b','#6b7280'];
+
+Chart.defaults.font.family = "'ui-sans-serif', 'system-ui', sans-serif";
+Chart.defaults.font.size   = 11;
+Chart.defaults.color       = '#94a3b8';
+
+/* ── 1. Cashflow Trend — bar + net line ── */
+new Chart(document.getElementById('cashflowChart'), {
+  data: {
+    labels: months,
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Inflow',
+        data: inflows,
+        backgroundColor: 'rgba(16,185,129,0.18)',
+        borderColor: '#10b981',
+        borderWidth: 1.5,
+        borderRadius: 4,
+        yAxisID: 'y',
+      },
+      {
+        type: 'bar',
+        label: 'Outflow',
+        data: outflows,
+        backgroundColor: 'rgba(239,68,68,0.15)',
+        borderColor: '#ef4444',
+        borderWidth: 1.5,
+        borderRadius: 4,
+        yAxisID: 'y',
+      },
+      {
         type: 'line',
-        data: {
-            labels: {{ months|tojson }},
-            datasets: [
-                {
-                    label: 'Inflow',
-                    data: {{ inflows|tojson }},
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    fill: true,
-                    tension: 0.4
-                },
-                {
-                    label: 'Outflow',
-                    data: {{ outflows|tojson }},
-                    borderColor: '#ef4444',
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                    fill: true,
-                    tension: 0.4
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-            plugins: {
-                legend: { display: true }
-            },
-            scales: {
-                y: { beginAtZero: true }
-            }
+        label: 'Net',
+        data: nets,
+        borderColor: '#3b82f6',
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: '#3b82f6',
+        tension: 0.4,
+        yAxisID: 'y2',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const v = ctx.raw;
+            const sign = v < 0 ? '–₹' : '₹';
+            return ` ${ctx.dataset.label}: ${sign}${Math.abs(v).toLocaleString('en-IN')}`;
+          }
         }
-    });
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { autoSkip: false } },
+      y: {
+        grid: { color: '#f1f5f9' },
+        ticks: { callback: v => '₹' + (Math.abs(v)/100000).toFixed(0) + 'L' }
+      },
+      y2: {
+        position: 'right',
+        grid: { display: false },
+        ticks: { callback: v => '₹' + (v/100000).toFixed(0) + 'L' }
+      }
+    }
+  }
+});
 
-    const ctxMix = document.getElementById('mixChart').getContext('2d');
-
-    new Chart(ctxMix, {
-        type: 'doughnut',
-        data: {
-            labels: {{ txn_types|tojson }},
-            datasets: [{
-                data: {{ txn_counts|tojson }},
-                backgroundColor: ['#10b981', '#ef4444']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
+/* ── 2. Expense Breakdown Donut ── */
+new Chart(document.getElementById('expenseChart'), {
+  type: 'doughnut',
+  data: {
+    labels: expenseLabels,
+    datasets: [{
+      data: expenseAmounts,
+      backgroundColor: PALETTE,
+      borderWidth: 0,
+      hoverOffset: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ₹${ctx.raw.toLocaleString('en-IN')}`
         }
-    });
+      }
+    }
+  }
+});
+
+/* ── 3. Source Mix Donut ── */
+if (sourceLabels.length > 0) {
+  new Chart(document.getElementById('sourceChart'), {
+    type: 'doughnut',
+    data: {
+      labels: sourceLabels,
+      datasets: [{
+        data: sourceAmounts,
+        backgroundColor: SOURCE_PALETTE,
+        borderWidth: 0,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` }
+        }
+      }
+    }
+  });
+}
 </script>
 {% endblock %}

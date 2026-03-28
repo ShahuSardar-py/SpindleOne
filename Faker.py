@@ -52,15 +52,15 @@ records = []
 for _ in range(N):
 
     txn_type = random.choices(
-        ["INFLOW", "OUTFLOW"],   # ✅ FIXED
-        weights=[0.25, 0.75]
+["INFLOW", "OUTFLOW"],
+        weights=[0.65, 0.35]  # Increased inflow probability for net positive cash flow
     )[0]
 
     # realistic amount ranges
     if txn_type == "INFLOW":
-        amount = round(random.uniform(25000, 350000), 2)
+        amount = round(random.uniform(30000, 400000), 2)  # Slightly higher inflow range
     else:
-        amount = round(random.uniform(2000, 180000), 2)
+        amount = round(random.uniform(1500, 150000), 2)  # Slightly lower outflow range
 
     records.append({
         "txn_date": fake.date_between(start_date="-10M", end_date="today"),
