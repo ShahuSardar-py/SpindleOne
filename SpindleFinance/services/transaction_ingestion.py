@@ -57,8 +57,8 @@ def ingest_data(file_path):
     # Drop bad rows
     df = df.dropna(subset=["txn_date", "amount", "txn_type"])
 
-    # Running balance calculation
-    running_bal = get_balance()
+    # Running balance calculation - start from 0 for first import (avoid recursion)
+    running_bal = 0.0
     balances = []
 
     for _, row in df.iterrows():
