@@ -1,6 +1,7 @@
 from datetime import datetime
 from app.extensions import db
 
+#employee model
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -9,6 +10,7 @@ class Employee(db.Model):
 
     emp_attendance = db.relationship('Attendance', backref='employee', lazy=True)
 
+#attendance model 
 class Attendance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)

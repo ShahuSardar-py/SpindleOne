@@ -17,12 +17,13 @@
         </svg>
         Log Maintenance
       </a>
-      <a href="{{ url_for('spindlemech.add_machine') }}" class="btn-primary flex items-center gap-2 text-sm">
+      <!-- Triggers the modal instead of navigating -->
+      <button onclick="openAddMachineModal()" class="btn-primary flex items-center gap-2 text-sm">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
         </svg>
         Add Machine
-      </a>
+      </button>
     </div>
   </div>
 
@@ -116,9 +117,213 @@
     <div class="text-6xl mb-4">⚙️</div>
     <h3 class="text-gray-700 font-semibold text-lg mb-1">No machines yet</h3>
     <p class="text-gray-400 text-sm mb-6">Add your first machine to start tracking maintenance.</p>
-    <a href="{{ url_for('spindlemech.add_machine') }}" class="btn-primary inline-block">Add First Machine</a>
+    <button onclick="openAddMachineModal()" class="btn-primary inline-block">Add First Machine</button>
   </div>
   {% endif %}
 
 </div>
+
+
+<!-- ─────────────────────────────────────────────
+     ADD MACHINE MODAL
+───────────────────────────────────────────── -->
+<div id="addMachineModal"
+     class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden"
+     aria-modal="true" role="dialog" aria-labelledby="modalTitle">
+
+  <!-- Backdrop -->
+  <div id="modalBackdrop"
+       class="absolute inset-0 bg-gray-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-200"
+       onclick="closeAddMachineModal()"></div>
+
+  <!-- Panel -->
+  <div id="modalPanel"
+       class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl
+              translate-y-4 opacity-0 transition-all duration-200 ease-out overflow-hidden">
+
+    <!-- Coloured top stripe -->
+    <div class="h-1 w-full bg-gradient-to-r from-primary-500 to-primary-400"></div>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center">
+          <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+          </svg>
+        </div>
+        <h2 id="modalTitle" class="text-base font-semibold text-gray-900">Add New Machine</h2>
+      </div>
+      <button onclick="closeAddMachineModal()"
+              class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition-colors"
+              aria-label="Close">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" action="{{ url_for('spindlemech.add_machine') }}" class="px-6 py-5 space-y-4">
+      {{ form.hidden_tag() if form is defined }}  {# CSRF token if you use Flask-WTF #}
+
+      <!-- Row: Code + Name -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
+            Machine Code <span class="text-red-400">*</span>
+          </label>
+          <input type="text" name="machine_code" required placeholder="e.g. MCH-001"
+                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
+                        placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
+                        focus:border-transparent transition-shadow font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
+            Name <span class="text-red-400">*</span>
+          </label>
+          <input type="text" name="name" required placeholder="Machine name"
+                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
+                        placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
+                        focus:border-transparent transition-shadow">
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Category</label>
+        <input type="text" name="category" placeholder="e.g. CNC Lathe, Press, Conveyor…"
+               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
+                      placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
+                      focus:border-transparent transition-shadow">
+      </div>
+
+      <!-- Location -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Location</label>
+        <input type="text" name="location" placeholder="e.g. Floor A – Bay 3"
+               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
+                      placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
+                      focus:border-transparent transition-shadow">
+      </div>
+
+      <!-- Status -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
+          Status <span class="text-red-400">*</span>
+        </label>
+        <div class="grid grid-cols-3 gap-2" id="statusPicker">
+          {% set statuses = [
+            ('Operational',      'bg-green-50 text-green-700 border-green-200  data-ring="ring-green-400"'),
+            ('Under Maintenance','bg-yellow-50 text-yellow-700 border-yellow-200 data-ring="ring-yellow-400"'),
+            ('Decommissioned',   'bg-gray-50 text-gray-500 border-gray-200    data-ring="ring-gray-400"'),
+          ] %}
+          {% for val, cls in [
+            ('Operational',       'green'),
+            ('Under Maintenance', 'yellow'),
+            ('Decommissioned',    'gray')
+          ] %}
+          <label class="status-option cursor-pointer">
+            <input type="radio" name="status" value="{{ val }}"
+                   class="sr-only"
+                   {% if val == 'Operational' %}checked{% endif %}>
+            <span class="block text-center text-xs font-medium px-2 py-2 rounded-lg border transition-all
+              {% if val == 'Operational' %}
+                bg-green-50 text-green-700 border-green-200 ring-2 ring-green-400
+              {% elif val == 'Under Maintenance' %}
+                bg-yellow-50 text-yellow-700 border-yellow-200
+              {% else %}
+                bg-gray-50 text-gray-500 border-gray-200
+              {% endif %}
+              status-label">{{ val }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Notes</label>
+        <textarea name="notes" rows="2" placeholder="Optional notes or description…"
+                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
+                         placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
+                         focus:border-transparent transition-shadow resize-none"></textarea>
+      </div>
+
+      <!-- Footer actions -->
+      <div class="flex items-center justify-end gap-3 pt-2 border-t border-gray-100">
+        <button type="button" onclick="closeAddMachineModal()"
+                class="btn-secondary text-sm px-4 py-2">
+          Cancel
+        </button>
+        <button type="submit"
+                class="btn-primary flex items-center gap-2 text-sm px-5 py-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+          Save Machine
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  /* ── Modal open / close ── */
+  const modal   = document.getElementById('addMachineModal');
+  const backdrop = document.getElementById('modalBackdrop');
+  const panel    = document.getElementById('modalPanel');
+
+  function openAddMachineModal() {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    // Trigger transition on next frame
+    requestAnimationFrame(() => {
+      backdrop.classList.add('opacity-100');
+      backdrop.classList.remove('opacity-0');
+      panel.classList.remove('translate-y-4', 'opacity-0');
+      panel.classList.add('translate-y-0', 'opacity-100');
+    });
+  }
+
+  function closeAddMachineModal() {
+    backdrop.classList.remove('opacity-100');
+    backdrop.classList.add('opacity-0');
+    panel.classList.add('translate-y-4', 'opacity-0');
+    panel.classList.remove('translate-y-0', 'opacity-100');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeAddMachineModal();
+    }
+  });
+
+  /* ── Status radio pill highlight ── */
+  const ringColors = {
+    'Operational':       ['ring-2', 'ring-green-400'],
+    'Under Maintenance': ['ring-2', 'ring-yellow-400'],
+    'Decommissioned':    ['ring-2', 'ring-gray-400'],
+  };
+
+  document.querySelectorAll('#statusPicker input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('#statusPicker .status-label').forEach(lbl => {
+        lbl.classList.remove('ring-2', 'ring-green-400', 'ring-yellow-400', 'ring-gray-400');
+      });
+      if (radio.checked) {
+        const label = radio.nextElementSibling;
+        const rings = ringColors[radio.value] || [];
+        label.classList.add(...rings);
+      }
+    });
+  });
+</script>
+
 {% endblock %}
