@@ -1,22 +1,8 @@
-"""
-dashboard_service.py
---------------------
-All heavy-lifting calculations for the Finance Command dashboard.
-Call get_dashboard_context() from your route and unpack into render_template().
-
-Fully safe when the database is empty — every division is guarded and all
-collections are checked before indexing.
-"""
-
 from collections import defaultdict
 from datetime import datetime, timedelta
 from ..models import AccountCashflow, Invoice, Client
 
-
-# ------------------------------------------------------------------ #
 #  Helpers                                                            #
-# ------------------------------------------------------------------ #
-
 def _safe_pct(numerator: float, denominator: float, ndigits: int = 1) -> float:
     """Return (numerator / denominator * 100) rounded to ndigits, or 0.0."""
     return round((numerator / denominator) * 100, ndigits) if denominator else 0.0
@@ -27,25 +13,18 @@ def _safe_div(numerator: float, denominator: float, ndigits: int = 1) -> float:
     return round(numerator / denominator, ndigits) if denominator else 0.0
 
 
-# ------------------------------------------------------------------ #
 #  Main entry point                                                   #
-# ------------------------------------------------------------------ #
-
 def get_dashboard_context() -> dict:
     today = datetime.utcnow().date()
 
     cashflows    = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
     all_invoices = Invoice.query.all()
 
-    # ------------------------------------------------------------------ #
     #  Split by type once — reuse everywhere                              #
-    # ------------------------------------------------------------------ #
     inflow_txns  = [c for c in cashflows if c.txn_type == 'INFLOW']
     outflow_txns = [c for c in cashflows if c.txn_type == 'OUTFLOW']
 
-    # ------------------------------------------------------------------ #
     #  Core cashflow metrics                                              #
-    # ------------------------------------------------------------------ #
     total_inflow  = sum(c.amount for c in inflow_txns)
     total_outflow = sum(c.amount for c in outflow_txns)
     net_cashflow  = total_inflow - total_outflow
@@ -53,9 +32,7 @@ def get_dashboard_context() -> dict:
     latest_balance      = cashflows[0].current_balance if cashflows else 0.0
     recent_transactions = cashflows[:5]
 
-    # ------------------------------------------------------------------ #
     #  Monthly aggregation                                                #
-    # ------------------------------------------------------------------ #
     monthly_inflows:  dict[str, float] = defaultdict(float)
     monthly_outflows: dict[str, float] = defaultdict(float)
 
@@ -99,9 +76,7 @@ def get_dashboard_context() -> dict:
     inflow_mom_pct  = _safe_pct(curr_in  - prev_in,  prev_in)
     outflow_mom_pct = _safe_pct(curr_out - prev_out, prev_out)
 
-    # ------------------------------------------------------------------ #
     #  Transaction counts & source mix                                    #
-    # ------------------------------------------------------------------ #
     inflow_count  = len(inflow_txns)
     outflow_count = len(outflow_txns)
     total_txns    = len(cashflows)  # may be 0
@@ -114,9 +89,7 @@ def get_dashboard_context() -> dict:
     source_labels  = list(source_counts.keys())
     source_amounts = [_safe_pct(v, total_txns) for v in source_counts.values()]
 
-    # ------------------------------------------------------------------ #
     #  Expense breakdown by account_name (top 5 for donut)               #
-    # ------------------------------------------------------------------ #
     expense_by_category: dict[str, float] = defaultdict(float)
     for c in outflow_txns:
         expense_by_category[c.account_name] += c.amount
@@ -133,9 +106,7 @@ def get_dashboard_context() -> dict:
 
     expense_pcts = [_safe_pct(v, total_expense) for v in expense_amounts]
 
-    # ------------------------------------------------------------------ #
     #  Invoice metrics                                                    #
-    # ------------------------------------------------------------------ #
     open_invoices_list = [inv for inv in all_invoices if inv.status.upper() == 'OPEN']
     paid_invoices_list = [inv for inv in all_invoices if inv.status.upper() == 'PAID']
 
@@ -152,10 +123,8 @@ def get_dashboard_context() -> dict:
     overdue_count  = len(overdue_list)
     overdue_amount = sum(inv.amt_recievable for inv in overdue_list)
 
-    # ------------------------------------------------------------------ #
     #  Invoice aging buckets                                              #
     #  Negative days_outstanding = not yet due (upcoming)                #
-    # ------------------------------------------------------------------ #
     aging_buckets: dict[str, float] = {'0_30': 0.0, '31_60': 0.0, '61_90': 0.0, '90_plus': 0.0}
     aging_counts:  dict[str, int]   = {'0_30': 0,   '31_60': 0,   '61_90': 0,   '90_plus': 0}
 
@@ -177,9 +146,7 @@ def get_dashboard_context() -> dict:
 
     aging_max = max(aging_buckets.values()) or 1.0  # for bar-width % in template
 
-    # ------------------------------------------------------------------ #
     #  Client exposure & concentration risk                               #
-    # ------------------------------------------------------------------ #
     client_receivables: dict[int, float] = defaultdict(float)
     for inv in open_invoices_list:
         client_receivables[inv.client_id] += inv.amt_recievable
@@ -217,9 +184,7 @@ def get_dashboard_context() -> dict:
     else:
         concentration_risk = 'low'
 
-    # ------------------------------------------------------------------ #
     #  Return full context dict                                           #
-    # ------------------------------------------------------------------ #
     return dict(
         # ── Raw data ──────────────────────────────────────────────────
         cashflows=cashflows,

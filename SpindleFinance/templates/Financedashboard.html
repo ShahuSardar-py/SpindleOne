@@ -4,739 +4,1082 @@
 
 {% block extra_styles %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
+  rel="stylesheet">
 
 <style>
-/* ══════════════════════════════════════
+  /* ══════════════════════════════════════
    DESIGN SYSTEM — Industrial Tactility
    ══════════════════════════════════════ */
-:root {
-  /* Surfaces */
-  --s0:   #F9F9F9;   /* chassis */
-  --s1:   #F3F3F3;   /* module */
-  --s2:   #E8E8E8;   /* active component */
-  --s3:   #DADADA;   /* pocket / recessed */
-  --s4:   #CCCCCC;   /* deep pocket */
+  :root {
+    /* Surfaces */
+    --s0: #F9F9F9;
+    /* chassis */
+    --s1: #F3F3F3;
+    /* module */
+    --s2: #E8E8E8;
+    /* active component */
+    --s3: #DADADA;
+    /* pocket / recessed */
+    --s4: #CCCCCC;
+    /* deep pocket */
 
-  /* Ink */
-  --ink:  #1A1C1C;
-  --ink2: #4A4C4C;
-  --ink3: #7A7C7C;
+    /* Ink */
+    --ink: #1A1C1C;
+    --ink2: #4A4C4C;
+    --ink3: #7A7C7C;
 
-  /* Signal */
-  --red:    #FF3B30;
-  --blue:   #007AFF;
-  --yellow: #FFD600;
-  --green:  #34C759;
+    /* Signal */
+    --red: #FF3B30;
+    --blue: #007AFF;
+    --yellow: #FFD600;
+    --green: #34C759;
 
-  /* Type */
-  --font-display: 'Barlow Condensed', sans-serif;
-  --font-body:    'Barlow', sans-serif;
-  --font-mono:    'DM Mono', monospace;
-}
+    /* Type */
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-body {
-  background: var(--s0);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-size: 13px;
-}
+  body {
+    background: var(--s0);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 13px;
+  }
 
-/* ── dot-matrix texture overlay ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
-  background-size: 4px 4px;
-  opacity: 0.04;
-}
+  /* ── dot-matrix texture overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.04;
+  }
 
-/* ── layout shell ── */
-.fin-shell {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
+  /* ── layout shell ── */
+  .fin-shell {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
 
-/* ══════════════════════════════════════
+  /* ══════════════════════════════════════
    SIDEBAR
    ══════════════════════════════════════ */
-.fin-sidebar {
-  width: 224px;
-  flex-shrink: 0;
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 48px; /* below main navbar */
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-}
+  .fin-sidebar {
+    width: 224px;
+    flex-shrink: 0;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 48px;
+    /* below main navbar */
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
 
-.fin-sidebar-brand {
-  padding: 1.25rem 1.25rem 1rem;
-  border-bottom: 1px solid #2a2c2c;
-}
+  .fin-sidebar-brand {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid #2a2c2c;
+  }
 
-.fin-sidebar-brand-label {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
+  .fin-sidebar-brand-label {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
 
-.fin-sidebar-brand-label .brand-dot {
-  width: 8px; height: 8px;
-  background: var(--blue);
-  flex-shrink: 0;
-}
+  .fin-sidebar-brand-label .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
 
-.fin-sidebar-brand-sub {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #555;
-  margin-top: 0.2rem;
-}
+  .fin-sidebar-brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 0.2rem;
+  }
 
-.fin-nav {
-  padding: 1rem 0;
-  flex: 1;
-}
+  .fin-nav {
+    padding: 1rem 0;
+    flex: 1;
+  }
 
-.fin-nav-section {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #444;
-  padding: 0 1.25rem;
-  margin-bottom: 0.4rem;
-  margin-top: 1rem;
-}
-.fin-nav-section:first-child { margin-top: 0; }
+  .fin-nav-section {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    padding: 0 1.25rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
 
-.fin-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 1.25rem;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #777;
-  text-decoration: none;
-  transition: background 0.12s, color 0.12s;
-  position: relative;
-}
-.fin-nav-link svg { flex-shrink: 0; }
-.fin-nav-link:hover { background: #1e2020; color: #ccc; }
-.fin-nav-link.active {
-  background: #1e2020;
-  color: #ffffff;
-  border-left: 2px solid var(--blue);
-  padding-left: calc(1.25rem - 2px);
-}
-.fin-nav-link.active svg { stroke: var(--blue); }
+  .fin-nav-section:first-child {
+    margin-top: 0;
+  }
 
-/* ══════════════════════════════════════
+  .fin-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #777;
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+    position: relative;
+  }
+
+  .fin-nav-link svg {
+    flex-shrink: 0;
+  }
+
+  .fin-nav-link:hover {
+    background: #1e2020;
+    color: #ccc;
+  }
+
+  .fin-nav-link.active {
+    background: #1e2020;
+    color: #ffffff;
+    border-left: 2px solid var(--blue);
+    padding-left: calc(1.25rem - 2px);
+  }
+
+  .fin-nav-link.active svg {
+    stroke: var(--blue);
+  }
+
+  /* ══════════════════════════════════════
    MAIN CONTENT
    ══════════════════════════════════════ */
-.fin-main {
-  flex: 1;
-  padding: 1.75rem 2rem 3rem;
-  overflow-x: hidden;
-}
+  .fin-main {
+    flex: 1;
+    padding: 1.75rem 2rem 3rem;
+    overflow-x: hidden;
+  }
 
-/* ── Page header ── */
-.fin-page-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.75rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
+  /* ── Page header ── */
+  .fin-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 
-.fin-live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 0.5rem;
-}
-.fin-live-badge .led {
-  width: 6px; height: 6px;
-  background: var(--red);
-  animation: led-blink 1.2s infinite;
-}
+  .fin-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
 
-@keyframes led-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .fin-live-badge .led {
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+    animation: led-blink 1.2s infinite;
+  }
 
-.fin-page-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 2.4rem;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: var(--ink);
-  line-height: 1;
-}
+  @keyframes led-blink {
 
-.fin-new-txn-btn {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: var(--ink);
-  color: #fff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.12s;
-  flex-shrink: 0;
-  align-self: center;
-}
-.fin-new-txn-btn:hover { background: #333; }
+    0%,
+    100% {
+      opacity: 1
+    }
 
-/* ── Section label ── */
-.fin-section-label {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink2);
-  margin-bottom: 0.85rem;
-}
-.fin-section-label::before {
-  content: '';
-  width: 10px; height: 10px;
-  background: var(--s2);
-  border: 1.5px solid var(--ink2);
-  flex-shrink: 0;
-}
+    50% {
+      opacity: 0.2
+    }
+  }
 
-/* ── KPI grid ── */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0; /* no gap — tonal shift defines zones */
-  margin-bottom: 1.75rem;
-  background: var(--s2);
-  border: 1px solid var(--s3);
-}
+  .fin-page-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.4rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
 
-.kpi-card {
-  background: var(--s0);
-  padding: 1.25rem 1.5rem;
-  border-right: 1px solid var(--s2);
-  position: relative;
-  transition: background 0.12s;
-}
-.kpi-card:last-child { border-right: none; }
-.kpi-card:hover { background: var(--s1); }
+  .fin-new-txn-btn {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s;
+    flex-shrink: 0;
+    align-self: center;
+  }
 
-/* Net cashflow card gets ink bg */
-.kpi-card.kpi-highlight {
-  background: var(--ink);
-  border-right: none;
-}
-.kpi-card.kpi-highlight:hover { background: #222; }
+  .fin-new-txn-btn:hover {
+    background: #333;
+  }
 
-.kpi-label {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 0.75rem;
-}
-.kpi-card.kpi-highlight .kpi-label { color: #555; }
+  /* ── Section label ── */
+  .fin-section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.85rem;
+  }
 
-.kpi-value {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.9rem;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-.kpi-card.kpi-highlight .kpi-value { color: var(--red); }
+  .fin-section-label::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--s2);
+    border: 1.5px solid var(--ink2);
+    flex-shrink: 0;
+  }
 
-.kpi-sub {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.06em;
-  color: var(--ink3);
-}
-.kpi-card.kpi-highlight .kpi-sub {
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
+  /* ── KPI grid ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    /* no gap — tonal shift defines zones */
+    margin-bottom: 1.75rem;
+    background: var(--s2);
+    border: 1px solid var(--s3);
+  }
 
-.kpi-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  padding: 0.2rem 0.5rem;
-  text-transform: uppercase;
-}
-.kpi-tag.up   { background: rgba(52,199,89,0.12);  color: #1a7a35; }
-.kpi-tag.down { background: rgba(255,59,48,0.12);  color: var(--red); }
-.kpi-tag.warn { background: rgba(255,214,0,0.15);  color: #7a5f00; }
-.kpi-tag.info { background: rgba(0,122,255,0.1);   color: var(--blue); }
+  .kpi-card {
+    background: var(--s0);
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--s2);
+    position: relative;
+    transition: background 0.12s;
+  }
 
-/* mini-bar */
-.kpi-bar-track {
-  height: 2px;
-  background: var(--s3);
-  margin-top: 0.85rem;
-  overflow: hidden;
-}
-.kpi-bar-fill {
-  height: 100%;
-  transition: width 0.6s ease;
-}
+  .kpi-card:last-child {
+    border-right: none;
+  }
 
-/* ── Two-col layout ── */
-.fin-row {
-  display: grid;
-  gap: 1px; /* tonal separation */
-  background: var(--s2);
-  border: 1px solid var(--s3);
-  margin-bottom: 1.75rem;
-}
-.fin-row-2-1 { grid-template-columns: 2fr 1fr; }
-.fin-row-3   { grid-template-columns: 1fr 1fr 1fr; }
-.fin-row-2   { grid-template-columns: 1fr 1fr; }
+  .kpi-card:hover {
+    background: var(--s1);
+  }
 
-.fin-panel {
-  background: var(--s0);
-  padding: 1.25rem 1.5rem;
-}
+  /* Net cashflow card gets ink bg */
+  .kpi-card.kpi-highlight {
+    background: var(--ink);
+    border-right: none;
+  }
 
-.fin-panel-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.1rem;
-  gap: 0.5rem;
-}
+  .kpi-card.kpi-highlight:hover {
+    background: #222;
+  }
 
-.fin-panel-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink);
-}
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.75rem;
+  }
 
-.fin-panel-sub {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--ink3);
-  letter-spacing: 0.06em;
-  margin-top: 0.15rem;
-}
+  .kpi-card.kpi-highlight .kpi-label {
+    color: #555;
+  }
 
-.fin-view-all {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--blue);
-  text-decoration: none;
-  flex-shrink: 0;
-}
-.fin-view-all:hover { text-decoration: underline; }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
 
-/* ── Time filter pills ── */
-.time-filters {
-  display: flex;
-  gap: 0;
-  border: 1px solid var(--s3);
-}
-.time-btn {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.65rem;
-  border: none;
-  background: var(--s1);
-  color: var(--ink3);
-  cursor: pointer;
-  transition: background 0.1s, color 0.1s;
-  border-right: 1px solid var(--s3);
-}
-.time-btn:last-child { border-right: none; }
-.time-btn.active { background: var(--ink); color: #fff; }
-.time-btn:not(.active):hover { background: var(--s2); }
+  .kpi-card.kpi-highlight .kpi-value {
+    color: var(--red);
+  }
 
-/* ── Chart wrapper ── */
-.chart-wrap { position: relative; }
+  .kpi-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    color: var(--ink3);
+  }
 
-/* ── Receivables bars ── */
-.rec-row {
-  margin-bottom: 1rem;
-}
-.rec-row:last-child { margin-bottom: 0; }
+  .kpi-card.kpi-highlight .kpi-sub {
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
 
-.rec-row-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.3rem;
-}
-.rec-row-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink2);
-}
-.rec-row-value {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--ink);
-}
+  .kpi-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.5rem;
+    text-transform: uppercase;
+  }
 
-.rec-bar-track {
-  height: 4px;
-  background: var(--s3);
-  overflow: hidden;
-}
-.rec-bar-fill {
-  height: 100%;
-  transition: width 0.7s ease;
-}
+  .kpi-tag.up {
+    background: rgba(52, 199, 89, 0.12);
+    color: #1a7a35;
+  }
 
-.rec-action-btn {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.55rem 1rem;
-  background: var(--s1);
-  border: 1px solid var(--s3);
-  color: var(--ink2);
-  cursor: pointer;
-  width: 100%;
-  margin-top: 1rem;
-  transition: background 0.12s, color 0.12s;
-}
-.rec-action-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .kpi-tag.down {
+    background: rgba(255, 59, 48, 0.12);
+    color: var(--red);
+  }
 
-/* ── Tables ── */
-.fin-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+  .kpi-tag.warn {
+    background: rgba(255, 214, 0, 0.15);
+    color: #7a5f00;
+  }
 
-.fin-table thead tr {
-  background: var(--s1);
-}
-.fin-table th {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  padding: 0.6rem 0.85rem;
-  text-align: left;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.fin-table th:last-child { text-align: right; }
+  .kpi-tag.info {
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--blue);
+  }
 
-.fin-table tbody tr {
-  border-top: 1px solid var(--s2);
-  transition: background 0.1s;
-}
-.fin-table tbody tr:hover { background: var(--s1); }
+  /* mini-bar */
+  .kpi-bar-track {
+    height: 2px;
+    background: var(--s3);
+    margin-top: 0.85rem;
+    overflow: hidden;
+  }
 
-.fin-table td {
-  padding: 0.75rem 0.85rem;
-  font-size: 0.72rem;
-  color: var(--ink);
-}
-.fin-table td:last-child { text-align: right; }
+  .kpi-bar-fill {
+    height: 100%;
+    transition: width 0.6s ease;
+  }
 
-.fin-table .td-primary {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-.fin-table .td-secondary {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--ink3);
-  margin-top: 0.1rem;
-}
+  /* ── Two-col layout ── */
+  .fin-row {
+    display: grid;
+    gap: 1px;
+    /* tonal separation */
+    background: var(--s2);
+    border: 1px solid var(--s3);
+    margin-bottom: 1.75rem;
+  }
 
-.fin-table .amount-pos {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  color: var(--green);
-}
-.fin-table .amount-neg {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  color: var(--red);
-}
-.fin-table .amount-warn {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  color: #c47e00;
-}
+  .fin-row-2-1 {
+    grid-template-columns: 2fr 1fr;
+  }
 
-/* Status chips */
-.status-chip {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.5rem;
-  font-weight: 500;
-}
-.chip-pending  { background: rgba(255,214,0,0.2);  color: #7a5f00; }
-.chip-cleared  { background: rgba(52,199,89,0.12); color: #1a7a35; }
-.chip-overdue  { background: var(--red);            color: #fff; }
+  .fin-row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
-/* Due date states */
-.due-ok      { font-family: var(--font-mono); font-size:0.6rem; color: var(--ink2); }
-.due-warn    { font-family: var(--font-mono); font-size:0.6rem; color: #c47e00; }
-.due-overdue { font-family: var(--font-mono); font-size:0.6rem; color: var(--red); font-weight:500; }
+  .fin-row-2 {
+    grid-template-columns: 1fr 1fr;
+  }
 
-/* Invoice table footer */
-.inv-footer {
-  background: var(--s1);
-  border-top: 1px solid var(--s2);
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-.inv-footer-stat label {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  display: block;
-  margin-bottom: 0.2rem;
-}
-.inv-footer-stat span {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-.inv-footer-stat span.red   { color: var(--red); }
-.inv-footer-stat span.green { color: var(--green); }
-.inv-footer-stat span.amber { color: #c47e00; }
+  .fin-panel {
+    background: var(--s0);
+    padding: 1.25rem 1.5rem;
+  }
 
-.inv-footer-eff {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.inv-footer-eff strong { color: var(--blue); }
+  .fin-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.1rem;
+    gap: 0.5rem;
+  }
 
-/* ── Aging panel ── */
-.aging-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.85rem;
-}
-.aging-row:last-of-type { margin-bottom: 0; }
-.aging-label {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  color: var(--ink3);
-  width: 40px;
-  flex-shrink: 0;
-}
-.aging-track {
-  flex: 1;
-  height: 4px;
-  background: var(--s3);
-  overflow: hidden;
-}
-.aging-fill { height: 100%; transition: width 0.7s ease; }
-.aging-val {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 500;
-  color: var(--ink);
-  width: 72px;
-  text-align: right;
-  flex-shrink: 0;
-}
-.aging-cnt {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--ink3);
-  width: 18px;
-  text-align: right;
-  flex-shrink: 0;
-}
+  .fin-panel-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
 
-/* ── Bottom status bar ── */
-.fin-status-bar {
-  background: var(--ink);
-  padding: 0.85rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-  border-top: 2px solid #2a2c2c;
-  position: relative;
-  z-index: 1;
-}
+  .fin-panel-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--ink3);
+    letter-spacing: 0.06em;
+    margin-top: 0.15rem;
+  }
 
-.fin-status-live {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-}
-.fin-status-live .live-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--blue);
-  animation: led-blink 2s infinite;
-}
+  .fin-view-all {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
 
-.fin-status-divider {
-  width: 1px;
-  height: 24px;
-  background: #2a2c2c;
-  flex-shrink: 0;
-}
+  .fin-view-all:hover {
+    text-decoration: underline;
+  }
 
-.fin-status-stat {
-  display: flex;
-  flex-direction: column;
-}
-.fin-status-stat label {
-  font-family: var(--font-mono);
-  font-size: 0.45rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #555;
-}
-.fin-status-stat span {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: #aaa;
-  margin-top: 0.1rem;
-}
-.fin-status-stat span.accent { color: var(--red); }
-.fin-status-stat span.blue-accent { color: var(--blue); }
+  /* ── Time filter pills ── */
+  .time-filters {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--s3);
+  }
 
-/* ── Staggered entrance ── */
-@keyframes fin-in {
-  from { opacity:0; transform: translateY(10px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-.kpi-card { animation: fin-in 0.25s ease both; }
-.kpi-card:nth-child(1) { animation-delay:0.04s; }
-.kpi-card:nth-child(2) { animation-delay:0.08s; }
-.kpi-card:nth-child(3) { animation-delay:0.12s; }
-.kpi-card:nth-child(4) { animation-delay:0.16s; }
-.fin-panel { animation: fin-in 0.3s ease both; }
+  .time-btn {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border: none;
+    background: var(--s1);
+    color: var(--ink3);
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+    border-right: 1px solid var(--s3);
+  }
 
-/* ── Insight strip ── */
-.insight-strip {
-  display: flex;
-  gap: 0;
-  background: var(--s2);
-  border: 1px solid var(--s3);
-  margin-bottom: 1.75rem;
-}
-.insight-cell {
-  flex: 1;
-  padding: 0.85rem 1.1rem;
-  background: var(--s0);
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  border-right: 1px solid var(--s2);
-}
-.insight-cell:last-child { border-right: none; }
-.insight-cell:hover { background: var(--s1); }
+  .time-btn:last-child {
+    border-right: none;
+  }
 
-.insight-led {
-  width: 8px; height: 8px;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.insight-cell p {
-  font-size: 0.65rem;
-  line-height: 1.55;
-  color: var(--ink2);
-}
-.insight-cell p strong { color: var(--ink); font-weight: 600; }
-.insight-cell p .warn { color: var(--red); font-weight: 600; }
-.insight-cell p .ok   { color: var(--green); font-weight: 600; }
+  .time-btn.active {
+    background: var(--ink);
+    color: #fff;
+  }
 
-/* ── Responsive ── */
-@media (max-width: 1100px) {
-  .fin-row-2-1 { grid-template-columns: 1fr; }
-  .fin-row-3   { grid-template-columns: 1fr 1fr; }
-  .kpi-grid    { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 720px) {
-  .fin-sidebar   { display: none; }
-  .kpi-grid      { grid-template-columns: 1fr 1fr; }
-  .fin-row-2     { grid-template-columns: 1fr; }
-  .fin-row-3     { grid-template-columns: 1fr; }
-  .insight-strip { flex-direction: column; }
-}
+  .time-btn:not(.active):hover {
+    background: var(--s2);
+  }
+
+  /* ── Chart wrapper ── */
+  .chart-wrap {
+    position: relative;
+  }
+
+  /* ── Receivables bars ── */
+  .rec-row {
+    margin-bottom: 1rem;
+  }
+
+  .rec-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .rec-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+  }
+
+  .rec-row-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink2);
+  }
+
+  .rec-row-value {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .rec-bar-track {
+    height: 4px;
+    background: var(--s3);
+    overflow: hidden;
+  }
+
+  .rec-bar-fill {
+    height: 100%;
+    transition: width 0.7s ease;
+  }
+
+  .rec-action-btn {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.55rem 1rem;
+    background: var(--s1);
+    border: 1px solid var(--s3);
+    color: var(--ink2);
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1rem;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .rec-action-btn:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* ── Tables ── */
+  .fin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .fin-table thead tr {
+    background: var(--s1);
+  }
+
+  .fin-table th {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .fin-table th:last-child {
+    text-align: right;
+  }
+
+  .fin-table tbody tr {
+    border-top: 1px solid var(--s2);
+    transition: background 0.1s;
+  }
+
+  .fin-table tbody tr:hover {
+    background: var(--s1);
+  }
+
+  .fin-table td {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.72rem;
+    color: var(--ink);
+  }
+
+  .fin-table td:last-child {
+    text-align: right;
+  }
+
+  .fin-table .td-primary {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .fin-table .td-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--ink3);
+    margin-top: 0.1rem;
+  }
+
+  .fin-table .amount-pos {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  .fin-table .amount-neg {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--red);
+  }
+
+  .fin-table .amount-warn {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: #c47e00;
+  }
+
+  /* Status chips */
+  .status-chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    font-weight: 500;
+  }
+
+  .chip-pending {
+    background: rgba(255, 214, 0, 0.2);
+    color: #7a5f00;
+  }
+
+  .chip-cleared {
+    background: rgba(52, 199, 89, 0.12);
+    color: #1a7a35;
+  }
+
+  .chip-overdue {
+    background: var(--red);
+    color: #fff;
+  }
+
+  /* Due date states */
+  .due-ok {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink2);
+  }
+
+  .due-warn {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: #c47e00;
+  }
+
+  .due-overdue {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* Invoice table footer */
+  .inv-footer {
+    background: var(--s1);
+    border-top: 1px solid var(--s2);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .inv-footer-stat label {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .inv-footer-stat span {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .inv-footer-stat span.red {
+    color: var(--red);
+  }
+
+  .inv-footer-stat span.green {
+    color: var(--green);
+  }
+
+  .inv-footer-stat span.amber {
+    color: #c47e00;
+  }
+
+  .inv-footer-eff {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .inv-footer-eff strong {
+    color: var(--blue);
+  }
+
+  /* ── Aging panel ── */
+  .aging-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .aging-row:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .aging-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    color: var(--ink3);
+    width: 40px;
+    flex-shrink: 0;
+  }
+
+  .aging-track {
+    flex: 1;
+    height: 4px;
+    background: var(--s3);
+    overflow: hidden;
+  }
+
+  .aging-fill {
+    height: 100%;
+    transition: width 0.7s ease;
+  }
+
+  .aging-val {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--ink);
+    width: 72px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .aging-cnt {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--ink3);
+    width: 18px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── Bottom status bar ── */
+  .fin-status-bar {
+    background: var(--ink);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    border-top: 2px solid #2a2c2c;
+    position: relative;
+    z-index: 1;
+  }
+
+  .fin-status-live {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .fin-status-live .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: led-blink 2s infinite;
+  }
+
+  .fin-status-divider {
+    width: 1px;
+    height: 24px;
+    background: #2a2c2c;
+    flex-shrink: 0;
+  }
+
+  .fin-status-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fin-status-stat label {
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  .fin-status-stat span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #aaa;
+    margin-top: 0.1rem;
+  }
+
+  .fin-status-stat span.accent {
+    color: var(--red);
+  }
+
+  .fin-status-stat span.blue-accent {
+    color: var(--blue);
+  }
+
+  /* ── Staggered entrance ── */
+  @keyframes fin-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .kpi-card {
+    animation: fin-in 0.25s ease both;
+  }
+
+  .kpi-card:nth-child(1) {
+    animation-delay: 0.04s;
+  }
+
+  .kpi-card:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+
+  .kpi-card:nth-child(3) {
+    animation-delay: 0.12s;
+  }
+
+  .kpi-card:nth-child(4) {
+    animation-delay: 0.16s;
+  }
+
+  .fin-panel {
+    animation: fin-in 0.3s ease both;
+  }
+
+  /* ── Insight strip ── */
+  .insight-strip {
+    display: flex;
+    gap: 0;
+    background: var(--s2);
+    border: 1px solid var(--s3);
+    margin-bottom: 1.75rem;
+  }
+
+  .insight-cell {
+    flex: 1;
+    padding: 0.85rem 1.1rem;
+    background: var(--s0);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    border-right: 1px solid var(--s2);
+  }
+
+  .insight-cell:last-child {
+    border-right: none;
+  }
+
+  .insight-cell:hover {
+    background: var(--s1);
+  }
+
+  .insight-led {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .insight-cell p {
+    font-size: 0.65rem;
+    line-height: 1.55;
+    color: var(--ink2);
+  }
+
+  .insight-cell p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .insight-cell p .warn {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .insight-cell p .ok {
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ══════════════════ CHATBOT UI ══════════════════ */
+
+  #chatbot-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    z-index: 999;
+  }
+
+  #chatbot-window {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 320px;
+    height: 420px;
+    background: var(--s0);
+    border: 1px solid var(--s3);
+    display: none;
+    flex-direction: column;
+    z-index: 999;
+  }
+
+  .chat-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+  }
+
+  #chat-messages {
+    flex: 1;
+    padding: 0.75rem;
+    overflow-y: auto;
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+  }
+
+  .chat-msg {
+    margin-bottom: 0.5rem;
+  }
+
+  .chat-user {
+    color: var(--blue);
+  }
+
+  .chat-bot {
+    color: var(--ink);
+  }
+
+  .chat-input {
+    display: flex;
+    border-top: 1px solid var(--s3);
+  }
+
+  .chat-input input {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+  }
+
+  .chat-input button {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .fin-row-2-1 {
+      grid-template-columns: 1fr;
+    }
+
+    .fin-row-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .fin-sidebar {
+      display: none;
+    }
+
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .fin-row-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .fin-row-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .insight-strip {
+      flex-direction: column;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -759,23 +1102,29 @@ body::before {
 
       <a href="{{ url_for('spindlefinance.dashboard') }}" class="fin-nav-link active">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
         </svg>
         Dashboard
       </a>
 
       <a href="{{ url_for('spindlefinance.records') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="8" y1="13" x2="16" y2="13" />
+          <line x1="8" y1="17" x2="16" y2="17" />
         </svg>
         Cashflow Records
       </a>
 
       <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
         Add Records
       </a>
@@ -784,8 +1133,8 @@ body::before {
 
       <a href="{{ url_for('spindlefinance.receivables') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="2" y="5" width="20" height="14" rx="0"/>
-          <path d="M2 10h20M6 15h2M10 15h4"/>
+          <rect x="2" y="5" width="20" height="14" rx="0" />
+          <path d="M2 10h20M6 15h2M10 15h4" />
         </svg>
         Receivables
       </a>
@@ -793,7 +1142,7 @@ body::before {
       <div class="fin-nav-section" style="margin-top:auto; padding-top:1rem;">System</div>
       <a href="/" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
         </svg>
         Main Hub
       </a>
@@ -811,13 +1160,15 @@ body::before {
           Live System Feed
         </div>
         <h1 class="fin-page-title">Financial Overview</h1>
-        <div style="font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.08em; color:var(--ink3); margin-top:0.4rem;">
+        <div
+          style="font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.08em; color:var(--ink3); margin-top:0.4rem;">
           {{ today.strftime('%A, %d %B %Y') }} // Fiscal Active
         </div>
       </div>
       <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-new-txn-btn">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         New Transaction
       </a>
@@ -827,8 +1178,8 @@ body::before {
     <div class="fin-section-label">Core Cashflow</div>
 
     {% set _balance_base = latest_balance + total_outflow %}
-    {% set _io_max       = [total_inflow, total_outflow]|max %}
-    {% set _net_base     = [total_inflow, total_outflow, 1]|max %}
+    {% set _io_max = [total_inflow, total_outflow]|max %}
+    {% set _net_base = [total_inflow, total_outflow, 1]|max %}
 
     <div class="kpi-grid" style="margin-bottom:1.75rem;">
 
@@ -838,7 +1189,9 @@ body::before {
         <div class="kpi-value">₹{{ "{:,.0f}".format(latest_balance) }}</div>
         <div class="kpi-sub">Current account balance</div>
         <div class="kpi-bar-track">
-          <div class="kpi-bar-fill" style="width:{{ ([latest_balance/_balance_base*100,100]|min) if _balance_base>0 else 0 }}%; background:var(--blue);"></div>
+          <div class="kpi-bar-fill"
+            style="width:{{ ([latest_balance/_balance_base*100,100]|min) if _balance_base>0 else 0 }}%; background:var(--blue);">
+          </div>
         </div>
       </div>
 
@@ -848,13 +1201,15 @@ body::before {
         <div class="kpi-value" style="color:var(--green);">₹{{ "{:,.0f}".format(total_inflow) }}</div>
         <div style="margin-top:0.4rem;">
           {% if inflow_mom_pct >= 0 %}
-            <span class="kpi-tag up">↑ {{ "%.1f"|format(inflow_mom_pct) }}% vs prev month</span>
+          <span class="kpi-tag up">↑ {{ "%.1f"|format(inflow_mom_pct) }}% vs prev month</span>
           {% else %}
-            <span class="kpi-tag down">↓ {{ "%.1f"|format(inflow_mom_pct|abs) }}% vs prev month</span>
+          <span class="kpi-tag down">↓ {{ "%.1f"|format(inflow_mom_pct|abs) }}% vs prev month</span>
           {% endif %}
         </div>
         <div class="kpi-bar-track">
-          <div class="kpi-bar-fill" style="width:{{ ([total_inflow/_io_max*100,100]|min) if _io_max>0 else 0 }}%; background:var(--green);"></div>
+          <div class="kpi-bar-fill"
+            style="width:{{ ([total_inflow/_io_max*100,100]|min) if _io_max>0 else 0 }}%; background:var(--green);">
+          </div>
         </div>
       </div>
 
@@ -864,13 +1219,15 @@ body::before {
         <div class="kpi-value" style="color:var(--red);">₹{{ "{:,.0f}".format(total_outflow) }}</div>
         <div style="margin-top:0.4rem;">
           {% if outflow_mom_pct > 0 %}
-            <span class="kpi-tag down">↑ {{ "%.1f"|format(outflow_mom_pct) }}% — High Burn</span>
+          <span class="kpi-tag down">↑ {{ "%.1f"|format(outflow_mom_pct) }}% — High Burn</span>
           {% else %}
-            <span class="kpi-tag up">↓ {{ "%.1f"|format(outflow_mom_pct|abs) }}% vs prev month</span>
+          <span class="kpi-tag up">↓ {{ "%.1f"|format(outflow_mom_pct|abs) }}% vs prev month</span>
           {% endif %}
         </div>
         <div class="kpi-bar-track">
-          <div class="kpi-bar-fill" style="width:{{ ([total_outflow/_io_max*100,100]|min) if _io_max>0 else 0 }}%; background:var(--red);"></div>
+          <div class="kpi-bar-fill"
+            style="width:{{ ([total_outflow/_io_max*100,100]|min) if _io_max>0 else 0 }}%; background:var(--red);">
+          </div>
         </div>
       </div>
 
@@ -880,7 +1237,9 @@ body::before {
         <div class="kpi-value">{{ '+' if net_cashflow >= 0 else '–' }}₹{{ "{:,.0f}".format(net_cashflow|abs) }}</div>
         <div class="kpi-sub">{{ 'Operational Surplus' if net_cashflow >= 0 else 'Operational Deficit' }}</div>
         <div class="kpi-bar-track" style="background:#2a2c2c; margin-top:0.85rem;">
-          <div class="kpi-bar-fill" style="width:{{ [net_cashflow|abs/_net_base*100,100]|min }}%; background:{{ 'var(--red)' if net_cashflow < 0 else 'var(--blue)' }};"></div>
+          <div class="kpi-bar-fill"
+            style="width:{{ [net_cashflow|abs/_net_base*100,100]|min }}%; background:{{ 'var(--red)' if net_cashflow < 0 else 'var(--blue)' }};">
+          </div>
         </div>
       </div>
     </div>
@@ -889,19 +1248,22 @@ body::before {
     <div class="insight-strip">
       <div class="insight-cell">
         <div class="insight-led" style="background:{{ 'var(--red)' if net_cashflow < 0 else 'var(--green)' }};"></div>
-        <p>Net cashflow is <strong class="{{ 'warn' if net_cashflow < 0 else 'ok' }}">{{ 'negative — outflow exceeds inflow' if net_cashflow < 0 else 'positive — surplus recorded' }}</strong>.</p>
+        <p>Net cashflow is <strong class="{{ 'warn' if net_cashflow < 0 else 'ok' }}">{{ 'negative — outflow exceeds
+            inflow' if net_cashflow < 0 else 'positive — surplus recorded' }}</strong>.</p>
       </div>
       <div class="insight-cell">
         <div class="insight-led" style="background:var(--yellow);"></div>
-        <p>Top expense: <strong>{{ top_expense_category or 'N/A' }}</strong> — largest share of outflows this period.</p>
+        <p>Top expense: <strong>{{ top_expense_category or 'N/A' }}</strong> — largest share of outflows this period.
+        </p>
       </div>
       <div class="insight-cell">
         <div class="insight-led" style="background:{{ 'var(--red)' if overdue_count > 0 else 'var(--green)' }};"></div>
         <p>
           {% if overdue_count > 0 %}
-            <span class="warn">{{ overdue_count }} invoice{{ 's' if overdue_count != 1 }} overdue</span> — ₹{{ "{:,.0f}".format(overdue_amount) }} at risk.
+          <span class="warn">{{ overdue_count }} invoice{{ 's' if overdue_count != 1 }} overdue</span> — ₹{{
+          "{:,.0f}".format(overdue_amount) }} at risk.
           {% else %}
-            <span class="ok">No overdue invoices</span> — collections on track.
+          <span class="ok">No overdue invoices</span> — collections on track.
           {% endif %}
         </p>
       </div>
@@ -934,14 +1296,18 @@ body::before {
         </div>
         <!-- Legend -->
         <div style="display:flex; gap:1.25rem; margin-bottom:0.85rem;">
-          <span style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
+          <span
+            style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
             <span style="width:10px;height:2px;background:var(--green); display:inline-block;"></span>Inflow
           </span>
-          <span style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
+          <span
+            style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
             <span style="width:10px;height:2px;background:var(--red); display:inline-block;"></span>Outflow
           </span>
-          <span style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
-            <span style="width:10px;height:2px;background:var(--blue); display:inline-block; border-top:1.5px dashed var(--blue);"></span>Net
+          <span
+            style="display:flex; align-items:center; gap:0.4rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">
+            <span
+              style="width:10px;height:2px;background:var(--blue); display:inline-block; border-top:1.5px dashed var(--blue);"></span>Net
           </span>
         </div>
         <div class="chart-wrap" style="height:220px;">
@@ -964,7 +1330,9 @@ body::before {
             <span class="rec-row-value">₹{{ "{:,.1f}".format(total_receivable/1000) }}K</span>
           </div>
           <div class="rec-bar-track">
-            <div class="rec-bar-fill" style="width:{{ ([total_receivable/(total_receivable+total_paid_amount)*100,100]|min) if (total_receivable+total_paid_amount)>0 else 0 }}%; background:var(--ink);"></div>
+            <div class="rec-bar-fill"
+              style="width:{{ ([total_receivable/(total_receivable+total_paid_amount)*100,100]|min) if (total_receivable+total_paid_amount)>0 else 0 }}%; background:var(--ink);">
+            </div>
           </div>
         </div>
 
@@ -986,7 +1354,9 @@ body::before {
             </span>
           </div>
           <div class="rec-bar-track">
-            <div class="rec-bar-fill" style="width:{{ ([overdue_amount/total_receivable*100,100]|min) if total_receivable>0 else 0 }}%; background:var(--red);"></div>
+            <div class="rec-bar-fill"
+              style="width:{{ ([overdue_amount/total_receivable*100,100]|min) if total_receivable>0 else 0 }}%; background:var(--red);">
+            </div>
           </div>
         </div>
 
@@ -997,10 +1367,10 @@ body::before {
         <div class="fin-panel-sub" style="margin-bottom:0.75rem;">Invoice Aging Buckets</div>
 
         {% set aging_data = [
-          ('0–30d',  aging_buckets['0_30'],    aging_counts['0_30'],  'var(--green)'),
-          ('31–60d', aging_buckets['31_60'],   aging_counts['31_60'], 'var(--yellow)'),
-          ('61–90d', aging_buckets['61_90'],   aging_counts['61_90'], '#ff8c00'),
-          ('90d+',   aging_buckets['90_plus'], aging_counts['90_plus'], 'var(--red)'),
+        ('0–30d', aging_buckets['0_30'], aging_counts['0_30'], 'var(--green)'),
+        ('31–60d', aging_buckets['31_60'], aging_counts['31_60'], 'var(--yellow)'),
+        ('61–90d', aging_buckets['61_90'], aging_counts['61_90'], '#ff8c00'),
+        ('90d+', aging_buckets['90_plus'], aging_counts['90_plus'], 'var(--red)'),
         ] %}
         {% for label, amt, cnt, color in aging_data %}
         <div class="aging-row">
@@ -1030,26 +1400,29 @@ body::before {
           </div>
         </div>
         {% if expense_labels %}
-          <div class="chart-wrap" style="height:140px;">
-            <canvas id="expenseChart"></canvas>
-          </div>
-          <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
-            {% for i in range(expense_labels|length) %}
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="display:flex; align-items:center; gap:0.5rem;">
-                <span style="width:8px;height:8px; flex-shrink:0;
+        <div class="chart-wrap" style="height:140px;">
+          <canvas id="expenseChart"></canvas>
+        </div>
+        <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          {% for i in range(expense_labels|length) %}
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:8px;height:8px; flex-shrink:0;
                              background:{{ ['#FF3B30','#007AFF','#FFD600','#34C759','#6b7280'][i%5] }};
                              display:inline-block;"></span>
-                <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ expense_labels[i] }}</span>
-              </div>
-              <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">{{ expense_pcts[i] }}%</span>
+              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ expense_labels[i]
+                }}</span>
             </div>
-            {% endfor %}
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">{{
+              expense_pcts[i] }}%</span>
           </div>
+          {% endfor %}
+        </div>
         {% else %}
-          <div style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
-            NO EXPENSE DATA
-          </div>
+        <div
+          style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+          NO EXPENSE DATA
+        </div>
         {% endif %}
       </div>
 
@@ -1062,25 +1435,31 @@ body::before {
           </div>
         </div>
         {% if top_clients %}
-          {% for client in top_clients %}
-          <div style="margin-bottom:1rem;">
-            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.3rem;">
-              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ client.name }}</span>
-              <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:#c47e00;">₹{{ "{:,.0f}".format(client.amount) }}</span>
-            </div>
-            <div style="height:3px; background:var(--s3); overflow:hidden;">
-              <div style="height:100%; width:{{ client.bar_pct }}%; background:var(--blue); transition:width 0.7s;"></div>
-            </div>
-            <div style="text-align:right; font-family:var(--font-mono); font-size:0.5rem; color:var(--ink3); margin-top:0.2rem;">{{ client.pct }}%</div>
+        {% for client in top_clients %}
+        <div style="margin-bottom:1rem;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.3rem;">
+            <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ client.name }}</span>
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:#c47e00;">₹{{
+              "{:,.0f}".format(client.amount) }}</span>
           </div>
-          {% endfor %}
+          <div style="height:3px; background:var(--s3); overflow:hidden;">
+            <div style="height:100%; width:{{ client.bar_pct }}%; background:var(--blue); transition:width 0.7s;"></div>
+          </div>
+          <div
+            style="text-align:right; font-family:var(--font-mono); font-size:0.5rem; color:var(--ink3); margin-top:0.2rem;">
+            {{ client.pct }}%</div>
+        </div>
+        {% endfor %}
         {% else %}
-          <div style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">NO OPEN RECEIVABLES</div>
+        <div
+          style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+          NO OPEN RECEIVABLES</div>
         {% endif %}
         <div style="background:var(--s2); height:1px; margin:0.75rem 0;"></div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3);">Concentration Risk</span>
-          <span class="kpi-tag {{ 'down' if concentration_risk=='high' else ('warn' if concentration_risk=='medium' else 'up') }}">
+          <span
+            class="kpi-tag {{ 'down' if concentration_risk=='high' else ('warn' if concentration_risk=='medium' else 'up') }}">
             {{ concentration_risk|upper }}
           </span>
         </div>
@@ -1089,7 +1468,8 @@ body::before {
                       background:{{ 'var(--red)' if concentration_risk=='high' else ('var(--yellow)' if concentration_risk=='medium' else 'var(--green)') }};
                       transition:width 0.7s;"></div>
         </div>
-        <div style="font-family:var(--font-mono); font-size:0.5rem; color:var(--ink3); margin-top:0.3rem;">{{ concentration_pct }}% in top client</div>
+        <div style="font-family:var(--font-mono); font-size:0.5rem; color:var(--ink3); margin-top:0.3rem;">{{
+          concentration_pct }}% in top client</div>
       </div>
 
       <!-- Source Mix -->
@@ -1101,24 +1481,28 @@ body::before {
           </div>
         </div>
         {% if source_labels %}
-          <div class="chart-wrap" style="height:120px;">
-            <canvas id="sourceChart"></canvas>
-          </div>
-          <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
-            {% set src_colors = ['#007AFF','#8b5cf6','#20c9a6','#FFD600','#6b7280'] %}
-            {% for i in range(source_labels|length) %}
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div style="display:flex; align-items:center; gap:0.5rem;">
-                <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0;
+        <div class="chart-wrap" style="height:120px;">
+          <canvas id="sourceChart"></canvas>
+        </div>
+        <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          {% set src_colors = ['#007AFF','#8b5cf6','#20c9a6','#FFD600','#6b7280'] %}
+          {% for i in range(source_labels|length) %}
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0;
                              background:{{ src_colors[i%5] }};display:inline-block;"></span>
-                <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ source_labels[i] }}</span>
-              </div>
-              <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">{{ source_amounts[i] }}%</span>
+              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ source_labels[i]
+                }}</span>
             </div>
-            {% endfor %}
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">{{
+              source_amounts[i] }}%</span>
           </div>
+          {% endfor %}
+        </div>
         {% else %}
-          <div style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">NO SOURCE DATA</div>
+        <div
+          style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+          NO SOURCE DATA</div>
         {% endif %}
       </div>
     </div>
@@ -1152,7 +1536,8 @@ body::before {
                 <div class="td-primary">{{ txn.txn_name }}</div>
                 <div class="td-secondary">{{ txn.txn_date.strftime('%d %b %Y') }}</div>
               </td>
-              <td style="font-family:var(--font-mono); font-size:0.65rem; color:var(--ink2);">{{ txn.account_name }}</td>
+              <td style="font-family:var(--font-mono); font-size:0.65rem; color:var(--ink2);">{{ txn.account_name }}
+              </td>
               <td>
                 <span class="status-chip {{ 'chip-cleared' if txn.txn_type == 'INFLOW' else 'chip-pending' }}">
                   {{ txn.txn_type }}
@@ -1164,7 +1549,8 @@ body::before {
             </tr>
             {% else %}
             <tr>
-              <td colspan="4" style="text-align:center; padding:2rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+              <td colspan="4"
+                style="text-align:center; padding:2rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
                 NO TRANSACTIONS ON RECORD
               </td>
             </tr>
@@ -1195,26 +1581,28 @@ body::before {
             {% for inv in open_invoices_list[:5] %}
             {% set days_left = (inv.due_date - today).days %}
             <tr>
-              <td><div class="td-primary">INV-{{ inv.id }}</div></td>
-              <td style="font-family:var(--font-mono); font-size:0.65rem; text-transform:uppercase; color:var(--ink);">Client #{{ inv.client_id }}</td>
+              <td>
+                <div class="td-primary">INV-{{ inv.id }}</div>
+              </td>
+              <td style="font-family:var(--font-mono); font-size:0.65rem; text-transform:uppercase; color:var(--ink);">
+                Client #{{ inv.client_id }}</td>
               <td>
                 <div class="{{ 'due-overdue' if days_left < 0 else ('due-warn' if days_left <= 7 else 'due-ok') }}">
                   {{ inv.due_date.strftime('%b %d') }}
-                  {% if days_left < 0 %}
-                    <span class="status-chip chip-overdue" style="margin-left:0.35rem;">Overdue</span>
-                  {% endif %}
+                  {% if days_left < 0 %} <span class="status-chip chip-overdue" style="margin-left:0.35rem;">
+                    Overdue</span>
+                    {% endif %}
                 </div>
                 <div class="td-secondary">
-                  {% if days_left < 0 %}{{ days_left|abs }}d past due
-                  {% elif days_left == 0 %}Due today
-                  {% else %}{{ days_left }}d remaining{% endif %}
-                </div>
+                  {% if days_left < 0 %}{{ days_left|abs }}d past due {% elif days_left==0 %}Due today {% else %}{{
+                    days_left }}d remaining{% endif %} </div>
               </td>
               <td class="amount-warn">₹{{ "{:,.0f}".format(inv.amt_recievable) }}</td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="4" style="text-align:center; padding:2rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+              <td colspan="4"
+                style="text-align:center; padding:2rem; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
                 NO OPEN INVOICES
               </td>
             </tr>
@@ -1242,7 +1630,32 @@ body::before {
 
     </div>
     <!-- /activity row -->
+    <!-- ══════════════════ CHATBOT POPUP ══════════════════ -->
 
+    <div id="chatbot-container">
+
+      <!-- Floating Button -->
+      <button id="chatbot-toggle">
+        AI
+      </button>
+
+      <!-- Chat Window -->
+      <div id="chatbot-window">
+
+        <div class="chat-header">
+          <span>AI Analyst</span>
+          <button onclick="toggleChat()">×</button>
+        </div>
+
+        <div id="chat-messages"></div>
+
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Ask about your finances..." />
+          <button onclick="sendMessage()">→</button>
+        </div>
+
+      </div>
+    </div>
   </main>
 </div>
 
@@ -1279,26 +1692,26 @@ body::before {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   /* ── Jinja → JS ── */
-  const months   = {{ months   | tojson }};
-  const inflows  = {{ inflows  | tojson }};
+  const months = {{ months   | tojson }};
+  const inflows = {{ inflows  | tojson }};
   const outflows = {{ outflows | tojson }};
-  const nets     = {{ nets     | tojson }};
-  const expenseLabels  = {{ expense_labels  | tojson }};
+  const nets = {{ nets     | tojson }};
+  const expenseLabels = {{ expense_labels  | tojson }};
   const expenseAmounts = {{ expense_amounts | tojson }};
-  const sourceLabels   = {{ source_labels   | tojson }};
-  const sourceAmounts  = {{ source_amounts  | tojson }};
+  const sourceLabels = {{ source_labels   | tojson }};
+  const sourceAmounts = {{ source_amounts  | tojson }};
 
   /* ── Design tokens ── */
-  const RED    = '#FF3B30';
-  const BLUE   = '#007AFF';
-  const GREEN  = '#34C759';
+  const RED = '#FF3B30';
+  const BLUE = '#007AFF';
+  const GREEN = '#34C759';
   const YELLOW = '#FFD600';
-  const INK    = '#1A1C1C';
-  const INK3   = '#7A7C7C';
+  const INK = '#1A1C1C';
+  const INK3 = '#7A7C7C';
 
   Chart.defaults.font.family = "'DM Mono', monospace";
-  Chart.defaults.font.size   = 10;
-  Chart.defaults.color       = INK3;
+  Chart.defaults.font.size = 10;
+  Chart.defaults.color = INK3;
 
   /* ── 1. Cashflow Trend ── */
   new Chart(document.getElementById('cashflowChart'), {
@@ -1352,7 +1765,7 @@ body::before {
           borderColor: '#333',
           borderWidth: 1,
           titleFont: { family: "'DM Mono', monospace", size: 10 },
-          bodyFont:  { family: "'DM Mono', monospace", size: 10 },
+          bodyFont: { family: "'DM Mono', monospace", size: 10 },
           callbacks: {
             label: ctx => {
               const v = ctx.raw;
@@ -1373,7 +1786,7 @@ body::before {
           border: { display: false },
           ticks: {
             font: { family: "'DM Mono',monospace", size: 9 },
-            callback: v => '₹' + (Math.abs(v)/100000).toFixed(0) + 'L'
+            callback: v => '₹' + (Math.abs(v) / 100000).toFixed(0) + 'L'
           }
         },
         y2: {
@@ -1382,7 +1795,7 @@ body::before {
           border: { display: false },
           ticks: {
             font: { family: "'DM Mono',monospace", size: 9 },
-            callback: v => '₹' + (v/100000).toFixed(0) + 'L',
+            callback: v => '₹' + (v / 100000).toFixed(0) + 'L',
             color: BLUE
           }
         }
@@ -1458,5 +1871,66 @@ body::before {
     btn.classList.add('active');
     // Extend: reload chart data via AJAX for range
   }
+
+  function toggleChat() {
+    const win = document.getElementById("chatbot-window");
+    win.style.display = (win.style.display === "flex") ? "none" : "flex";
+  }
+
+  document.getElementById("chatbot-toggle").onclick = toggleChat;
+
+  async function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const messages = document.getElementById("chat-messages");
+
+    const text = input.value.trim();
+    if (!text) return;
+
+    // show user msg
+    messages.innerHTML += `<div class="chat-msg chat-user">You: ${text}</div>`;
+    input.value = "";
+
+    // loading state
+    messages.innerHTML += `<div class="chat-msg chat-bot">Thinking...</div>`;
+    messages.scrollTop = messages.scrollHeight;
+
+    try {
+      const res = await fetch("/finance/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: text })
+      });
+
+      const data = await res.json();
+
+      // remove "Thinking..."
+      messages.lastChild.remove();
+
+      if (data.error) {
+        messages.innerHTML += `<div class="chat-msg chat-bot">⚠ ${data.error}</div>`;
+      } else {
+        messages.innerHTML += `<div class="chat-msg chat-bot">${data.answer}</div>`;
+      }
+
+    } catch (err) {
+      messages.lastChild.remove();
+      messages.innerHTML += `<div class="chat-msg chat-bot">Error connecting to AI</div>`;
+    }
+
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock %}

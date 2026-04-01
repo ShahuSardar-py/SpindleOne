@@ -6,12 +6,13 @@ from . import bp
 from flask import jsonify
 import os
 from werkzeug.utils import secure_filename
-from flask import flash
+from flask import Flask
 from .services.transaction_ingestion import get_balance
 from .services.transaction_ingestion import ingest_data
 from flask import current_app 
 from .services.invoice_status import update_invoice_status
 from .services.dashboardCalc import get_dashboard_context
+from .CF01.chat import chat 
 
 @bp.route('/')
 def index():
@@ -157,6 +158,19 @@ def add_invoice():
     db.session.commit()
 
     return jsonify({"message": "Invoice created", "invoice_id": invoice.inv_id}), 201
+
+@bp.route("/chat", methods=["POST"])
+def chat_api():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid request body"}), 400
+
+    query = data.get("query", "").strip()
+    if not query:
+        return jsonify({"error": "Query cannot be empty"}), 400
+
+    result = chat(query)
+    return jsonify(result)
 
 @bp.route("/invoices", methods=["GET"])
 def list_invoices():
