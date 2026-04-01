@@ -1,39 +1,61 @@
+"""
+chat.py
+-------
+Orchestrator for the metric store architecture.
 
-from .context_filter import filter_context_for_query
-from .validator      import validate_context
-from .prompts        import build_prompt
-from .LLM            import call_llm
+Flow:
+    1. Load metric store (cached, TTL-based)
+    2. Build prompt with store + user query
+    3. Call LLM
+    4. Return answer
 
+No intent detection. No context filtering. No routing.
+The LLM reads the store and decides what's relevant.
+"""
 
-# ── Public API ────────────────────────────────────────────────────────────────
+from .metric_Store import get_metric_store
+from .prompts      import build_prompt
+from .LLM          import call_llm
+
 
 def chat(query: str) -> dict:
-    # ── Step 1: Filter ────────────────────────────────────────────────────────
-    # Calls dashboardCalc, detects intent, returns relevant metric subset
-    filter_result = filter_context_for_query(query)
+    """
+    Main entry point for the chat feature.
 
-    # ── Step 2: Validate ──────────────────────────────────────────────────────
-    # Sanitizes types, checks for empty/vague/missing metrics
-    validated = validate_context(filter_result, query)
+    Args:
+        query: Raw user message from the frontend.
 
-    # Hard stop — don't waste an API call if context is unusable
-    if validated.get("error"):
+    Returns:
+        {
+            "answer" : str,        — LLM response
+            "error"  : str | None  — only set on hard failure
+        }
+    """
+
+    if not query or not query.strip():
         return {
-            "answer":  None,
-            "intent":  validated.get("intent"),
-            "warning": None,
-            "error":   validated["error"],
+            "answer": None,
+            "error":  "Query cannot be empty."
         }
 
-    # ── Step 3: Build Prompt ──────────────────────────────────────────────────
-    prompt = build_prompt(validated=validated, query=query)
+    # ── Step 1: Load metric store ─────────────────────────────────────────────
+    # Returns cached JSON if within TTL, rebuilds if stale
+    metric_store = get_metric_store()
 
-    # ── Step 4: Call LLM ──────────────────────────────────────────────────────
+    # ── Step 2: Build prompt ──────────────────────────────────────────────────
+    prompt = build_prompt(query=query, metric_store=metric_store)
+
+    # ── Step 3: Call LLM ──────────────────────────────────────────────────────
     answer = call_llm(prompt)
 
+    # LLM.py returns "[LLM ERROR] ..." string on failure
+    if answer.startswith("[LLM ERROR]"):
+        return {
+            "answer": None,
+            "error":  answer
+        }
+
     return {
-        "answer":  answer,
-        "intent":  validated["intent"],
-        "warning": validated.get("warning"),
-        "error":   None,
+        "answer": answer,
+        "error":  None
     }
