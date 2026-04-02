@@ -968,80 +968,335 @@
 
   #chatbot-toggle {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 52px;
-    height: 52px;
+    bottom: 28px;
+    right: 28px;
+    width: auto;
+    height: 44px;
+    padding: 0 1.25rem;
     background: var(--ink);
     color: #fff;
     border: none;
-    font-family: var(--font-mono);
+    border-left: 3px solid var(--blue);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     cursor: pointer;
-    z-index: 999;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  #chatbot-toggle:hover {
+    background: #111;
+    border-color: var(--blue);
+  }
+
+  #chatbot-toggle .toggle-led {
+    width: 7px;
+    height: 7px;
+    background: var(--red);
+    flex-shrink: 0;
+    animation: led-blink 2s infinite;
   }
 
   #chatbot-window {
     position: fixed;
-    bottom: 90px;
-    right: 24px;
-    width: 320px;
-    height: 420px;
+    bottom: 84px;
+    right: 28px;
+    width: 400px;
+    height: 540px;
     background: var(--s0);
     border: 1px solid var(--s3);
+    border-top: 3px solid var(--blue);
     display: none;
     flex-direction: column;
-    z-index: 999;
+    z-index: 1000;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+    animation: chat-rise 0.2s ease both;
+  }
+
+  @keyframes chat-rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .chat-header {
     background: var(--ink);
     color: #fff;
-    padding: 0.6rem;
+    padding: 0.85rem 1.1rem;
     display: flex;
     justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
+    align-items: center;
+    flex-shrink: 0;
   }
 
+  .chat-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .chat-header-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chat-header-title .header-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    flex-shrink: 0;
+    animation: led-blink 2s infinite;
+  }
+
+  .chat-header-sub {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .chat-close-btn {
+    background: none;
+    border: 1px solid #333;
+    color: #ffffff;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1;
+    transition: border-color 0.12s, color 0.12s;
+    flex-shrink: 0;
+  }
+
+  .chat-close-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* Suggested prompts strip */
+  .chat-suggestions {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid var(--s2);
+    overflow-x: auto;
+    flex-shrink: 0;
+    scrollbar-width: none;
+  }
+
+  .chat-suggestions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chat-suggestion-chip {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    background: var(--s1);
+    border: 1px solid var(--s3);
+    padding: 0.3rem 0.65rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s, border-color 0.1s;
+    flex-shrink: 0;
+  }
+
+  .chat-suggestion-chip:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* Messages area */
   #chat-messages {
     flex: 1;
-    padding: 0.75rem;
+    padding: 1rem 0.85rem;
     overflow-y: auto;
-    font-size: 0.65rem;
-    font-family: var(--font-mono);
-  }
-
-  .chat-msg {
-    margin-bottom: 0.5rem;
-  }
-
-  .chat-user {
-    color: var(--blue);
-  }
-
-  .chat-bot {
-    color: var(--ink);
-  }
-
-  .chat-input {
     display: flex;
-    border-top: 1px solid var(--s3);
+    flex-direction: column;
+    gap: 0.85rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--s3) transparent;
   }
 
-  .chat-input input {
-    flex: 1;
-    border: none;
-    padding: 0.5rem;
+  .chat-msg-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .chat-msg-label {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink3);
+  }
+
+  .chat-msg-bubble {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    padding: 0.65rem 0.85rem;
+    max-width: 90%;
+  }
+
+  .chat-msg-bubble.user {
+    background: var(--ink);
+    color: #fff;
+    align-self: flex-end;
+    border-left: 3px solid var(--blue);
+  }
+
+  .chat-msg-bubble.bot {
+    background: var(--s1);
+    color: var(--ink);
+    align-self: flex-start;
+    border-left: 3px solid var(--s3);
+  }
+
+  .chat-msg-bubble.error {
+    background: rgba(255, 59, 48, 0.08);
+    color: var(--red);
+    border-left: 3px solid var(--red);
     font-family: var(--font-mono);
     font-size: 0.6rem;
   }
 
-  .chat-input button {
+  /* Thinking animation */
+  .chat-thinking {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--s1);
+    align-self: flex-start;
+    border-left: 3px solid var(--s3);
+  }
+
+  .chat-thinking span {
+    width: 5px;
+    height: 5px;
+    background: var(--ink3);
+    display: block;
+    animation: think-bounce 1.2s infinite ease-in-out;
+  }
+
+  .chat-thinking span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .chat-thinking span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes think-bounce {
+
+    0%,
+    80%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+
+    40% {
+      transform: translateY(-5px);
+      opacity: 1;
+    }
+  }
+
+  /* Input area */
+  .chat-input-wrap {
+    border-top: 1px solid var(--s2);
+    background: var(--s1);
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+  }
+
+  .chat-input-wrap input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    color: var(--ink);
+    outline: none;
+  }
+
+  .chat-input-wrap input::placeholder {
+    color: var(--ink3);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+  }
+
+  .chat-send-btn {
     background: var(--ink);
     color: #fff;
     border: none;
-    padding: 0.5rem 0.75rem;
+    padding: 0 1.1rem;
     cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.12s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .chat-send-btn:hover {
+    background: #58f360;
+  }
+
+  .chat-send-btn:disabled {
+    background: var(--s3);
+    cursor: not-allowed;
+    color: var(--ink3);
+  }
+
+  .chat-footer-bar {
+    padding: 0.4rem 0.85rem;
+    background: var(--s0);
+    border-top: 1px solid var(--s2);
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
   }
 
   /* ── Responsive ── */
@@ -1634,291 +1889,392 @@
 
     <div id="chatbot-container">
 
-      <!-- Floating Button -->
+      <!-- Floating Toggle Button -->
       <button id="chatbot-toggle">
-        AI
+        <span class="toggle-led"></span>
+        C-F01 Ready
       </button>
 
       <!-- Chat Window -->
       <div id="chatbot-window">
 
+        <!-- Header -->
         <div class="chat-header">
-          <span>AI Analyst</span>
-          <button onclick="toggleChat()">×</button>
+          <div class="chat-header-left">
+            <div class="chat-header-title">
+              <span class="header-dot"></span>
+              C-F01
+            </div>
+            <div class="chat-header-sub">Intelligence Now Live</div>
+          </div>
+          <button class="chat-close-btn" onclick="toggleChat()">×</button>
         </div>
 
-        <div id="chat-messages"></div>
+        <!-- Suggested prompts -->
+        <div class="chat-suggestions">
+          <button class="chat-suggestion-chip" onclick="sendSuggestion(this)">Cash balance?</button>
+          <button class="chat-suggestion-chip" onclick="sendSuggestion(this)">Overdue invoices</button>
+          <button class="chat-suggestion-chip" onclick="sendSuggestion(this)">Top expense?</button>
+          <button class="chat-suggestion-chip" onclick="sendSuggestion(this)">Top Client</button>
+          <button class="chat-suggestion-chip" onclick="sendSuggestion(this)">Cashflow trend</button>
+        </div>
 
-        <div class="chat-input">
-          <input type="text" id="chat-input" placeholder="Ask about your finances..." />
-          <button onclick="sendMessage()">→</button>
+        <!-- Messages -->
+        <div id="chat-messages">
+          <!-- Welcome message -->
+          <div class="chat-msg-wrap">
+            <div class="chat-msg-label">C-F01</div>
+            <div class="chat-msg-bubble bot">
+              Live dashboard connected. Ask me about cashflow, invoices, expenses, or client exposure.
+            </div>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="chat-input-wrap">
+          <input type="text" id="chat-input" placeholder="ready when you are..."
+            onkeydown="if(event.key==='Enter') sendMessage()" />
+          <button class="chat-send-btn" id="chat-send-btn" onclick="sendMessage()">
+            Send →
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="chat-footer-bar">
+          <span>SpindleIntel V1 // C-F01 v1.0</span>
+          <span id="chat-status">SYSTEM OK</span>
         </div>
 
       </div>
     </div>
-  </main>
-</div>
 
-<!-- ══════════════════ STATUS BAR ══════════════════ -->
-<div class="fin-status-bar">
-  <div class="fin-status-live">
-    <span class="live-dot"></span>
-    System Status: Operational
-  </div>
-  <div class="fin-status-divider"></div>
-  <div class="fin-status-stat">
-    <label>Uptime</label>
-    <span>99.998%</span>
-  </div>
-  <div class="fin-status-divider"></div>
-  <div class="fin-status-stat">
-    <label>API_Latency</label>
-    <span>12ms</span>
-  </div>
-  <div class="fin-status-stat">
-    <label>Sync_ID</label>
-    <span class="accent">0xF4A92</span>
-  </div>
-  <div class="fin-status-stat">
-    <label>Region</label>
-    <span>NORTH_DC_01</span>
-  </div>
-</div>
+    <!-- ══════════════════ STATUS BAR ══════════════════ -->
+    <div class="fin-status-bar">
+      <div class="fin-status-live">
+        <span class="live-dot"></span>
+        System Status: Operational
+      </div>
+      <div class="fin-status-divider"></div>
+      <div class="fin-status-stat">
+        <label>Uptime</label>
+        <span>99.998%</span>
+      </div>
+      <div class="fin-status-divider"></div>
+      <div class="fin-status-stat">
+        <label>API_Latency</label>
+        <span>12ms</span>
+      </div>
+      <div class="fin-status-stat">
+        <label>Sync_ID</label>
+        <span class="accent">0xF4A92</span>
+      </div>
+      <div class="fin-status-stat">
+        <label>Region</label>
+        <span>NORTH_DC_01</span>
+      </div>
+    </div>
 
-{% endblock %}
+    {% endblock %}
 
 
-{% block extra_scripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  /* ── Jinja → JS ── */
-  const months = {{ months   | tojson }};
-  const inflows = {{ inflows  | tojson }};
-  const outflows = {{ outflows | tojson }};
-  const nets = {{ nets     | tojson }};
-  const expenseLabels = {{ expense_labels  | tojson }};
-  const expenseAmounts = {{ expense_amounts | tojson }};
-  const sourceLabels = {{ source_labels   | tojson }};
-  const sourceAmounts = {{ source_amounts  | tojson }};
+    {% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      /* ── Jinja → JS ── */
+      const months = {{ months   | tojson }};
+      const inflows = {{ inflows  | tojson }};
+      const outflows = {{ outflows | tojson }};
+      const nets = {{ nets     | tojson }};
+      const expenseLabels = {{ expense_labels  | tojson }};
+      const expenseAmounts = {{ expense_amounts | tojson }};
+      const sourceLabels = {{ source_labels   | tojson }};
+      const sourceAmounts = {{ source_amounts  | tojson }};
 
-  /* ── Design tokens ── */
-  const RED = '#FF3B30';
-  const BLUE = '#007AFF';
-  const GREEN = '#34C759';
-  const YELLOW = '#FFD600';
-  const INK = '#1A1C1C';
-  const INK3 = '#7A7C7C';
+      /* ── Design tokens ── */
+      const RED = '#FF3B30';
+      const BLUE = '#007AFF';
+      const GREEN = '#34C759';
+      const YELLOW = '#FFD600';
+      const INK = '#1A1C1C';
+      const INK3 = '#7A7C7C';
 
-  Chart.defaults.font.family = "'DM Mono', monospace";
-  Chart.defaults.font.size = 10;
-  Chart.defaults.color = INK3;
+      Chart.defaults.font.family = "'DM Mono', monospace";
+      Chart.defaults.font.size = 10;
+      Chart.defaults.color = INK3;
 
-  /* ── 1. Cashflow Trend ── */
-  new Chart(document.getElementById('cashflowChart'), {
-    data: {
-      labels: months,
-      datasets: [
-        {
-          type: 'bar',
-          label: 'Inflow',
-          data: inflows,
-          backgroundColor: 'rgba(52,199,89,0.12)',
-          borderColor: GREEN,
-          borderWidth: 1,
-          yAxisID: 'y',
+      /* ── 1. Cashflow Trend ── */
+      new Chart(document.getElementById('cashflowChart'), {
+        data: {
+          labels: months,
+          datasets: [
+            {
+              type: 'bar',
+              label: 'Inflow',
+              data: inflows,
+              backgroundColor: 'rgba(52,199,89,0.12)',
+              borderColor: GREEN,
+              borderWidth: 1,
+              yAxisID: 'y',
+            },
+            {
+              type: 'bar',
+              label: 'Outflow',
+              data: outflows,
+              backgroundColor: 'rgba(255,59,48,0.1)',
+              borderColor: RED,
+              borderWidth: 1,
+              yAxisID: 'y',
+            },
+            {
+              type: 'line',
+              label: 'Net',
+              data: nets,
+              borderColor: BLUE,
+              borderDash: [4, 3],
+              backgroundColor: 'transparent',
+              borderWidth: 1.5,
+              pointRadius: 3,
+              pointBackgroundColor: BLUE,
+              pointBorderWidth: 0,
+              tension: 0.3,
+              yAxisID: 'y2',
+            }
+          ]
         },
-        {
-          type: 'bar',
-          label: 'Outflow',
-          data: outflows,
-          backgroundColor: 'rgba(255,59,48,0.1)',
-          borderColor: RED,
-          borderWidth: 1,
-          yAxisID: 'y',
-        },
-        {
-          type: 'line',
-          label: 'Net',
-          data: nets,
-          borderColor: BLUE,
-          borderDash: [4, 3],
-          backgroundColor: 'transparent',
-          borderWidth: 1.5,
-          pointRadius: 3,
-          pointBackgroundColor: BLUE,
-          pointBorderWidth: 0,
-          tension: 0.3,
-          yAxisID: 'y2',
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: INK,
-          titleColor: '#aaa',
-          bodyColor: '#fff',
-          borderColor: '#333',
-          borderWidth: 1,
-          titleFont: { family: "'DM Mono', monospace", size: 10 },
-          bodyFont: { family: "'DM Mono', monospace", size: 10 },
-          callbacks: {
-            label: ctx => {
-              const v = ctx.raw;
-              const sign = v < 0 ? '–₹' : '₹';
-              return ` ${ctx.dataset.label}: ${sign}${Math.abs(v).toLocaleString('en-IN')}`;
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: INK,
+              titleColor: '#aaa',
+              bodyColor: '#fff',
+              borderColor: '#333',
+              borderWidth: 1,
+              titleFont: { family: "'DM Mono', monospace", size: 10 },
+              bodyFont: { family: "'DM Mono', monospace", size: 10 },
+              callbacks: {
+                label: ctx => {
+                  const v = ctx.raw;
+                  const sign = v < 0 ? '–₹' : '₹';
+                  return ` ${ctx.dataset.label}: ${sign}${Math.abs(v).toLocaleString('en-IN')}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: { font: { family: "'DM Mono',monospace", size: 9 } }
+            },
+            y: {
+              grid: { color: '#EEEEEE', lineWidth: 1 },
+              border: { display: false },
+              ticks: {
+                font: { family: "'DM Mono',monospace", size: 9 },
+                callback: v => '₹' + (Math.abs(v) / 100000).toFixed(0) + 'L'
+              }
+            },
+            y2: {
+              position: 'right',
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                font: { family: "'DM Mono',monospace", size: 9 },
+                callback: v => '₹' + (v / 100000).toFixed(0) + 'L',
+                color: BLUE
+              }
             }
           }
         }
-      },
-      scales: {
-        x: {
-          grid: { display: false },
-          border: { display: false },
-          ticks: { font: { family: "'DM Mono',monospace", size: 9 } }
-        },
-        y: {
-          grid: { color: '#EEEEEE', lineWidth: 1 },
-          border: { display: false },
-          ticks: {
-            font: { family: "'DM Mono',monospace", size: 9 },
-            callback: v => '₹' + (Math.abs(v) / 100000).toFixed(0) + 'L'
-          }
-        },
-        y2: {
-          position: 'right',
-          grid: { display: false },
-          border: { display: false },
-          ticks: {
-            font: { family: "'DM Mono',monospace", size: 9 },
-            callback: v => '₹' + (v / 100000).toFixed(0) + 'L',
-            color: BLUE
-          }
-        }
-      }
-    }
-  });
-
-  /* ── 2. Expense Donut ── */
-  const PIE_PALETTE = [RED, BLUE, YELLOW, GREEN, '#8b5cf6'];
-  if (expenseLabels.length > 0) {
-    new Chart(document.getElementById('expenseChart'), {
-      type: 'doughnut',
-      data: {
-        labels: expenseLabels,
-        datasets: [{
-          data: expenseAmounts,
-          backgroundColor: PIE_PALETTE,
-          borderWidth: 0,
-          hoverOffset: 3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '70%',
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: INK,
-            bodyColor: '#fff',
-            bodyFont: { family: "'DM Mono',monospace", size: 10 },
-            callbacks: { label: ctx => ` ${ctx.label}: ₹${ctx.raw.toLocaleString('en-IN')}` }
-          }
-        }
-      }
-    });
-  }
-
-  /* ── 3. Source Mix ── */
-  const SRC_PALETTE = [BLUE, '#8b5cf6', '#20c9a6', YELLOW, INK3];
-  if (sourceLabels.length > 0) {
-    new Chart(document.getElementById('sourceChart'), {
-      type: 'doughnut',
-      data: {
-        labels: sourceLabels,
-        datasets: [{
-          data: sourceAmounts,
-          backgroundColor: SRC_PALETTE,
-          borderWidth: 0,
-          hoverOffset: 3
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '65%',
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: INK,
-            bodyColor: '#fff',
-            bodyFont: { family: "'DM Mono',monospace", size: 10 },
-            callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` }
-          }
-        }
-      }
-    });
-  }
-
-  /* ── Time filter stub ── */
-  function setTrend(range, btn) {
-    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    // Extend: reload chart data via AJAX for range
-  }
-
-  function toggleChat() {
-    const win = document.getElementById("chatbot-window");
-    win.style.display = (win.style.display === "flex") ? "none" : "flex";
-  }
-
-  document.getElementById("chatbot-toggle").onclick = toggleChat;
-
-  async function sendMessage() {
-    const input = document.getElementById("chat-input");
-    const messages = document.getElementById("chat-messages");
-
-    const text = input.value.trim();
-    if (!text) return;
-
-    // show user msg
-    messages.innerHTML += `<div class="chat-msg chat-user">You: ${text}</div>`;
-    input.value = "";
-
-    // loading state
-    messages.innerHTML += `<div class="chat-msg chat-bot">Thinking...</div>`;
-    messages.scrollTop = messages.scrollHeight;
-
-    try {
-      const res = await fetch("/finance/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: text })
       });
 
-      const data = await res.json();
-
-      // remove "Thinking..."
-      messages.lastChild.remove();
-
-      if (data.error) {
-        messages.innerHTML += `<div class="chat-msg chat-bot">⚠ ${data.error}</div>`;
-      } else {
-        messages.innerHTML += `<div class="chat-msg chat-bot">${data.answer}</div>`;
+      /* ── 2. Expense Donut ── */
+      const PIE_PALETTE = [RED, BLUE, YELLOW, GREEN, '#8b5cf6'];
+      if (expenseLabels.length > 0) {
+        new Chart(document.getElementById('expenseChart'), {
+          type: 'doughnut',
+          data: {
+            labels: expenseLabels,
+            datasets: [{
+              data: expenseAmounts,
+              backgroundColor: PIE_PALETTE,
+              borderWidth: 0,
+              hoverOffset: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: INK,
+                bodyColor: '#fff',
+                bodyFont: { family: "'DM Mono',monospace", size: 10 },
+                callbacks: { label: ctx => ` ${ctx.label}: ₹${ctx.raw.toLocaleString('en-IN')}` }
+              }
+            }
+          }
+        });
       }
 
-    } catch (err) {
-      messages.lastChild.remove();
-      messages.innerHTML += `<div class="chat-msg chat-bot">Error connecting to AI</div>`;
-    }
+      /* ── 3. Source Mix ── */
+      const SRC_PALETTE = [BLUE, '#8b5cf6', '#20c9a6', YELLOW, INK3];
+      if (sourceLabels.length > 0) {
+        new Chart(document.getElementById('sourceChart'), {
+          type: 'doughnut',
+          data: {
+            labels: sourceLabels,
+            datasets: [{
+              data: sourceAmounts,
+              backgroundColor: SRC_PALETTE,
+              borderWidth: 0,
+              hoverOffset: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: INK,
+                bodyColor: '#fff',
+                bodyFont: { family: "'DM Mono',monospace", size: 10 },
+                callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` }
+              }
+            }
+          }
+        });
+      }
 
-    messages.scrollTop = messages.scrollHeight;
-  }
+      /* ── Time filter stub ── */
+      function setTrend(range, btn) {
+        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        // Extend: reload chart data via AJAX for range
+      }
+
+      function toggleChat() {
+        const win = document.getElementById("chatbot-window");
+        const isOpen = win.style.display === "flex";
+        win.style.display = isOpen ? "none" : "flex";
+        if (!isOpen) {
+          setTimeout(() => document.getElementById("chat-input").focus(), 50);
+        }
+      }
+
+      document.getElementById("chatbot-toggle").onclick = toggleChat;
+
+      function sendSuggestion(chip) {
+        document.getElementById("chat-input").value = chip.textContent.trim();
+        sendMessage();
+      }
+
+      function appendMessage(role, text, isError = false) {
+        const messages = document.getElementById("chat-messages");
+
+        const wrap = document.createElement("div");
+        wrap.className = "chat-msg-wrap";
+
+        const label = document.createElement("div");
+        label.className = "chat-msg-label";
+        label.textContent = role === "user" ? "You" : "C-F01";
+
+        const bubble = document.createElement("div");
+        bubble.className = `chat-msg-bubble ${role === "user" ? "user" : isError ? "error" : "bot"}`;
+        bubble.textContent = text;
+
+        wrap.appendChild(label);
+        wrap.appendChild(bubble);
+        messages.appendChild(wrap);
+        messages.scrollTop = messages.scrollHeight;
+
+        return wrap;
+      }
+
+      function appendThinking() {
+        const messages = document.getElementById("chat-messages");
+
+        const wrap = document.createElement("div");
+        wrap.className = "chat-msg-wrap";
+        wrap.id = "chat-thinking";
+
+        const label = document.createElement("div");
+        label.className = "chat-msg-label";
+        label.textContent = "C-F01";
+
+        const dots = document.createElement("div");
+        dots.className = "chat-thinking";
+        dots.innerHTML = "<span></span><span></span><span></span>";
+
+        wrap.appendChild(label);
+        wrap.appendChild(dots);
+        messages.appendChild(wrap);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function removeThinking() {
+        const el = document.getElementById("chat-thinking");
+        if (el) el.remove();
+      }
+
+      function setStatus(text) {
+        const el = document.getElementById("chat-status");
+        if (el) el.textContent = text;
+      }
+
+      async function sendMessage() {
+        const input = document.getElementById("chat-input");
+        const sendBtn = document.getElementById("chat-send-btn");
+
+        const text = input.value.trim();
+        if (!text) return;
+
+        // Lock UI
+        input.value = "";
+        input.disabled = true;
+        sendBtn.disabled = true;
+        setStatus("Thinking...");
+
+        appendMessage("user", text);
+        appendThinking();
+
+        try {
+          const res = await fetch("/finance/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: text })
+          });
+
+          const data = await res.json();
+          removeThinking();
+
+          if (data.error) {
+            appendMessage("bot", `⚠ ${data.error}`, true);
+          } else {
+            appendMessage("bot", data.answer);
+          }
+
+          setStatus("Ready");
+
+        } catch (err) {
+          removeThinking();
+          appendMessage("bot", "Connection failed. Check server status.", true);
+          setStatus("Error");
+        }
+
+        // Unlock UI
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
 
 
 
@@ -1932,5 +2288,5 @@
 
 
 
-</script>
-{% endblock %}
+    </script>
+    {% endblock %}

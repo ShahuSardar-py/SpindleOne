@@ -9,7 +9,6 @@ load_dotenv()
 
 MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY")
 MODEL_NAME      = "ministral-8b-2512"
-
 MAX_RETRIES = 2
 RETRY_DELAY = 1  # seconds
 
@@ -22,7 +21,7 @@ if not MISTRAL_API_KEY:
 client = Mistral(api_key=MISTRAL_API_KEY)
 
 
-# ── Core LLM Call ────────────────────────────────────────────────────────────
+# ── Core LLM Call
 
 def call_llm(prompt: str) -> str:
     for attempt in range(MAX_RETRIES + 1):

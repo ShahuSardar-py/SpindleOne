@@ -24,8 +24,7 @@ from decimal import Decimal
 from ..services.dashboardCalc import get_dashboard_context
 
 
-# ── Config ────────────────────────────────────────────────────────────────────
-
+# ── Config 
 # How long (seconds) before the store is considered stale and refreshed
 STORE_TTL_SECONDS = 120   # 2 minutes — tune to your traffic
 
@@ -38,9 +37,7 @@ ORM_KEYS = {
     "today",               # handled separately as metadata
 }
 
-
-# ── In-memory cache ───────────────────────────────────────────────────────────
-
+# In-memory cache 
 _cache = {
     "store":      None,    # the JSON string
     "built_at":   None,    # datetime the store was last built
@@ -48,8 +45,7 @@ _cache = {
 }
 
 
-# ── Type coercion ─────────────────────────────────────────────────────────────
-
+# Type coercion 
 def _coerce(value):
     """
     Recursively makes any value JSON-serializable.
@@ -75,7 +71,7 @@ def _coerce(value):
     return value
 
 
-# ── Store builder ─────────────────────────────────────────────────────────────
+# Store builder 
 
 def _build_store() -> str:
     """
@@ -87,13 +83,13 @@ def _build_store() -> str:
     """
     raw = get_dashboard_context()
 
-    # ── Strip ORM keys ────────────────────────────────────────────────────────
+    # ── Strip ORM keys 
     clean = {k: v for k, v in raw.items() if k not in ORM_KEYS}
 
-    # ── Coerce all types ──────────────────────────────────────────────────────
+    # ── Coerce all types 
     clean = _coerce(clean)
 
-    # ── Structure into named sections for LLM readability ────────────────────
+    # ─ Structure into named sections for LLM readability 
     store = {
         "_meta": {
             "built_at":   datetime.now(timezone.utc).isoformat(),
