@@ -4,478 +4,833 @@
 
 {% block extra_styles %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
+  rel="stylesheet">
 
 <style>
-:root {
-  --s0:   #F9F9F9;
-  --s1:   #F3F3F3;
-  --s2:   #E8E8E8;
-  --s3:   #DADADA;
-  --s4:   #CCCCCC;
-  --ink:  #1A1C1C;
-  --ink2: #4A4C4C;
-  --ink3: #7A7C7C;
-  --red:    #FF3B30;
-  --blue:   #007AFF;
-  --yellow: #FFD600;
-  --green:  #34C759;
-  --font-display: 'Barlow Condensed', sans-serif;
-  --font-body:    'Barlow', sans-serif;
-  --font-mono:    'DM Mono', monospace;
-}
+  :root {
+    --s0: #F9F9F9;
+    --s1: #F3F3F3;
+    --s2: #E8E8E8;
+    --s3: #DADADA;
+    --s4: #CCCCCC;
+    --ink: #1A1C1C;
+    --ink2: #4A4C4C;
+    --ink3: #7A7C7C;
+    --red: #FF3B30;
+    --blue: #007AFF;
+    --yellow: #FFD600;
+    --green: #34C759;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-body {
-  background: var(--s0);
-  color: var(--ink);
-  font-family: var(--font-body);
-}
+  body {
+    background: var(--s0);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
 
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
-  background-size: 4px 4px;
-  opacity: 0.04;
-}
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.04;
+  }
 
-/* ════════════════════════════════
+  /* ════════════════════════════════
    LAYOUT SHELL
    ════════════════════════════════ */
-.fin-shell {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
+  .fin-shell {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
 
-/* ════════════════════════════════
+  /* ════════════════════════════════
    SIDEBAR
    ════════════════════════════════ */
-.fin-sidebar {
-  width: 224px;
-  flex-shrink: 0;
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 48px;
-  height: calc(100vh - 48px);
-  overflow-y: auto;
-}
+  .fin-sidebar {
+    width: 224px;
+    flex-shrink: 0;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
 
-.fin-sidebar-brand {
-  padding: 1.25rem 1.25rem 1rem;
-  border-bottom: 1px solid #2a2c2c;
-}
+  .fin-sidebar-brand {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid #2a2c2c;
+  }
 
-.fin-sidebar-brand-label {
-  font-family: var(--font-display);
-  font-weight: 900; font-size: 1rem;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: #fff;
-  display: flex; align-items: center; gap: 0.6rem;
-}
+  .fin-sidebar-brand-label {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
 
-.fin-sidebar-brand-label .brand-dot {
-  width: 8px; height: 8px;
-  background: var(--blue);
-  flex-shrink: 0;
-}
+  .fin-sidebar-brand-label .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
 
-.fin-sidebar-brand-sub {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: #555; margin-top: 0.2rem;
-}
+  .fin-sidebar-brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 0.2rem;
+  }
 
-.fin-nav { padding: 1rem 0; flex: 1; }
+  .fin-nav {
+    padding: 1rem 0;
+    flex: 1;
+  }
 
-.fin-nav-section {
-  font-family: var(--font-mono); font-size: 0.5rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: #444; padding: 0 1.25rem;
-  margin-bottom: 0.4rem; margin-top: 1rem;
-}
-.fin-nav-section:first-child { margin-top: 0; }
+  .fin-nav-section {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    padding: 0 1.25rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
 
-.fin-nav-link {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.6rem 1.25rem;
-  font-family: var(--font-body); font-size: 0.72rem;
-  font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-  color: #777; text-decoration: none;
-  transition: background 0.12s, color 0.12s;
-}
-.fin-nav-link svg { flex-shrink: 0; }
-.fin-nav-link:hover { background: #1e2020; color: #ccc; }
-.fin-nav-link.active {
-  background: #1e2020; color: #fff;
-  border-left: 2px solid var(--blue);
-  padding-left: calc(1.25rem - 2px);
-}
-.fin-nav-link.active svg { stroke: var(--blue); }
+  .fin-nav-section:first-child {
+    margin-top: 0;
+  }
 
-/* ════════════════════════════════
+  .fin-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #777;
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .fin-nav-link svg {
+    flex-shrink: 0;
+  }
+
+  .fin-nav-link:hover {
+    background: #1e2020;
+    color: #ccc;
+  }
+
+  .fin-nav-link.active {
+    background: #1e2020;
+    color: #fff;
+    border-left: 2px solid var(--blue);
+    padding-left: calc(1.25rem - 2px);
+  }
+
+  .fin-nav-link.active svg {
+    stroke: var(--blue);
+  }
+
+  /* ════════════════════════════════
    MAIN CONTENT
    ════════════════════════════════ */
-.fin-main {
-  flex: 1;
-  padding: 1.75rem 2rem 3rem;
-  overflow-x: hidden;
-  animation: fin-in 0.25s ease both;
-}
+  .fin-main {
+    flex: 1;
+    padding: 1.75rem 2rem 3rem;
+    overflow-x: hidden;
+    animation: fin-in 0.25s ease both;
+  }
 
-.fin-page-header {
-  display: flex; align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap; gap: 1rem;
-  margin-bottom: 1.75rem;
-}
+  .fin-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
 
-.fin-page-title {
-  font-family: var(--font-display);
-  font-weight: 900; font-size: 2.4rem;
-  letter-spacing: -0.01em; text-transform: uppercase;
-  color: var(--ink); line-height: 1;
-}
+  .fin-page-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.4rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
 
-.fin-page-sub {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.08em; color: var(--ink3); margin-top: 0.4rem;
-}
+  .fin-page-sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    color: var(--ink3);
+    margin-top: 0.4rem;
+  }
 
-.fin-section-label {
-  display: flex; align-items: center; gap: 0.6rem;
-  font-family: var(--font-mono); font-size: 0.6rem;
-  font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--ink2); margin-bottom: 0.85rem;
-}
-.fin-section-label::before {
-  content: ''; width: 10px; height: 10px;
-  background: var(--s2); border: 1.5px solid var(--ink2); flex-shrink: 0;
-}
+  .fin-section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.85rem;
+  }
 
-/* ── Buttons ── */
-.fin-btn-primary {
-  font-family: var(--font-display);
-  font-weight: 700; font-size: 0.8rem;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  background: var(--ink); color: #fff;
-  border: none; padding: 0.75rem 1.5rem;
-  cursor: pointer; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  transition: background 0.12s;
-  flex-shrink: 0; align-self: center;
-}
-.fin-btn-primary:hover { background: #333; }
+  .fin-section-label::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--s2);
+    border: 1.5px solid var(--ink2);
+    flex-shrink: 0;
+  }
 
-.fin-btn-secondary {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  background: var(--s2); color: var(--ink2);
-  border: 1px solid var(--s3);
-  padding: 0.55rem 1.25rem; cursor: pointer;
-  transition: background 0.12s, color 0.12s;
-}
-.fin-btn-secondary:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  /* ── Buttons ── */
+  .fin-btn-primary {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s;
+    flex-shrink: 0;
+    align-self: center;
+  }
 
-/* ════════════════════════════════
+  .fin-btn-primary:hover {
+    background: #333;
+  }
+
+  .fin-btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--s2);
+    color: var(--ink2);
+    border: 1px solid var(--s3);
+    padding: 0.55rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .fin-btn-secondary:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* ════════════════════════════════
    KPI STRIP
    ════════════════════════════════ */
-.kpi-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--s2);
-  border: 1px solid var(--s3);
-  margin-bottom: 1.75rem;
-}
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--s2);
+    border: 1px solid var(--s3);
+    margin-bottom: 1.75rem;
+  }
 
-.kpi-cell {
-  background: var(--s0);
-  padding: 1.1rem 1.5rem;
-  display: flex; align-items: center; gap: 1rem;
-  transition: background 0.12s;
-}
-.kpi-cell:hover { background: var(--s1); }
+  .kpi-cell {
+    background: var(--s0);
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.12s;
+  }
 
-.kpi-led { width: 4px; align-self: stretch; flex-shrink: 0; }
-.kpi-led.green { background: var(--green); }
-.kpi-led.red   { background: var(--red); }
-.kpi-led.blue  { background: var(--blue); }
+  .kpi-cell:hover {
+    background: var(--s1);
+  }
 
-.kpi-label {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--ink3); margin-bottom: 0.3rem;
-}
+  .kpi-led {
+    width: 4px;
+    align-self: stretch;
+    flex-shrink: 0;
+  }
 
-.kpi-value {
-  font-family: var(--font-display);
-  font-weight: 800; font-size: 1.7rem;
-  letter-spacing: -0.01em; line-height: 1;
-}
-.kpi-value.green { color: var(--green); }
-.kpi-value.red   { color: var(--red); }
-.kpi-value.blue  { color: var(--blue); }
+  .kpi-led.green {
+    background: var(--green);
+  }
 
-/* ════════════════════════════════
+  .kpi-led.red {
+    background: var(--red);
+  }
+
+  .kpi-led.blue {
+    background: var(--blue);
+  }
+
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.3rem;
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.7rem;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .kpi-value.green {
+    color: var(--green);
+  }
+
+  .kpi-value.red {
+    color: var(--red);
+  }
+
+  .kpi-value.blue {
+    color: var(--blue);
+  }
+
+  /* ════════════════════════════════
    TABLE
    ════════════════════════════════ */
-.rec-table-wrap {
-  border: 1px solid var(--s3);
-  background: var(--s2);
-  margin-bottom: 1.75rem;
-  overflow-x: auto;
-}
+  .rec-table-wrap {
+    border: 1px solid var(--s3);
+    background: var(--s2);
+    margin-bottom: 1.75rem;
+    overflow-x: auto;
+  }
 
-.rec-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--s0);
-}
+  .rec-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--s0);
+  }
 
-.rec-table thead tr { background: var(--ink); }
+  .rec-table thead tr {
+    background: var(--ink);
+  }
 
-.rec-table th {
-  font-family: var(--font-mono);
-  font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: #777; font-weight: 500;
-  padding: 0.7rem 1rem; text-align: left; white-space: nowrap;
-}
-.rec-table th.r { text-align: right; }
+  .rec-table th {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #777;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+  }
 
-.rec-table tbody tr {
-  border-top: 1px solid var(--s2);
-  transition: background 0.1s;
-}
-.rec-table tbody tr:hover { background: var(--s1); }
+  .rec-table th.r {
+    text-align: right;
+  }
 
-.rec-table td {
-  padding: 0.8rem 1rem;
-  font-size: 0.72rem;
-  color: var(--ink2);
-  white-space: nowrap;
-}
-.rec-table td.r { text-align: right; }
+  .rec-table tbody tr {
+    border-top: 1px solid var(--s2);
+    transition: background 0.1s;
+  }
 
-.td-date-main {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  font-weight: 500; color: var(--ink);
-}
-.td-date-year {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  color: var(--ink3); margin-left: 0.3rem;
-}
-.td-txn-name {
-  font-family: var(--font-mono); font-size: 0.65rem;
-  font-weight: 500; color: var(--ink);
-}
-.td-desc {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  color: var(--ink3); max-width: 200px;
-  overflow: hidden; text-overflow: ellipsis;
-  display: block; margin-top: 0.1rem;
-}
-.td-account {
-  font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink2);
-}
-.td-ref {
-  font-family: var(--font-mono); font-size: 0.6rem; color: var(--ink3);
-}
+  .rec-table tbody tr:hover {
+    background: var(--s1);
+  }
 
-.type-chip {
-  display: inline-block;
-  font-family: var(--font-mono); font-size: 0.5rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  font-weight: 500; padding: 0.2rem 0.55rem;
-}
-.chip-in  { background: rgba(52,199,89,0.12);  color: #1a7a35; }
-.chip-out { background: rgba(255,59,48,0.10);  color: var(--red); }
+  .rec-table td {
+    padding: 0.8rem 1rem;
+    font-size: 0.72rem;
+    color: var(--ink2);
+    white-space: nowrap;
+  }
 
-.td-amount {
-  font-family: var(--font-mono); font-size: 0.75rem;
-  font-weight: 500; text-align: right;
-}
-.td-amount.pos { color: var(--green); }
-.td-amount.neg { color: var(--red); }
+  .rec-table td.r {
+    text-align: right;
+  }
 
-.td-balance {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  font-weight: 500; color: var(--ink); text-align: right;
-}
+  .td-date-main {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
 
-.rec-view-btn {
-  background: none; border: none; cursor: pointer;
-  color: var(--ink3); padding: 0.3rem;
-  transition: color 0.12s;
-  display: inline-flex; align-items: center; justify-content: center;
-}
-.rec-view-btn:hover { color: var(--blue); }
+  .td-date-year {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--ink3);
+    margin-left: 0.3rem;
+  }
 
-/* ════════════════════════════════
+  .td-txn-name {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .td-desc {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--ink3);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  .td-account {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink2);
+  }
+
+  .td-ref {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink3);
+  }
+
+  .type-chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+  }
+
+  .chip-in {
+    background: rgba(52, 199, 89, 0.12);
+    color: #1a7a35;
+  }
+
+  .chip-out {
+    background: rgba(255, 59, 48, 0.10);
+    color: var(--red);
+  }
+
+  .td-amount {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .td-amount.pos {
+    color: var(--green);
+  }
+
+  .td-amount.neg {
+    color: var(--red);
+  }
+
+  .td-balance {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  .rec-view-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink3);
+    padding: 0.3rem;
+    transition: color 0.12s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rec-view-btn:hover {
+    color: var(--blue);
+  }
+
+  /* ════════════════════════════════
    EMPTY STATE
    ════════════════════════════════ */
-.rec-empty {
-  border: 1px solid var(--s3);
-  background: var(--s0);
-  padding: 5rem 2rem;
-  text-align: center;
-  margin-bottom: 1.75rem;
-}
-.rec-empty-leds {
-  display: flex; justify-content: center; gap: 0.35rem; margin-bottom: 1.25rem;
-}
-.rec-empty-led { width: 6px; height: 6px; background: var(--s3); }
-.rec-empty-led.lit { background: var(--ink3); }
+  .rec-empty {
+    border: 1px solid var(--s3);
+    background: var(--s0);
+    padding: 5rem 2rem;
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
 
-.rec-empty-label {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--ink3); margin-bottom: 0.6rem;
-}
-.rec-empty-title {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: 1.6rem; text-transform: uppercase; color: var(--ink);
-  margin-bottom: 0.4rem;
-}
-.rec-empty-sub {
-  font-family: var(--font-mono); font-size: 0.6rem;
-  color: var(--ink3); margin-bottom: 1.5rem; letter-spacing: 0.06em;
-}
+  .rec-empty-leds {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
 
-/* ════════════════════════════════
+  .rec-empty-led {
+    width: 6px;
+    height: 6px;
+    background: var(--s3);
+  }
+
+  .rec-empty-led.lit {
+    background: var(--ink3);
+  }
+
+  .rec-empty-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.6rem;
+  }
+
+  .rec-empty-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .rec-empty-sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink3);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* ════════════════════════════════
    STATUS BAR
    ════════════════════════════════ */
-.fin-status-bar {
-  background: var(--ink); padding: 0.85rem 2rem;
-  display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap;
-  border-top: 2px solid #2a2c2c;
-  position: relative; z-index: 1;
-}
-.fin-status-live {
-  display: flex; align-items: center; gap: 0.6rem;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
-}
-.fin-status-live .live-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--blue); animation: led-blink 2s infinite;
-}
-.fin-status-divider { width: 1px; height: 24px; background: #2a2c2c; flex-shrink: 0; }
-.fin-status-stat { display: flex; flex-direction: column; }
-.fin-status-stat label {
-  font-family: var(--font-mono); font-size: 0.45rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: #555;
-}
-.fin-status-stat span {
-  font-family: var(--font-mono); font-size: 0.65rem; color: #aaa; margin-top: 0.1rem;
-}
+  .fin-status-bar {
+    background: var(--ink);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    border-top: 2px solid #2a2c2c;
+    position: relative;
+    z-index: 1;
+  }
 
-/* ════════════════════════════════
+  .fin-status-live {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .fin-status-live .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: led-blink 2s infinite;
+  }
+
+  .fin-status-divider {
+    width: 1px;
+    height: 24px;
+    background: #2a2c2c;
+    flex-shrink: 0;
+  }
+
+  .fin-status-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fin-status-stat label {
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #555;
+  }
+
+  .fin-status-stat span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #aaa;
+    margin-top: 0.1rem;
+  }
+
+  /* ════════════════════════════════
    MODAL
    ════════════════════════════════ */
-.rec-modal-overlay {
-  display: none;
-  position: fixed; inset: 0; z-index: 100;
-  background: rgba(0,0,0,0.6);
-  align-items: center; justify-content: center;
-  padding: 1rem;
-}
-.rec-modal-overlay.open { display: flex; }
+  .rec-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
 
-.rec-modal {
-  background: var(--s0);
-  border: 1px solid var(--s3);
-  width: 100%; max-width: 500px;
-  box-shadow: 0 24px 48px -8px rgba(0,0,0,0.2);
-  animation: modal-in 0.18s ease both;
-}
+  .rec-modal-overlay.open {
+    display: flex;
+  }
 
-@keyframes modal-in {
-  from { opacity:0; transform:translateY(10px); }
-  to   { opacity:1; transform:translateY(0); }
-}
+  .rec-modal {
+    background: var(--s0);
+    border: 1px solid var(--s3);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 24px 48px -8px rgba(0, 0, 0, 0.2);
+    animation: modal-in 0.18s ease both;
+  }
 
-.rec-modal-header {
-  background: var(--ink);
-  padding: 1rem 1.25rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.rec-modal-title {
-  font-family: var(--font-display);
-  font-weight: 700; font-size: 0.9rem;
-  letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
-}
-.rec-modal-id {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  color: #555; margin-top: 0.15rem; letter-spacing: 0.1em;
-}
-.rec-modal-close {
-  background: none; border: none; cursor: pointer;
-  color: #666; padding: 0;
-  transition: color 0.12s;
-  display: flex; align-items: center;
-}
-.rec-modal-close:hover { color: var(--red); }
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
 
-.rec-modal-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1px; }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-.modal-row {
-  display: grid; gap: 1px; background: var(--s2);
-  border: 1px solid var(--s2);
-}
-.modal-row + .modal-row { border-top: none; }
-.modal-row.cols-2 { grid-template-columns: 1fr 1fr; }
-.modal-row.cols-1 { grid-template-columns: 1fr; }
+  .rec-modal-header {
+    background: var(--ink);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.modal-field {
-  background: var(--s0);
-  padding: 0.75rem 0.85rem;
-}
-.modal-field-label {
-  font-family: var(--font-mono); font-size: 0.5rem;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--ink3); margin-bottom: 0.3rem;
-}
-.modal-field-value {
-  font-family: var(--font-mono); font-size: 0.7rem;
-  font-weight: 500; color: var(--ink);
-}
-.modal-field-value.pos   { color: var(--green); }
-.modal-field-value.neg   { color: var(--red); }
-.modal-field-value.muted { color: var(--ink3); font-weight: 400; }
+  .rec-modal-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+  }
 
-.modal-desc-pocket {
-  background: var(--s1);
-  border-top: 2px solid var(--s3);
-  padding: 0.75rem 0.85rem;
-  font-family: var(--font-mono); font-size: 0.65rem;
-  color: var(--ink2); line-height: 1.6;
-}
+  .rec-modal-id {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: #555;
+    margin-top: 0.15rem;
+    letter-spacing: 0.1em;
+  }
 
-.rec-modal-footer {
-  background: var(--s1);
-  border-top: 1px solid var(--s2);
-  padding: 0.85rem 1.25rem;
-  display: flex; justify-content: flex-end;
-}
+  .rec-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    transition: color 0.12s;
+    display: flex;
+    align-items: center;
+  }
 
-/* ── Animations ── */
-@keyframes led-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-@keyframes fin-in    { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .rec-modal-close:hover {
+    color: var(--red);
+  }
 
-@media (max-width: 900px) {
-  .fin-sidebar { display: none; }
-  .kpi-strip   { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 580px) {
-  .kpi-strip        { grid-template-columns: 1fr; }
-  .modal-row.cols-2 { grid-template-columns: 1fr; }
-}
+  .rec-modal-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .modal-row {
+    display: grid;
+    gap: 1px;
+    background: var(--s2);
+    border: 1px solid var(--s2);
+  }
+
+  .modal-row+.modal-row {
+    border-top: none;
+  }
+
+  .modal-row.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .modal-row.cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-field {
+    background: var(--s0);
+    padding: 0.75rem 0.85rem;
+  }
+
+  .modal-field-label {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-field-value {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .modal-field-value.pos {
+    color: var(--green);
+  }
+
+  .modal-field-value.neg {
+    color: var(--red);
+  }
+
+  .modal-field-value.muted {
+    color: var(--ink3);
+    font-weight: 400;
+  }
+
+  .modal-desc-pocket {
+    background: var(--s1);
+    border-top: 2px solid var(--s3);
+    padding: 0.75rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  .rec-modal-footer {
+    background: var(--s1);
+    border-top: 1px solid var(--s2);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* ── Animations ── */
+  @keyframes led-blink {
+
+    0%,
+    100% {
+      opacity: 1
+    }
+
+    50% {
+      opacity: 0.2
+    }
+  }
+
+  @keyframes fin-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px)
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  }
+
+  @media (max-width: 900px) {
+    .fin-sidebar {
+      display: none;
+    }
+
+    .kpi-strip {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .kpi-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .modal-row.cols-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .badge-late {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.44rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    background: rgba(255, 59, 48, 0.12);
+    color: var(--red);
+    border: 1px solid rgba(255, 59, 48, 0.25);
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
 </style>
 {% endblock %}
 
@@ -498,27 +853,29 @@ body::before {
 
       <a href="{{ url_for('spindlefinance.dashboard') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
         </svg>
         Dashboard
       </a>
 
       <a href="{{ url_for('spindlefinance.records') }}" class="fin-nav-link active">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="8" y1="13" x2="16" y2="13"/>
-          <line x1="8" y1="17" x2="16" y2="17"/>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="8" y1="13" x2="16" y2="13" />
+          <line x1="8" y1="17" x2="16" y2="17" />
         </svg>
         Cashflow Records
       </a>
 
       <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="16"/>
-          <line x1="8" y1="12" x2="16" y2="12"/>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
         </svg>
         Add Records
       </a>
@@ -527,8 +884,8 @@ body::before {
 
       <a href="{{ url_for('spindlefinance.receivables') }}" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="2" y="5" width="20" height="14" rx="0"/>
-          <path d="M2 10h20M6 15h2M10 15h4"/>
+          <rect x="2" y="5" width="20" height="14" rx="0" />
+          <path d="M2 10h20M6 15h2M10 15h4" />
         </svg>
         Receivables
       </a>
@@ -537,7 +894,7 @@ body::before {
 
       <a href="/" class="fin-nav-link">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
         </svg>
         Main Hub
       </a>
@@ -554,8 +911,8 @@ body::before {
       </div>
       <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-btn-primary">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         Add Record
       </a>
@@ -617,24 +974,30 @@ body::before {
               <span class="td-date-year">{{ cashflow.txn_date.strftime('%Y') }}</span>
             </td>
             <td>
-              <div class="td-txn-name">{{ cashflow.txn_name }}</div>
+              <div class="td-txn-name">
+                {{ cashflow.txn_name }}
+                {% if cashflow.is_late_payment %}
+                <span class="badge-late">Late</span>
+                {% endif %}
+              </div>
               {% if cashflow.description %}
-              <span class="td-desc">{{ cashflow.description[:50] }}{% if cashflow.description|length > 50 %}…{% endif %}</span>
+              <span class="td-desc">{{ cashflow.description[:50] }}{% if cashflow.description|length > 50 %}…{% endif
+                %}</span>
               {% endif %}
             </td>
             <td>
               {% if cashflow.txn_type == 'INFLOW' %}
-                <span class="type-chip chip-in">Inflow</span>
+              <span class="type-chip chip-in">Inflow</span>
               {% else %}
-                <span class="type-chip chip-out">Outflow</span>
+              <span class="type-chip chip-out">Outflow</span>
               {% endif %}
             </td>
             <td class="td-account">{{ cashflow.account_name or '—' }}</td>
             <td class="td-ref">
               {% if cashflow.txn_type == 'INFLOW' %}
-                {{ cashflow.invoice_id or '—' }}
+              {{ cashflow.invoice_id or '—' }}
               {% else %}
-                {{ cashflow.reference_id or '—' }}
+              {{ cashflow.reference_id or '—' }}
               {% endif %}
             </td>
             <td>
@@ -642,12 +1005,14 @@ body::before {
                 {{ '+' if cashflow.txn_type == 'INFLOW' else '–' }}₹{{ "%.2f"|format(cashflow.amount) }}
               </div>
             </td>
-            <td><div class="td-balance">₹{{ "%.2f"|format(cashflow.current_balance) }}</div></td>
+            <td>
+              <div class="td-balance">₹{{ "%.2f"|format(cashflow.current_balance) }}</div>
+            </td>
             <td class="r">
               <button class="rec-view-btn" onclick="openModal({{ cashflow.id }})" title="View Details">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
                 </svg>
               </button>
             </td>
@@ -673,8 +1038,8 @@ body::before {
       <div class="rec-empty-sub">Begin tracking by adding your first transaction to the system</div>
       <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-btn-primary">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
         </svg>
         Add First Record
       </a>
@@ -716,22 +1081,22 @@ body::before {
       </div>
       <button class="rec-modal-close" onclick="closeModalDirect()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
     </div>
 
     <div class="rec-modal-body">
 
-      <div class="modal-row cols-2">
-        <div class="modal-field">
-          <div class="modal-field-label">Date</div>
-          <div class="modal-field-value" id="modalDate">—</div>
+      <div class="modal-row cols-2" id="modalLateRow" style="display:none;">
+        <div class="modal-field" style="background:rgba(255,59,48,0.05);">
+          <div class="modal-field-label">Payment Timing</div>
+          <div class="modal-field-value neg">Late — received after due date</div>
         </div>
         <div class="modal-field">
-          <div class="modal-field-label">Type</div>
-          <div class="modal-field-value" id="modalType">—</div>
+          <div class="modal-field-label">Invoice Ref</div>
+          <div class="modal-field-value muted" id="modalInvoiceRef">—</div>
         </div>
       </div>
 
@@ -793,57 +1158,55 @@ body::before {
 
 {% block extra_scripts %}
 <script>
-const transactions = {
+  const transactions = {
 {% for cashflow in cashflows %}
-  {{ cashflow.id }}: {
-    id: {{ cashflow.id }},
+  { { cashflow.id } }: {
+    id: { { cashflow.id } },
     txn_date: "{{ cashflow.txn_date.strftime('%B %d, %Y') }}",
-    txn_name: "{{ cashflow.txn_name }}",
-    account_name: "{{ cashflow.account_name or '' }}",
-    amount: {{ cashflow.amount }},
+      txn_name: "{{ cashflow.txn_name }}",
+        account_name: "{{ cashflow.account_name or '' }}",
+          amount: { { cashflow.amount } },
     txn_type: "{{ cashflow.txn_type }}",
-    description: "{{ cashflow.description or '' }}",
-    reference_id: "{{ cashflow.reference_id or '' }}",
-    current_balance: {{ cashflow.current_balance }},
-    source: "{{ cashflow.source or '' }}"
-  }{% if not loop.last %},{% endif %}
-{% endfor %}
+      description: "{{ cashflow.description or '' }}",
+        reference_id: "{{ cashflow.reference_id or '' }}",
+          current_balance: { { cashflow.current_balance } },
+    source: "{{ cashflow.source or '' }}",\n    is_late_payment: {{ 'true' if cashflow.is_late_payment else 'false' }},\n    invoice_id: "{{ cashflow.invoice_id or '' }}"\n  }{% if not loop.last %},{% endif %}
+  {% endfor %}
 };
 
-function openModal(id) {
-  const txn = transactions[id];
-  if (!txn) return;
+  function openModal(id) {
+    const txn = transactions[id];
+    if (!txn) return;
 
-  document.getElementById('modalIdLabel').textContent     = 'TXN_ID // ' + id;
-  document.getElementById('modalDate').textContent        = txn.txn_date;
-  document.getElementById('modalTxnName').textContent     = txn.txn_name;
-  document.getElementById('modalAccount').textContent     = txn.account_name || '—';
-  document.getElementById('modalDescription').textContent = txn.description || 'No description provided';
-  document.getElementById('modalReference').textContent   = txn.reference_id || '—';
-  document.getElementById('modalSource').textContent      = txn.source || '—';
-  document.getElementById('modalBalance').textContent     = '₹' + txn.current_balance.toFixed(2);
+    document.getElementById('modalIdLabel').textContent = 'TXN_ID // ' + id;
+    document.getElementById('modalDate').textContent = txn.txn_date;
+    document.getElementById('modalTxnName').textContent = txn.txn_name;
+    document.getElementById('modalAccount').textContent = txn.account_name || '—';
+    document.getElementById('modalDescription').textContent = txn.description || 'No description provided';
+    document.getElementById('modalReference').textContent = txn.reference_id || '—';
+    document.getElementById('modalSource').textContent = txn.source || '—';\n    document.getElementById('modalBalance').textContent = '₹' + txn.current_balance.toFixed(2);\n\n    const lateRow = document.getElementById('modalLateRow');\n    document.getElementById('modalInvoiceRef').textContent = txn.invoice_id || '—';\n    lateRow.style.display = txn.is_late_payment ? '' : 'none';
 
-  const amtEl = document.getElementById('modalAmount');
-  amtEl.textContent = (txn.txn_type === 'INFLOW' ? '+' : '–') + '₹' + txn.amount.toFixed(2);
-  amtEl.className = 'modal-field-value ' + (txn.txn_type === 'INFLOW' ? 'pos' : 'neg');
+    const amtEl = document.getElementById('modalAmount');
+    amtEl.textContent = (txn.txn_type === 'INFLOW' ? '+' : '–') + '₹' + txn.amount.toFixed(2);
+    amtEl.className = 'modal-field-value ' + (txn.txn_type === 'INFLOW' ? 'pos' : 'neg');
 
-  const typeEl = document.getElementById('modalType');
-  typeEl.textContent = txn.txn_type === 'INFLOW' ? 'Inflow' : 'Outflow';
-  typeEl.className = 'modal-field-value ' + (txn.txn_type === 'INFLOW' ? 'pos' : 'neg');
+    const typeEl = document.getElementById('modalType');
+    typeEl.textContent = txn.txn_type === 'INFLOW' ? 'Inflow' : 'Outflow';
+    typeEl.className = 'modal-field-value ' + (txn.txn_type === 'INFLOW' ? 'pos' : 'neg');
 
-  document.getElementById('transactionModal').classList.add('open');
-}
+    document.getElementById('transactionModal').classList.add('open');
+  }
 
-function closeModal(event) {
-  if (event.target.id === 'transactionModal') closeModalDirect();
-}
+  function closeModal(event) {
+    if (event.target.id === 'transactionModal') closeModalDirect();
+  }
 
-function closeModalDirect() {
-  document.getElementById('transactionModal').classList.remove('open');
-}
+  function closeModalDirect() {
+    document.getElementById('transactionModal').classList.remove('open');
+  }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModalDirect();
-});
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModalDirect();
+  });
 </script>
 {% endblock %}

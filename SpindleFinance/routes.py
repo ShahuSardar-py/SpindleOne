@@ -77,9 +77,25 @@ def cashflow():
     )
     return render_template('addRecord.html', invoices=invoices)
 
+from sqlalchemy.orm import joinedload
+
 @bp.route('/records')
 def records():
-    cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
+    cashflows = (
+        AccountCashflow.query
+        .options(joinedload(AccountCashflow.invoice))  # assumes relationship exists
+        .order_by(AccountCashflow.txn_date.desc())
+        .all()
+    )
+    # Annotate each inflow with a late flag at the Python level
+    for cf in cashflows:
+        cf.is_late_payment = (
+            cf.txn_type == 'INFLOW'
+            and cf.invoice is not None
+            and cf.invoice.due_date is not None
+            and cf.txn_date is not None
+            and cf.txn_date > cf.invoice.due_date
+        )
     return render_template('records.html', cashflows=cashflows)
 
 
