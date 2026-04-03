@@ -1,90 +1,56 @@
-# SpindleOne 🏭
+# SpindleOne
 
-**SpindleOne** is a modular operational suite designed for small‑to‑medium manufacturing factories. It focuses on clarity, usability, and extensibility — providing essential factory tools without the bloat of traditional ERP systems.
+SpindleOne is a modular operational suite for small-to-medium manufacturing factories. It provides essential tools with a focus on simplicity and extensibility.
 
-Think of SpindleOne as a **lightweight ERP foundation** that grows with your factory.
+## Modules
 
----
+### HR (SpindlePeople)
+- Employee management
+- Attendance tracking
 
-## 🚀 Current Features
+### Finance (SpindleFinance)
+- Cashflow dashboard
+- Manual and bulk transaction entry
+- Invoice and client management
+- Live status updates (OPEN/PAID/OVERDUE)
 
-### 🌐 Homepage
+## Tech Stack
+- Backend: Python, Flask, SQLAlchemy
+- Frontend: HTML, CSS, Jinja2
+- Database: SQLite
 
-* Easy access to different operational modules
+## Setup
+```
+pip install -r requirements.txt
+python run.py
+```
 
----
+## Current Issues (SpindleFinance)
+1. No installment/partial payment tracking - invoices marked PAID on first full sum, no progress indicators
+2. Overdue tags missing on late transactions (only invoice-level)
+3. Inflow transactions don't require invoice linking (optional only)
+4. No UI for payment progress (e.g., 3/5 installments)
 
-## 👥 HR Module (SpindlePeople)
+## Milestones
+### Short-term (v1.1)
+- Add installment support to invoices/transactions
+- Enforce invoice linking for inflows
+- Per-transaction overdue flags
+- Progress bars in invoice views
 
-Manage employees and track attendance with a clean, structured workflow.
+### Medium-term (v1.2)
+- Real-time updates (WebSockets)
+- Advanced reporting (PDF/CSV export)
+- Role-based access control
 
-**Features:**
+### Long-term (v2.0)
+- Inventory/Stock module
+- Production planning
+- Multi-factory support
+- PostgreSQL production DB
 
-* Add employees
-* Store employee details (role, salary, etc.)
-* Attendance tracking system
-  * Login & logout tracking per employee
-  * Daily attendance records
+## Contributing
+Fork, branch, PR with clear description.
 
----
-
-## 💰 Finance Module
-
-Track factory cash flow with clarity and accuracy.
-
-**Features:**
-
-* Dashboard Service — Centralized view of all financial activity
-* Add cash inflow & outflow records manually
-* Bulk Upload — Import transactions from CSV template for efficient data entry
-* View all records in a sortable, filterable table
-
----
-
-## 🔮 Upcoming Features
-
-### HR Module
-* Employee analytics
-* Payroll integration
-
-### Finance Module
-* Monthly & yearly financial summaries
-* Advanced reporting and analytics
-* Export financial data (CSV / PDF)
-
-### Platform
-* Role‑based access control
-* Factory‑level configuration
-* Exportable reports (CSV / PDF)
-
----
-
-## 🛠 Tech Stack
-
-* **Backend:** Python, Flask, SQLAlchemy
-* **Frontend:** HTML, Tailwind CSS, Jinja2
-* **Database:** SQLite (dev), extensible to PostgreSQL
-
----
-
-## 🤝 Contributing
-
-SpindleOne welcomes contributions.
-
-* Fork the repo
-* Create a feature branch
-* Submit a pull request with a clear description
-
----
-
-## 📄 License
-
-This project is open‑source under the **MIT License**.
-
----
-
-## 📌 Vision
-
-SpindleOne aims to become a **practical, developer‑friendly operations suite** for factories — transparent, customizable, and built in the open by Shahu Sardar.
-
-If you’re building tools for manufacturing, this is for you.
+## License
+MIT

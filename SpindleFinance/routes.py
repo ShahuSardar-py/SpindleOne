@@ -6,12 +6,15 @@ from . import bp
 from flask import jsonify
 import os
 from werkzeug.utils import secure_filename
-from flask import flash
+from flask import Flask
 from .services.transaction_ingestion import get_balance
 from .services.transaction_ingestion import ingest_data
 from flask import current_app 
 from .services.invoice_status import update_invoice_status
 from .services.dashboardCalc import get_dashboard_context
+from .CF01.chat import chat 
+from sqlalchemy import func
+
 
 @bp.route('/')
 def index():
@@ -74,9 +77,25 @@ def cashflow():
     )
     return render_template('addRecord.html', invoices=invoices)
 
+from sqlalchemy.orm import joinedload
+
 @bp.route('/records')
 def records():
-    cashflows = AccountCashflow.query.order_by(AccountCashflow.txn_date.desc()).all()
+    cashflows = (
+        AccountCashflow.query
+        .options(joinedload(AccountCashflow.invoice))  # assumes relationship exists
+        .order_by(AccountCashflow.txn_date.desc())
+        .all()
+    )
+    # Annotate each inflow with a late flag at the Python level
+    for cf in cashflows:
+        cf.is_late_payment = (
+            cf.txn_type == 'INFLOW'
+            and cf.invoice is not None
+            and cf.invoice.due_date is not None
+            and cf.txn_date is not None
+            and cf.txn_date > cf.invoice.due_date
+        )
     return render_template('records.html', cashflows=cashflows)
 
 
@@ -158,10 +177,22 @@ def add_invoice():
 
     return jsonify({"message": "Invoice created", "invoice_id": invoice.inv_id}), 201
 
+@bp.route("/chat", methods=["POST"])
+def chat_api():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid request body"}), 400
+
+    query = data.get("query", "").strip()
+    if not query:
+        return jsonify({"error": "Query cannot be empty"}), 400
+
+    result = chat(query)
+    return jsonify(result)
+
 @bp.route("/invoices", methods=["GET"])
 def list_invoices():
 
-    # Update invoice statuses dynamically before returning
     invoices_to_update = Invoice.query.all()
     for inv in invoices_to_update:
         update_invoice_status(inv.inv_id)
@@ -176,15 +207,29 @@ def list_invoices():
     result = []
 
     for inv, client in invoices:
+        total_paid = (
+            db.session.query(func.coalesce(func.sum(AccountCashflow.amount), 0))
+            .filter(
+                AccountCashflow.invoice_id == inv.inv_id,
+                AccountCashflow.txn_type == "INFLOW"
+            )
+            .scalar()
+        )
+        total_paid = float(total_paid)
+        amt = float(inv.amt_recievable) if inv.amt_recievable else 0.0
+        pct_paid = round((total_paid / amt) * 100, 1) if amt > 0 else 0.0
+
         result.append({
-            "invoice_id": inv.inv_id,
-            "client_id": client.id,
-            "client_name": client.name,
-            "product_name": inv.product_name,
-            "amt_recievable": inv.amt_recievable,
-            "due_date": inv.due_date,
-            "status": inv.status,
-            "created_at": inv.created_at
+            "invoice_id":      inv.inv_id,
+            "client_id":       client.id,
+            "client_name":     client.name,
+            "product_name":    inv.product_name,
+            "amt_recievable":  amt,
+            "due_date":        str(inv.due_date) if inv.due_date else None,
+            "status":          inv.status,
+            "created_at":      str(inv.created_at) if inv.created_at else None,
+            "total_paid":      total_paid,
+            "pct_paid":        pct_paid,
         })
 
     return jsonify(result)

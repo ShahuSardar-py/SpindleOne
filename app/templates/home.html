@@ -1,120 +1,290 @@
 {% extends "base.html" %}
 
+{% block title %}SpindleOne // Main Hub{% endblock %}
+
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-7xl">
-    <!-- Hero Section -->
-    <div class="text-center mb-12">
-        <h1 class="text-5xl font-bold text-gray-900 mb-3">SpindleOne</h1>
-        <p class="text-xl text-gray-600">Integrated Management Suite for Modern Enterprises</p>
+<div class="sys-page">
+
+    <!-- ══ PAGE HEADER ══ -->
+    <div style="margin-bottom: 1.75rem;">
+        <div class="sys-label" style="margin-bottom: 0.4rem;">EntryPOint Environment</div>
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <h1 class="sys-heading" style="font-size: 2.75rem; line-height:1;">SpindleHub</h1>
+            <div style="display:flex; align-items:center; gap:1.5rem;">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span class="status-dot ok"></span>
+                    <span class="sys-label" style="color: var(--sys-ink);">Live_Status: OK</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span class="status-dot warn"></span>
+                    <span class="sys-label" style="color: var(--sys-ink);">Load: <span id="loadPct">14%</span></span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Role Selector -->
-    <div class="max-w-md mx-auto mb-12">
-        <div class="card p-6">å
-            <label for="roleSelector" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">
-                Select Your Role
-            </label>
-            <select id="roleSelector" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
+    <hr class="sys-divider">
+
+    <!-- ══ ROLE SELECTOR ══ -->
+    <div style="margin-bottom: 2rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <span class="sys-label">Active Operator</span>
+        <div style="position:relative; display:inline-block;">
+            <select id="roleSelector"
+                style="appearance:none; -webkit-appearance:none;
+                       background: var(--sys-ink); color:#ffffff;
+                       font-family:'Space Mono',monospace; font-size:0.6rem;
+                       font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+                       border:none; padding:0.45rem 2.5rem 0.45rem 0.85rem;
+                       cursor:pointer; outline:none;">
                 <option value="super-admin">Super Admin</option>
                 <option value="store-keeper">Store Keeper</option>
                 <option value="account-dept">Account Department</option>
                 <option value="hr">HR Department</option>
             </select>
+            <svg style="position:absolute; right:0.6rem; top:50%; transform:translateY(-50%); pointer-events:none;"
+                 width="10" height="10" viewBox="0 0 12 12" fill="none">
+                <path d="M3 4.5L6 7.5L9 4.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.4rem; margin-left:auto;">
+            <span class="status-dot err" style="animation: blink 1.4s infinite;"></span>
+            <span class="sys-label">DataBase Connected</span>
         </div>
     </div>
 
-    <!-- Modules Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- ══ MODULE GRID ══ -->
+    <div id="moduleGrid"
+         style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.25rem; margin-bottom:1.75rem;">
+
         <!-- SpindleFinance -->
-        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
-             data-roles="super-admin,account-dept">
-            <div class="p-8 flex flex-col h-full">
-                <div class="text-6xl mb-4 text-center">💰</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleFinance</h2>
-                <p class="text-gray-600 mb-6 flex-grow">
-                    Manage cash flow and analytics with precision and control.
+        <div class="sys-card module-card" data-roles="super-admin,account-dept"
+             onclick="navigateTo('finance')" style="cursor:pointer;">
+            <div class="sys-card-header">
+                <span>Mod_01</span>
+                <span class="unit-indicator"></span>
+            </div>
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <rect x="2" y="5" width="20" height="14" rx="1"/>
+                    <path d="M2 10h20M6 15h2M10 15h4"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">Finance</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    Manage cash flow and analytics with precision.
                 </p>
-                <button onclick="navigateTo('finance')" class="btn-primary w-full">
-                    Access Module
-                </button>
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
             </div>
         </div>
 
         <!-- SpindleSupply -->
-        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
-             data-roles="super-admin,store-keeper">
-            <div class="p-8 flex flex-col h-full">
-                <div class="text-6xl mb-4 text-center">📦</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleSupply</h2>
-                <p class="text-gray-600 mb-6 flex-grow">
-                    Track inventory, manage supply chain, and optimize stock levels efficiently.
+        <div class="sys-card module-card" data-roles="super-admin,store-keeper"
+             onclick="navigateTo('supply')" style="cursor:pointer;">
+            <div class="sys-card-header">
+                <span>Mod_02</span>
+                <span class="unit-indicator"></span>
+            </div>
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                    <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">Supply</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    Track inventory and optimize supply chain levels.
                 </p>
-                <button onclick="navigateTo('supply')" class="btn-primary w-full">
-                    Access Module
-                </button>
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
             </div>
         </div>
+
         <!-- SpindleStock -->
-        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
-            data-roles="super-admin,store-keeper">
-            <div class="p-8 flex flex-col h-full">
-                <div class="text-6xl mb-4 text-center">🏭</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleStock</h2>
-                <p class="text-gray-600 mb-6 flex-grow">
-                    Manage raw materials, production, and finished inventory.
+        <div class="sys-card module-card" data-roles="super-admin,store-keeper"
+             onclick="navigateTo('stock')" style="cursor:pointer;">
+            <div class="sys-card-header">
+                <span>Mod_03</span>
+                <span class="unit-indicator"></span>
+            </div>
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">Stock</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    Manage raw materials, production and finished inventory.
                 </p>
-                <button onclick="navigateTo('stock')" class="btn-primary w-full">
-                    Access Module
-                </button>
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
             </div>
         </div>
+
         <!-- SpindlePeople -->
-        <div class="card module-card hidden hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
-             data-roles="super-admin,hr">
-            <div class="p-8 flex flex-col h-full">
-                <div class="text-6xl mb-4 text-center">👥</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindlePeople</h2>
-                <p class="text-gray-600 mb-6 flex-grow">
-                    Manage attendance records.
+        <div class="sys-card module-card" data-roles="super-admin,hr"
+             onclick="navigateTo('people')" style="cursor:pointer;">
+            <div class="sys-card-header">
+                <span>Mod_04</span>
+                <span class="unit-indicator"></span>
+            </div>
+
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">Human Res.</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    Manage attendance records and personnel data.
                 </p>
-                <button onclick="navigateTo('people')" class="btn-primary w-full">
-                    Access Module
-                </button>
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
             </div>
         </div>
 
         <!-- SpindleMech -->
-        <div class="card module-card hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer" 
-             data-roles="super-admin,store-keeper,hr,account-dept">
-            <div class="p-8 flex flex-col h-full">
-                <div class="text-6xl mb-4 text-center">⚙️</div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">SpindleMech</h2>
-                <p class="text-gray-600 mb-6 flex-grow">
-                    Track machine maintenance and schedules for production reliability.
+        <div class="sys-card module-card" data-roles="super-admin,store-keeper,hr,account-dept"
+             onclick="navigateTo('mech')" style="cursor:pointer;">
+            <div class="sys-card-header">
+                <span>Unit_05</span>
+                <span class="unit-indicator"></span>
+            </div>
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">SpindleMech</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    Track machine maintenance and production schedules.
                 </p>
-                <button onclick="navigateTo('mech')" class="btn-primary w-full">
-                    Access Module
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+            </div>
+        </div>
+
+        <!-- Analytics (super-admin only placeholder) -->
+        <div class="sys-card module-card" data-roles="super-admin"
+             style="cursor:pointer; opacity:0.65;" onclick="alert('SpindleAnalytics coming soon.')">
+            <div class="sys-card-header">
+                <span>Unit_06</span>
+                <span class="unit-indicator" style="background:var(--sys-muted);"></span>
+            </div>
+            <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
+                     stroke-width="1.4" style="margin:0 auto 1.25rem;">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                <div class="sys-heading" style="font-size:1.6rem; margin-bottom:0.5rem;">Analytics</div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.6; margin-bottom:0;">
+                    System-wide performance insights and reporting.
+                </p>
+            </div>
+            <div style="padding: 1.25rem 1.5rem;">
+                <button class="sys-btn" style="width:100%; text-align:center; opacity:0.5; cursor:not-allowed;">Coming Soon</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ══ SYSTEM STATUS BAR ══ -->
+    <div class="sys-card" style="overflow:visible; margin-bottom: 2rem;">
+        <div style="display:flex; align-items:stretch; flex-wrap:wrap;">
+            <!-- OK badge -->
+            <div style="border-right:1px solid var(--sys-border); padding:1.5rem; display:flex; align-items:center; justify-content:center; min-width:100px;">
+                <div style="border:2px solid var(--sys-red); padding:0.6rem 1rem;">
+                    <span class="sys-heading" style="font-size:1.4rem; color:var(--sys-red);">OK</span>
+                </div>
+            </div>
+            <!-- Status text -->
+            <div style="flex:1; padding:1.25rem 1.5rem; display:flex; flex-direction:column; justify-content:center;">
+                <div class="sys-heading" style="font-size:1.1rem; margin-bottom:0.4rem;">
+                    System Status: Operational
+                </div>
+                <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.7; margin:0;">
+                    Module nodes healthy. Analytics ready.  Database
+                    latency &lt;12ms.ERP V1.0 — All Clear.
+                </p>
+            </div>
+            <!-- Right actions -->
+            <div style="border-left:1px solid var(--sys-border); padding:1.25rem 1.5rem; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:0.75rem; min-width:180px;">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span class="status-dot err" style="animation: blink 1.4s infinite;"></span>
+                    <span class="sys-label">Healthy</span>
+                </div>
+                <button onclick="handleEmergencyHalt()" class="sys-btn-danger">
+                    Emergency Halt
                 </button>
             </div>
         </div>
     </div>
+
 </div>
+
+<!-- ══ NO-ACCESS OVERLAY ══ -->
+<div id="noAccessMsg" style="display:none; text-align:center; padding:3rem 0; color:var(--sys-muted);">
+    <div class="sys-heading" style="font-size:1.4rem; margin-bottom:0.5rem;">No Modules Accessible</div>
+    <p style="font-size:0.6rem; letter-spacing:0.1em;">Selected role has no assigned operational units.</p>
+</div>
+
 {% endblock %}
+
+
+{% block extra_styles %}
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
+    }
+
+    /* Stagger card entrance */
+    .module-card { animation: sys-fadein 0.3s ease both; }
+    .module-card:nth-child(1) { animation-delay: 0.05s; }
+    .module-card:nth-child(2) { animation-delay: 0.10s; }
+    .module-card:nth-child(3) { animation-delay: 0.15s; }
+    .module-card:nth-child(4) { animation-delay: 0.20s; }
+    .module-card:nth-child(5) { animation-delay: 0.25s; }
+    .module-card:nth-child(6) { animation-delay: 0.30s; }
+
+    /* Responsive grid */
+    @media (max-width: 900px) {
+        #moduleGrid { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 580px) {
+        #moduleGrid { grid-template-columns: 1fr !important; }
+    }
+</style>
+{% endblock %}
+
 
 {% block extra_scripts %}
 <script>
-    const roleSelector = document.getElementById('roleSelector');
-    const moduleCards = document.querySelectorAll('.module-card');
+    const roleSelector  = document.getElementById('roleSelector');
+    const moduleCards   = document.querySelectorAll('.module-card');
+    const noAccessMsg   = document.getElementById('noAccessMsg');
 
     function updateVisibility(selectedRole) {
+        let visible = 0;
         moduleCards.forEach(card => {
-            const allowedRoles = card.getAttribute('data-roles').split(',');
-            if (allowedRoles.includes(selectedRole)) {
-                card.classList.remove('hidden');
+            const allowed = card.getAttribute('data-roles').split(',');
+            if (allowed.includes(selectedRole)) {
+                card.style.display = '';
+                visible++;
             } else {
-                card.classList.add('hidden');
+                card.style.display = 'none';
             }
         });
+        noAccessMsg.style.display = visible === 0 ? 'block' : 'none';
     }
 
     roleSelector.addEventListener('change', (e) => {
@@ -126,23 +296,33 @@
     roleSelector.value = savedRole;
     updateVisibility(savedRole);
 
-   function navigateTo(module) {
-    if (module === 'people') {
-        window.location.href = '/hr/employees';
-
-    } else if (module === 'finance') {
-        window.location.href = '/finance/dashboard';
-
-    } else if (module === 'supply') {
-        alert('SpindleSupply module coming soon!');
-
-    } else if (module === 'stock') {
-        window.location.href = '/stock/';
-
- } else if (module === 'mech') {
-        window.location.href = '/mech/';
+    function navigateTo(module) {
+        const routes = {
+            people:  '/hr/employees',
+            finance: '/finance/dashboard',
+            supply:  null,
+            stock:   '/stock/',
+            mech:    '/mech/',
+        };
+        const url = routes[module];
+        if (url) {
+            window.location.href = url;
+        } else {
+            alert('SpindleSupply module coming soon!');
+        }
     }
-}
 
+    function handleEmergencyHalt() {
+        if (confirm('CONFIRM EMERGENCY HALT — all active processes will be suspended.')) {
+            alert('Emergency halt signal dispatched. Contact system administrator.');
+        }
+    }
+
+    // Simulate fluctuating load indicator
+    const loadEl = document.getElementById('loadPct');
+    setInterval(() => {
+        const val = Math.floor(Math.random() * 12) + 10;
+        loadEl.textContent = val + '%';
+    }, 4000);
 </script>
 {% endblock %}

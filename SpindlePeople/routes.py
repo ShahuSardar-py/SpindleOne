@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from app.extensions import db
 from SpindlePeople.models import Employee, Attendance
 from datetime import datetime
-from flask import jsonify
 
 
 bp = Blueprint(
@@ -89,7 +88,7 @@ def dashboard():
 
     # --- Render ---
     return render_template(
-        'dashboard.html',
+        'HRdashboard.html',
 
         # Workforce
         total_employees=total_employees,

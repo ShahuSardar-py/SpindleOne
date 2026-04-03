@@ -17,7 +17,7 @@ def index():
     under_maint    = sum(1 for m in machines if m.status == 'Under Maintenance')
     decommissioned = sum(1 for m in machines if m.status == 'Decommissioned')
     return render_template(
-        'spindlemech/index.html',
+        'index.html',
         machines=machines,
         total=total,
         operational=operational,
@@ -26,10 +26,7 @@ def index():
     )
 
 
-# ---------------------------------------------------------------------------
 # Add machine
-# ---------------------------------------------------------------------------
-
 @bp.route('/machines/add', methods=['GET', 'POST'])
 def add_machine():
     if request.method == 'POST':
@@ -62,7 +59,7 @@ def add_machine():
             db.session.rollback()
             flash(f'Error adding machine: {e}', 'error')
 
-    return render_template('spindlemech/add_machine.html')
+    return render_template('/add_machine.html')
 
 
 # ---------------------------------------------------------------------------
@@ -73,7 +70,7 @@ def add_machine():
 def machine_detail(machine_id):
     machine = Machine.query.get_or_404(machine_id)
     records = machine.records.order_by(MaintenanceRecord.performed_on.desc()).all()
-    return render_template('spindlemech/machine_detail.html', machine=machine, records=records)
+    return render_template('machine_detail.html', machine=machine, records=records)
 
 
 # ---------------------------------------------------------------------------
@@ -107,7 +104,7 @@ def edit_machine(machine_id):
             db.session.rollback()
             flash(f'Error: {e}', 'error')
 
-    return render_template('spindlemech/edit_machine.html', machine=machine)
+    return render_template('mechtemplates/edit_machine.html', machine=machine)
 
 
 # ---------------------------------------------------------------------------
@@ -170,7 +167,7 @@ def log_maintenance():
 
     # pre-select machine if coming from machine detail page
     preselect = request.args.get('machine_id', type=int)
-    return render_template('spindlemech/log_maintenance.html',
+    return render_template('/log_maintenace.html',
                            machines=machines,
                            preselect=preselect,
                            today=date.today().isoformat())

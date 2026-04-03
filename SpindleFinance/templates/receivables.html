@@ -1,828 +1,1974 @@
 {% extends "base.html" %}
 
-{% block content %}
-<div class="flex min-h-screen bg-gray-50">
+{% block title %}SpindleFinance // Receivables{% endblock %}
 
-    <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
-    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900">SpindleFinance</h2>
-        </div>
-        <nav class="p-4 space-y-1">
-            <a href="{{ url_for('spindlefinance.dashboard') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-                      {% if request.endpoint == 'spindlefinance.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📊</span><span>Dashboard</span>
-            </a>
-            <a href="{{ url_for('spindlefinance.records') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-                      {% if request.endpoint == 'spindlefinance.records' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📋</span><span>Cashflow Records</span>
-            </a>
-            <a href="{{ url_for('spindlefinance.cashflow') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-                      {% if request.endpoint == 'spindlefinance.cashflow' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">💰</span><span>Add Records</span>
-            </a>
-            <a href="{{ url_for('spindlefinance.receivables') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-                      {% if request.endpoint == 'spindlefinance.receivables' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">🧾</span><span>Receivables</span>
-            </a>
-        </nav>
-    </aside>
-
-    <!-- ═══════════════════ MAIN ═══════════════════ -->
-    <main class="flex-1 p-8 min-w-0">
-
-        <!-- Page header -->
-        <div class="mb-6">
-            <h1 class="text-3xl font-bold text-gray-900 mb-1">Receivables</h1>
-            <p class="text-gray-500">Manage your invoices and client directory</p>
-        </div>
-
-        <!-- Tab switch + CTA -->
-        <div class="flex items-center justify-between mb-6">
-            <div class="inline-flex bg-gray-100 rounded-xl p-1 gap-1">
-                <button id="tabInvoices" onclick="switchTab('invoices')"
-                    class="tab-btn px-6 py-2.5 rounded-lg text-sm font-semibold transition-all">
-                    🧾 Invoices
-                </button>
-                <button id="tabClients" onclick="switchTab('clients')"
-                    class="tab-btn px-6 py-2.5 rounded-lg text-sm font-semibold transition-all">
-                    👥 Clients
-                </button>
-            </div>
-
-            <button id="ctaBtn" onclick="openModal()"
-                class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-5 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all text-sm">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                <span id="ctaBtnLabel">New Invoice</span>
-            </button>
-        </div>
-
-       <!-- ══════════ INVOICES PANEL ══════════ -->
-<div id="panelInvoices">
-    <!-- Stats -->
-    <div class="grid grid-cols-3 gap-4 mb-6">
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Total Receivable</p>
-            <p id="statTotal" class="text-2xl font-bold text-gray-900">—</p>
-        </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Open</p>
-            <p id="statOpen" class="text-2xl font-bold text-amber-500">—</p>
-        </div>
-        <div class="bg-white rounded-xl border border-gray-100 shadow-sm px-6 py-4">
-            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Overdue</p>
-            <p id="statOverdue" class="text-2xl font-bold text-red-500">—</p>
-        </div>
-    </div>
-
-    <!-- Invoices table -->
-    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-                <thead>
-                    <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                        <th class="px-6 py-4 text-left">Invoice ID</th>
-                        <th class="px-6 py-4 text-left">Client</th>
-                        <th class="px-6 py-4 text-left">Product / Service</th>
-                        <th class="px-6 py-4 text-right">Amount</th>
-                        <th class="px-6 py-4 text-left">Due Date</th>
-                        <th class="px-6 py-4 text-left">Status</th>
-                        <th class="px-6 py-4 text-left">Created On</th>
-                        <th class="px-6 py-4 text-center">DigiCopy</th>
-                    </tr>
-                </thead>
-                <tbody id="invoiceTableBody">
-                    <tr>
-                        <td colspan="8" class="px-6 py-12 text-center text-gray-400 text-sm">
-                            Loading invoices...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-</div>
-
-<!-- ══════════ INVOICE MODAL OVERLAY ══════════ -->
-<div id="invoiceModalOverlay"
-     class="fixed inset-0 z-50 flex items-start justify-end pointer-events-none"
-     aria-hidden="true">
-
-    <!-- Backdrop -->
-    <div id="invoiceBackdrop"
-         class="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"
-         onclick="closeInvoiceModal()">
-    </div>
-
-    <!-- Drawer panel -->
-    <div id="invoiceDrawer"
-         class="relative w-full max-w-2xl h-full bg-white shadow-2xl flex flex-col
-                translate-x-full transition-transform duration-300 ease-out pointer-events-auto overflow-y-auto">
-
-        <!-- Drawer Header bar -->
-        <div class="flex items-center justify-between px-8 py-5 border-b border-gray-100 bg-gray-50 sticky top-0 z-10">
-            <div class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6M4 6h16M4 10h4M4 14h4M4 18h16"/>
-                </svg>
-                <span class="font-semibold text-gray-700 text-sm">DigiInvoice</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="printInvoice()"
-                        class="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 bg-white border border-gray-200 hover:border-gray-400 rounded-lg px-3 py-1.5 transition-all">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/>
-                    </svg>
-                    Print
-                </button>
-                <button onclick="closeInvoiceModal()"
-                        class="p-1.5 text-gray-400 hover:text-gray-700 hover:bg-gray-200 rounded-lg transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Invoice Content -->
-        <div id="invoiceContent" class="flex-1 px-10 py-8 space-y-8">
-            <!-- Populated by JS -->
-        </div>
-    </div>
-</div>
+{% block extra_styles %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
+  rel="stylesheet">
 
 <style>
-    #invoiceModalOverlay.is-open {
-        pointer-events: auto;
-    }
-    #invoiceModalOverlay.is-open #invoiceBackdrop {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    #invoiceModalOverlay.is-open #invoiceDrawer {
-        transform: translateX(0);
+  /* ─── CSS Variables (SpindleOne system) ─── */
+  :root {
+    --s0: #F9F9F9;
+    --s1: #F3F3F3;
+    --s2: #E8E8E8;
+    --s3: #DADADA;
+    --s4: #CCCCCC;
+    --ink: #1A1C1C;
+    --ink2: #4A4C4C;
+    --ink3: #7A7C7C;
+    --red: #FF3B30;
+    --green: #34C759;
+    --amber: #FFD600;
+    --blue: #007AFF;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  /* ─── Dot-matrix texture overlay ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Shell ─── */
+  .fin-shell {
+    display: flex;
+    min-height: calc(100vh - 48px);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Sidebar ─── */
+  .fin-sidebar {
+    width: 224px;
+    flex-shrink: 0;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+
+  .fin-sidebar-brand {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid #2a2c2c;
+  }
+
+  .fin-sidebar-brand-label {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .fin-sidebar-brand-label .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .fin-sidebar-brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 0.2rem;
+  }
+
+  .fin-nav {
+    padding: 1rem 0;
+    flex: 1;
+  }
+
+  .fin-nav-section {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    padding: 0 1.25rem;
+    margin-bottom: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .fin-nav-section:first-child {
+    margin-top: 0;
+  }
+
+  .fin-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #777;
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+    position: relative;
+  }
+
+  .fin-nav-link svg {
+    flex-shrink: 0;
+  }
+
+  .fin-nav-link:hover {
+    background: #1e2020;
+    color: #ccc;
+  }
+
+  .fin-nav-link.active {
+    background: #1e2020;
+    color: #ffffff;
+    border-left: 2px solid var(--blue);
+    padding-left: calc(1.25rem - 2px);
+  }
+
+  .fin-nav-link.active svg {
+    stroke: var(--blue);
+  }
+
+  /* ─── Main ─── */
+  .fin-main {
+    flex: 1;
+    padding: 1.75rem 2rem 3rem;
+    overflow-x: hidden;
+    background: var(--s0);
+  }
+
+  /* ─── Page header ─── */
+  .fin-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .fin-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.45rem;
+  }
+
+  .fin-live-badge .led {
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+    animation: led-blink 1.2s infinite;
+  }
+
+  @keyframes led-blink {
+
+    0%,
+    100% {
+      opacity: 1
     }
 
-    /* Eye button */
-    .btn-view-invoice {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        color: #9ca3af;
-        transition: background 0.15s, color 0.15s;
-        cursor: pointer;
-        border: none;
-        background: transparent;
+    50% {
+      opacity: 0.15
     }
-    .btn-view-invoice:hover {
-        background: #f3f4f6;
-        color: #374151;
+  }
+
+  .fin-page-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.6rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .fin-page-sub {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+    margin-top: 0.4rem;
+  }
+
+  /* ─── CTA button ─── */
+  .fin-cta-btn {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s, box-shadow 0.12s, transform 0.12s;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .fin-cta-btn:hover {
+    background: #222;
+    box-shadow: 3px 3px 0 var(--ink3);
+    transform: translate(-1px, -1px);
+  }
+
+  /* ─── Section label ─── */
+  .fin-section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.75rem;
+  }
+
+  .fin-section-label::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--s2);
+    border: 1.5px solid var(--ink2);
+    flex-shrink: 0;
+  }
+
+  /* ─── KPI Grid ─── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--s3);
+    background: var(--s2);
+  }
+
+  .kpi-card {
+    background: #ffffff;
+    padding: 1.25rem 1.4rem;
+    border-right: 1px solid var(--s2);
+    transition: background 0.12s;
+    position: relative;
+  }
+
+  .kpi-card:last-child {
+    border-right: none;
+  }
+
+  .kpi-card:hover {
+    background: #faf9f7;
+  }
+
+  .kpi-card.kpi-highlight {
+    background: var(--ink);
+    border-right: none;
+  }
+
+  .kpi-card.kpi-highlight:hover {
+    background: #1a1a1a;
+  }
+
+  .kpi-label {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.7rem;
+  }
+
+  .kpi-card.kpi-highlight .kpi-label {
+    color: #444;
+  }
+
+  .kpi-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.45rem;
+  }
+
+  .kpi-card.kpi-highlight .kpi-value {
+    color: var(--red);
+  }
+
+  .kpi-sub {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+    color: var(--ink3);
+  }
+
+  .kpi-card.kpi-highlight .kpi-sub {
+    color: #444;
+  }
+
+  .kpi-bar-track {
+    height: 2px;
+    background: var(--s2);
+    margin-top: 0.85rem;
+    overflow: hidden;
+  }
+
+  .kpi-bar-fill {
+    height: 100%;
+    transition: width 0.6s ease;
+  }
+
+  /* ─── Tab filters ─── */
+  .tab-filters {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--s3);
+    margin-bottom: 1.75rem;
+    width: fit-content;
+  }
+
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.1rem;
+    border: none;
+    border-right: 1px solid var(--s3);
+    background: var(--s1);
+    color: var(--ink3);
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .tab-btn:last-child {
+    border-right: none;
+  }
+
+  .tab-btn.active {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .tab-btn:not(.active):hover {
+    background: var(--s2);
+    color: var(--ink);
+  }
+
+  /* ─── Table container ─── */
+  .fin-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--s3);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .fin-table-header {
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fin-table-header .unit-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  /* ─── Table ─── */
+  .fin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .fin-table thead tr {
+    background: var(--s1);
+    border-bottom: 1px solid var(--s3);
+  }
+
+  .fin-table th {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .fin-table th:last-child {
+    text-align: center;
+  }
+
+  .fin-table th.right {
+    text-align: right;
+  }
+
+  .fin-table tbody tr {
+    border-top: 1px solid var(--s1);
+    transition: background 0.1s;
+  }
+
+  .fin-table tbody tr:hover {
+    background: var(--s0);
+  }
+
+  .fin-table td {
+    padding: 0.7rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink);
+  }
+
+  .fin-table td.right {
+    text-align: right;
+  }
+
+  .fin-table td.center {
+    text-align: center;
+  }
+
+  .fin-table td.muted {
+    color: var(--ink3);
+  }
+
+  /* ─── Status chips ─── */
+  .status-chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.47rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+  }
+
+  .chip-open {
+    background: rgba(196, 126, 26, 0.15);
+    color: var(--amber);
+  }
+
+  .chip-paid {
+    background: rgba(58, 125, 68, 0.12);
+    color: var(--green);
+  }
+
+  .chip-overdue {
+    background: var(--red);
+    color: #fff;
+  }
+
+  .chip-cancelled {
+    background: var(--s2);
+    color: var(--ink3);
+  }
+
+  .chip-partial {
+    background: rgba(186, 117, 23, 0.15);
+    color: #854F0B;
+  }
+
+  /* Progress bar inside table rows */
+  .inv-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+  }
+
+  .inv-progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--s2);
+    max-width: 120px;
+  }
+
+  .inv-progress-fill {
+    height: 100%;
+    transition: width 0.5s ease;
+  }
+
+  .inv-progress-pct {
+    font-family: var(--font-mono);
+    font-size: 0.44rem;
+    letter-spacing: 0.06em;
+    color: var(--ink3);
+    min-width: 2rem;
+  }
+
+  /* ─── View button ─── */
+  .btn-view-invoice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--s3);
+    background: transparent;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+
+  .btn-view-invoice:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+
+  /* ─── Status bar (bottom) ─── */
+  .fin-status-bar {
+    background: var(--ink);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-top: 2px solid #1e1e1e;
+    position: relative;
+    z-index: 1;
+  }
+
+  .fin-status-live {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .fin-status-live .live-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    animation: led-blink 2s infinite;
+  }
+
+  .fin-status-divider {
+    width: 1px;
+    height: 22px;
+    background: #1e1e1e;
+    flex-shrink: 0;
+  }
+
+  .fin-status-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fin-status-stat label {
+    font-family: var(--font-mono);
+    font-size: 0.44rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .fin-status-stat span {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: #888;
+    margin-top: 0.1rem;
+  }
+
+  /* ─── MODAL BACKDROP ─── */
+  #modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 40;
+    display: none;
+  }
+
+  #modalBackdrop.is-open {
+    display: block;
+  }
+
+  /* ─── FORM MODALS ─── */
+  .fin-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    width: 100%;
+    max-width: 440px;
+    background: #fff;
+    border: 1px solid var(--s3);
+    box-shadow: 6px 6px 0 var(--ink);
+    overflow: hidden;
+  }
+
+  .fin-modal.is-open {
+    display: block;
+  }
+
+  .fin-modal-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fin-modal-header-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .fin-modal-header-sub {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    color: #555;
+    margin-top: 0.15rem;
+  }
+
+  .fin-modal-close {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid #333;
+    color: #666;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+    flex-shrink: 0;
+  }
+
+  .fin-modal-close:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  .fin-modal-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fin-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .fin-field label {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink2);
+  }
+
+  .fin-field label .req {
+    color: var(--red);
+    margin-left: 2px;
+  }
+
+  .fin-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+
+  .fin-input,
+  .fin-select,
+  .fin-textarea {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink);
+    background: var(--s0);
+    border: 1px solid var(--s3);
+    padding: 0.55rem 0.75rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.12s, background 0.12s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .fin-input:focus,
+  .fin-select:focus,
+  .fin-textarea:focus {
+    border-color: var(--ink);
+    background: #fff;
+  }
+
+  .fin-input::placeholder {
+    color: var(--ink3);
+    opacity: 0.7;
+  }
+
+  .fin-textarea {
+    resize: none;
+  }
+
+  .fin-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A7C7C' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+    cursor: pointer;
+  }
+
+  .fin-input-prefix-wrap {
+    position: relative;
+  }
+
+  .fin-input-prefix-wrap .prefix {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink3);
+    pointer-events: none;
+  }
+
+  .fin-input-prefix-wrap .fin-input {
+    padding-left: 1.5rem;
+  }
+
+  .fin-error-box {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.06em;
+    background: rgba(214, 58, 47, 0.08);
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 0.55rem 0.75rem;
+  }
+
+  .fin-error-box.visible {
+    display: block;
+  }
+
+  .fin-modal-footer {
+    padding: 0 1.25rem 1.25rem;
+    display: flex;
+    gap: 0.65rem;
+  }
+
+  .fin-btn-ghost {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--s3);
+    background: transparent;
+    color: var(--ink3);
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+  }
+
+  .fin-btn-ghost:hover {
+    background: var(--s1);
+    color: var(--ink);
+  }
+
+  .fin-btn-primary {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .fin-btn-primary:hover {
+    background: #222;
+  }
+
+  .fin-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ─── INVOICE PREVIEW DRAWER ─── */
+  #invoiceModalOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+
+  #invoiceBackdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+
+  #invoiceDrawer {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    height: 100%;
+    background: #fff;
+    border-left: 1px solid var(--s3);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+
+  #invoiceModalOverlay.is-open {
+    pointer-events: auto;
+  }
+
+  #invoiceModalOverlay.is-open #invoiceBackdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #invoiceModalOverlay.is-open #invoiceDrawer {
+    transform: translateX(0);
+  }
+
+  .drawer-header {
+    background: var(--ink);
+    padding: 0.65rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+  }
+
+  .drawer-header-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .drawer-header-brand .brand-sq {
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+  }
+
+  .drawer-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .drawer-btn {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #2a2a2a;
+    background: transparent;
+    color: #777;
+    cursor: pointer;
+    transition: background 0.1s, color 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .drawer-btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #444;
+  }
+
+  .drawer-btn.close-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  /* Invoice content inside drawer */
+  #invoiceContent {
+    flex: 1;
+    padding: 2.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Invoice body typography (intentionally non-system for print-like feel) */
+  .inv-company-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .inv-label {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.2rem;
+  }
+
+  .inv-heading {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .inv-divider {
+    border: none;
+    border-top: 1px solid var(--s2);
+  }
+
+  .inv-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .inv-meta-value {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink);
+    margin-top: 0.15rem;
+  }
+
+  .inv-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .inv-table thead tr {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .inv-table th {
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    padding: 0.5rem 0;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .inv-table th:not(:first-child) {
+    padding-left: 1rem;
+  }
+
+  .inv-table th.ta-right {
+    text-align: right;
+  }
+
+  .inv-table td {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--ink);
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--s1);
+  }
+
+  .inv-table td:not(:first-child) {
+    padding-left: 1rem;
+  }
+
+  .inv-table td.ta-right {
+    text-align: right;
+  }
+
+  .inv-table td.ta-center {
+    text-align: center;
+  }
+
+  .inv-totals {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .inv-totals-inner {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .inv-totals-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink2);
+  }
+
+  .inv-totals-row.total {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--ink);
+    border-top: 1px solid var(--ink);
+    padding-top: 0.4rem;
+    margin-top: 0.2rem;
+  }
+
+  .inv-totals-row.paid {
+    color: var(--green);
+  }
+
+  .inv-totals-row.balance {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .inv-footer-note {
+    border-top: 1px solid var(--s1);
+    padding-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    color: var(--ink3);
+    line-height: 1.7;
+  }
+
+  .inv-footer-note strong {
+    font-weight: 700;
+    color: var(--ink2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ─── Status chip in invoice drawer ─── */
+  .inv-status-chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.47rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    margin-top: 0.4rem;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1100px) {
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .fin-sidebar {
+      display: none;
     }
 
-    /* Status badges */
-    .badge-paid    { background:#dcfce7; color:#166534; }
-    .badge-open    { background:#fef9c3; color:#854d0e; }
-    .badge-overdue { background:#fee2e2; color:#991b1b; }
-    .badge-draft   { background:#f3f4f6; color:#6b7280; }
-
-    @media print {
-        body > *:not(#invoiceModalOverlay) { display: none !important; }
-        #invoiceModalOverlay, #invoiceDrawer { all: unset; display: block !important; }
-        #invoiceBackdrop, .sticky { display: none !important; }
-        #invoiceContent { padding: 0 !important; }
+    .kpi-grid {
+      grid-template-columns: 1fr 1fr;
     }
+  }
+
+  /* ─── Print ─── */
+  @media print {
+    body>*:not(#invoiceModalOverlay) {
+      display: none !important;
+    }
+
+    #invoiceModalOverlay,
+    #invoiceDrawer {
+      all: unset;
+      display: block !important;
+    }
+
+    #invoiceBackdrop,
+    .drawer-header {
+      display: none !important;
+    }
+
+    #invoiceContent {
+      padding: 0 !important;
+    }
+  }
 </style>
+{% endblock %}
 
-        <!-- ══════════ CLIENTS PANEL ══════════ -->
-        <div id="panelClients" class="hidden">
-            <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                <th class="px-6 py-4 text-left">Client ID</th>
-                                <th class="px-6 py-4 text-left">Name</th>
-                                <th class="px-6 py-4 text-left">Contact Info</th>
-                                <th class="px-6 py-4 text-left">Added On</th>
-                            </tr>
-                        </thead>
-                        <tbody id="clientTableBody">
-                            <tr>
-                                <td colspan="4" class="px-6 py-12 text-center text-gray-400 text-sm">
-                                    Loading clients...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
-    </main>
-</div>
+{% block content %}
+<div class="fin-shell">
 
-<!-- ═══════════════════ BACKDROP ═══════════════════ -->
-<div id="modalBackdrop" onclick="closeModal()"
-     class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-40"></div>
-
-<!-- ═══════════════════ INVOICE MODAL ═══════════════════ -->
-<div id="invoiceModal"
-     class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50
-            w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
-
-    <div class="bg-gradient-to-r from-primary-50 to-blue-50 px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-        <div>
-            <h2 class="text-lg font-bold text-gray-900">New Invoice</h2>
-            <p class="text-sm text-gray-500 mt-0.5">Create a receivable for a client</p>
-        </div>
-        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </button>
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="fin-sidebar">
+    <div class="fin-sidebar-brand">
+      <div class="fin-sidebar-brand-label">
+        <span class="brand-dot"></span>
+        SpindleFinance
+      </div>
+      <div class="fin-sidebar-brand-sub">Module v1.0 // Finance Core</div>
     </div>
 
-    <form id="invoiceForm" onsubmit="submitInvoice(event)" class="p-6 space-y-5">
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Client <span class="text-red-500">*</span>
-            </label>
-            <select id="inv_client_id" name="client_id" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
-                <option value="">Select a client...</option>
-            </select>
+    <nav class="fin-nav">
+      <div class="fin-nav-section">Overview</div>
+
+      <a href="{{ url_for('spindlefinance.dashboard') }}" class="fin-nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+        </svg>
+        Dashboard
+      </a>
+
+      <a href="{{ url_for('spindlefinance.records') }}" class="fin-nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="8" y1="13" x2="16" y2="13" />
+          <line x1="8" y1="17" x2="16" y2="17" />
+        </svg>
+        Cashflow Records
+      </a>
+
+      <a href="{{ url_for('spindlefinance.cashflow') }}" class="fin-nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+        </svg>
+        Add Records
+      </a>
+
+      <div class="fin-nav-section">Receivables</div>
+
+      <a href="{{ url_for('spindlefinance.receivables') }}" class="fin-nav-link active">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="5" width="20" height="14" />
+          <path d="M2 10h20M6 15h2M10 15h4" />
+        </svg>
+        Receivables
+      </a>
+
+      <div class="fin-nav-section" style="margin-top: auto; padding-top: 1rem;">System</div>
+      <a href="/" class="fin-nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        </svg>
+        Main Hub
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="fin-main">
+
+    <!-- Page header -->
+    <div class="fin-page-header">
+      <div>
+        <div class="fin-live-badge">
+          <span class="led"></span>
+          Live System Feed
         </div>
-
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Product / Service <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="inv_product_name" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
-                placeholder="e.g., Website Design — Phase 1">
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">
-                    Amount Receivable <span class="text-red-500">*</span>
-                </label>
-                <div class="relative">
-                    <span class="absolute left-4 top-3 text-gray-500 font-medium text-sm">₹</span>
-                    <input type="number" id="inv_amount" step="0.01" required
-                        class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
-                        placeholder="0.00">
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-                <select id="inv_status"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
-                    <option value="OPEN">Open</option>
-                    <option value="PAID">Paid</option>
-                    <option value="OVERDUE">Overdue</option>
-                    <option value="CANCELLED">Cancelled</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Due Date <span class="text-red-500">*</span>
-            </label>
-            <input type="date" id="inv_due_date" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm">
-        </div>
-
-        <div id="invoiceError" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg"></div>
-
-        <div class="flex gap-3 pt-2">
-            <button type="button" onclick="closeModal()"
-                class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all text-sm">
-                Cancel
-            </button>
-            <button type="submit" id="invoiceSubmitBtn"
-                class="flex-1 px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg shadow-sm transition-all text-sm">
-                Create Invoice
-            </button>
-        </div>
-    </form>
-</div>
-    
-
-<!-- ═══════════════════ CLIENT MODAL ═══════════════════ -->
-<div id="clientModal"
-     class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50
-            w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
-
-    <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-        <div>
-            <h2 class="text-lg font-bold text-gray-900">New Client</h2>
-            <p class="text-sm text-gray-500 mt-0.5">Add a client to your directory</p>
-        </div>
-        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </button>
+        <h1 class="fin-page-title">Receivables</h1>
+        <div class="fin-page-sub">Manage invoices and client directory</div>
+      </div>
+      <button id="ctaBtn" onclick="openModal()" class="fin-cta-btn">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        <span id="ctaBtnLabel">New Invoice</span>
+      </button>
     </div>
 
-    <form id="clientForm" onsubmit="submitClient(event)" class="p-6 space-y-5">
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Client Name <span class="text-red-500">*</span>
-            </label>
-            <input type="text" id="cli_name" required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm"
-                placeholder="e.g., Acme Corp">
+    <!-- KPI summary -->
+    <div class="fin-section-label">Receivables Summary</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Receivable</div>
+        <div id="statTotal" class="kpi-value">₹0</div>
+        <div class="kpi-sub">Outstanding total</div>
+        <div class="kpi-bar-track">
+          <div class="kpi-bar-fill" style="width:72%; background:var(--blue);"></div>
         </div>
-
-        <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">
-                Contact Info
-                <span class="text-gray-400 font-normal ml-1">(optional)</span>
-            </label>
-            <textarea id="cli_contact" rows="3"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all text-sm resize-none"
-                placeholder="Email, phone, address..."></textarea>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Open</div>
+        <div id="statOpen" class="kpi-value">0</div>
+        <div class="kpi-sub">Active invoices</div>
+        <div class="kpi-bar-track">
+          <div class="kpi-bar-fill" style="width:48%; background:var(--amber);"></div>
         </div>
+      </div>
+      <div class="kpi-card kpi-highlight">
+        <div class="kpi-label">Overdue</div>
+        <div id="statOverdue" class="kpi-value">0</div>
+        <div class="kpi-sub">Critical items</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg DSO</div>
+        <div class="kpi-value" style="color:var(--blue);">—</div>
+        <div class="kpi-sub">Days Sales Outstanding</div>
+      </div>
+    </div>
 
-        <div id="clientError" class="hidden bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg"></div>
+    <!-- Tab switcher -->
+    <div class="tab-filters">
+      <button id="tabInvoices" onclick="switchTab('invoices')" class="tab-btn active">
+        Invoices
+      </button>
+      <button id="tabClients" onclick="switchTab('clients')" class="tab-btn">
+        Clients
+      </button>
+    </div>
 
-        <div class="flex gap-3 pt-2">
-            <button type="button" onclick="closeModal()"
-                class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all text-sm">
-                Cancel
-            </button>
-            <button type="submit" id="clientSubmitBtn"
-                class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-sm transition-all text-sm">
-                Add Client
-            </button>
+    <!-- ══ INVOICES PANEL ══ -->
+    <div id="panelInvoices">
+      <div class="fin-table-wrap">
+        <div class="fin-table-header">
+          <span>Invoice Ledger</span>
+          <span class="unit-dot"></span>
         </div>
-    </form>
+        <div style="overflow-x: auto;">
+          <table class="fin-table">
+            <thead>
+              <tr>
+                <th>Invoice ID</th>
+                <th>Client</th>
+                <th>Product / Service</th>
+                <th class="right">Amount</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th style="text-align:center;">View</th>
+              </tr>
+            </thead>
+            <tbody id="invoiceTableBody">
+              <tr>
+                <td colspan="8" style="padding:2rem; text-align:center; color:var(--ink3);">
+                  Loading invoices...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ CLIENTS PANEL ══ -->
+    <div id="panelClients" style="display:none;">
+      <div class="fin-table-wrap">
+        <div class="fin-table-header">
+          <span>Client Directory</span>
+          <span class="unit-dot"></span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="fin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Added</th>
+              </tr>
+            </thead>
+            <tbody id="clientTableBody">
+              <tr>
+                <td colspan="4" style="padding:2rem; text-align:center; color:var(--ink3);">
+                  Loading clients...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Status bar -->
+<div class="fin-status-bar">
+  <div class="fin-status-live">
+    <span class="live-dot"></span>
+    Receivables: Live
+  </div>
+  <div class="fin-status-divider"></div>
+  <div class="fin-status-stat">
+    <label>Open Items</label>
+    <span id="statusOpen">0</span>
+  </div>
+  <div class="fin-status-divider"></div>
+  <div class="fin-status-stat">
+    <label>Overdue</label>
+    <span id="statusOverdue" style="color:var(--red);">0</span>
+  </div>
+</div>
+
+
+<!-- ══ MODAL BACKDROP ══ -->
+<div id="modalBackdrop" onclick="closeModal()"></div>
+
+
+<!-- ══ INVOICE FORM MODAL ══ -->
+<div id="invoiceModal" class="fin-modal">
+  <div class="fin-modal-header">
+    <div>
+      <div class="fin-modal-header-title">New Invoice</div>
+      <div class="fin-modal-header-sub">Create a receivable for a client</div>
+    </div>
+    <button class="fin-modal-close" onclick="closeModal()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <form id="invoiceForm" onsubmit="submitInvoice(event)">
+    <div class="fin-modal-body">
+
+      <div class="fin-field">
+        <label>Client <span class="req">*</span></label>
+        <select id="inv_client_id" name="client_id" required class="fin-select">
+          <option value="">Select a client...</option>
+        </select>
+      </div>
+
+      <div class="fin-field">
+        <label>Product / Service <span class="req">*</span></label>
+        <input type="text" id="inv_product_name" required class="fin-input" placeholder="e.g. Website Design — Phase 1">
+      </div>
+
+      <div class="fin-field-row">
+        <div class="fin-field">
+          <label>Amount Receivable <span class="req">*</span></label>
+          <div class="fin-input-prefix-wrap">
+            <span class="prefix">₹</span>
+            <input type="number" id="inv_amount" step="0.01" required class="fin-input" placeholder="0.00">
+          </div>
+        </div>
+        <div class="fin-field">
+          <label>Status</label>
+          <select id="inv_status" class="fin-select">
+            <option value="OPEN">Open</option>
+            <option value="PAID">Paid</option>
+            <option value="OVERDUE">Overdue</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fin-field">
+        <label>Due Date <span class="req">*</span></label>
+        <input type="date" id="inv_due_date" required class="fin-input">
+      </div>
+
+      <div id="invoiceError" class="fin-error-box"></div>
+
+    </div>
+    <div class="fin-modal-footer">
+      <button type="button" onclick="closeModal()" class="fin-btn-ghost">Cancel</button>
+      <button type="submit" id="invoiceSubmitBtn" class="fin-btn-primary">Create Invoice</button>
+    </div>
+  </form>
+</div>
+
+
+<!-- ══ CLIENT FORM MODAL ══ -->
+<div id="clientModal" class="fin-modal">
+  <div class="fin-modal-header">
+    <div>
+      <div class="fin-modal-header-title">New Client</div>
+      <div class="fin-modal-header-sub">Add a client to your directory</div>
+    </div>
+    <button class="fin-modal-close" onclick="closeModal()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <form id="clientForm" onsubmit="submitClient(event)">
+    <div class="fin-modal-body">
+
+      <div class="fin-field">
+        <label>Client Name <span class="req">*</span></label>
+        <input type="text" id="cli_name" required class="fin-input" placeholder="e.g. Acme Corp">
+      </div>
+
+      <div class="fin-field">
+        <label>Contact Info <span style="color:var(--ink3); font-weight:400;">(optional)</span></label>
+        <textarea id="cli_contact" rows="3" class="fin-textarea" placeholder="Email, phone, address..."></textarea>
+      </div>
+
+      <div id="clientError" class="fin-error-box"></div>
+
+    </div>
+    <div class="fin-modal-footer">
+      <button type="button" onclick="closeModal()" class="fin-btn-ghost">Cancel</button>
+      <button type="submit" id="clientSubmitBtn" class="fin-btn-primary">Add Client</button>
+    </div>
+  </form>
+</div>
+
+
+<!-- ══ INVOICE PREVIEW DRAWER ══ -->
+<div id="invoiceModalOverlay" aria-hidden="true">
+  <div id="invoiceBackdrop" onclick="closeInvoiceModal()"></div>
+  <div id="invoiceDrawer">
+    <div class="drawer-header">
+      <div class="drawer-header-brand">
+        <span class="brand-sq"></span>
+        Invoice Preview
+      </div>
+      <div class="drawer-header-actions">
+        <button onclick="printInvoice()" class="drawer-btn">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="square"
+              d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z" />
+          </svg>
+          Print
+        </button>
+        <button onclick="closeInvoiceModal()" class="drawer-btn close-btn">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+          Close
+        </button>
+      </div>
+    </div>
+    <div id="invoiceContent">
+      <!-- Populated by JS -->
+    </div>
+  </div>
 </div>
 
 {% endblock %}
 
-{% block extra_scripts %}
 
+{% block extra_scripts %}
 <script>
-    const API = {
-        invoices:   "{{ url_for('spindlefinance.list_invoices') }}",
-        addInvoice: "{{ url_for('spindlefinance.add_invoice') }}",
-        clients:    "{{ url_for('spindlefinance.list_clients') }}",
-        addClient:  "{{ url_for('spindlefinance.add_client') }}",
-    };
+  const API = {
+    invoices: "{{ url_for('spindlefinance.list_invoices') }}",
+    addInvoice: "{{ url_for('spindlefinance.add_invoice') }}",
+    clients: "{{ url_for('spindlefinance.list_clients') }}",
+    addClient: "{{ url_for('spindlefinance.add_client') }}",
+  };
 </script>
 
 <script>
-    // ── State ──────────────────────────────────────────────────────────
-    let currentTab   = 'invoices';
-    let clientsCache = [];
+  // ── State ─────────────────────────────────────────────────────────────────
+  let currentTab = 'invoices';
+  let clientsCache = [];
 
-    // ── Tab switching ──────────────────────────────────────────────────
-    function switchTab(tab) {
-        currentTab = tab;
+  // ── Tab switching ─────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    currentTab = tab;
 
-        document.getElementById('panelInvoices').classList.toggle('hidden', tab !== 'invoices');
-        document.getElementById('panelClients').classList.toggle('hidden',  tab !== 'clients');
+    document.getElementById('panelInvoices').style.display = tab === 'invoices' ? '' : 'none';
+    document.getElementById('panelClients').style.display = tab === 'clients' ? '' : 'none';
 
-        ['invoices', 'clients'].forEach(t => {
-            const btn = document.getElementById(t === 'invoices' ? 'tabInvoices' : 'tabClients');
-            if (t === tab) {
-                btn.classList.add('bg-white', 'text-primary-600', 'shadow-sm');
-                btn.classList.remove('text-gray-500');
-            } else {
-                btn.classList.remove('bg-white', 'text-primary-600', 'shadow-sm');
-                btn.classList.add('text-gray-500');
-            }
-        });
+    document.getElementById('tabInvoices').classList.toggle('active', tab === 'invoices');
+    document.getElementById('tabClients').classList.toggle('active', tab === 'clients');
 
-        document.getElementById('ctaBtnLabel').textContent = tab === 'invoices' ? 'New Invoice' : 'New Client';
+    document.getElementById('ctaBtnLabel').textContent = tab === 'invoices' ? 'New Invoice' : 'New Client';
+  }
+
+  // ── Modal open/close ──────────────────────────────────────────────────────
+  function openModal() {
+    document.getElementById('modalBackdrop').classList.add('is-open');
+    if (currentTab === 'invoices') {
+      populateClientDropdown();
+      document.getElementById('invoiceModal').classList.add('is-open');
+      document.getElementById('clientModal').classList.remove('is-open');
+    } else {
+      document.getElementById('clientModal').classList.add('is-open');
+      document.getElementById('invoiceModal').classList.remove('is-open');
     }
+  }
 
-    // ── Modal ──────────────────────────────────────────────────────────
-    function openModal() {
-        document.getElementById('modalBackdrop').classList.remove('hidden');
-        if (currentTab === 'invoices') {
-            populateClientDropdown();
-            document.getElementById('invoiceModal').classList.remove('hidden');
-            document.getElementById('clientModal').classList.add('hidden');
-        } else {
-            document.getElementById('clientModal').classList.remove('hidden');
-            document.getElementById('invoiceModal').classList.add('hidden');
+  function closeModal() {
+    document.getElementById('modalBackdrop').classList.remove('is-open');
+    document.getElementById('invoiceModal').classList.remove('is-open');
+    document.getElementById('clientModal').classList.remove('is-open');
+    document.getElementById('invoiceForm').reset();
+    document.getElementById('clientForm').reset();
+    document.getElementById('invoiceError').classList.remove('visible');
+    document.getElementById('clientError').classList.remove('visible');
+  }
+
+  // ── Load Invoices ─────────────────────────────────────────────────────────
+  async function loadInvoices() {
+    const tbody = document.getElementById('invoiceTableBody');
+    try {
+      const res = await fetch(API.invoices);
+      const data = await res.json();
+
+      const today = new Date().toISOString().split('T')[0];
+      let total = 0, openCount = 0, overdueCount = 0;
+
+      data.forEach(inv => {
+        total += inv.amt_recievable || 0;
+        if (inv.status === 'OPEN') {
+          openCount++;
+          if (inv.due_date && inv.due_date < today) overdueCount++;
         }
+        if (inv.status === 'OVERDUE') overdueCount++;
+      });
+
+      document.getElementById('statTotal').textContent = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+      document.getElementById('statOpen').textContent = openCount;
+      document.getElementById('statOverdue').textContent = overdueCount;
+      document.getElementById('statusOpen').textContent = openCount;
+      document.getElementById('statusOverdue').textContent = overdueCount;
+
+      if (data.length === 0) {
+        tbody.innerHTML = emptyRow(8, 'No invoices yet. Create your first one.');
+      } else {
+        populateInvoiceTable(data);
+      }
+    } catch (err) {
+      tbody.innerHTML = emptyRow(8, 'Failed to load invoices.');
+      console.error(err);
     }
+  }
 
-    function closeModal() {
-        document.getElementById('modalBackdrop').classList.add('hidden');
-        document.getElementById('invoiceModal').classList.add('hidden');
-        document.getElementById('clientModal').classList.add('hidden');
-        document.getElementById('invoiceForm').reset();
-        document.getElementById('clientForm').reset();
-        document.getElementById('invoiceError').classList.add('hidden');
-        document.getElementById('clientError').classList.add('hidden');
+  // ── Load Clients ──────────────────────────────────────────────────────────
+  async function loadClients() {
+    const tbody = document.getElementById('clientTableBody');
+    try {
+      const res = await fetch(API.clients);
+      const data = await res.json();
+      clientsCache = data;
+
+      if (data.length === 0) {
+        tbody.innerHTML = emptyRow(4, 'No clients yet. Add your first one.');
+        return;
+      }
+
+      tbody.innerHTML = data.map(c => `
+        <tr>
+          <td class="muted">#${c.client_id}</td>
+          <td>${esc(c.name)}</td>
+          <td class="muted" style="white-space:pre-wrap;">${esc(c.contact_info || '—')}</td>
+          <td class="muted">${fmtDate(c.created_at)}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      tbody.innerHTML = emptyRow(4, 'Failed to load clients.');
+      console.error(err);
     }
+  }
 
-    // ── Load Invoices ──────────────────────────────────────────────────
-    async function loadInvoices() {
-        const tbody = document.getElementById('invoiceTableBody');
-        try {
-            const res  = await fetch(API.invoices);
-            const data = await res.json();
+  // ── Populate client dropdown ──────────────────────────────────────────────
+  function populateClientDropdown() {
+    const sel = document.getElementById('inv_client_id');
+    sel.innerHTML = '<option value="">Select a client...</option>' +
+      clientsCache.map(c => `<option value="${c.client_id}">${esc(c.name)}</option>`).join('');
+  }
 
-            const today = new Date().toISOString().split('T')[0];
-            let total = 0, openCount = 0, overdueCount = 0;
+  // ── Submit Invoice ────────────────────────────────────────────────────────
+  async function submitInvoice(e) {
+    e.preventDefault();
+    const btn = document.getElementById('invoiceSubmitBtn');
+    const errBox = document.getElementById('invoiceError');
+    errBox.classList.remove('visible');
+    btn.disabled = true;
+    btn.textContent = 'Creating...';
 
-            data.forEach(inv => {
-                total += inv.amt_recievable || 0;
-                if (inv.status === 'OPEN') {
-                    openCount++;
-                    if (inv.due_date && inv.due_date < today) overdueCount++;
-                }
-                if (inv.status === 'OVERDUE') overdueCount++;
-            });
+    const payload = {
+      client_id: parseInt(document.getElementById('inv_client_id').value),
+      product_name: document.getElementById('inv_product_name').value.trim(),
+      amt_recievable: parseFloat(document.getElementById('inv_amount').value),
+      due_date: document.getElementById('inv_due_date').value,
+      status: document.getElementById('inv_status').value,
+    };
 
-            document.getElementById('statTotal').textContent   = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2 });
-            document.getElementById('statOpen').textContent    = openCount;
-            document.getElementById('statOverdue').textContent = overdueCount;
-
-            if (data.length === 0) {
-                tbody.innerHTML = emptyRow(7, 'No invoices yet. Create your first one!');
-            } else {
-                populateInvoiceTable(data);
-            }
-
-        } catch (err) {
-            tbody.innerHTML = emptyRow(7, 'Failed to load invoices.');
-            console.error(err);
-        }
-    }
-
-    // ── Load Clients ───────────────────────────────────────────────────
-    async function loadClients() {
-        const tbody = document.getElementById('clientTableBody');
-        try {
-            const res  = await fetch(API.clients);
-            const data = await res.json();
-            clientsCache = data;
-
-            if (data.length === 0) {
-                tbody.innerHTML = emptyRow(4, 'No clients yet. Add your first one!');
-                return;
-            }
-
-            tbody.innerHTML = data.map(c => `
-                <tr class="border-b border-gray-50 hover:bg-gray-50/60 transition-colors">
-                    <td class="px-6 py-4 font-mono text-sm text-gray-500">#${c.client_id}</td>
-                    <td class="px-6 py-4 font-semibold text-gray-800">${esc(c.name)}</td>
-                    <td class="px-6 py-4 text-gray-600 text-sm whitespace-pre-wrap">${esc(c.contact_info || '—')}</td>
-                    <td class="px-6 py-4 text-gray-400 text-xs">${fmtDate(c.created_at)}</td>
-                </tr>
-            `).join('');
-
-        } catch (err) {
-            tbody.innerHTML = emptyRow(4, 'Failed to load clients.');
-            console.error(err);
-        }
-    }
-
-    // ── Populate client dropdown in invoice modal ──────────────────────
-    function populateClientDropdown() {
-        const sel = document.getElementById('inv_client_id');
-        sel.innerHTML = '<option value="">Select a client...</option>' +
-            clientsCache.map(c =>
-                `<option value="${c.client_id}">${esc(c.name)}</option>`
-            ).join('');
-    }
-
-    // ── Submit Invoice ─────────────────────────────────────────────────
-    async function submitInvoice(e) {
-        e.preventDefault();
-        const btn    = document.getElementById('invoiceSubmitBtn');
-        const errBox = document.getElementById('invoiceError');
-        errBox.classList.add('hidden');
-        btn.disabled    = true;
-        btn.textContent = 'Creating...';
-
-        const payload = {
-            client_id:      parseInt(document.getElementById('inv_client_id').value),
-            product_name:   document.getElementById('inv_product_name').value.trim(),
-            amt_recievable: parseFloat(document.getElementById('inv_amount').value),
-            due_date:       document.getElementById('inv_due_date').value,
-            status:         document.getElementById('inv_status').value,
-        };
-
-        try {
-            const res  = await fetch(API.addInvoice, {
-                method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify(payload),
-            });
-            const data = await res.json();
-
-            if (!res.ok) {
-                errBox.textContent = data.error || 'Something went wrong.';
-                errBox.classList.remove('hidden');
-            } else {
-                closeModal();
-                loadInvoices();
-            }
-        } catch (err) {
-            errBox.textContent = 'Network error. Please try again.';
-            errBox.classList.remove('hidden');
-        }
-
-        btn.disabled    = false;
-        btn.textContent = 'Create Invoice';
-    }
-
-    // ── Submit Client ──────────────────────────────────────────────────
-    async function submitClient(e) {
-        e.preventDefault();
-        const btn    = document.getElementById('clientSubmitBtn');
-        const errBox = document.getElementById('clientError');
-        errBox.classList.add('hidden');
-        btn.disabled    = true;
-        btn.textContent = 'Adding...';
-
-        const payload = {
-            name:         document.getElementById('cli_name').value.trim(),
-            contact_info: document.getElementById('cli_contact').value.trim() || null,
-        };
-
-        try {
-            const res  = await fetch(API.addClient, {
-                method:  'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body:    JSON.stringify(payload),
-            });
-            const data = await res.json();
-
-            if (!res.ok) {
-                errBox.textContent = data.error || 'Something went wrong.';
-                errBox.classList.remove('hidden');
-            } else {
-                closeModal();
-                await loadClients();
-            }
-        } catch (err) {
-            errBox.textContent = 'Network error. Please try again.';
-            errBox.classList.remove('hidden');
-        }
-
-        btn.disabled    = false;
-        btn.textContent = 'Add Client';
-    }
-
-    // ── Helpers ────────────────────────────────────────────────────────
-    function statusBadge(status) {
-        const map = {
-            OPEN:      'bg-amber-50 text-amber-700 border-amber-200',
-            PAID:      'bg-green-50 text-green-700 border-green-200',
-            OVERDUE:   'bg-red-50 text-red-700 border-red-200',
-            CANCELLED: 'bg-gray-100 text-gray-500 border-gray-200',
-        };
-        const cls = map[status] || 'bg-gray-100 text-gray-500 border-gray-200';
-        return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${cls}">${status}</span>`;
-    }
-
-    function fmtDate(val) {
-        if (!val) return '—';
-        const d = new Date(val);
-        if (isNaN(d)) return val;
-        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-    }
-
-    function esc(str) {
-        return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    function emptyRow(cols, msg) {
-        return `<tr><td colspan="${cols}" class="px-6 py-12 text-center text-gray-400 text-sm">${msg}</td></tr>`;
-    }
-
-    // ─── Invoice preview utilities ──────────────────────────────────
-    function openInvoiceModal(invoiceData) {
-        renderInvoice(invoiceData);
-        const overlay = document.getElementById('invoiceModalOverlay');
-        overlay.setAttribute('aria-hidden', 'false');
-        overlay.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeInvoiceModal() {
-        const overlay = document.getElementById('invoiceModalOverlay');
-        overlay.classList.remove('is-open');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    }
-
-    function printInvoice() {
-        window.print();
-    }
-
-    // close preview on escape key
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeInvoiceModal();
-    });
-
-    function renderInvoice(inv) {
-        const fmt = (n) => '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-        const taxRate = 0.18;
-        const subtotal = inv.amount / (1 + taxRate);
-        const tax = inv.amount - subtotal;
-
-        const statusClass = {
-            paid: 'badge-paid', open: 'badge-open',
-            overdue: 'badge-overdue', draft: 'badge-draft'
-        }[inv.status?.toLowerCase()] || 'badge-draft';
-
-        const lineItems = inv.lineItems || [
-            { description: inv.service || inv.product || 'Professional Services', qty: 1, rate: subtotal, amount: subtotal }
-        ];
-
-        const lineRows = lineItems.map(li => `
-            <tr class="border-b border-gray-50">
-                <td class="py-3 pr-4 text-gray-800">${li.description}</td>
-                <td class="py-3 px-4 text-center text-gray-600">${li.qty}</td>
-                <td class="py-3 px-4 text-right text-gray-600">${fmt(li.rate)}</td>
-                <td class="py-3 pl-4 text-right font-medium text-gray-900">${fmt(li.amount)}</td>
-            </tr>
-        `).join('');
-
-        document.getElementById('invoiceContent').innerHTML = `
-        <!-- ── Header ── -->
-        <div class="flex items-start justify-between">
-            <div>
-                <div class="text-2xl font-black text-gray-900 tracking-tight mb-0.5">Shivleela Foods</div>
-                <div class="text-sm text-gray-400 leading-relaxed">
-                    Loni<br>
-                    Maharashtra 411028, India<br>
-                    shivleelafoods@gmail.com · +91 7774851593
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="text-3xl font-black text-gray-900 tracking-tight">INVOICE</div>
-                <div class="mt-1 text-base font-semibold text-gray-500">${inv.id}</div>
-                <span class="mt-2 inline-block text-xs font-semibold px-2.5 py-1 rounded-full ${statusClass} capitalize">
-                    ${inv.status || 'Draft'}
-                </span>
-            </div>
-        </div>
-
-        <!-- ── Divider ── -->
-        <div class="h-px bg-gray-100"></div>
-
-        <!-- ── Meta grid ── -->
-        <div class="grid grid-cols-2 gap-6">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Bill To</p>
-                <p class="font-semibold text-gray-900 text-base">${inv.client}</p>
-                // <p class="text-sm text-gray-500 mt-0.5">${inv.clientEmail || 'client@email.com'}</p>
-                // <p class="text-sm text-gray-500">${inv.clientAddress || ''}</p>
-            </div>
-            <div class="text-right space-y-2">
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Issue Date</p>
-                    <p class="text-sm font-medium text-gray-700">${inv.created || '—'}</p>
-                </div>
-                <div>
-                    <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">Due Date</p>
-                    <p class="text-sm font-medium ${inv.status?.toLowerCase() === 'overdue' ? 'text-red-500 font-semibold' : 'text-gray-700'}">${inv.due || '—'}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Line Items ── -->
-        <div>
-            <table class="w-full text-sm">
-                <thead>
-                    <tr class="border-b-2 border-gray-900">
-                        <th class="pb-2 text-left text-xs font-semibold uppercase tracking-widest text-gray-500">Description</th>
-                        <th class="pb-2 px-4 text-center text-xs font-semibold uppercase tracking-widest text-gray-500">Qty</th>
-                        <th class="pb-2 px-4 text-right text-xs font-semibold uppercase tracking-widest text-gray-500">Rate</th>
-                        <th class="pb-2 pl-4 text-right text-xs font-semibold uppercase tracking-widest text-gray-500">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>${lineRows}</tbody>
-            </table>
-        </div>
-
-        <!-- ── Totals ── -->
-        <div class="flex justify-end">
-            <div class="w-64 space-y-2 text-sm">
-                <div class="flex justify-between text-gray-600">
-                    <span>Subtotal</span>
-                    <span>${fmt(subtotal)}</span>
-                </div>
-                <div class="flex justify-between text-gray-600">
-                    <span>GST (18%)</span>
-                    <span>${fmt(tax)}</span>
-                </div>
-                <div class="h-px bg-gray-200"></div>
-                <div class="flex justify-between font-bold text-gray-900 text-base">
-                    <span>Total</span>
-                    <span>${fmt(inv.amount)}</span>
-                </div>
-                ${inv.status?.toLowerCase() === 'paid' ? `
-                <div class="flex justify-between text-green-600 font-semibold">
-                    <span>Amount Paid</span>
-                    <span>${fmt(inv.amount)}</span>
-                </div>
-                <div class="flex justify-between font-bold text-green-700 text-sm">
-                    <span>Balance Due</span>
-                    <span>₹0.00</span>
-                </div>` : `
-                <div class="flex justify-between font-bold text-gray-900 pt-1 border-t border-gray-900">
-                    <span>Balance Due</span>
-                    <span>${fmt(inv.amount)}</span>
-                </div>`}
-            </div>
-        </div>
-
-        <!-- ── Footer notes ── -->
-        <div class="border-t border-gray-100 pt-6 text-xs text-gray-400 space-y-1">
-            <p class="font-semibold text-gray-500">Payment Terms</p>
-            <p>${inv.terms || 'Payment due within 30 days of invoice date. Please include the invoice number in your payment reference.'}</p>
-            <p class="mt-2">Bank: HDFC Bank · Account: 1234567890 · IFSC: HDFC0001234</p>
-            <p class="mt-3 text-center text-gray-300">Thank you for your business.</p>
-        </div>
-    `;
-    }
-
-    function buildInvoiceRow(inv) {
-        const invoiceData = {
-            id:      inv.invoice_id || inv.id,
-            client:  inv.client_name || inv.client,
-            service: inv.product_service || inv.service,
-            amount:  parseFloat(inv.amount) || 0,
-            due:     inv.due_date || inv.due,
-            status:  inv.status,
-            created: inv.created_at || inv.created,
-            clientEmail:   inv.client_email,
-            clientAddress: inv.client_address,
-            lineItems:     inv.line_items,
-            terms:         inv.payment_terms,
-        };
-
-        const statusBadge = {
-            paid:    '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-paid">Paid</span>',
-            open:    '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-open">Open</span>',
-            overdue: '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-overdue">Overdue</span>',
-            draft:   '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold badge-draft">Draft</span>',
-        }[invoiceData.status?.toLowerCase()] || invoiceData.status;
-
-        const tr = document.createElement('tr');
-        tr.className = 'border-b border-gray-50 hover:bg-gray-50/60 transition-colors';
-        tr.innerHTML = `
-            <td class="px-6 py-4 font-mono text-xs text-gray-500">${invoiceData.id}</td>
-            <td class="px-6 py-4 font-medium text-gray-900">${invoiceData.client}</td>
-            <td class="px-6 py-4 text-gray-600">${invoiceData.service || '—'}</td>
-            <td class="px-6 py-4 text-right font-semibold text-gray-900">₹${Number(invoiceData.amount).toLocaleString('en-IN', {minimumFractionDigits:2})}</td>
-            <td class="px-6 py-4 text-gray-600">${invoiceData.due || '—'}</td>
-            <td class="px-6 py-4">${statusBadge}</td>
-            <td class="px-6 py-4 text-gray-500">${invoiceData.created || '—'}</td>
-            <td class="px-6 py-4 text-center">
-                <button class="btn-view-invoice" title="View Invoice">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                </button>
-            </td>
-        `;
-
-        tr.querySelector('.btn-view-invoice').addEventListener('click', () => openInvoiceModal(invoiceData));
-        return tr;
-    }
-
-    function populateInvoiceTable(invoices) {
-        const tbody = document.getElementById('invoiceTableBody');
-        tbody.innerHTML = '';
-        if (!invoices.length) {
-            tbody.innerHTML = `<tr><td colspan="8" class="px-6 py-12 text-center text-gray-400 text-sm">No invoices found.</td></tr>`;
-            return;
-        }
-        invoices.forEach(inv => tbody.appendChild(buildInvoiceRow(inv)));
-    }
-
-    // ── Init ───────────────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-        switchTab('invoices');
+    try {
+      const res = await fetch(API.addInvoice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errBox.textContent = data.error || 'Something went wrong.';
+        errBox.classList.add('visible');
+      } else {
+        closeModal();
         loadInvoices();
-        loadClients();
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+      }
+    } catch (err) {
+      errBox.textContent = 'Network error. Please try again.';
+      errBox.classList.add('visible');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Create Invoice';
+  }
+
+  // ── Submit Client ─────────────────────────────────────────────────────────
+  async function submitClient(e) {
+    e.preventDefault();
+    const btn = document.getElementById('clientSubmitBtn');
+    const errBox = document.getElementById('clientError');
+    errBox.classList.remove('visible');
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+
+    const payload = {
+      name: document.getElementById('cli_name').value.trim(),
+      contact_info: document.getElementById('cli_contact').value.trim() || null,
+    };
+
+    try {
+      const res = await fetch(API.addClient, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        errBox.textContent = data.error || 'Something went wrong.';
+        errBox.classList.add('visible');
+      } else {
+        closeModal();
+        await loadClients();
+      }
+    } catch (err) {
+      errBox.textContent = 'Network error. Please try again.';
+      errBox.classList.add('visible');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Add Client';
+  }
+
+  // ── Invoice table row builder ─────────────────────────────────────────────
+  function buildInvoiceRow(inv) {
+    const invoiceData = {
+      id: inv.invoice_id || inv.id,
+      client: inv.client_name || inv.client,
+      service: inv.product_service || inv.product_name || inv.service,
+      amount: parseFloat(inv.amount || inv.amt_recievable) || 0,
+      due: inv.due_date || inv.due,
+      status: inv.status,
+      created: inv.created_at || inv.created,
+      clientEmail: inv.client_email,
+      clientAddress: inv.client_address,
+      lineItems: inv.line_items,
+      terms: inv.payment_terms,
+      
+      pctPaid: inv.pct_paid ?? null,
+      totalPaid: inv.total_paid ?? null,
+
+    };
+
+    const chipMap = {
+      open: 'chip-open',
+      paid: 'chip-paid',
+      overdue: 'chip-overdue',
+      cancelled: 'chip-cancelled',
+      partial: 'chip-partial',
+    };
+    const chipCls = chipMap[(invoiceData.status || '').toLowerCase()] || 'chip-cancelled';
+    const statusHtml = `<span class="status-chip ${chipCls}">${invoiceData.status || '—'}</span>`;
+    const status = (invoiceData.status || '').toLowerCase();
+  const showBar = invoiceData.pctPaid !== null && status !== 'cancelled';
+  const pct = Math.min(100, Math.max(0, invoiceData.pctPaid || 0));
+  const barColor = status === 'paid' ? 'var(--green)'
+                 : status === 'overdue' ? 'var(--red)'
+                 : 'var(--amber)';
+
+  const progressHtml = showBar
+    ? `<div class="inv-progress-wrap"><div class="inv-progress-track"><div class="inv-progress-fill" style="width:${pct}%; background:${barColor};"></div></div><span class="inv-progress-pct">${Math.round(pct)}%</span></div>`
+    : '';
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="muted">${invoiceData.id}</td>
+    <td>${esc(invoiceData.client)}</td>
+    <td class="muted">${esc(invoiceData.service || '—')}${progressHtml}</td>
+    <td class="right">₹${Number(invoiceData.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+    <td class="muted">${invoiceData.due || '—'}</td>
+    <td>${statusHtml}</td>
+    <td class="muted">${invoiceData.created || '—'}</td>
+    <td class="center">
+      <button class="btn-view-invoice" title="View Invoice">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </td>
+  `;
+  tr.querySelector('.btn-view-invoice').addEventListener('click', () => openInvoiceModal(invoiceData));
+  return tr;
+}
+
+  function populateInvoiceTable(invoices) {
+    const tbody = document.getElementById('invoiceTableBody');
+    tbody.innerHTML = '';
+    if (!invoices.length) {
+      tbody.innerHTML = emptyRow(8, 'No invoices found.');
+      return;
+    }
+    invoices.forEach(inv => tbody.appendChild(buildInvoiceRow(inv)));
+  }
+
+  // ── Invoice preview drawer ────────────────────────────────────────────────
+  function openInvoiceModal(invoiceData) {
+    renderInvoice(invoiceData);
+    const overlay = document.getElementById('invoiceModalOverlay');
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInvoiceModal() {
+    const overlay = document.getElementById('invoiceModalOverlay');
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function printInvoice() { window.print(); }
+
+  function renderInvoice(inv) {
+    const fmt = n => '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+    const taxRate = 0.18;
+    const subtotal = inv.amount / (1 + taxRate);
+    const tax = inv.amount - subtotal;
+
+    const chipMap = {
+      paid: 'chip-paid',
+      open: 'chip-open',
+      overdue: 'chip-overdue',
+      draft: 'chip-cancelled',
+    };
+    const chipCls = chipMap[(inv.status || '').toLowerCase()] || 'chip-cancelled';
+
+    const lineItems = inv.lineItems || [
+      { description: inv.service || inv.product || 'Professional Services', qty: 1, rate: subtotal, amount: subtotal }
+    ];
+
+    const lineRows = lineItems.map(li => `
+      <tr>
+        <td>${esc(li.description)}</td>
+        <td class="ta-center">${li.qty}</td>
+        <td class="ta-right">${fmt(li.rate)}</td>
+        <td class="ta-right">${fmt(li.amount)}</td>
+      </tr>
+    `).join('');
+
+    const isPaid = (inv.status || '').toLowerCase() === 'paid';
+
+    document.getElementById('invoiceContent').innerHTML = `
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;">
+        <div>
+          <div class="inv-company-name">Shivleela Foods</div>
+          <div style="font-family:var(--font-mono); font-size:0.55rem; color:var(--ink3); margin-top:0.5rem; line-height:1.8;">
+            Loni, Maharashtra 411028, India<br>
+            shivleelafoods@gmail.com · +91 7774851593
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="inv-heading">Invoice</div>
+          <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--ink2); margin-top:0.3rem;">${inv.id}</div>
+          <span class="inv-status-chip status-chip ${chipCls}">${inv.status || 'Draft'}</span>
+        </div>
+      </div>
+
+      <hr class="inv-divider">
+
+      <div class="inv-meta-grid">
+        <div>
+          <div class="inv-label">Bill To</div>
+          <div style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--ink);">${esc(inv.client)}</div>
+          ${inv.clientEmail ? `<div class="inv-meta-value" style="margin-top:0.2rem;">${esc(inv.clientEmail)}</div>` : ''}
+          ${inv.clientAddress ? `<div class="inv-meta-value">${esc(inv.clientAddress)}</div>` : ''}
+        </div>
+        <div style="text-align:right; display:flex; flex-direction:column; gap:0.75rem;">
+          <div>
+            <div class="inv-label">Issue Date</div>
+            <div class="inv-meta-value">${inv.created || '—'}</div>
+          </div>
+          <div>
+            <div class="inv-label">Due Date</div>
+            <div class="inv-meta-value" style="${(inv.status || '').toLowerCase() === 'overdue' ? 'color:var(--red);font-weight:700;' : ''}">${inv.due || '—'}</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th style="padding-left:1rem; text-align:center;">Qty</th>
+              <th class="ta-right" style="padding-left:1rem;">Rate</th>
+              <th class="ta-right" style="padding-left:1rem;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>${lineRows}</tbody>
+        </table>
+      </div>
+
+      <div class="inv-totals">
+        <div class="inv-totals-inner">
+          <div class="inv-totals-row">
+            <span>Subtotal</span>
+            <span>${fmt(subtotal)}</span>
+          </div>
+          <div class="inv-totals-row">
+            <span>GST (18%)</span>
+            <span>${fmt(tax)}</span>
+          </div>
+          <div class="inv-totals-row total">
+            <span>Total</span>
+            <span>${fmt(inv.amount)}</span>
+          </div>
+          ${isPaid ? `
+          <div class="inv-totals-row paid">
+            <span>Amount Paid</span>
+            <span>${fmt(inv.amount)}</span>
+          </div>
+          <div class="inv-totals-row balance">
+            <span>Balance Due</span>
+            <span>₹0.00</span>
+          </div>` : `
+          <div class="inv-totals-row balance" style="border-top:1px solid var(--ink); padding-top:0.4rem; margin-top:0.2rem;">
+            <span>Balance Due</span>
+            <span>${fmt(inv.amount)}</span>
+          </div>`}
+        </div>
+      </div>
+
+      <div class="inv-footer-note">
+        <strong>Payment Terms</strong>
+        ${esc(inv.terms || 'Payment due within 30 days of invoice date. Please include the invoice number in your payment reference.')}
+        <div style="margin-top:0.6rem;">Bank: HDFC Bank · Account: 1234567890 · IFSC: HDFC0001234</div>
+        <div style="margin-top:0.85rem; text-align:center; color:var(--s3); letter-spacing:0.12em; text-transform:uppercase; font-size:0.48rem;">Thank you for your business.</div>
+      </div>
+    `;
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function fmtDate(val) {
+    if (!val) return '—';
+    const d = new Date(val);
+    if (isNaN(d)) return val;
+    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function esc(str) {
+    return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function emptyRow(cols, msg) {
+    return `<tr><td colspan="${cols}" style="padding:2rem; text-align:center; color:var(--ink3); font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.08em;">${msg}</td></tr>`;
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    switchTab('invoices');
+    loadInvoices();
+    loadClients();
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeInvoiceModal(); }
     });
+  });
 </script>
 {% endblock %}
