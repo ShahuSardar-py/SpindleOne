@@ -1,5 +1,3 @@
-
-
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from app.extensions import db
 from SpindlePeople.models import Employee, Attendance

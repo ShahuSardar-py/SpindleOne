@@ -13,6 +13,8 @@ from flask import current_app
 from .services.invoice_status import update_invoice_status
 from .services.dashboardCalc import get_dashboard_context
 from .CF01.chat import chat 
+from sqlalchemy import func
+
 
 @bp.route('/')
 def index():
@@ -175,7 +177,6 @@ def chat_api():
 @bp.route("/invoices", methods=["GET"])
 def list_invoices():
 
-    # Update invoice statuses dynamically before returning
     invoices_to_update = Invoice.query.all()
     for inv in invoices_to_update:
         update_invoice_status(inv.inv_id)
@@ -190,15 +191,29 @@ def list_invoices():
     result = []
 
     for inv, client in invoices:
+        total_paid = (
+            db.session.query(func.coalesce(func.sum(AccountCashflow.amount), 0))
+            .filter(
+                AccountCashflow.invoice_id == inv.inv_id,
+                AccountCashflow.txn_type == "INFLOW"
+            )
+            .scalar()
+        )
+        total_paid = float(total_paid)
+        amt = float(inv.amt_recievable) if inv.amt_recievable else 0.0
+        pct_paid = round((total_paid / amt) * 100, 1) if amt > 0 else 0.0
+
         result.append({
-            "invoice_id": inv.inv_id,
-            "client_id": client.id,
-            "client_name": client.name,
-            "product_name": inv.product_name,
-            "amt_recievable": inv.amt_recievable,
-            "due_date": inv.due_date,
-            "status": inv.status,
-            "created_at": inv.created_at
+            "invoice_id":      inv.inv_id,
+            "client_id":       client.id,
+            "client_name":     client.name,
+            "product_name":    inv.product_name,
+            "amt_recievable":  amt,
+            "due_date":        str(inv.due_date) if inv.due_date else None,
+            "status":          inv.status,
+            "created_at":      str(inv.created_at) if inv.created_at else None,
+            "total_paid":      total_paid,
+            "pct_paid":        pct_paid,
         })
 
     return jsonify(result)

@@ -17,5 +17,5 @@ class Attendance(db.Model):
     status = db.Column(db.String(10))  # Present / Absent
     login_time = db.Column(db.DateTime)
     logout_time = db.Column(db.DateTime)
-    date = db.Column(db.Date, default=datetime.utcnow().date)
+    date = db.Column(db.Date, default=datetime.utcnow().date) 
 

@@ -11,7 +11,6 @@ Usage:
     from C_F01.context_filter import filter_context_for_query
     filtered = filter_context_for_query("which invoices are overdue?")
 """
-
 from ..services.dashboardCalc import get_dashboard_context
 
 CONTEXT_GROUPS = {
