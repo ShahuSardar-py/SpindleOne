@@ -8,20 +8,25 @@
             <h2 class="text-xl font-bold text-gray-900">SpindlePeople</h2>
         </div>
         <nav class="p-4">
+            <a href="{{ url_for('spindlepeople.dashboard') }}" 
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">📊</span>
+                <span>Dashboard</span>
+            </a>
             <a href="{{ url_for('spindlepeople.employee') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlepeople.employee' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.employee' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
                 <span class="text-xl">👥</span>
                 <span>Employees</span>
             </a>
             <a href="{{ url_for('spindlepeople.logattendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2 {% if request.endpoint == 'spindlepeople.logattendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📋</span>
-                <span>Attendance</span>
+               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.logattendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
+                <span class="text-xl">⏱</span>
+                <span>Log Attendance</span>
             </a>
             <a href="{{ url_for('spindlepeople.attendance') }}" 
                class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlepeople.attendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📊</span>
-                <span>Records</span>
+                <span class="text-xl">📅</span>
+                <span>Attendance Records</span>
             </a>
         </nav>
     </aside>
