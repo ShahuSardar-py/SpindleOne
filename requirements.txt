@@ -1,4 +1,4 @@
-alembic==1.18.3
+oalembic==1.18.3
 blinker==1.9.0
 click==8.3.1
 colorama==0.4.6
@@ -13,3 +13,6 @@ MarkupSafe==3.0.3
 SQLAlchemy==2.0.46
 typing_extensions==4.15.0
 Werkzeug==3.1.5
+mistralai
+python-dotenv
+mistralai
