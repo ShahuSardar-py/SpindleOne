@@ -1,0 +1,119 @@
+{% extends "mech_base.html" %}
+
+{% block title %}Maintenance Dashboard{% endblock %}
+
+{% block mech_content %}
+<div class="flex-1 p-6 bg-gray-50">
+
+<h3 class="text-2xl font-semibold mb-6">
+⚙️ Maintenance Dashboard
+</h3>
+
+<!-- KPI CARDS -->
+<div class="grid grid-cols-5 gap-6 mb-6">
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Total Machines</p>
+<h4 class="text-2xl font-bold">{{ total }}</h4>
+</div>
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Operational</p>
+<h4 class="text-2xl font-bold text-green-600">{{ operational }}</h4>
+</div>
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Under Maintenance</p>
+<h4 class="text-2xl font-bold text-yellow-600">{{ under_maint }}</h4>
+</div>
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Decommissioned</p>
+<h4 class="text-2xl font-bold text-gray-600">{{ decommissioned }}</h4>
+</div>
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Total Downtime</p>
+<h4 class="text-2xl font-bold text-red-600">{{ total_downtime }} hrs</h4>
+</div>
+
+</div>
+
+<!-- CHARTS -->
+<div class="grid grid-cols-2 gap-6">
+
+<!-- Breakdown Chart -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h5 class="font-semibold mb-4">Breakdowns per Machine</h5>
+<div class="h-80">
+<canvas id="breakdownChart"></canvas>
+</div>
+</div>
+
+<!-- Maintenance Type Chart -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h5 class="font-semibold mb-4">Maintenance Type Split</h5>
+<div class="h-80">
+<canvas id="typeChart"></canvas>
+</div>
+</div>
+
+</div>
+
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Breakdown Data -->
+<script id="breakdown-data" type="application/json">
+{{ breakdown_data | tojson }}
+</script>
+
+<!-- Type Data -->
+<script id="type-data" type="application/json">
+{{ type_data | tojson }}
+</script>
+
+<script>
+
+// Breakdown Chart
+const breakdownData = JSON.parse(
+document.getElementById("breakdown-data").textContent
+);
+
+new Chart(document.getElementById("breakdownChart"), {
+type: "bar",
+data: {
+labels: Object.keys(breakdownData),
+datasets: [{
+label: "Breakdowns",
+data: Object.values(breakdownData),
+backgroundColor: "#ef4444"
+}]
+}
+});
+
+
+// Maintenance Type Chart
+const typeData = JSON.parse(
+document.getElementById("type-data").textContent
+);
+
+new Chart(document.getElementById("typeChart"), {
+type: "pie",
+data: {
+labels: Object.keys(typeData),
+datasets: [{
+data: Object.values(typeData),
+backgroundColor: ["#3b82f6", "#f59e0b", "#10b981"]
+}]
+}
+});
+
+</script>
+
+{% endblock %}
