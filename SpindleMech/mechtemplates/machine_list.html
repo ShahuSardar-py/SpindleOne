@@ -1,0 +1,54 @@
+{% extends "mech_base.html" %}
+
+{% block mech_content %}
+
+<h3 class="text-2xl font-semibold mb-6">
+Machines
+</h3>
+
+<div class="bg-white p-6 rounded-xl shadow">
+
+{% if machines %}
+
+<table class="w-full text-sm">
+
+<thead class="bg-gray-100">
+<tr>
+<th class="p-2">Name</th>
+<th class="p-2">Code</th>
+<th class="p-2">Status</th>
+<th class="p-2">Location</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for m in machines %}
+<tr class="border-t">
+<td class="p-2">
+<a href="{{ url_for('spindlemech.machine_detail', machine_id=m.id) }}"
+class="text-blue-600 hover:underline">
+{{ m.name }}
+</a>
+</td>
+<td class="p-2">{{ m.machine_code }}</td>
+<td class="p-2">{{ m.status }}</td>
+<td class="p-2">{{ m.location }}</td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% else %}
+
+<p class="text-center text-gray-500">
+No machines yet. Add one 🚀
+</p>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

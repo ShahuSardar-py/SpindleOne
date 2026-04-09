@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex h-[calc(100vh-72px)]">
+
+<!-- SIDEBAR -->
+<div class="w-64 bg-white border-r">
+
+<div class="p-6 border-b">
+<h2 class="text-xl font-bold">SpindleMech</h2>
+</div>
+
+<div class="p-4 space-y-2">
+
+<!-- Dashboard -->
+<a href="{{ url_for('spindlemech.index') }}"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlemech.index' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+📊 Dashboard
+</a>
+
+<!-- Machines -->
+<a href="{{ url_for('spindlemech.machine_list') }}"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlemech.machine_list' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+⚙️ Machines
+</a>
+
+<!-- Add Machine -->
+<a href="{{ url_for('spindlemech.add_machine') }}"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+➕ Add Machine
+</a>
+
+<!-- Maintenance -->
+<a href="{{ url_for('spindlemech.log_maintenance') }}"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
+🛠 Log Maintenance
+</a>
+
+</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="flex-1 p-6 overflow-y-auto bg-gray-50">
+{% block mech_content %}{% endblock %}
+</div>
+
+</div>
+{% endblock %}

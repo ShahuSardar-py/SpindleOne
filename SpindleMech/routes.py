@@ -11,18 +11,40 @@ from . import bp
 
 @bp.route('/')
 def index():
-    machines = Machine.query.order_by(Machine.name).all()
-    total          = len(machines)
-    operational    = sum(1 for m in machines if m.status == 'Operational')
-    under_maint    = sum(1 for m in machines if m.status == 'Under Maintenance')
+
+    machines = Machine.query.all()
+    records = MaintenanceRecord.query.all()
+
+    # KPI
+    total = len(machines)
+    operational = sum(1 for m in machines if m.status == 'Operational')
+    under_maint = sum(1 for m in machines if m.status == 'Under Maintenance')
     decommissioned = sum(1 for m in machines if m.status == 'Decommissioned')
+
+    # Breakdown count (for chart)
+    breakdown_data = {}
+    for r in records:
+        name = r.machine.name
+        breakdown_data[name] = breakdown_data.get(name, 0) + 1
+
+    # Maintenance type split
+    type_data = {"Preventive": 0, "Corrective": 0, "Inspection": 0}
+    for r in records:
+        if r.maintenance_type in type_data:
+            type_data[r.maintenance_type] += 1
+
+    # Total downtime
+    total_downtime = sum(r.downtime_hours or 0 for r in records)
+
     return render_template(
-        'index.html',
-        machines=machines,
+        'dashboardmech.html',
         total=total,
         operational=operational,
         under_maint=under_maint,
         decommissioned=decommissioned,
+        breakdown_data=breakdown_data,
+        type_data=type_data,
+        total_downtime=total_downtime
     )
 
 
@@ -185,3 +207,9 @@ def delete_maintenance(record_id):
     db.session.commit()
     flash('Record deleted.', 'success')
     return redirect(url_for('spindlemech.machine_detail', machine_id=machine_id))
+
+
+@bp.route('/machines')
+def machine_list():
+    machines = Machine.query.all()
+    return render_template("machine_list.html", machines=machines)
