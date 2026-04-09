@@ -9,11 +9,12 @@ class RawMaterial(db.Model):
     name = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Float, nullable=False)  
     amount = db.Column(db.Float)
-    unit = db.Column(db.String(10))  # kg,tons
+    unit = db.Column(db.String(10))  # kg, tons
     inward_date = db.Column(db.Date)
     expiry_date = db.Column(db.Date)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-  
+    alert_threshold = db.Column(db.Float, default=25)  # user configurable
+
 # PRODUCTION BATCH 
 class Production(db.Model):
     __tablename__ = "production"
@@ -47,8 +48,9 @@ class ProductionMaterial(db.Model):
 # FINISHED GOODS STOCK
 class FinishedStock(db.Model):
     __tablename__ = "finished_stock"
+
     id = db.Column(db.Integer, primary_key=True)
     product_name = db.Column(db.String(100))
     quantity = db.Column(db.Float)
-    expiry_date = db.Column(db.Date)
+    expiry_date = db.Column(db.Date)  
     date = db.Column(db.DateTime, default=datetime.utcnow)

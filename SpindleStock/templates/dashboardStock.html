@@ -5,86 +5,237 @@
 {% block content %}
 <div class="flex h-[calc(100vh-72px)]">
 
-    <!-- Sidebar -->
-    <div class="w-64 bg-white border-r overflow-y-auto">
+<!-- Sidebar -->
+<div class="w-64 bg-white border-r overflow-y-auto">
 
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900">SpindleStock</h2>
-        </div>
+<div class="p-6 border-b">
+<h2 class="text-xl font-bold">SpindleStock</h2>
+</div>
 
-            <div class="p-4">
+<div class="p-4 space-y-2">
 
-    <a href="/stock/"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.dashboard' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📊</span>
-        <span>Dashboard</span>
-    </a>
+<a href="/stock/"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlestock.dashboard' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+📊 Dashboard
+</a>
 
-    <a href="/stock/raw"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.raw_material' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📦</span>
-        <span>Raw Material</span>
-    </a>
+<a href="/stock/raw"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlestock.raw_material' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+📦 Raw Material
+</a>
 
-    <a href="/stock/production"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.production' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">🏭</span>
-        <span>Production</span>
-    </a>
+<a href="/stock/production"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlestock.production' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+🏭 Production
+</a>
 
-    <a href="/stock/inventory"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-       {% if request.endpoint == 'spindlestock.inventory' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📋</span>
-        <span>Stock Balance</span>
-    </a>
+<a href="/stock/inventory"
+class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
+{% if request.endpoint == 'spindlestock.inventory' %}
+bg-blue-100 text-blue-600
+{% else %}
+text-gray-600 hover:bg-gray-100
+{% endif %}">
+📋 Stock Balance
+</a>
 
 </div>
-        </div>
+</div>
 
-    <!-- Content -->
-    <div class="flex-1 p-6 overflow-y-auto">
 
-        <h3 class="text-2xl font-semibold mb-6">
-            Stock Dashboard
-        </h3>
+<!-- MAIN DASHBOARD -->
+<div class="flex-1 p-6 overflow-y-auto bg-gray-50">
 
-        <div class="card p-6">
-            <h5 class="font-semibold mb-4">
-                Production Quantity per Product
-            </h5>
+<h3 class="text-2xl font-semibold mb-6">
+Stock Dashboard
+</h3>
 
-            <!-- Chart height fixed -->
-            <div class="h-96">
-                <canvas id="prodChart"></canvas>
-            </div>
 
-        </div>
+<!-- KPI CARDS -->
+<div class="grid grid-cols-3 gap-6 mb-6">
 
-    </div>
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Total Materials</p>
+<h4 class="text-2xl font-bold">{{ total_materials }}</h4>
+</div>
+
+<!-- Expiring Soon KPI -->
+<div class="bg-white p-6 rounded-xl shadow">
+
+<h5 class="text-gray-500 text-sm">
+Expiring Soon
+</h5>
+
+<p class="text-2xl font-bold text-red-600">
+{{ expiring_count }}
+</p>
+
+<p class="text-xs text-gray-400">
+Next 7 days
+</p>
+
+</div>
+
+<div class="bg-white p-5 rounded-xl shadow">
+<p class="text-gray-500 text-sm">Low Stock Items</p>
+<h4 class="text-2xl font-bold text-red-600">{{ low_stock|length }}</h4>
+</div>
+
+</div>
+
+
+<!-- CHART + ALERT SECTION -->
+<div class="grid grid-cols-2 gap-6">
+
+<!-- Production Chart -->
+<div class="bg-white p-6 rounded-xl shadow">
+
+<h5 class="font-semibold mb-4">
+Production Quantity per Product
+</h5>
+
+<div class="h-80">
+<canvas id="prodChart"></canvas>
+</div>
+
+</div>
+
+
+<!-- Low Stock -->
+<div class="bg-white p-6 rounded-xl shadow">
+
+<div class="flex justify-between items-center mb-4">
+
+<h5 class="font-semibold">
+Low Stock Alerts
+</h5>
+
+<a href="{{ url_for('spindlestock.edit_alerts') }}"
+class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">
+Edit Alerts
+</a>
+
+</div>
+
+<table class="w-full text-left text-sm">
+
+<thead class="bg-gray-100">
+<tr>
+<th class="p-2">Material</th>
+<th class="p-2">Stock</th>
+<th class="p-2">Alert</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% if low_stock %}
+
+{% for item in low_stock %}
+<tr class="border-t text-red-600 font-semibold">
+<td class="p-2">{{ item.name }}</td>
+<td class="p-2">{{ item.quantity }} kg</td>
+<td class="p-2">{{ item.alert_threshold }} kg</td>
+</tr>
+{% endfor %}
+
+{% else %}
+
+<tr>
+<td colspan="3" class="text-center p-4 text-gray-500">
+No Low Stock Materials
+</td>
+</tr>
+
+{% endif %}
+
+</tbody>
+</table>
+
+</div>
+
+</div>
+<!-- Expiring Soon Materials -->
+
+<div class="bg-white p-6 rounded-xl shadow mt-6">
+
+<h5 class="font-semibold mb-4">
+Expiring Soon Materials
+</h5>
+
+<table class="w-full text-left text-sm">
+
+<thead class="bg-gray-100">
+<tr>
+<th class="p-2">Material</th>
+<th class="p-2">Stock</th>
+<th class="p-2">Expiry Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% if expiring_materials %}
+
+{% for m in expiring_materials %}
+
+<tr class="border-t text-orange-600 font-semibold">
+
+<td class="p-2">
+{{ m.name }}
+</td>
+
+<td class="p-2">
+{{ m.quantity }} {{ m.unit }}
+</td>
+
+<td class="p-2">
+{{ m.expiry_date }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+<td colspan="3" class="text-center p-4 text-gray-500">
+No materials expiring soon
+</td>
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
 </div>
 {% endblock %}
 
+
+
 {% block extra_scripts %}
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script id="product-data" type="application/json">
@@ -92,27 +243,32 @@
 </script>
 
 <script>
+
 const productData = JSON.parse(
-    document.getElementById("product-data").textContent
+document.getElementById("product-data").textContent
 );
 
 const labels = Object.keys(productData);
 const values = Object.values(productData);
 
-new Chart(document.getElementById('prodChart'), {
-    type: 'bar',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Produced Quantity',
-            data: values,
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
-    }
+const ctx = document.getElementById("prodChart");
+
+new Chart(ctx, {
+type: "bar",
+data: {
+labels: labels,
+datasets: [{
+label: "Produced Quantity",
+data: values,
+backgroundColor: "#3b82f6"
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false
+}
 });
+
 </script>
+
 {% endblock %}

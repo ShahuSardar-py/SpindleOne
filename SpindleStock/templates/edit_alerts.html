@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-xl mx-auto bg-white shadow rounded-lg p-6 mt-8">
+
+<h2 class="text-xl font-semibold mb-6">
+Edit Stock Alert
+</h2>
+
+<form method="POST" class="space-y-4">
+
+<!-- Raw Material -->
+<div>
+<label class="block text-sm font-medium mb-1">
+Raw Material
+</label>
+
+<select name="material_id"
+class="w-full border rounded p-2">
+
+{% for m in materials %}
+<option value="{{m.id}}">
+{{m.name}}
+</option>
+{% endfor %}
+
+</select>
+</div>
+
+
+<!-- Alert Quantity -->
+<div>
+<label class="block text-sm font-medium mb-1">
+Alert Quantity
+</label>
+
+<input
+type="number"
+step="0.1"
+name="alert_quantity"
+required
+class="w-full border rounded p-2">
+</div>
+
+
+<!-- Unit -->
+<div>
+<label class="block text-sm font-medium mb-1">
+Unit
+</label>
+
+<select name="unit"
+class="w-full border rounded p-2">
+
+<option value="kg">kg</option>
+<option value="ton">ton</option>
+
+</select>
+</div>
+
+
+<!-- Button -->
+<div class="pt-3">
+
+<button
+type="submit"
+class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+
+Save Alert
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

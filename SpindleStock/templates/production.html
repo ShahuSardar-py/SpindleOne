@@ -162,7 +162,7 @@
                                 {{ p.quantity_produced }}
                             </td>
                             <td class="px-4 py-3">
-                                {{ p.expiry_date }}
+                                {{ p.expiry_date.strftime("%d %b %Y") if p.expiry_date else "None" }}
                             </td>
                             <td class="px-4 py-3">
                                 {{ p.date.strftime("%d %b %Y") }}

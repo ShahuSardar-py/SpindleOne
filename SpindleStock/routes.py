@@ -17,16 +17,22 @@ bp = Blueprint(
     url_prefix="/stock"
 )
 
-#  DASHBOARD
+# DASHBOARD
+from datetime import datetime, timedelta
+
+# ==============================
+# DASHBOARD
+# ==============================
 @bp.route("/")
 def dashboard():
 
     materials = RawMaterial.query.all()
     productions = Production.query.all()
 
+    # KPI 1
     total_materials = len(materials)
-    total_quantity = sum(m.quantity for m in materials)
 
+    # Production chart
     product_data = {}
     for p in productions:
         product_data[p.product_name] = (
@@ -34,14 +40,31 @@ def dashboard():
             + p.quantity_produced
         )
 
+    # LOW STOCK ALERTS
+    low_stock = []
+    for m in materials:
+        if m.alert_threshold and m.quantity <= m.alert_threshold:
+            low_stock.append(m)
+
+    # EXPIRING SOON MATERIALS (within 7 days)
+    today = datetime.now().date()
+    expiring_materials = []
+
+    for m in materials:
+        if m.expiry_date:
+            if m.expiry_date <= today + timedelta(days=7):
+                expiring_materials.append(m)
+
+    expiring_count = len(expiring_materials)
+
     return render_template(
         "dashboardStock.html",
         total_materials=total_materials,
-        total_quantity=total_quantity,
-        product_data=product_data
+        product_data=product_data,
+        low_stock=low_stock,
+        expiring_materials=expiring_materials,
+        expiring_count=expiring_count
     )
-
-
 # RAW MATERIAL
 @bp.route("/raw", methods=["GET", "POST"])
 def raw_inward():
@@ -200,3 +223,31 @@ def inventory():
         materials=inventory_data
     )
 
+# EDIT ALERTS
+# ==============================
+@bp.route("/edit_alerts", methods=["GET", "POST"])
+def edit_alerts():
+
+    materials = RawMaterial.query.all()
+
+    if request.method == "POST":
+
+        material_id = request.form["material_id"]
+        quantity = float(request.form["alert_quantity"])
+        unit = request.form["unit"]
+
+        material = RawMaterial.query.get(material_id)
+
+        if unit == "ton":
+            quantity = quantity * 1000
+
+        material.alert_threshold = quantity
+        db.session.commit()
+
+        flash("Alert updated!")
+        return redirect(url_for("spindlestock.dashboard"))
+
+    return render_template(
+        "edit_alerts.html",
+        materials=materials
+    )
