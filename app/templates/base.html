@@ -349,17 +349,21 @@
         <!-- Left: Brand + nav links -->
         <div style="display:flex; align-items:center; gap:0;">
             <a href="/" class="sys-nav-brand" style="margin-right:2rem;">SpindleOne</a>
+            {% if g.user %}
             <a href="/" class="sys-nav-link active">System</a>
+            {% endif %}
         </div>
 
-        <!-- Right: role pill -->
-        <div class="sys-nav-right">
+        <!-- Right: role pill / actions -->
+        <div class="sys-nav-right" style="gap: 1rem;">
+            {% if g.user %}
             <div class="sys-nav-role">
-                <span>Administrator</span>
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 4.5L6 7.5L9 4.5" stroke="#666" stroke-width="1.5" stroke-linecap="square"/>
-                </svg>
+                <span>ID: {{ g.user.username }} // {{ g.user.role }}</span>
             </div>
+            <a href="{{ url_for('auth.logout') }}" class="sys-btn" style="color:var(--sys-red); border-color:var(--sys-red); font-size:0.55rem; padding:0.3rem 0.6rem;">Logout</a>
+            {% else %}
+            <a href="{{ url_for('auth.login') }}" class="sys-btn" style="font-size:0.55rem; padding:0.3rem 0.6rem;">Login</a>
+            {% endif %}
         </div>
     </nav>
 
@@ -384,7 +388,7 @@
             </div>
             <div class="sys-footer-stat">
                 <span class="sys-footer-label">Auth.Clearance</span>
-                <span class="sys-footer-value">L-05_ADMIN</span>
+                <span class="sys-footer-value">{% if g.user %}{{ g.user.role.upper() }}{% else %}NONE{% endif %}</span>
             </div>
         </div>
         <div style="border-top:1px solid var(--sys-border); padding-top:1.25rem; display:flex; justify-content:space-between; align-items:center;">

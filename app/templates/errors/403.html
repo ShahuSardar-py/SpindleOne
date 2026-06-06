@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}SpindleOne // Clearance Denied{% endblock %}
+
+{% block content %}
+<div class="sys-page" style="max-width: 600px; padding-top: 4rem; padding-bottom: 4rem;">
+
+    <!-- ══ ERROR CARD ══ -->
+    <div class="sys-card" style="border-color: var(--sys-red);">
+        <!-- Card Header -->
+        <div class="sys-card-header" style="background: var(--sys-red);">
+            <span>Access_Failure // Code_403</span>
+            <span class="unit-indicator" style="background: #ffffff; animation: blink 1s infinite;"></span>
+        </div>
+
+        <div style="padding: 2.5rem 2rem; text-align: center;">
+            <!-- Warning Icon -->
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--sys-red)"
+                 stroke-width="1.5" style="margin: 0 auto 1.5rem;">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+
+            <!-- Error Heading -->
+            <h1 class="sys-heading" style="font-size: 2rem; color: var(--sys-red); margin-bottom: 0.75rem;">
+                Clearance Denied
+            </h1>
+            
+            <!-- Explanation -->
+            <p style="font-size: 0.7rem; color: var(--sys-muted); letter-spacing: 0.05em; line-height: 1.6; margin-bottom: 2rem; text-transform: uppercase;">
+                Your security profile does not possess the operational clearance level required to access this subsystem.
+            </p>
+
+            <!-- Debug Info Box -->
+            <div style="background: var(--sys-bg); border: 1px solid var(--sys-border); padding: 1rem; margin-bottom: 2rem; text-align: left; font-family: 'Space Mono', monospace; font-size: 0.6rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+                    <span style="color: var(--sys-muted);">Operator_ID:</span>
+                    <span style="color: var(--sys-ink); font-weight: 700;">{{ g.user.username if g.user else 'UNKNOWN' }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
+                    <span style="color: var(--sys-muted);">Clearance_Role:</span>
+                    <span style="color: var(--sys-red); font-weight: 700;">{{ g.user.role if g.user else 'GUEST' }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--sys-muted);">Target_Subsystem:</span>
+                    <span style="color: var(--sys-ink); font-weight: 700;">{{ request.blueprint or 'Root' }}</span>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="{{ url_for('main.home') }}" class="sys-btn sys-btn-primary" style="font-size: 0.65rem;">
+                    Return to Hub
+                </a>
+                <a href="{{ url_for('auth.logout') }}" class="sys-btn" style="color: var(--sys-red); border-color: var(--sys-red); font-size: 0.65rem;">
+                    Switch Operator
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
+    }
+</style>
+{% endblock %}

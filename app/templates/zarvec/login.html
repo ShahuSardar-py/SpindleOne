@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}SpindleOne // Zarvec Security Gateway{% endblock %}
+
+{% block content %}
+<div class="sys-page" style="max-width: 500px; padding-top: 4rem; padding-bottom: 4rem;">
+
+    <!-- ══ GATEWAY HEADER ══ -->
+    <div style="margin-bottom: 2rem; text-align: center;">
+        <div class="sys-label" style="margin-bottom: 0.5rem; color: var(--sys-red); letter-spacing: 0.2em;">[ SECURITY GATEWAY ]</div>
+        <h1 class="sys-heading" style="font-size: 2rem; line-height: 1.1; color: var(--sys-ink);">ZARVEC ACCESS</h1>
+        <p style="font-size: 0.65rem; color: var(--sys-muted); margin-top: 0.4rem; letter-spacing: 0.05em; text-transform: uppercase;">
+            Authorized system operator portal. Access key required.
+        </p>
+    </div>
+
+    <!-- ══ FLASH MESSAGES ══ -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="sys-card" style="margin-bottom: 1.5rem; border-color: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %}; background: #fff;">
+                    <div class="sys-card-header" style="background: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %};">
+                        <span>System Alert</span>
+                        <span class="unit-indicator" style="background:#fff; animation: blink 1s infinite;"></span>
+                    </div>
+                    <div style="padding: 0.75rem 1rem; font-size: 0.65rem; font-weight: 700; color: var(--sys-ink); text-transform: uppercase;">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- ══ ACCESS FORM ══ -->
+    <div class="sys-card" style="border-color: var(--sys-ink);">
+        <div class="sys-card-header" style="background: var(--sys-ink);">
+            <span>Access_Key_Authorization</span>
+            <span class="unit-indicator" style="background: var(--sys-red); animation: blink 1.5s infinite;"></span>
+        </div>
+        
+        <form method="POST" action="{{ url_for('zarvec.login') }}" style="padding: 2rem 1.5rem 1.5rem;">
+            <!-- Passcode -->
+            <div style="margin-bottom: 1.75rem; position: relative;">
+                <label for="passcode" class="sys-label" style="display:block; margin-bottom: 0.5rem;">Enter Admin Passcode</label>
+                <input type="password" id="passcode" name="passcode" required autofocus autocomplete="off"
+                       style="width: 100%; font-family: 'Space Mono', monospace; font-size: 0.8rem;
+                              border: 1px solid var(--sys-border); padding: 0.75rem 2.5rem 0.75rem 0.85rem;
+                              background: var(--sys-bg); color: var(--sys-ink); outline: none; transition: border-color 0.15s;"
+                       placeholder="••••••••••••">
+                <button type="button" onclick="togglePasswordVisibility()"
+                        style="position: absolute; right: 0.6rem; bottom: 0.6rem; background: transparent; border: none;
+                               color: var(--sys-muted); cursor: pointer; font-size: 0.6rem; font-family: 'Space Mono', monospace; font-weight: 700;">
+                    [SHOW]
+                </button>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="sys-btn sys-btn-primary" style="width: 100%; text-align: center; padding: 0.8rem; font-size: 0.7rem; border-color: var(--sys-ink);">
+                Authenticate Key
+            </button>
+        </form>
+    </div>
+
+    <!-- ══ FOOTER INFO ══ -->
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <span style="font-size:0.55rem; letter-spacing:0.1em; color:var(--sys-muted); text-transform: uppercase;">
+            Secure Environment // Zarvec Creative Co.
+        </span>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
+    }
+    input:focus {
+        border-color: var(--sys-ink) !important;
+        box-shadow: 0 0 0 2px rgba(15, 15, 15, 0.05);
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function togglePasswordVisibility() {
+        const pwdInput = document.getElementById('passcode');
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            event.target.textContent = '[HIDE]';
+        } else {
+            pwdInput.type = 'password';
+            event.target.textContent = '[SHOW]';
+        }
+    }
+</script>
+{% endblock %}

@@ -7,7 +7,7 @@
 
     <!-- ══ PAGE HEADER ══ -->
     <div style="margin-bottom: 1.75rem;">
-        <div class="sys-label" style="margin-bottom: 0.4rem;">EntryPOint Environment</div>
+        <div class="sys-label" style="margin-bottom: 0.4rem;">EntryPoint Environment</div>
         <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
             <h1 class="sys-heading" style="font-size: 2.75rem; line-height:1;">SpindleHub</h1>
             <div style="display:flex; align-items:center; gap:1.5rem;">
@@ -25,26 +25,11 @@
 
     <hr class="sys-divider">
 
-    <!-- ══ ROLE SELECTOR ══ -->
+    <!-- ══ OPERATOR STATUS indicator ══ -->
     <div style="margin-bottom: 2rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <span class="sys-label">Active Operator</span>
-        <div style="position:relative; display:inline-block;">
-            <select id="roleSelector"
-                style="appearance:none; -webkit-appearance:none;
-                       background: var(--sys-ink); color:#ffffff;
-                       font-family:'Space Mono',monospace; font-size:0.6rem;
-                       font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
-                       border:none; padding:0.45rem 2.5rem 0.45rem 0.85rem;
-                       cursor:pointer; outline:none;">
-                <option value="super-admin">Super Admin</option>
-                <option value="store-keeper">Store Keeper</option>
-                <option value="account-dept">Account Department</option>
-                <option value="hr">HR Department</option>
-            </select>
-            <svg style="position:absolute; right:0.6rem; top:50%; transform:translateY(-50%); pointer-events:none;"
-                 width="10" height="10" viewBox="0 0 12 12" fill="none">
-                <path d="M3 4.5L6 7.5L9 4.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="square"/>
-            </svg>
+        <span class="sys-label">Active Operator // Clearance:</span>
+        <div style="background: var(--sys-ink); color:#ffffff; font-family:'Space Mono',monospace; font-size:0.6rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.45rem 0.85rem;">
+            {{ g.user.username }} [{{ g.user.role }}]
         </div>
         <div style="display:flex; align-items:center; gap:0.4rem; margin-left:auto;">
             <span class="status-dot err" style="animation: blink 1.4s infinite;"></span>
@@ -56,9 +41,9 @@
     <div id="moduleGrid"
          style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.25rem; margin-bottom:1.75rem;">
 
-        <!-- SpindleFinance -->
-        <div class="sys-card module-card" data-roles="super-admin,account-dept"
-             onclick="navigateTo('finance')" style="cursor:pointer;">
+        <!-- SpindleFinance (SuperAdmin, accounts) -->
+        {% if g.user.role in ['SuperAdmin', 'accounts'] %}
+        <div class="sys-card module-card" onclick="navigateTo('finance')" style="cursor:pointer;">
             <div class="sys-card-header">
                 <span>Mod_01</span>
                 <span class="unit-indicator"></span>
@@ -75,13 +60,14 @@
                 </p>
             </div>
             <div style="padding: 1.25rem 1.5rem;">
-                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+                <button class="sys-btn" style="width:100%; text-align:center;">Access Module</button>
             </div>
         </div>
+        {% endif %}
 
-        <!-- SpindleSupply -->
-        <div class="sys-card module-card" data-roles="super-admin,store-keeper"
-             onclick="navigateTo('supply')" style="cursor:pointer;">
+        <!-- SpindleSupply (SuperAdmin only) -->
+        {% if g.user.role == 'SuperAdmin' %}
+        <div class="sys-card module-card" onclick="navigateTo('supply')" style="cursor:pointer;">
             <div class="sys-card-header">
                 <span>Mod_02</span>
                 <span class="unit-indicator"></span>
@@ -98,13 +84,14 @@
                 </p>
             </div>
             <div style="padding: 1.25rem 1.5rem;">
-                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+                <button class="sys-btn" style="width:100%; text-align:center;">Access Module</button>
             </div>
         </div>
+        {% endif %}
 
-        <!-- SpindleStock -->
-        <div class="sys-card module-card" data-roles="super-admin,store-keeper"
-             onclick="navigateTo('stock')" style="cursor:pointer;">
+        <!-- SpindleStock (SuperAdmin, store keeper) -->
+        {% if g.user.role in ['SuperAdmin', 'store keeper'] %}
+        <div class="sys-card module-card" onclick="navigateTo('stock')" style="cursor:pointer;">
             <div class="sys-card-header">
                 <span>Mod_03</span>
                 <span class="unit-indicator"></span>
@@ -121,18 +108,18 @@
                 </p>
             </div>
             <div style="padding: 1.25rem 1.5rem;">
-                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+                <button class="sys-btn" style="width:100%; text-align:center;">Access Module</button>
             </div>
         </div>
+        {% endif %}
 
-        <!-- SpindlePeople -->
-        <div class="sys-card module-card" data-roles="super-admin,hr"
-             onclick="navigateTo('people')" style="cursor:pointer;">
+        <!-- SpindlePeople (SuperAdmin, HR) -->
+        {% if g.user.role in ['SuperAdmin', 'HR'] %}
+        <div class="sys-card module-card" onclick="navigateTo('people')" style="cursor:pointer;">
             <div class="sys-card-header">
                 <span>Mod_04</span>
                 <span class="unit-indicator"></span>
             </div>
-
             <div style="padding: 2.5rem 1.5rem 0; text-align:center;">
                 <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--sys-ink)"
                      stroke-width="1.4" style="margin:0 auto 1.25rem;">
@@ -146,13 +133,14 @@
                 </p>
             </div>
             <div style="padding: 1.25rem 1.5rem;">
-                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+                <button class="sys-btn" style="width:100%; text-align:center;">Access Module</button>
             </div>
         </div>
+        {% endif %}
 
-        <!-- SpindleMech -->
-        <div class="sys-card module-card" data-roles="super-admin,store-keeper,hr,account-dept"
-             onclick="navigateTo('mech')" style="cursor:pointer;">
+        <!-- SpindleMech (SuperAdmin, store keeper, accounts) -->
+        {% if g.user.role in ['SuperAdmin', 'store keeper', 'accounts'] %}
+        <div class="sys-card module-card" onclick="navigateTo('mech')" style="cursor:pointer;">
             <div class="sys-card-header">
                 <span>Unit_05</span>
                 <span class="unit-indicator"></span>
@@ -169,13 +157,14 @@
                 </p>
             </div>
             <div style="padding: 1.25rem 1.5rem;">
-                <button class="sys-btn" style="width:100%; text-align:center;">Acess Module</button>
+                <button class="sys-btn" style="width:100%; text-align:center;">Access Module</button>
             </div>
         </div>
+        {% endif %}
 
-        <!-- Analytics (super-admin only placeholder) -->
-        <div class="sys-card module-card" data-roles="super-admin"
-             style="cursor:pointer; opacity:0.65;" onclick="alert('SpindleAnalytics coming soon.')">
+        <!-- Analytics (SuperAdmin only) -->
+        {% if g.user.role == 'SuperAdmin' %}
+        <div class="sys-card module-card" style="cursor:pointer; opacity:0.65;" onclick="alert('SpindleAnalytics coming soon.')">
             <div class="sys-card-header">
                 <span>Unit_06</span>
                 <span class="unit-indicator" style="background:var(--sys-muted);"></span>
@@ -194,6 +183,7 @@
                 <button class="sys-btn" style="width:100%; text-align:center; opacity:0.5; cursor:not-allowed;">Coming Soon</button>
             </div>
         </div>
+        {% endif %}
 
     </div>
 
@@ -212,8 +202,8 @@
                     System Status: Operational
                 </div>
                 <p style="font-size:0.6rem; color:var(--sys-muted); letter-spacing:0.05em; line-height:1.7; margin:0;">
-                    Module nodes healthy. Analytics ready.  Database
-                    latency &lt;12ms.ERP V1.0 — All Clear.
+                    Module nodes healthy. Analytics ready. Database
+                    latency &lt;12ms. ERP V1.0 — All Clear.
                 </p>
             </div>
             <!-- Right actions -->
@@ -232,10 +222,18 @@
 </div>
 
 <!-- ══ NO-ACCESS OVERLAY ══ -->
-<div id="noAccessMsg" style="display:none; text-align:center; padding:3rem 0; color:var(--sys-muted);">
+{% if not (
+    g.user.role in ['SuperAdmin', 'accounts'] or
+    g.user.role == 'SuperAdmin' or
+    g.user.role in ['SuperAdmin', 'store keeper'] or
+    g.user.role in ['SuperAdmin', 'HR'] or
+    g.user.role in ['SuperAdmin', 'store keeper', 'accounts']
+) %}
+<div id="noAccessMsg" style="text-align:center; padding:3rem 0; color:var(--sys-muted);">
     <div class="sys-heading" style="font-size:1.4rem; margin-bottom:0.5rem;">No Modules Accessible</div>
-    <p style="font-size:0.6rem; letter-spacing:0.1em;">Selected role has no assigned operational units.</p>
+    <p style="font-size:0.6rem; letter-spacing:0.1em;">Your active role clearance has no assigned operational units.</p>
 </div>
+{% endif %}
 
 {% endblock %}
 
@@ -269,33 +267,6 @@
 
 {% block extra_scripts %}
 <script>
-    const roleSelector  = document.getElementById('roleSelector');
-    const moduleCards   = document.querySelectorAll('.module-card');
-    const noAccessMsg   = document.getElementById('noAccessMsg');
-
-    function updateVisibility(selectedRole) {
-        let visible = 0;
-        moduleCards.forEach(card => {
-            const allowed = card.getAttribute('data-roles').split(',');
-            if (allowed.includes(selectedRole)) {
-                card.style.display = '';
-                visible++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        noAccessMsg.style.display = visible === 0 ? 'block' : 'none';
-    }
-
-    roleSelector.addEventListener('change', (e) => {
-        updateVisibility(e.target.value);
-        localStorage.setItem('selectedRole', e.target.value);
-    });
-
-    const savedRole = localStorage.getItem('selectedRole') || 'super-admin';
-    roleSelector.value = savedRole;
-    updateVisibility(savedRole);
-
     function navigateTo(module) {
         const routes = {
             people:  '/hr/employees',

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}SpindleOne // System Suspended{% endblock %}
+
+{% block content %}
+<div class="sys-page" style="max-width: 650px; padding-top: 5rem; padding-bottom: 5rem;">
+
+    <!-- ══ ERROR CARD ══ -->
+    <div class="sys-card" style="border-color: var(--sys-red); box-shadow: 6px 6px 0px var(--sys-ink);">
+        <!-- Card Header -->
+        <div class="sys-card-header" style="background: var(--sys-red);">
+            <span>System_Suspension // Node_Access_Block</span>
+            <span class="unit-indicator" style="background: #ffffff; animation: blink 1s infinite;"></span>
+        </div>
+
+        <div style="padding: 3rem 2rem; text-align: center;">
+            <!-- Warning / Alert Icon -->
+            <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--sys-red)"
+                 stroke-width="1.2" style="margin: 0 auto 1.75rem; filter: drop-shadow(0 0 4px rgba(214, 58, 47, 0.25));">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+
+            <!-- Error Heading -->
+            <h1 class="sys-heading" style="font-size: 2.25rem; color: var(--sys-red); margin-bottom: 1rem; letter-spacing: 0.05em; line-height: 1.1;">
+                ACCESS SUSPENDED
+            </h1>
+            
+            <!-- Explanation / Reason -->
+            <div style="background: var(--sys-bg); border: 1px solid var(--sys-border); padding: 1.5rem; margin-bottom: 2.25rem; text-align: left; position: relative;">
+                <div class="sys-label" style="color: var(--sys-muted); margin-bottom: 0.6rem; font-size: 0.55rem;">[ OFFICIAL NOTICE ]</div>
+                <p style="font-size: 0.7rem; color: var(--sys-ink); letter-spacing: 0.05em; line-height: 1.6; margin: 0; font-family: 'Space Mono', monospace; font-weight: bold; text-transform: uppercase;">
+                    {{ reason }}
+                </p>
+            </div>
+
+            <!-- Debug Info Box -->
+            <div style="border-top: 1px dashed var(--sys-border); border-bottom: 1px dashed var(--sys-border); padding: 1rem 0; margin-bottom: 2rem; text-align: left; font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                    <span>System Status:</span>
+                    <span style="color: var(--sys-red); font-weight: 700;">OFFLINE // DEACTIVATED</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                    <span>Environment:</span>
+                    <span style="color: var(--sys-ink); font-weight: 700;">PRODUCTION_MAIN</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Clearance Gateway:</span>
+                    <span style="color: var(--sys-ink); font-weight: 700;">BLOCKED BY ZARVEC</span>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; align-items: center;">
+                <div style="font-size: 0.6rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                    Please contact the developer for service restoration.
+                </div>
+                <a href="https://zarvec.framer.website/" target="_blank" class="sys-btn sys-btn-primary" style="font-size: 0.65rem; padding: 0.7rem 1.5rem; border-color: var(--sys-red); background: var(--sys-red);">
+                    Contact Zarvec Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
+    }
+</style>
+{% endblock %}

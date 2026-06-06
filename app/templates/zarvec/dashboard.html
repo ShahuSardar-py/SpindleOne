@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}SpindleOne // Zarvec Control Panel{% endblock %}
+
+{% block content %}
+<div class="sys-page">
+
+    <!-- ══ PAGE HEADER ══ -->
+    <div style="margin-bottom: 2rem;">
+        <div class="sys-label" style="margin-bottom: 0.4rem; color: var(--sys-red);">Administrative Level 0</div>
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <h1 class="sys-heading" style="font-size: 2.75rem; line-height:1; letter-spacing: 0.05em;">Zarvec Control Panel</h1>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <div class="sys-nav-role" style="background: var(--sys-surface); border-color: var(--sys-border); color: var(--sys-ink); padding: 0.4rem 0.8rem;">
+                    <span class="status-dot {% if state.is_locked %}err{% else %}ok{% endif %}" style="animation: blink 1.5s infinite;"></span>
+                    <span class="sys-label" style="color: var(--sys-ink);">APP_ACCESS: {% if state.is_locked %}SUSPENDED{% else %}OPERATIONAL{% endif %}</span>
+                </div>
+                <a href="{{ url_for('zarvec.logout') }}" class="sys-btn" style="color: var(--sys-red); border-color: var(--sys-red); font-size: 0.6rem; padding: 0.4rem 0.8rem;">
+                    Lock Session
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="sys-divider" style="margin-bottom: 2rem;">
+
+    <!-- ══ FLASH MESSAGES ══ -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="sys-card" style="margin-bottom: 2rem; border-color: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %}; background: #fff;">
+                    <div class="sys-card-header" style="background: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %};">
+                        <span>Transaction Alert</span>
+                        <span class="unit-indicator" style="background:#fff;"></span>
+                    </div>
+                    <div style="padding: 0.75rem 1rem; font-size: 0.65rem; font-weight: 700; color: var(--sys-ink); text-transform: uppercase;">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+        
+        <!-- LEFT COLUMN: ACCESS CONFIGURATION -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            
+            <div class="sys-card" style="border-color: {% if state.is_locked %}var(--sys-red){% else %}var(--sys-green){% endif %}; transition: border-color 0.25s;">
+                <div class="sys-card-header" style="background: {% if state.is_locked %}var(--sys-red){% else %}var(--sys-green){% endif %}; transition: background-color 0.25s;">
+                    <span>System_Access_Config</span>
+                    <span class="unit-indicator" style="background: #fff; animation: blink 1.2s infinite;"></span>
+                </div>
+                
+                <form method="POST" action="{{ url_for('zarvec.save') }}" style="padding: 2rem 1.5rem;">
+                    
+                    <!-- DYNAMIC STATE TOGGLE CARD -->
+                    <div style="margin-bottom: 2rem; border: 1px solid var(--sys-border); background: var(--sys-bg); padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <div class="sys-heading" style="font-size: 1.15rem; margin-bottom: 0.15rem;">
+                                Suspend Application Access
+                            </div>
+                            <div style="font-size: 0.6rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.4;">
+                                Instantly locks down all user routes (except this config panel & static resources).<br>
+                                Users will see the suspension screen when attempting to log in or navigate.
+                            </div>
+                        </div>
+                        
+                        <!-- Toggle Switch -->
+                        <label class="switch-container">
+                            <input type="checkbox" name="is_locked" id="is_locked" {% if state.is_locked %}checked{% endif %}>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- LOCK NOTICE CONTENT -->
+                    <div style="margin-bottom: 2rem;">
+                        <label for="lock_reason" class="sys-label" style="display:block; margin-bottom: 0.5rem;">Suspension Notice / Reason</label>
+                        <textarea id="lock_reason" name="lock_reason" rows="4" required
+                                  style="width: 100%; font-family: 'Space Mono', monospace; font-size: 0.75rem;
+                                         border: 1px solid var(--sys-border); padding: 0.75rem;
+                                         background: var(--sys-bg); color: var(--sys-ink); outline: none; transition: border-color 0.15s; resize: vertical;"
+                                  placeholder="Provide the reason for suspension (e.g. outstanding payments)...">{{ state.lock_reason }}</textarea>
+                        <div style="font-size: 0.55rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            This message will be formatted beautifully on the suspension screen for clients and users.
+                        </div>
+                    </div>
+
+                    <!-- UPDATE PASSCODE -->
+                    <div style="margin-bottom: 2rem; border-top: 1px dashed var(--sys-border); padding-top: 1.5rem;">
+                        <label for="new_passcode" class="sys-label" style="display:block; margin-bottom: 0.5rem;">Change Admin Passcode (Optional)</label>
+                        <input type="text" id="new_passcode" name="new_passcode" autocomplete="off"
+                               style="width: 100%; font-family: 'Space Mono', monospace; font-size: 0.75rem;
+                                      border: 1px solid var(--sys-border); padding: 0.65rem 0.85rem;
+                                      background: var(--sys-bg); color: var(--sys-ink); outline: none; transition: border-color 0.15s;"
+                               placeholder="Enter new passcode to replace '{{ state.passcode }}'">
+                        <div style="font-size: 0.55rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                            Leave empty to retain the current passcode: <strong>{{ state.passcode }}</strong>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT -->
+                    <button type="submit" class="sys-btn sys-btn-primary" style="width: 100%; text-align: center; padding: 0.85rem; font-size: 0.7rem;">
+                        Commit Configuration Changes
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: STATUS & CONSOLE -->
+        <div style="display: flex; flex-direction: column; gap: 2rem;">
+            
+            <!-- STATUS CARD -->
+            <div class="sys-card">
+                <div class="sys-card-header">
+                    <span>Active_Node_Info</span>
+                    <span class="unit-indicator"></span>
+                </div>
+                <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    
+                    <div style="border-bottom: 1px solid var(--sys-bg); padding-bottom: 0.75rem;">
+                        <span class="sys-label" style="display:block; margin-bottom: 0.2rem;">ENVIRONMENT_STATUS</span>
+                        <span class="sys-heading" style="font-size: 1.3rem; color: {% if state.is_locked %}var(--sys-red){% else %}var(--sys-green){% endif %};">
+                            {% if state.is_locked %}SUSPENDED (503 LOCK){% else %}ONLINE (ACTIVE){% endif %}
+                        </span>
+                    </div>
+
+                    <div style="border-bottom: 1px solid var(--sys-bg); padding-bottom: 0.75rem;">
+                        <span class="sys-label" style="display:block; margin-bottom: 0.2rem;">LICENSING_PARTNER</span>
+                        <span class="sys-heading" style="font-size: 1rem;">ZARVEC CREATIVE CO.</span>
+                    </div>
+
+                    <div style="border-bottom: 1px solid var(--sys-bg); padding-bottom: 0.75rem;">
+                        <span class="sys-label" style="display:block; margin-bottom: 0.2rem;">CONFIG_DATABASE</span>
+                        <span style="font-size: 0.65rem; font-family: monospace; font-weight: 700;">SQLite (Active Connection)</span>
+                    </div>
+                    
+                    <div>
+                        <span class="sys-label" style="display:block; margin-bottom: 0.2rem;">STATE_FILE_INTEGRITY</span>
+                        <span class="status-dot ok" style="display:inline-block; margin-right: 0.35rem;"></span>
+                        <span style="font-size: 0.65rem; font-family: monospace; color: var(--sys-muted);">VERIFIED (JSON)</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- QUICK ACTIONS / INFO -->
+            <div class="sys-card" style="border-style: dashed;">
+                <div class="sys-card-header" style="background: var(--sys-muted);">
+                    <span>Developer_Guidelines</span>
+                    <span class="unit-indicator" style="background: #fff;"></span>
+                </div>
+                <div style="padding: 1.25rem; font-size: 0.6rem; color: var(--sys-muted); line-height: 1.6; text-transform: uppercase; letter-spacing: 0.04em;">
+                    <p style="margin-bottom: 0.75rem;">
+                        <strong>1. Billing lockout:</strong> To lock the application due to unpaid fees, toggle the switch to the right (red) and click "Commit". Write a custom notice message to notify the client.
+                    </p>
+                    <p style="margin-bottom: 0.75rem;">
+                        <strong>2. Safety bypass:</strong> The `/zarvec` endpoint remains active even during a lockout so you can log back in and unlock the application at any time.
+                    </p>
+                    <p>
+                        <strong>3. Direct routing:</strong> Once unlocked, users attempting to access the application will be able to log in normally.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.2; }
+    }
+    textarea:focus, input:focus {
+        border-color: var(--sys-ink) !important;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Premium Toggle Switch Styles */
+    .switch-container {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    .switch-container input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--sys-border);
+        transition: .3s;
+        border: 1px solid var(--sys-ink);
+    }
+
+    .switch-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: #fff;
+        transition: .3s;
+        border: 1px solid var(--sys-ink);
+    }
+
+    input:checked + .switch-slider {
+        background-color: var(--sys-red);
+    }
+
+    input:focus + .switch-slider {
+        box-shadow: 0 0 1px var(--sys-red);
+    }
+
+    input:checked + .switch-slider:before {
+        transform: translateX(24px);
+        background-color: #ffffff;
+    }
+</style>
+{% endblock %}

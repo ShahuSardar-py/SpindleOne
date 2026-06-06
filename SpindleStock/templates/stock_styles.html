@@ -1,0 +1,491 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── CSS Variables ─── */
+  :root {
+    --s0: #F9F9F9;
+    --s1: #F3F3F3;
+    --s2: #E8E8E8;
+    --s3: #DADADA;
+    --s4: #CCCCCC;
+    --ink: #1A1C1C;
+    --ink2: #4A4C4C;
+    --ink3: #7A7C7C;
+    --red: #FF3B30;
+    --green: #34C759;
+    --amber: #FFD600;
+    --blue: #007AFF;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  /* ─── Dot-matrix texture overlay ─── */
+  body {
+    background: var(--s0) !important;
+    font-family: var(--font-body) !important;
+    color: var(--ink) !important;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #1A1C1C 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Shell Layout ─── */
+  .stk-shell {
+    display: flex;
+    min-height: calc(100vh - 48px);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Sidebar ─── */
+  .stk-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-right: 1px solid #2a2c2c;
+  }
+
+  .stk-sidebar-brand {
+    padding: 1.5rem 1.25rem 1.25rem;
+    border-bottom: 1px solid #2a2c2c;
+  }
+
+  .stk-sidebar-brand-label {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .stk-sidebar-brand-label .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .stk-sidebar-brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    margin-top: 0.2rem;
+  }
+
+  .stk-nav {
+    padding: 1rem 0;
+    flex: 1;
+  }
+
+  .stk-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #777;
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .stk-nav-link:hover {
+    background: #1e2020;
+    color: #ccc;
+  }
+
+  .stk-nav-link.active {
+    background: #1e2020;
+    color: #ffffff;
+    border-left: 3px solid var(--red);
+    padding-left: calc(1.25rem - 3px);
+  }
+
+  /* ─── Main Content ─── */
+  .stk-main {
+    flex: 1;
+    padding: 1.75rem 2rem 3rem;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Titles & Labels ─── */
+  .stk-page-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2.6rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .stk-page-sub {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--ink3);
+    margin-top: 0.4rem;
+  }
+
+  .stk-section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 0.75rem;
+  }
+
+  .stk-section-label::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--s2);
+    border: 1.5px solid var(--ink2);
+    flex-shrink: 0;
+  }
+
+  /* ─── Cards (Chunky Brutalist) ─── */
+  .stk-card {
+    background: #ffffff;
+    border: 1px solid var(--s3);
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .stk-card:hover {
+    box-shadow: 6px 6px 0 var(--ink);
+    transform: translate(-1px, -1px);
+  }
+
+  .stk-card-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ─── Chunky Buttons ─── */
+  .stk-btn-primary {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s, box-shadow 0.12s, transform 0.12s;
+    text-decoration: none;
+    border-radius: 0;
+  }
+
+  .stk-btn-primary:hover {
+    background: #222;
+    box-shadow: 3px 3px 0 var(--ink3);
+    transform: translate(-1px, -1px);
+  }
+
+  .stk-btn-secondary {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--s2);
+    color: var(--ink2);
+    border: 1px solid var(--s3);
+    padding: 0.65rem 1.3rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s;
+    text-decoration: none;
+    border-radius: 0;
+  }
+
+  .stk-btn-secondary:hover {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink3);
+    transform: translate(-1px, -1px);
+  }
+
+  .stk-btn-danger {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--red);
+    color: #fff;
+    border: 1px solid var(--red);
+    padding: 0.65rem 1.3rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.12s, box-shadow 0.12s, transform 0.12s;
+    text-decoration: none;
+    border-radius: 0;
+  }
+
+  .stk-btn-danger:hover {
+    background: #e03028;
+    box-shadow: 3px 3px 0 var(--ink3);
+    transform: translate(-1px, -1px);
+  }
+
+  /* ─── Table System ─── */
+  .stk-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--s3);
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .stk-table-header {
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .stk-table-header .unit-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .stk-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stk-table thead tr {
+    background: var(--s1);
+    border-bottom: 1px solid var(--s3);
+  }
+
+  .stk-table th {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .stk-table th.right {
+    text-align: right;
+  }
+
+  .stk-table th.center {
+    text-align: center;
+  }
+
+  .stk-table tbody tr {
+    border-top: 1px solid var(--s1);
+    transition: background 0.1s;
+  }
+
+  .stk-table tbody tr:hover {
+    background: var(--s0);
+  }
+
+  .stk-table td {
+    padding: 0.75rem 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--ink2);
+  }
+
+  .stk-table td.right {
+    text-align: right;
+  }
+
+  .stk-table td.center {
+    text-align: center;
+  }
+
+  .stk-table td.muted {
+    color: var(--ink3);
+  }
+
+  /* ─── Form Elements ─── */
+  .stk-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .stk-field label {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink2);
+  }
+
+  .stk-input, .stk-select, .stk-textarea {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ink);
+    background: var(--s0);
+    border: 1px solid var(--s3);
+    padding: 0.55rem 0.75rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.12s, background 0.12s;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  .stk-input:focus, .stk-select:focus, .stk-textarea:focus {
+    border-color: var(--ink);
+    background: #fff;
+  }
+
+  .stk-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A7C7C' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  /* ─── Grid / KPI Strip ─── */
+  .stk-kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--s3);
+    border: 1px solid var(--s3);
+    box-shadow: 4px 4px 0 var(--ink);
+    margin-bottom: 1.75rem;
+  }
+
+  .stk-kpi-cell {
+    background: #ffffff;
+    padding: 1.1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: background 0.12s;
+  }
+
+  .stk-kpi-cell:hover {
+    background: var(--s0);
+  }
+
+  .stk-kpi-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 0.4rem;
+  }
+
+  .stk-kpi-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stk-kpi-value.red {
+    color: var(--red);
+  }
+
+  /* ─── Toast alert ─── */
+  .stk-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: #ffffff;
+    border: 1px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    padding: 0.85rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .stk-toast.success {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 4px 4px 0 var(--green);
+  }
+
+  .stk-toast.danger {
+    border-color: var(--red);
+    color: var(--red);
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+</style>

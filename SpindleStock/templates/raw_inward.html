@@ -2,203 +2,280 @@
 
 {% block title %}Raw Material{% endblock %}
 
+{% block extra_styles %}
+{% include "stock_styles.html" %}
+{% endblock %}
+
 {% block content %}
-<div class="flex h-[calc(100vh-72px)]">
+<div class="stk-shell">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-white border-r overflow-y-auto">
-
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900">SpindleStock</h2>
+    <div class="stk-sidebar">
+        <div class="stk-sidebar-brand">
+            <div class="stk-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindleStock</span>
+            </div>
+            <div class="stk-sidebar-brand-sub">Inventory Control</div>
         </div>
 
-        <div class="p-4">
+        <div class="stk-nav">
+            <a href="/stock/" class="stk-nav-link">
+                <span>📊 Dashboard</span>
+            </a>
 
-    <a href="/stock/"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.dashboard' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📊</span>
-        <span>Dashboard</span>
-    </a>
+            <a href="/stock/raw" class="stk-nav-link active">
+                <span>📦 Raw Material</span>
+            </a>
 
-    <a href="/stock/raw"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.raw_inward' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📦</span>
-        <span>Raw Material</span>
-    </a>
+            <a href="/stock/production" class="stk-nav-link">
+                <span>🏭 Production</span>
+            </a>
 
-    <a href="/stock/production"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors mb-2
-       {% if request.endpoint == 'spindlestock.production' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">🏭</span>
-        <span>Production</span>
-    </a>
+            <a href="/stock/inventory" class="stk-nav-link">
+                <span>📋 Stock Balance</span>
+            </a>
 
-    <a href="/stock/inventory"
-       class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors
-       {% if request.endpoint == 'spindlestock.inventory' %}
-           bg-primary-50 text-primary-600 border-r-4 border-primary-600
-       {% else %}
-           text-gray-600 hover:bg-gray-50
-       {% endif %}">
-        <span class="text-xl">📋</span>
-        <span>Stock Balance</span>
-    </a>
-
-    </div>
+            <a href="/stock/recipes" class="stk-nav-link">
+                <span>📜 Recipes</span>
+            </a>
+        </div>
     </div>
 
     <!-- Content -->
-    <div class="flex-1 p-6 overflow-y-auto">
+    <div class="stk-main">
 
-        <h3 class="text-2xl font-semibold mb-6">
-            Raw Material Management
-        </h3>
+        <!-- Flash Toast -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="toast" class="stk-toast {% if 'already exists' in messages[0] %}danger{% else %}success{% endif %}">
+             <span>{% if 'already exists' in messages[0] %}!{% else %}✓{% endif %}</span>
+             <span>{{ messages[0] }}</span>
+        </div>
+        {% endif %}
+        {% endwith %}
 
-        <!-- Add Material -->
-        <div class="card p-6 mb-6">
+        <div class="mb-6">
+            <h3 class="stk-page-title">Raw Material Management</h3>
+            <p class="stk-page-sub">Operational System Registry // Inward Entries</p>
+        </div>
 
-            <h5 class="font-semibold mb-4">
-                Add Raw Material
-            </h5>
+        <!-- Add Material Form -->
+        <div class="stk-card mb-8">
+            <h5 class="stk-card-title">Add Raw Material Lot</h5>
 
-            <form method="POST" class="space-y-4">
+            <form method="POST" class="space-y-6">
 
-                <div class="grid grid-cols-5 gap-4">
+                <div class="grid grid-cols-6 gap-6">
 
-                    <div>
-                        <label class="text-sm font-medium">
-                            Material Name
-                        </label>
-                        <input name="name" required
-                               class="w-full border rounded-lg px-3 py-2">
+                    <div class="stk-field">
+                        <label>Material Name</label>
+                        <input name="name" required placeholder="e.g. Flour" class="stk-input">
                     </div>
 
-                    <div>
-                        <label class="text-sm font-medium">
-                            Quantity
-                        </label>
+                    <div class="stk-field">
+                        <label>Batch Number</label>
+                        <input name="batch_number" placeholder="Optional (auto-generated)" class="stk-input">
+                    </div>
 
+                    <div class="stk-field">
+                        <label>Quantity & Unit</label>
                         <div class="flex gap-2">
-                            <input type="number" step="0.01"
-                                   name="quantity" required
-                                   class="w-full border rounded-lg px-3 py-2">
-
-                            <select name="unit"
-                                    class="border rounded-lg px-3 py-2">
+                            <input type="number" step="0.01" name="quantity" required placeholder="0.00" class="stk-input">
+                            <select name="unit" class="stk-select w-28">
                                 <option value="kg">kg</option>
                                 <option value="ton">ton</option>
                             </select>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="text-sm font-medium">
-                            Amount
-                        </label>
-
-                        <div class="flex">
-                            <span class="px-3 py-2 bg-gray-100 border border-r-0 rounded-l-lg">
-                                ₹
-                            </span>
-                            <input type="number" step="0.01"
-                                   name="amount" required
-                                   class="w-full border rounded-r-lg px-3 py-2">
+                    <div class="stk-field">
+                        <label>Amount (Total Cost)</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-mono text-xs">₹</span>
+                            <input type="number" step="0.01" name="amount" required placeholder="0.00" class="stk-input pl-7">
                         </div>
                     </div>
 
-                    <div>
-                        <label class="text-sm font-medium">
-                            Inward Date
-                        </label>
-                        <input type="date" name="inward_date" required
-                               class="w-full border rounded-lg px-3 py-2">
+                    <div class="stk-field">
+                        <label>Inward Date</label>
+                        <input type="date" name="inward_date" required class="stk-input">
                     </div>
 
-                    <div>
-                        <label class="text-sm font-medium">
-                            Expiry Date
-                        </label>
-                        <input type="date" name="expiry_date"
-                               class="w-full border rounded-lg px-3 py-2">
+                    <div class="stk-field">
+                        <label>Expiry Date</label>
+                        <input type="date" name="expiry_date" class="stk-input">
                     </div>
 
                 </div>
 
-                <button class="btn-primary mt-4">
-                    Add Material
-                </button>
+                <div class="flex justify-end pt-2">
+                    <button class="stk-btn-primary">
+                        Record Purchase Lot
+                    </button>
+                </div>
 
             </form>
-
         </div>
 
-        <!-- Material List -->
-        <div class="card p-6">
+        <!-- Tab Filters -->
+        <div class="tab-filters flex gap-0 border border-gray-300 mb-6 w-fit bg-gray-100">
+            <button id="tabCatalogBtn" onclick="switchTab('catalog')" class="tab-btn active font-mono text-xs font-bold uppercase tracking-wider py-2 px-4 border-r border-gray-300">
+                Raw Material Catalog
+            </button>
+            <button id="tabLotsBtn" onclick="switchTab('lots')" class="tab-btn font-mono text-xs font-bold uppercase tracking-wider py-2 px-4">
+                Purchase Lots Registry
+            </button>
+        </div>
 
-            <h5 class="font-semibold mb-4">
-                Raw Materials List
-            </h5>
+        <!-- Tab 1: Catalog -->
+        <div id="tabCatalog" class="stk-table-wrap">
+            <div class="stk-table-header">
+                <span>Material Catalog Summary</span>
+                <span class="unit-dot"></span>
+            </div>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full text-sm">
-
-                    <thead class="border-b bg-gray-50 text-gray-600">
-                        <tr>
-                            <th class="px-4 py-3 text-left">Name</th>
-                            <th class="px-4 py-3 text-left">Quantity</th>
-                            <th class="px-4 py-3 text-left">Amount</th>
-                            <th class="px-4 py-3 text-left">Inward Date</th>
-                            <th class="px-4 py-3 text-left">Expiry Date</th>
-                        </tr>
-                    </thead>
-
-                    <tbody class="divide-y">
-
+            <table class="stk-table">
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Total Available Stock</th>
+                        <th>Alert Threshold</th>
+                        <th class="right">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if materials %}
                         {% for m in materials %}
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium">
-                                {{ m.name }}
-                            </td>
-
-                            <td class="px-4 py-3">
-                                {{ m.quantity }} {{ m.unit }}
-                            </td>
-
-                            <td class="px-4 py-3">
-                                ₹ {{ m.amount }}
-                            </td>
-
-                            <td class="px-4 py-3">
-                                {{ m.inward_date.strftime("%d %b %Y") if m.inward_date else "" }}
-                            </td>
-
-                            <td class="px-4 py-3">
-                                {{ m.expiry_date.strftime("%d %b %Y") if m.expiry_date else "" }}
+                        <tr>
+                            <td class="font-semibold text-gray-900">{{ m.name }}</td>
+                            <td>{{ m.total_quantity }} {{ m.unit }}</td>
+                            <td class="font-mono text-gray-600">{{ m.alert_threshold }} {{ m.unit }}</td>
+                            <td class="right">
+                                {% if m.total_quantity <= m.alert_threshold %}
+                                <span class="bg-red-100 text-red-800 text-xs font-mono font-bold px-2.5 py-0.5 rounded">LOW STOCK</span>
+                                {% else %}
+                                <span class="bg-green-100 text-green-800 text-xs font-mono font-bold px-2.5 py-0.5 rounded">OK</span>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="center muted py-10">
+                                No materials registered in catalog.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
 
-                    </tbody>
-
-                </table>
+        <!-- Tab 2: Lots -->
+        <div id="tabLots" class="stk-table-wrap hidden">
+            <div class="stk-table-header">
+                <span>Lots Purchase Registry</span>
+                <span class="unit-dot"></span>
             </div>
 
+            <table class="stk-table">
+                <thead>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Batch Number</th>
+                        <th>Original Qty</th>
+                        <th>Remaining Qty</th>
+                        <th>Unit Price</th>
+                        <th>Inward Date</th>
+                        <th>Expiry Date</th>
+                        <th class="right">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if lots %}
+                        {% for lot in lots %}
+                        <tr class="{% if lot.is_exhausted %}bg-gray-100 opacity-60{% endif %}">
+                            <td class="font-semibold text-gray-900">{{ lot.raw_material.name }}</td>
+                            <td class="font-mono font-bold">{{ lot.batch_number }}</td>
+                            <td>{{ lot.quantity }} {{ lot.raw_material.unit }}</td>
+                            <td class="font-semibold">{{ lot.remaining_quantity }} {{ lot.raw_material.unit }}</td>
+                            <td class="font-mono text-gray-600">₹ {{ "%.2f"|format(lot.price_per_unit) }}</td>
+                            <td class="font-mono text-gray-600">{{ lot.inward_date.strftime("%d %b %Y") if lot.inward_date else "—" }}</td>
+                            <td class="font-mono text-gray-600">{{ lot.expiry_date.strftime("%d %b %Y") if lot.expiry_date else "—" }}</td>
+                            <td class="right">
+                                {% if lot.is_exhausted %}
+                                <span class="bg-gray-200 text-gray-800 text-xs font-mono font-bold px-2.5 py-0.5 rounded">EXHAUSTED</span>
+                                {% else %}
+                                <span class="bg-green-100 text-green-800 text-xs font-mono font-bold px-2.5 py-0.5 rounded">ACTIVE</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="center muted py-10">
+                                No lots found. Add lots above.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
 
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<style>
+  .tab-btn {
+      transition: background 0.1s, color 0.1s;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: #7A7C7C;
+  }
+  .tab-btn.active {
+      background: #1A1C1C !important;
+      color: #fff !important;
+  }
+  .tab-btn:not(.active):hover {
+      background: #E8E8E8;
+      color: #1A1C1C;
+  }
+</style>
+
+<script>
+function switchTab(tab) {
+    const catalogTab = document.getElementById("tabCatalog");
+    const lotsTab = document.getElementById("tabLots");
+    const catalogBtn = document.getElementById("tabCatalogBtn");
+    const lotsBtn = document.getElementById("tabLotsBtn");
+
+    if (tab === "catalog") {
+        catalogTab.classList.remove("hidden");
+        lotsTab.classList.add("hidden");
+        catalogBtn.classList.add("active");
+        lotsBtn.classList.remove("active");
+    } else {
+        catalogTab.classList.add("hidden");
+        lotsTab.classList.remove("hidden");
+        catalogBtn.classList.remove("active");
+        lotsBtn.classList.add("active");
+    }
+}
+
+/* Toast animation */
+const toast = document.getElementById("toast");
+if (toast) {
+    setTimeout(() => {
+        toast.style.opacity = "1";
+    }, 100);
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease";
+    }, 3000);
+}
+</script>
 {% endblock %}

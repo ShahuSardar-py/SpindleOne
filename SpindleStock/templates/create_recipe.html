@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if recipe %}Edit Recipe{% else %}Create Recipe{% endif %}
+{% endblock %}
+
+{% block extra_styles %}
+{% include "stock_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="stk-shell">
+
+    <!-- Sidebar -->
+    <div class="stk-sidebar">
+        <div class="stk-sidebar-brand">
+            <div class="stk-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindleStock</span>
+            </div>
+            <div class="stk-sidebar-brand-sub">Inventory Control</div>
+        </div>
+
+        <div class="stk-nav">
+            <a href="/stock/" class="stk-nav-link">
+                <span>📊 Dashboard</span>
+            </a>
+
+            <a href="/stock/raw" class="stk-nav-link">
+                <span>📦 Raw Material</span>
+            </a>
+
+            <a href="/stock/production" class="stk-nav-link">
+                <span>🏭 Production</span>
+            </a>
+
+            <a href="/stock/inventory" class="stk-nav-link">
+                <span>📋 Stock Balance</span>
+            </a>
+
+            <a href="/stock/recipes" class="stk-nav-link active">
+                <span>📜 Recipes</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="stk-main">
+
+        <!-- Flash Toast -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="toast" class="stk-toast danger">
+             <span>!</span>
+             <span>{{ messages[0] }}</span>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="mb-6 max-w-4xl mx-auto">
+            <h3 class="stk-page-title">
+                {% if recipe %}Edit Recipe{% else %}Create Recipe{% endif %}
+            </h3>
+            <p class="stk-page-sub">Formulation Editor // Dynamic Ingredients</p>
+        </div>
+
+        <!-- Recipe Form Card -->
+        <div class="stk-card max-w-4xl mx-auto">
+            <h5 class="stk-card-title">
+                {% if recipe %}Modify Recipe: {{ recipe.name }}{% else %}Define New Formulation{% endif %}
+            </h5>
+
+            <form method="POST" class="space-y-6">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="stk-field">
+                        <label>Recipe Name *</label>
+                        <input name="name" required
+                               value="{% if recipe %}{{ recipe.name }}{% endif %}"
+                               placeholder="e.g. Bread Dough"
+                               class="stk-input">
+                    </div>
+
+                    <div class="stk-field">
+                        <label>Finished Product Name (Optional)</label>
+                        <input name="finished_product_name"
+                               value="{% if recipe %}{{ recipe.finished_product_name or '' }}{% endif %}"
+                               placeholder="e.g. Sourdough Loaf"
+                               class="stk-input">
+                    </div>
+                </div>
+
+                <div class="border-t pt-4">
+                    <span class="stk-section-label">Ingredients & Proportions</span>
+
+                    <div id="materials-container" class="space-y-3 mt-4">
+                        <!-- Dynamic rows injected here -->
+                    </div>
+
+                    <button type="button"
+                            onclick="addRecipeMaterialRow()"
+                            class="stk-btn-secondary border-dashed border-2 mt-4">
+                        + Add Ingredient
+                    </button>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t">
+                    <a href="{{ url_for('spindlestock.recipes') }}" class="stk-btn-secondary">
+                        Cancel
+                    </a>
+                    <button type="submit" class="stk-btn-primary">
+                        {% if recipe %}Save Changes{% else %}Create Formulation{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Available raw materials from catalog
+const availableMaterials = [
+    {% for m in materials %}
+    { id: {{ m.id }}, name: {{ m.name|tojson }} }{% if not loop.last %},{% endif %}
+    {% endfor %}
+];
+
+function addRecipeMaterialRow(selectedId = "", qty = "", selectedUnit = "kg") {
+    let container = document.getElementById("materials-container");
+    if (!container) return;
+
+    let row = document.createElement("div");
+    row.className = "flex items-center gap-3 bg-gray-50 p-2.5 rounded-lg border border-gray-100";
+
+    let selectHtml = `<select name="raw_material_ids[]" required class="flex-1 stk-select">`;
+    if (availableMaterials.length === 0) {
+        selectHtml += `<option value="" disabled selected>No raw materials in catalog</option>`;
+    } else {
+        selectHtml += `<option value="" disabled ${!selectedId ? 'selected' : ''}>Select Raw Material</option>`;
+        availableMaterials.forEach(m => {
+            selectHtml += `<option value="${m.id}" ${String(m.id) === String(selectedId) ? 'selected' : ''}>${escapeHtml(m.name)}</option>`;
+        });
+    }
+    selectHtml += `</select>`;
+
+    row.innerHTML = `
+        ${selectHtml}
+
+        <input type="number" step="0.01" min="0.01"
+               name="qty_required[]" required
+               value="${qty}"
+               placeholder="Qty Required"
+               class="w-40 stk-input">
+
+        <select name="units[]" class="w-24 stk-select">
+            <option value="kg" ${selectedUnit === 'kg' ? 'selected' : ''}>kg</option>
+            <option value="ton" ${selectedUnit === 'ton' ? 'selected' : ''}>ton</option>
+        </select>
+
+        <button type="button" onclick="this.parentElement.remove()"
+                class="stk-btn-danger" style="padding: 0.55rem 1rem;">
+            Remove
+        </button>
+    `;
+
+    container.appendChild(row);
+}
+
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+{% if recipe and recipe.materials %}
+    {% for mat in recipe.materials %}
+    addRecipeMaterialRow(
+        {{ mat.raw_material_id }},
+        {{ mat.quantity_required }},
+        {{ mat.unit|tojson }}
+    );
+    {% endfor %}
+{% else %}
+    addRecipeMaterialRow();
+{% endif %}
+
+/* Toast animation */
+const toast = document.getElementById("toast");
+if (toast) {
+    setTimeout(() => {
+        toast.style.opacity = "1";
+    }, 100);
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease";
+    }, 3000);
+}
+</script>
+{% endblock %}

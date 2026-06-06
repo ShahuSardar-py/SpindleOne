@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+
+{% block title %}SpindleOne // Security Access{% endblock %}
+
+{% block content %}
+<div class="sys-page" style="max-width: 600px; padding-top: 3rem; padding-bottom: 3rem;">
+
+    <!-- ══ PAGE HEADER ══ -->
+    <div style="margin-bottom: 1.5rem; text-align: center;">
+        <div class="sys-label" style="margin-bottom: 0.5rem; color: var(--sys-red);">Clearance Required</div>
+        <h1 class="sys-heading" style="font-size: 2.25rem; line-height: 1;">Access Control</h1>
+        <p style="font-size: 0.65rem; color: var(--sys-muted); margin-top: 0.4rem; letter-spacing: 0.05em;">
+            Please identify yourself and select your active operational role.
+        </p>
+    </div>
+
+    <!-- ══ FLASH MESSAGES ══ -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="sys-card" style="margin-bottom: 1.5rem; border-color: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %}; background: #fff;">
+                    <div class="sys-card-header" style="background: {% if category == 'error' %}var(--sys-red){% else %}var(--sys-green){% endif %};">
+                        <span>System Alert</span>
+                        <span class="unit-indicator" style="background:#fff;"></span>
+                    </div>
+                    <div style="padding: 0.75rem 1rem; font-size: 0.65rem; font-weight: 700; color: var(--sys-ink); text-transform: uppercase;">
+                        {{ msg }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- ══ LOGIN FORM CARD ══ -->
+    <div class="sys-card" style="margin-bottom: 2rem;">
+        <div class="sys-card-header">
+            <span>Terminal_Login // ID_Verify</span>
+            <span class="unit-indicator"></span>
+        </div>
+        
+        <form method="POST" action="{{ url_for('auth.login') }}" style="padding: 1.5rem;">
+            <!-- Username -->
+            <div style="margin-bottom: 1.25rem;">
+                <label for="username" class="sys-label" style="display:block; margin-bottom: 0.4rem;">Operator ID / Username</label>
+                <input type="text" id="username" name="username" required autocomplete="off"
+                       style="width: 100%; font-family: 'Space Mono', monospace; font-size: 0.75rem;
+                              border: 1px solid var(--sys-border); padding: 0.6rem 0.85rem;
+                              background: var(--sys-bg); color: var(--sys-ink); outline: none; transition: border-color 0.15s;"
+                       placeholder="e.g. admin">
+            </div>
+
+            <!-- Password -->
+            <div style="margin-bottom: 1.5rem; position: relative;">
+                <label for="password" class="sys-label" style="display:block; margin-bottom: 0.4rem;">Access Crypt / Password</label>
+                <input type="password" id="password" name="password" required
+                       style="width: 100%; font-family: 'Space Mono', monospace; font-size: 0.75rem;
+                              border: 1px solid var(--sys-border); padding: 0.6rem 2.5rem 0.6rem 0.85rem;
+                              background: var(--sys-bg); color: var(--sys-ink); outline: none; transition: border-color 0.15s;"
+                       placeholder="••••••••">
+                <button type="button" onclick="togglePasswordVisibility()"
+                        style="position: absolute; right: 0.6rem; bottom: 0.45rem; background: transparent; border: none;
+                               color: var(--sys-muted); cursor: pointer; font-size: 0.6rem; font-family: 'Space Mono', monospace; font-weight: 700;">
+                    [SHOW]
+                </button>
+            </div>
+
+            <!-- Role Selector Visual Cards -->
+            <div style="margin-bottom: 1.75rem;">
+                <label class="sys-label" style="display:block; margin-bottom: 0.5rem;">Access Role Clearance</label>
+                <input type="hidden" id="selectedRole" name="role" required>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                    <!-- Role Card: SuperAdmin -->
+                    <div class="role-btn-card" data-val="SuperAdmin" onclick="selectRole('SuperAdmin')"
+                         style="border: 1px solid var(--sys-border); padding: 0.75rem; cursor: pointer; text-align: center; background: var(--sys-bg); transition: all 0.15s;">
+                        <div class="sys-heading" style="font-size: 0.95rem; margin-bottom: 0.1rem;">SuperAdmin</div>
+                        <div style="font-size: 0.5rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em;">All Modules Access</div>
+                    </div>
+                    
+                    <!-- Role Card: store keeper -->
+                    <div class="role-btn-card" data-val="store keeper" onclick="selectRole('store keeper')"
+                         style="border: 1px solid var(--sys-border); padding: 0.75rem; cursor: pointer; text-align: center; background: var(--sys-bg); transition: all 0.15s;">
+                        <div class="sys-heading" style="font-size: 0.95rem; margin-bottom: 0.1rem;">Store Keeper</div>
+                        <div style="font-size: 0.5rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em;">Mech & Stock Only</div>
+                    </div>
+
+                    <!-- Role Card: HR -->
+                    <div class="role-btn-card" data-val="HR" onclick="selectRole('HR')"
+                         style="border: 1px solid var(--sys-border); padding: 0.75rem; cursor: pointer; text-align: center; background: var(--sys-bg); transition: all 0.15s;">
+                        <div class="sys-heading" style="font-size: 0.95rem; margin-bottom: 0.1rem;">HR</div>
+                        <div style="font-size: 0.5rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em;">HR Module Only</div>
+                    </div>
+
+                    <!-- Role Card: accounts -->
+                    <div class="role-btn-card" data-val="accounts" onclick="selectRole('accounts')"
+                         style="border: 1px solid var(--sys-border); padding: 0.75rem; cursor: pointer; text-align: center; background: var(--sys-bg); transition: all 0.15s;">
+                        <div class="sys-heading" style="font-size: 0.95rem; margin-bottom: 0.1rem;">Accounts</div>
+                        <div style="font-size: 0.5rem; color: var(--sys-muted); text-transform: uppercase; letter-spacing: 0.05em;">Mech & Finance Only</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="sys-btn sys-btn-primary" style="width: 100%; text-align: center; padding: 0.75rem; font-size: 0.7rem;">
+                Initiate Session
+            </button>
+
+            <!-- Links -->
+            <div style="margin-top: 1.25rem; text-align: center; font-size: 0.6rem;">
+                <span style="color: var(--sys-muted);">Need a new clearance profile? </span>
+                <a href="{{ url_for('auth.signup') }}" style="color: var(--sys-ink); text-decoration: underline; font-weight: 700;">Register Operator</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- ══ DEMO ACCOUNTS HELPER CARD ══ -->
+    <div class="sys-card" style="border-style: dashed;">
+        <div class="sys-card-header" style="background: var(--sys-muted);">
+            <span>System_Simulation // Demo_Keys</span>
+            <span class="unit-indicator" style="background:#fff;"></span>
+        </div>
+        <div style="padding: 1.25rem;">
+            <p style="font-size: 0.55rem; color: var(--sys-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.5;">
+                Click any key below to auto-inject credentials and role matching the access requirements:
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div class="demo-key-row" onclick="autofill('admin', 'admin123', 'SuperAdmin')"
+                     style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--sys-border); padding: 0.45rem 0.75rem; background: #fff; cursor: pointer; transition: background 0.12s;">
+                    <div>
+                        <span class="sys-heading" style="font-size: 0.75rem; color: var(--sys-ink);">admin</span>
+                        <span style="font-size: 0.5rem; color: var(--sys-muted); margin-left: 0.5rem;">(SuperAdmin)</span>
+                    </div>
+                    <span style="font-size: 0.55rem; font-family: monospace; color: var(--sys-muted);">Key: admin123</span>
+                </div>
+                
+                <div class="demo-key-row" onclick="autofill('keeper', 'keeper123', 'store keeper')"
+                     style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--sys-border); padding: 0.45rem 0.75rem; background: #fff; cursor: pointer; transition: background 0.12s;">
+                    <div>
+                        <span class="sys-heading" style="font-size: 0.75rem; color: var(--sys-ink);">keeper</span>
+                        <span style="font-size: 0.5rem; color: var(--sys-muted); margin-left: 0.5rem;">(store keeper)</span>
+                    </div>
+                    <span style="font-size: 0.55rem; font-family: monospace; color: var(--sys-muted);">Key: keeper123</span>
+                </div>
+
+                <div class="demo-key-row" onclick="autofill('hr_user', 'hr123', 'HR')"
+                     style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--sys-border); padding: 0.45rem 0.75rem; background: #fff; cursor: pointer; transition: background 0.12s;">
+                    <div>
+                        <span class="sys-heading" style="font-size: 0.75rem; color: var(--sys-ink);">hr_user</span>
+                        <span style="font-size: 0.5rem; color: var(--sys-muted); margin-left: 0.5rem;">(HR)</span>
+                    </div>
+                    <span style="font-size: 0.55rem; font-family: monospace; color: var(--sys-muted);">Key: hr123</span>
+                </div>
+
+                <div class="demo-key-row" onclick="autofill('accountant', 'acct123', 'accounts')"
+                     style="display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--sys-border); padding: 0.45rem 0.75rem; background: #fff; cursor: pointer; transition: background 0.12s;">
+                    <div>
+                        <span class="sys-heading" style="font-size: 0.75rem; color: var(--sys-ink);">accountant</span>
+                        <span style="font-size: 0.5rem; color: var(--sys-muted); margin-left: 0.5rem;">(accounts)</span>
+                    </div>
+                    <span style="font-size: 0.55rem; font-family: monospace; color: var(--sys-muted);">Key: acct123</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .role-btn-card:hover {
+        border-color: var(--sys-ink) !important;
+        box-shadow: 2px 2px 0px var(--sys-ink);
+        transform: translate(-1px, -1px);
+    }
+    .role-btn-card.selected {
+        border-color: var(--sys-red) !important;
+        background: var(--sys-ink) !important;
+    }
+    .role-btn-card.selected .sys-heading {
+        color: #ffffff !important;
+    }
+    .role-btn-card.selected div:last-child {
+        color: var(--sys-border) !important;
+    }
+    
+    .demo-key-row:hover {
+        background: var(--sys-bg) !important;
+        border-color: var(--sys-ink) !important;
+    }
+    
+    input:focus {
+        border-color: var(--sys-ink) !important;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function selectRole(role) {
+        document.getElementById('selectedRole').value = role;
+        
+        // Remove selection from all cards
+        document.querySelectorAll('.role-btn-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        // Add selection to active card
+        const activeCard = document.querySelector(`.role-btn-card[data-val="${role}"]`);
+        if (activeCard) {
+            activeCard.classList.add('selected');
+        }
+    }
+    
+    function autofill(username, password, role) {
+        document.getElementById('username').value = username;
+        document.getElementById('password').value = password;
+        selectRole(role);
+    }
+    
+    function togglePasswordVisibility() {
+        const pwdInput = document.getElementById('password');
+        if (pwdInput.type === 'password') {
+            pwdInput.type = 'text';
+            event.target.textContent = '[HIDE]';
+        } else {
+            pwdInput.type = 'password';
+            event.target.textContent = '[SHOW]';
+        }
+    }
+    
+    // Auto-select first role on load if none selected
+    window.addEventListener('DOMContentLoaded', () => {
+        selectRole('SuperAdmin');
+    });
+</script>
+{% endblock %}

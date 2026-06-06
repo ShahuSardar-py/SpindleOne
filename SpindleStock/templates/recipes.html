@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block extra_styles %}
+{% include "stock_styles.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="stk-shell">
+
+    <!-- Sidebar -->
+    <div class="stk-sidebar">
+        <div class="stk-sidebar-brand">
+            <div class="stk-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindleStock</span>
+            </div>
+            <div class="stk-sidebar-brand-sub">Inventory Control</div>
+        </div>
+
+        <div class="stk-nav">
+            <a href="/stock/" class="stk-nav-link">
+                <span>📊 Dashboard</span>
+            </a>
+
+            <a href="/stock/raw" class="stk-nav-link">
+                <span>📦 Raw Material</span>
+            </a>
+
+            <a href="/stock/production" class="stk-nav-link">
+                <span>🏭 Production</span>
+            </a>
+
+            <a href="/stock/inventory" class="stk-nav-link">
+                <span>📋 Stock Balance</span>
+            </a>
+
+            <a href="/stock/recipes" class="stk-nav-link active">
+                <span>📜 Recipes</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="stk-main">
+
+        <!-- Flash Toast -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="toast" class="stk-toast success">
+             <span>✓</span>
+             <span>{{ messages[0] }}</span>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h3 class="stk-page-title">Recipe Management</h3>
+                <p class="stk-page-sub">Product Formulations // Dynamic Templates</p>
+            </div>
+            <a href="{{ url_for('spindlestock.create_recipe') }}" class="stk-btn-primary">
+                + Create New Recipe
+            </a>
+        </div>
+
+        <!-- Recipes List Table -->
+        <div class="stk-table-wrap">
+            <div class="stk-table-header">
+                <span>Stored Formulations</span>
+                <span class="unit-dot"></span>
+            </div>
+
+            <table class="stk-table">
+                <thead>
+                    <tr>
+                        <th>Recipe Name</th>
+                        <th>Finished Product</th>
+                        <th>Raw Materials Count</th>
+                        <th class="right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if recipes %}
+                        {% for recipe in recipes %}
+                        <tr>
+                            <td class="font-semibold text-gray-900">{{ recipe.name }}</td>
+                            <td class="text-gray-600">{{ recipe.finished_product_name or "—" }}</td>
+                            <td class="font-mono">{{ recipe.materials|length }} ingredient(s)</td>
+                            <td class="right space-x-1">
+                                <button onclick="toggleDetails({{ recipe.id }})" 
+                                        class="stk-btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.55rem;">
+                                    Details
+                                </button>
+                                <a href="{{ url_for('spindlestock.edit_recipe', recipe_id=recipe.id) }}" 
+                                   class="stk-btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.55rem;">
+                                    Edit
+                                </a>
+                                <form action="{{ url_for('spindlestock.delete_recipe', recipe_id=recipe.id) }}" 
+                                      method="POST" class="inline-block"
+                                      onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                                    <button class="stk-btn-danger" style="padding: 0.4rem 0.8rem; font-size: 0.55rem;">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <!-- Details Row -->
+                        <tr id="details-{{ recipe.id }}" class="hidden bg-gray-50">
+                            <td colspan="4" class="px-6 py-4">
+                                <div class="border-l-4 border-red-500 pl-4 space-y-2">
+                                    <p class="font-semibold text-xs text-gray-500 uppercase tracking-wider">Required Ingredients:</p>
+                                    <div class="grid grid-cols-2 gap-2 max-w-lg">
+                                        {% for mat in recipe.materials %}
+                                        <div class="flex justify-between text-sm py-1 border-b border-gray-200 font-mono">
+                                            <span class="font-medium text-gray-800">{{ mat.raw_material_name }}</span>
+                                            <span class="text-gray-600">{{ mat.quantity_required }} {{ mat.unit }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="center muted py-12">
+                                <span class="text-3xl block mb-2">📜</span>
+                                <p>No recipes registered yet. Click Create New Recipe above to get started.</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function toggleDetails(recipeId) {
+    const detailsRow = document.getElementById(`details-${recipeId}`);
+    if (detailsRow.classList.contains('hidden')) {
+        detailsRow.classList.remove('hidden');
+    } else {
+        detailsRow.classList.add('hidden');
+    }
+}
+
+/* Toast animation */
+const toast = document.getElementById("toast");
+if (toast) {
+    setTimeout(() => {
+        toast.style.opacity = "1";
+    }, 100);
+
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.5s ease";
+    }, 3000);
+}
+</script>
+{% endblock %}
