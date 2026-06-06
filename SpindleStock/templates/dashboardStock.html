@@ -53,24 +53,35 @@
         </div>
 
         <!-- KPI STRIP -->
-        <div class="stk-kpi-strip mb-6">
-            <div class="stk-kpi-cell">
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
                 <span class="stk-kpi-label">Total Materials</span>
                 <span class="stk-kpi-value">{{ total_materials }}</span>
             </div>
-            <div class="stk-kpi-cell">
-                <span class="stk-kpi-label">Expiring Soon (7 Days)</span>
-                <span class="stk-kpi-value {% if expiring_count > 0 %}red{% endif %}">{{ expiring_count }}</span>
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
+                <span class="stk-kpi-label">Stock Value</span>
+                <span class="stk-kpi-value text-green-600">₹{{ "{:,.2f}".format(total_stock_value) }}</span>
             </div>
-            <div class="stk-kpi-cell">
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
+                <span class="stk-kpi-label">Active Lots</span>
+                <span class="stk-kpi-value">{{ active_lots_count }}</span>
+            </div>
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
                 <span class="stk-kpi-label">Low Stock Alerts</span>
                 <span class="stk-kpi-value {% if low_stock|length > 0 %}red{% endif %}">{{ low_stock|length }}</span>
             </div>
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
+                <span class="stk-kpi-label">Expiring (7 Days)</span>
+                <span class="stk-kpi-value {% if expiring_count > 0 %}red{% endif %}">{{ expiring_count }}</span>
+            </div>
+            <div class="stk-card stk-kpi-cell flex flex-col justify-center">
+                <span class="stk-kpi-label">Total Prod. Cost</span>
+                <span class="stk-kpi-value">₹{{ "{:,.2f}".format(total_production_cost) }}</span>
+            </div>
         </div>
 
-        <!-- CHART + ALERT SECTION -->
-        <div class="grid grid-cols-2 gap-6 items-start">
-
+        <!-- CHARTS SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <!-- Production Chart -->
             <div class="stk-card">
                 <h5 class="stk-card-title">Production Quantity per Product</h5>
@@ -79,8 +90,19 @@
                 </div>
             </div>
 
+            <!-- Inventory Valuation Chart -->
+            <div class="stk-card">
+                <h5 class="stk-card-title">Inventory Valuation Breakdown</h5>
+                <div class="h-80 relative">
+                    <canvas id="valChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALERTS SECTION -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <!-- Low Stock -->
-            <div class="stk-table-wrap">
+            <div class="stk-table-wrap mb-0">
                 <div class="stk-table-header">
                     <span>Low Stock Alerts</span>
                     <a href="{{ url_for('spindlestock.edit_alerts') }}" class="stk-btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.5rem;">
@@ -101,8 +123,8 @@
                             {% for item in low_stock %}
                             <tr class="font-semibold text-red-600">
                                 <td>{{ item.name }}</td>
-                                <td>{{ item.quantity }} kg</td>
-                                <td class="right">{{ item.alert_threshold }} kg</td>
+                                <td>{{ item.total_quantity }} {{ item.unit }}</td>
+                                <td class="right">{{ item.alert_threshold }} {{ item.unit }}</td>
                             </tr>
                             {% endfor %}
                         {% else %}
@@ -116,41 +138,125 @@
                 </table>
             </div>
 
+            <!-- Expiring Soon Materials -->
+            <div class="stk-table-wrap mb-0">
+                <div class="stk-table-header">
+                    <span>Expiring Soon Materials (Next 7 Days)</span>
+                    <span class="unit-dot"></span>
+                </div>
+
+                <table class="stk-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Current Stock</th>
+                            <th class="right">Expiry Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if expiring_materials %}
+                            {% for m in expiring_materials %}
+                            <tr class="font-semibold text-amber-600">
+                                <td>{{ m.raw_material.name }}</td>
+                                <td>{{ m.remaining_quantity }} {{ m.raw_material.unit }}</td>
+                                <td class="right">{{ m.expiry_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="center muted py-8">
+                                    No materials expiring soon
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Expiring Soon Materials -->
-        <div class="stk-table-wrap mt-6">
-            <div class="stk-table-header">
-                <span>Expiring Soon Materials (Next 7 Days)</span>
-                <span class="unit-dot"></span>
+        <!-- ACTIVITY SECTION (INWARD & PRODUCTION) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <!-- Recent Inward Purchases -->
+            <div class="stk-table-wrap mb-0">
+                <div class="stk-table-header">
+                    <span>Recent Inward Purchases (Quantity & Rate)</span>
+                    <a href="{{ url_for('spindlestock.raw_inward') }}" class="stk-btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.5rem;">
+                        View All
+                    </a>
+                </div>
+
+                <table class="stk-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Batch / Lot</th>
+                            <th>Inward Date</th>
+                            <th>Inward Qty</th>
+                            <th>Rate</th>
+                            <th class="right">Total Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if recent_inward_lots %}
+                            {% for lot in recent_inward_lots %}
+                            <tr class="{% if lot.is_exhausted %}bg-gray-50 opacity-60{% endif %}">
+                                <td class="font-semibold text-gray-900">{{ lot.raw_material.name }}</td>
+                                <td class="font-mono font-bold">{{ lot.batch_number }}</td>
+                                <td class="font-mono text-gray-600">{{ lot.inward_date.strftime("%d %b %Y") if lot.inward_date else "—" }}</td>
+                                <td class="font-semibold">{{ lot.quantity }} {{ lot.raw_material.unit }}</td>
+                                <td class="font-mono text-gray-600">₹{{ "{:,.2f}".format(lot.price_per_unit) }}</td>
+                                <td class="font-mono font-semibold right">₹{{ "{:,.2f}".format(lot.quantity * lot.price_per_unit) }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="center muted py-8">
+                                    No inward purchases recorded
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
             </div>
 
-            <table class="stk-table">
-                <thead>
-                    <tr>
-                        <th>Material</th>
-                        <th>Current Stock</th>
-                        <th class="right">Expiry Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if expiring_materials %}
-                        {% for m in expiring_materials %}
-                        <tr class="font-semibold text-amber-600">
-                            <td>{{ m.name }}</td>
-                            <td>{{ m.quantity }} {{ m.unit }}</td>
-                            <td class="right">{{ m.expiry_date }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% else %}
+            <!-- Recent Production History -->
+            <div class="stk-table-wrap mb-0">
+                <div class="stk-table-header">
+                    <span>Recent Production Runs</span>
+                    <a href="{{ url_for('spindlestock.production') }}" class="stk-btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.5rem;">
+                        Record Production
+                    </a>
+                </div>
+
+                <table class="stk-table">
+                    <thead>
                         <tr>
-                            <td colspan="3" class="center muted py-8">
-                                No materials expiring soon
-                            </td>
+                            <th>Product Name</th>
+                            <th>Date</th>
+                            <th>Qty Produced</th>
+                            <th class="right">Material Cost</th>
                         </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% if recent_productions %}
+                            {% for p in recent_productions %}
+                            <tr>
+                                <td class="font-semibold text-gray-900">{{ p.product_name }}</td>
+                                <td class="font-mono text-gray-600">{{ p.date.strftime("%d %b %Y %H:%M") }}</td>
+                                <td class="font-semibold">{{ p.quantity_produced }} units</td>
+                                <td class="font-mono font-semibold right text-green-700">₹{{ "{:,.2f}".format(p.total_raw_material_cost) }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="center muted py-8">
+                                    No production runs recorded
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -164,11 +270,20 @@
 {{ product_data | tojson }}
 </script>
 
+<script id="valuation-data" type="application/json">
+{{ material_valuation | tojson }}
+</script>
+
 <script>
 const productData = JSON.parse(
     document.getElementById("product-data").textContent
 );
 
+const valuationData = JSON.parse(
+    document.getElementById("valuation-data").textContent
+);
+
+// ─── Production Chart (Bar) ───
 const labels = Object.keys(productData);
 const values = Object.values(productData);
 
@@ -215,6 +330,51 @@ new Chart(ctx, {
                     color: '#E8E8E8'
                 },
                 ticks: {
+                    font: {
+                        family: 'Space Mono',
+                        size: 9
+                    }
+                }
+            }
+        }
+    }
+});
+
+// ─── Inventory Valuation Chart (Doughnut) ───
+const valLabels = Object.keys(valuationData);
+const valValues = Object.values(valuationData);
+
+const brutalistColors = [
+    "#007AFF", // Blue
+    "#FFD600", // Amber
+    "#34C759", // Green
+    "#FF3B30", // Red
+    "#8E8E93", // Gray
+    "#AF52DE", // Purple
+    "#5856D6", // Indigo
+    "#FF9500"  // Orange
+];
+
+const ctxVal = document.getElementById("valChart");
+
+new Chart(ctxVal, {
+    type: "doughnut",
+    data: {
+        labels: valLabels,
+        datasets: [{
+            data: valValues,
+            backgroundColor: brutalistColors.slice(0, valLabels.length),
+            borderWidth: 1,
+            borderColor: "#1A1C1C"
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
                     font: {
                         family: 'Space Mono',
                         size: 9

@@ -80,9 +80,22 @@ def consume_fifo(raw_material_id, quantity_needed):
 def dashboard():
     materials = RawMaterial.query.all()
     productions = Production.query.all()
+    active_lots = RawMaterialLot.query.filter_by(is_exhausted=False).all()
 
-    # KPI 1
+    # Basic KPIs
     total_materials = len(materials)
+    active_lots_count = len(active_lots)
+
+    # Stock Value and Production Cost Calculations
+    total_stock_value = sum(lot.remaining_quantity * lot.price_per_unit for lot in active_lots)
+    total_production_cost = sum(p.total_raw_material_cost or 0.0 for p in productions)
+
+    # Material Valuation Breakdown for Doughnut Chart
+    material_valuation = {}
+    for m in materials:
+        val = sum(lot.remaining_quantity * lot.price_per_unit for lot in m.lots if not lot.is_exhausted)
+        if val > 0:
+            material_valuation[m.name] = val
 
     # Production chart
     product_data = {}
@@ -103,7 +116,6 @@ def dashboard():
     expiring_materials = []
 
     # Check active lots for expiration dates within 7 days
-    active_lots = RawMaterialLot.query.filter_by(is_exhausted=False).all()
     for lot in active_lots:
         if lot.expiry_date:
             if lot.expiry_date <= today + timedelta(days=7):
@@ -111,13 +123,30 @@ def dashboard():
 
     expiring_count = len(expiring_materials)
 
+    # Recent Inward Lots (last 10)
+    recent_inward_lots = RawMaterialLot.query.order_by(
+        RawMaterialLot.inward_date.desc(),
+        RawMaterialLot.id.desc()
+    ).limit(10).all()
+
+    # Recent Production Runs (last 5)
+    recent_productions = Production.query.order_by(
+        Production.date.desc()
+    ).limit(5).all()
+
     return render_template(
         "dashboardStock.html",
         total_materials=total_materials,
+        active_lots_count=active_lots_count,
+        total_stock_value=total_stock_value,
+        total_production_cost=total_production_cost,
+        material_valuation=material_valuation,
         product_data=product_data,
         low_stock=low_stock,
         expiring_materials=expiring_materials,
-        expiring_count=expiring_count
+        expiring_count=expiring_count,
+        recent_inward_lots=recent_inward_lots,
+        recent_productions=recent_productions
     )
 
 
