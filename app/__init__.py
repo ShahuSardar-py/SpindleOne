@@ -11,6 +11,19 @@ from .auth import models as auth_models
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
+    
+    # Log connection URI (masked for safety)
+    db_uri = app.config.get("SQLALCHEMY_DATABASE_URI")
+    if db_uri and "@" in db_uri:
+        try:
+            prefix, rest = db_uri.split("://", 1)
+            credentials, host_info = rest.split("@", 1)
+            print(f"[DB INIT] Connecting to: {prefix}://***:***@{host_info}")
+        except Exception:
+            print("[DB INIT] Connecting to database (URI mask failed)")
+    else:
+        print(f"[DB INIT] Connecting to: {db_uri}")
+        
     try:
         os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
     except Exception as e:

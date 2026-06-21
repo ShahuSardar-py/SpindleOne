@@ -32,18 +32,26 @@ def login():
         role = request.form.get('role', '').strip()
 
         user = User.query.filter_by(username=username).first()
-        if user and user.check_password(password):
-            if user.role != role:
-                flash(f"Access Denied: Selected role does not match user's registered clearance.", "error")
+        if user:
+            pw_match = user.check_password(password)
+            print(f"[AUTH] User '{username}' found. Registered Role: '{user.role}'. Selected Role: '{role}'. Password Match: {pw_match}")
+            if pw_match:
+                if user.role != role:
+                    flash(f"Access Denied: Selected role does not match user's registered clearance.", "error")
+                    return render_template('auth/login.html')
+                
+                session.clear()
+                session['user_id'] = user.user_id
+                session['username'] = user.username
+                session['role'] = user.role
+                flash(f"Operator authenticated. Clearance level: {user.role}", "success")
+                return redirect(url_for('main.home'))
+            else:
+                print(f"[AUTH] Password check failed for user '{username}'.")
+                flash("Invalid credentials.", "error")
                 return render_template('auth/login.html')
-            
-            session.clear()
-            session['user_id'] = user.user_id
-            session['username'] = user.username
-            session['role'] = user.role
-            flash(f"Operator authenticated. Clearance level: {user.role}", "success")
-            return redirect(url_for('main.home'))
         else:
+            print(f"[AUTH] User '{username}' NOT found in database.")
             flash("Invalid credentials.", "error")
             return render_template('auth/login.html')
             
