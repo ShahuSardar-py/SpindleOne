@@ -11,7 +11,11 @@ from .auth import models as auth_models
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+    try:
+        os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+    except Exception as e:
+        app.config["UPLOAD_FOLDER"] = "/tmp"
+        print(f"Warning: Could not create upload folder, falling back to /tmp: {e}")
     init_extensions(app)
 
     # register blueprints after initializing extensions

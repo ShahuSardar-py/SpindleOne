@@ -11,31 +11,40 @@ DEFAULT_STATE = {
 
 def get_lock_state():
     """Reads the current lock state, creating the file with default values if it doesn't exist."""
-    os.makedirs(os.path.dirname(LOCK_FILE), exist_ok=True)
-    if not os.path.exists(LOCK_FILE):
+    try:
+        os.makedirs(os.path.dirname(LOCK_FILE), exist_ok=True)
+    except Exception as e:
+        print(f"Warning: Could not create directory for lock file (read-only filesystem): {e}")
+
+    state = DEFAULT_STATE.copy()
+
+    if os.path.exists(LOCK_FILE):
+        try:
+            with open(LOCK_FILE, 'r') as f:
+                state = json.load(f)
+                # Ensure all keys are present
+                for k, v in DEFAULT_STATE.items():
+                    if k not in state:
+                        state[k] = v
+        except Exception as e:
+            print(f"Error reading lock state file: {e}")
+    else:
         try:
             with open(LOCK_FILE, 'w') as f:
                 json.dump(DEFAULT_STATE, f, indent=4)
         except Exception as e:
-            print(f"Error creating lock state file: {e}")
-        return DEFAULT_STATE.copy()
+            print(f"Warning: Could not write default lock state file: {e}")
+
+    # Support env var override for Vercel/serverless environments
+    env_locked = os.environ.get("SYSTEM_LOCKED", "").lower() in ("true", "1")
+    env_reason = os.environ.get("SYSTEM_LOCK_REASON")
     
-    try:
-        with open(LOCK_FILE, 'r') as f:
-            state = json.load(f)
-            # Ensure all keys are present
-            updated = False
-            for k, v in DEFAULT_STATE.items():
-                if k not in state:
-                    state[k] = v
-                    updated = True
-            if updated:
-                with open(LOCK_FILE, 'w') as wf:
-                    json.dump(state, wf, indent=4)
-            return state
-    except Exception as e:
-        print(f"Error reading lock state file: {e}")
-        return DEFAULT_STATE.copy()
+    if env_locked:
+        state['is_locked'] = True
+        if env_reason:
+            state['lock_reason'] = env_reason
+            
+    return state
 
 def set_lock_state(is_locked, lock_reason=None, passcode=None):
     """Saves the lock state updates."""
@@ -46,10 +55,11 @@ def set_lock_state(is_locked, lock_reason=None, passcode=None):
     if passcode is not None and passcode.strip():
         state['passcode'] = str(passcode).strip()
     
-    os.makedirs(os.path.dirname(LOCK_FILE), exist_ok=True)
     try:
+        os.makedirs(os.path.dirname(LOCK_FILE), exist_ok=True)
         with open(LOCK_FILE, 'w') as f:
             json.dump(state, f, indent=4)
     except Exception as e:
         print(f"Error saving lock state file: {e}")
     return state
+
