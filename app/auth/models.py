@@ -19,6 +19,14 @@ class ModuleAcess(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     module_name = db.Column(db.String(50), nullable= False)
 
+class SystemLock(db.Model):
+    __tablename__ = 'system_lock'
+    id = db.Column(db.Integer, primary_key=True)
+    is_locked = db.Column(db.Boolean, default=False, nullable=False)
+    lock_reason = db.Column(db.String(500), nullable=False)
+    passcode = db.Column(db.String(100), nullable=False)
+
+
 
     
 

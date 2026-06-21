@@ -13,11 +13,12 @@ client = app.test_client()
 def test_lockout():
     print("Running Lockout Tests...")
     
-    # 1. Reset lock state to unlocked
-    set_lock_state(is_locked=False, lock_reason="Access temporarily suspended...", passcode="zarvec2026")
-    state = get_lock_state()
-    assert state['is_locked'] == False, "Initial lock state should be False"
-    print("✓ Initial state verified (Unlocked)")
+    with app.app_context():
+        # 1. Reset lock state to unlocked
+        set_lock_state(is_locked=False, lock_reason="Access temporarily suspended...", passcode="zarvec2026")
+        state = get_lock_state()
+        assert state['is_locked'] == False, "Initial lock state should be False"
+        print("✓ Initial state verified (Unlocked)")
     
     # 2. Check main page accessibility when unlocked
     res = client.get('/home')
@@ -31,11 +32,12 @@ def test_lockout():
     assert b"ZARVEC ACCESS" in res.data or b"Access_Key_Authorization" in res.data, "Should display authentication prompt"
     print("✓ Zarvec panel accessible")
     
-    # 4. Turn on lockout
-    set_lock_state(is_locked=True, lock_reason="TEST LOCKOUT ACTIVATED")
-    state = get_lock_state()
-    assert state['is_locked'] == True, "Lock state should be True"
-    print("✓ Lockout activated successfully")
+    with app.app_context():
+        # 4. Turn on lockout
+        set_lock_state(is_locked=True, lock_reason="TEST LOCKOUT ACTIVATED")
+        state = get_lock_state()
+        assert state['is_locked'] == True, "Lock state should be True"
+        print("✓ Lockout activated successfully")
     
     # 5. Check main page accessibility when locked
     res = client.get('/home')
@@ -49,11 +51,14 @@ def test_lockout():
     assert res.status_code == 200, f"Expected 200 for zarvec portal when locked, got {res.status_code}"
     assert b"ZARVEC ACCESS" in res.data or b"Access_Key_Authorization" in res.data, "Should still display authentication prompt even when locked"
     print("✓ Zarvec panel still accessible under lockout")
-
-    # 7. Clean up and unlock
-    set_lock_state(is_locked=False)
-    print("✓ Cleaned up and unlocked")
+ 
+    with app.app_context():
+        # 7. Clean up and unlock
+        set_lock_state(is_locked=False)
+        print("✓ Cleaned up and unlocked")
+    
     print("ALL TESTS PASSED SUCCESSFULLY!")
+
 
 if __name__ == '__main__':
     test_lockout()
