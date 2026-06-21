@@ -15,10 +15,17 @@ RETRY_DELAY = 1  # seconds
 
 # ── Client Init 
 
-if not MISTRAL_API_KEY:
-    raise ValueError("MISTRAL_API_KEY not set")
+_client = None
 
-client = Mistral(api_key=MISTRAL_API_KEY)
+def get_client():
+    global _client
+    if _client is None:
+        key = os.environ.get("MISTRAL_API_KEY")
+        if not key:
+            raise ValueError("MISTRAL_API_KEY not set")
+        _client = Mistral(api_key=key)
+    return _client
+
 
 
 # ── Core LLM Call
@@ -26,7 +33,7 @@ client = Mistral(api_key=MISTRAL_API_KEY)
 def call_llm(prompt: str) -> str:
     for attempt in range(MAX_RETRIES + 1):
         try:
-            response = client.chat.complete(
+            response = get_client().chat.complete(
                 model=MODEL_NAME,
                 messages=[
                     {
