@@ -16,3 +16,5 @@ Werkzeug==3.1.5
 mistralai
 python-dotenv
 mistralai
+supabase
+psycopg2-binary

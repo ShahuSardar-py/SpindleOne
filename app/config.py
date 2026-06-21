@@ -9,5 +9,9 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///spindleone.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
+    # Supabase configuration
+    SUPABASE_URL = os.environ.get("SUPABASE_URL")
+    SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+    
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "..", "uploads")
