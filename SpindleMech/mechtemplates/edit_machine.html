@@ -1,105 +1,100 @@
-{% extends "base.html" %}
-{% block title %}Edit {{ machine.name }} – SpindleMech{% endblock %}
+{% extends "mech_base.html" %}
+{% block title %}SpindleMech – Edit Machine{% endblock %}
 
-{% block content %}
-<div class="max-w-2xl mx-auto px-6 py-8">
+{% block mech_content %}
+<div style="max-width: 600px; margin: 0 auto;">
 
-  <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-    <a href="{{ url_for('spindlemech.index') }}" class="hover:text-primary-600 transition-colors">SpindleMech</a>
-    <span class="text-gray-300">/</span>
-    <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}"
-       class="hover:text-primary-600 transition-colors">{{ machine.name }}</a>
-    <span class="text-gray-300">/</span>
-    <span class="text-gray-800 font-medium">Edit</span>
+  <!-- Breadcrumb -->
+  <nav style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; text-transform: uppercase;">
+    <a href="{{ url_for('spindlemech.index') }}" style="color: var(--sys-muted); text-decoration: none;">SpindleMech</a>
+    <span style="color: var(--sys-border);">/</span>
+    <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}" style="color: var(--sys-muted); text-decoration: none;">{{ machine.name }}</a>
+    <span style="color: var(--sys-border);">/</span>
+    <span style="color: var(--sys-ink); font-weight: 700;">Edit</span>
   </nav>
 
-  <div class="card">
-    <div class="px-6 py-5 border-b border-gray-100">
-      <h1 class="text-xl font-bold text-gray-900">Edit Machine</h1>
+  <div class="sys-card">
+    <div class="mech-card-header">
+      <span>Edit Machine Node // {{ machine.machine_code }}</span>
+      <span class="unit-dot"></span>
     </div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}{% for category, message in messages %}
-        <div class="mx-6 mt-4 px-4 py-3 rounded-lg text-sm border
-          {% if category == 'success' %}bg-green-50 text-green-800 border-green-200
-          {% else %}bg-red-50 text-red-800 border-red-200{% endif %}">{{ message }}</div>
-      {% endfor %}{% endif %}
-    {% endwith %}
-
-    <form method="POST" class="p-6 space-y-4">
-
+    <form method="POST" style="padding: 1.5rem; background: #ffffff;">
+      
+      <!-- Name and Code -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Machine Name <span class="text-red-500">*</span></label>
-          <input type="text" name="name" required value="{{ machine.name }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Machine Name <span style="color: var(--sys-red);">*</span></label>
+          <input type="text" name="name" required value="{{ machine.name }}" class="mech-input">
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Machine Code <span class="text-red-500">*</span></label>
-          <input type="text" name="machine_code" required value="{{ machine.machine_code }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Machine Code <span style="color: var(--sys-red);">*</span></label>
+          <input type="text" name="machine_code" required value="{{ machine.machine_code }}" class="mech-input" style="text-transform: uppercase;">
         </div>
       </div>
 
+      <!-- Category and Manufacturer -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
-          <input type="text" name="category" value="{{ machine.category or '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Category</label>
+          <input type="text" name="category" value="{{ machine.category or '' }}" class="mech-input">
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Manufacturer</label>
-          <input type="text" name="manufacturer" value="{{ machine.manufacturer or '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Manufacturer</label>
+          <input type="text" name="manufacturer" value="{{ machine.manufacturer or '' }}" class="mech-input">
         </div>
       </div>
 
+      <!-- Model and Serial -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Model Number</label>
-          <input type="text" name="model_number" value="{{ machine.model_number or '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Model Number</label>
+          <input type="text" name="model_number" value="{{ machine.model_number or '' }}" class="mech-input">
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Serial Number</label>
-          <input type="text" name="serial_number" value="{{ machine.serial_number or '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Serial Number</label>
+          <input type="text" name="serial_number" value="{{ machine.serial_number or '' }}" class="mech-input" style="font-family: 'Space Mono', monospace;">
         </div>
       </div>
 
+      <!-- Purchase Date and Location -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Purchase Date</label>
+        <div class="mech-field">
+          <label>Purchase Date</label>
           <input type="date" name="purchase_date"
             value="{{ machine.purchase_date.strftime('%Y-%m-%d') if machine.purchase_date else '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            class="mech-input">
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1.5">Location / Bay</label>
-          <input type="text" name="location" value="{{ machine.location or '' }}"
-            class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+        <div class="mech-field">
+          <label>Location / Bay</label>
+          <input type="text" name="location" value="{{ machine.location or '' }}" class="mech-input">
         </div>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
-        <select name="status"
-          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+      <!-- Status selection -->
+      <div class="mech-field">
+        <label>Operational Status <span style="color: var(--sys-red);">*</span></label>
+        <select name="status" class="mech-select">
           {% for s in ['Operational', 'Under Maintenance', 'Decommissioned'] %}
           <option value="{{ s }}" {% if machine.status == s %}selected{% endif %}>{{ s }}</option>
           {% endfor %}
         </select>
       </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1.5">Notes</label>
-        <textarea name="notes" rows="3"
-          class="w-full border border-gray-200 rounded-lg px-3.5 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">{{ machine.notes or '' }}</textarea>
+      <!-- Notes -->
+      <div class="mech-field">
+        <label>Notes</label>
+        <textarea name="notes" rows="3" class="mech-textarea">{{ machine.notes or '' }}</textarea>
       </div>
 
-      <div class="flex items-center justify-end gap-3 pt-2">
-        <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}" class="btn-secondary">Cancel</a>
-        <button type="submit" class="btn-primary">Update Machine</button>
+      <!-- Form Actions -->
+      <div class="mech-btn-row" style="border-top: 1px solid var(--sys-border); padding-top: 1rem; margin-top: 1.5rem;">
+        <a href="{{ url_for('spindlemech.machine_detail', machine_id=machine.id) }}" class="sys-btn" style="padding: 0.45rem 1rem; font-size: 0.6rem;">
+          Cancel
+        </a>
+        <button type="submit" class="sys-btn sys-btn-primary" style="padding: 0.45rem 1.25rem; font-size: 0.6rem;">
+          Update Machine
+        </button>
       </div>
 
     </form>

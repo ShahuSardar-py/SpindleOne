@@ -52,6 +52,7 @@ class AccountCashflow(db.Model):
     reference_id = db.Column(db.String(25))
     current_balance = db.Column(db.Float, nullable=False)
     source = db.Column(db.String(50))
+    sale_type = db.Column(db.String(25), nullable=True)
     invoice = db.relationship('Invoice', foreign_keys=[invoice_id], lazy='select')
 
     

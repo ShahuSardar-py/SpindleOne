@@ -428,6 +428,10 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  .fin-row-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
   .fin-row-2 {
     grid-template-columns: 1fr 1fr;
   }
@@ -1309,6 +1313,10 @@
       grid-template-columns: 1fr 1fr;
     }
 
+    .fin-row-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+
     .kpi-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -1328,6 +1336,10 @@
     }
 
     .fin-row-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .fin-row-4 {
       grid-template-columns: 1fr;
     }
 
@@ -1644,7 +1656,7 @@
 
     <!-- ── EXPENSE + CLIENT EXPOSURE + SOURCE ── -->
     <div class="fin-section-label">Breakdown</div>
-    <div class="fin-row fin-row-3" style="margin-bottom:1.75rem;">
+    <div class="fin-row fin-row-4" style="margin-bottom:1.75rem;">
 
       <!-- Expense Donut -->
       <div class="fin-panel">
@@ -1758,6 +1770,41 @@
         <div
           style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
           NO SOURCE DATA</div>
+        {% endif %}
+      </div>
+
+      <!-- Sale Type Breakdown -->
+      <div class="fin-panel">
+        <div class="fin-panel-header">
+          <div>
+            <div class="fin-panel-title">Sale Type Breakdown</div>
+            <div class="fin-panel-sub">Corporate vs General trade inflows</div>
+          </div>
+        </div>
+        {% if corporate_sales > 0 or general_sale > 0 %}
+        <div class="chart-wrap" style="height:120px;">
+          <canvas id="saleTypeChart"></canvas>
+        </div>
+        <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0; background:var(--blue);display:inline-block;"></span>
+              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">Corporate sales</span>
+            </div>
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">₹{{ "{:,.0f}".format(corporate_sales) }} ({{ "%.1f"|format(corporate_sales_pct) }}%)</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0; background:var(--green);display:inline-block;"></span>
+              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">General Sale</span>
+            </div>
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">₹{{ "{:,.0f}".format(general_sale) }} ({{ "%.1f"|format(general_sale_pct) }}%)</span>
+          </div>
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
+          NO SALE TYPE DATA
+        </div>
         {% endif %}
       </div>
     </div>
@@ -1989,6 +2036,8 @@
       const expenseAmounts = {{ expense_amounts | tojson }};
       const sourceLabels = {{ source_labels   | tojson }};
       const sourceAmounts = {{ source_amounts  | tojson }};
+      const corporateSales = {{ corporate_sales | tojson }};
+      const generalSale = {{ general_sale | tojson }};
 
       /* ── Design tokens ── */
       const RED = '#FF3B30';
@@ -2148,6 +2197,36 @@
                 bodyColor: '#fff',
                 bodyFont: { family: "'DM Mono',monospace", size: 10 },
                 callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` }
+              }
+            }
+          }
+        });
+      }
+
+      /* ── 4. Sale Type Breakdown ── */
+      if (corporateSales > 0 || generalSale > 0) {
+        new Chart(document.getElementById('saleTypeChart'), {
+          type: 'doughnut',
+          data: {
+            labels: ['Corporate sales', 'General Sale'],
+            datasets: [{
+              data: [corporateSales, generalSale],
+              backgroundColor: [BLUE, GREEN],
+              borderWidth: 0,
+              hoverOffset: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '65%',
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: INK,
+                bodyColor: '#fff',
+                bodyFont: { family: "'DM Mono',monospace", size: 10 },
+                callbacks: { label: ctx => ` ${ctx.label}: ₹${ctx.raw.toLocaleString('en-IN')}` }
               }
             }
           }

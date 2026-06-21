@@ -628,6 +628,16 @@ textarea.pocket { resize: none; line-height: 1.6; }
               </div>
             </div>
 
+            <!-- Sale Type (Inflow only) -->
+            <div class="field-group" id="sale_type_group" style="display: none;">
+              <label for="sale_type" class="field-label">Sale Type <span class="req">*</span></label>
+              <select id="sale_type" name="sale_type" class="pocket">
+                <option value="">Select Sale Type...</option>
+                <option value="Corporate sales">Corporate sales</option>
+                <option value="General Sale">General Sale</option>
+              </select>
+            </div>
+
             <!-- Transaction Name -->
             <div class="field-group">
               <label for="txn_name" class="field-label">Transaction Name <span class="req">*</span></label>
@@ -746,9 +756,10 @@ textarea.pocket { resize: none; line-height: 1.6; }
               <div class="spec-item">Required headers: <code>txn_date, amount, txn_type, txn_name, account_name</code></div>
               <div class="spec-item">Date format: <code>YYYY-MM-DD</code></div>
               <div class="spec-item">Transaction type: <code>INFLOW</code> or <code>OUTFLOW</code></div>
-              <div class="spec-item">Optional: <code>invoice_id, reference_id, description</code></div>
+              <div class="spec-item">Optional: <code>invoice_id, reference_id, description, sale_type</code></div>
+              <div class="spec-item">Sale type options (Inflow only): <code>Corporate sales</code> or <code>General Sale</code></div>
               <div class="spec-item"><code>source</code> is set to <code>CSV Import</code> automatically</div>
-              <a href="#" class="spec-download">↓ Download Sample Template</a>
+              <a href="{{ url_for('spindlefinance.download_template') }}" class="spec-download">↓ Download Sample Template</a>
             </div>
 
           </form>
@@ -879,6 +890,27 @@ document.addEventListener('DOMContentLoaded', function () {
     clearBtn.classList.remove('visible');
     applyFilter('');
   };
+
+  /* ── Toggle Sale Type based on Transaction Type ── */
+  const txnTypeSelect = document.getElementById('txn_type');
+  const saleTypeGroup = document.getElementById('sale_type_group');
+  const saleTypeSelect = document.getElementById('sale_type');
+
+  function updateSaleTypeVisibility() {
+    if (txnTypeSelect.value === 'INFLOW') {
+      saleTypeGroup.style.display = 'block';
+      saleTypeSelect.required = true;
+    } else {
+      saleTypeGroup.style.display = 'none';
+      saleTypeSelect.required = false;
+      saleTypeSelect.value = '';
+    }
+  }
+
+  if (txnTypeSelect) {
+    txnTypeSelect.addEventListener('change', updateSaleTypeVisibility);
+    updateSaleTypeVisibility();
+  }
 });
 
 /* ── CSV upload helpers ── */

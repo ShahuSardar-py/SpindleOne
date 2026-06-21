@@ -1,266 +1,194 @@
 {% extends "mech_base.html" %}
-{% block title %}SpindleMech – Machinery{% endblock %}
+{% block title %}SpindleMech – Add Machine{% endblock %}
 
 {% block mech_content %}
-<div class="max-w-7xl mx-auto px-6 py-8">
-
-  <!-- Header -->
-  <div class="flex items-center justify-between mb-8">
-    <div>
-      <h1 class="text-3xl font-bold text-gray-900 tracking-tight">SpindleMech</h1>
-      <p class="text-gray-500 mt-1 text-sm">Machine inventory &amp; maintenance tracking</p>
-    </div>
-    <div class="flex items-center gap-3">
-      <a href="{{ url_for('spindlemech.log_maintenance') }}" class="btn-secondary flex items-center gap-2 text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-        </svg>
-        Log Maintenance
-      </a>
-      <!-- Triggers the modal instead of navigating -->
-      <button onclick="openAddMachineModal()" class="btn-primary flex items-center gap-2 text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-        </svg>
-        Add Machine
-      </button>
-    </div>
-  </div>
-
-  <!-- Flash messages -->
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}{% for category, message in messages %}
-      <div class="mb-5 px-4 py-3 rounded-lg text-sm font-medium border
-        {% if category == 'success' %}bg-green-50 text-green-800 border-green-200
-        {% else %}bg-red-50 text-red-800 border-red-200{% endif %}">
-        {{ message }}
-      </div>
-    {% endfor %}{% endif %}
-  {% endwith %}
-
-  <!-- Stat cards -->
-  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <div class="card p-5">
-      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Total</p>
-      <p class="text-3xl font-bold text-gray-900">{{ total }}</p>
-      <p class="text-xs text-gray-400 mt-1">machines registered</p>
-    </div>
-    <div class="card p-5 border-l-4 border-green-400">
-      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Operational</p>
-      <p class="text-3xl font-bold text-green-600">{{ operational }}</p>
-      <p class="text-xs text-gray-400 mt-1">running normally</p>
-    </div>
-    <div class="card p-5 border-l-4 border-yellow-400">
-      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Under Maintenance</p>
-      <p class="text-3xl font-bold text-yellow-600">{{ under_maint }}</p>
-      <p class="text-xs text-gray-400 mt-1">currently down</p>
-    </div>
-    <div class="card p-5 border-l-4 border-gray-300">
-      <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold mb-1">Decommissioned</p>
-      <p class="text-3xl font-bold text-gray-400">{{ decommissioned }}</p>
-      <p class="text-xs text-gray-400 mt-1">retired</p>
-    </div>
-  </div>
-
-  <!-- Machine table -->
-  {% if machines %}
-  <div class="card">
-    <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-      <h2 class="font-semibold text-gray-800">All Machines</h2>
-      <span class="text-xs text-gray-400">{{ total }} total</span>
-    </div>
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm">
-        <thead>
-          <tr class="border-b border-gray-100 bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
-            <th class="text-left px-5 py-3 font-semibold">Code</th>
-            <th class="text-left px-5 py-3 font-semibold">Name</th>
-            <th class="text-left px-5 py-3 font-semibold hidden sm:table-cell">Category</th>
-            <th class="text-left px-5 py-3 font-semibold hidden md:table-cell">Location</th>
-            <th class="text-left px-5 py-3 font-semibold hidden lg:table-cell">Last Maintenance</th>
-            <th class="text-left px-5 py-3 font-semibold">Status</th>
-            <th class="px-5 py-3"></th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-50">
-          {% for m in machines %}
-          <tr class="hover:bg-gray-50 transition-colors">
-            <td class="px-5 py-3.5 font-mono text-xs text-gray-500 font-medium">{{ m.machine_code }}</td>
-            <td class="px-5 py-3.5 font-medium text-gray-900">{{ m.name }}</td>
-            <td class="px-5 py-3.5 text-gray-500 hidden sm:table-cell">{{ m.category or '—' }}</td>
-            <td class="px-5 py-3.5 text-gray-500 hidden md:table-cell">{{ m.location or '—' }}</td>
-            <td class="px-5 py-3.5 text-gray-500 hidden lg:table-cell">
-              {% if m.last_maintenance %}{{ m.last_maintenance.strftime('%d %b %Y') }}
-              {% else %}<span class="text-gray-300 italic">No records</span>{% endif %}
-            </td>
-            <td class="px-5 py-3.5">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                {% if m.status == 'Operational' %}bg-green-100 text-green-700
-                {% elif m.status == 'Under Maintenance' %}bg-yellow-100 text-yellow-700
-                {% else %}bg-gray-100 text-gray-500{% endif %}">
-                {{ m.status }}
-              </span>
-            </td>
-            <td class="px-5 py-3.5 text-right whitespace-nowrap">
-              <a href="{{ url_for('spindlemech.machine_detail', machine_id=m.id) }}"
-                 class="text-primary-600 hover:text-primary-700 font-medium text-xs">View →</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  {% else %}
-  <div class="card p-16 text-center">
-    <div class="text-6xl mb-4">⚙️</div>
-    <h3 class="text-gray-700 font-semibold text-lg mb-1">No machines yet</h3>
-    <p class="text-gray-400 text-sm mb-6">Add your first machine to start tracking maintenance.</p>
-    <button onclick="openAddMachineModal()" class="btn-primary inline-block">Add First Machine</button>
-  </div>
-  {% endif %}
-
+<div style="margin-bottom: 1.75rem;">
+  <div class="mech-page-sub">Operational Node // SpindleMech</div>
+  <h1 class="mech-page-title">Machinery Registry</h1>
 </div>
 
+<!-- Stat cards -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <div class="sys-card" style="padding: 1.25rem 1.5rem;">
+    <p class="sys-label" style="margin-bottom: 0.4rem;">Total</p>
+    <p class="sys-heading" style="font-size: 2.2rem; line-height: 1;">{{ total }}</p>
+    <p class="sys-label" style="font-size: 0.5rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: lowercase;">registered</p>
+  </div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; border-left: 4px solid var(--sys-green);">
+    <p class="sys-label" style="margin-bottom: 0.4rem; color: var(--sys-green);">Operational</p>
+    <p class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-green);">{{ operational }}</p>
+    <p class="sys-label" style="font-size: 0.5rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: lowercase;">running normally</p>
+  </div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; border-left: 4px solid var(--sys-amber);">
+    <p class="sys-label" style="margin-bottom: 0.4rem; color: var(--sys-amber);">Under Maint.</p>
+    <p class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-amber);">{{ under_maint }}</p>
+    <p class="sys-label" style="font-size: 0.5rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: lowercase;">currently down</p>
+  </div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; border-left: 4px solid var(--sys-muted);">
+    <p class="sys-label" style="margin-bottom: 0.4rem;">Retired</p>
+    <p class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-muted);">{{ decommissioned }}</p>
+    <p class="sys-label" style="font-size: 0.5rem; color: var(--sys-muted); margin-top: 0.4rem; text-transform: lowercase;">decommissioned</p>
+  </div>
+</div>
 
-<!-- ─────────────────────────────────────────────
+<!-- Machine table -->
+<div class="mech-table-wrap">
+  <div class="mech-card-header">
+    <span>All Registered Machines</span>
+    <button onclick="openAddMachineModal()" class="sys-btn sys-btn-primary" style="padding: 0.25rem 0.60rem; font-size: 0.55rem; line-height: 1;">
+      + Add Machine
+    </button>
+  </div>
+
+  {% if machines %}
+  <table class="mech-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Last Maint.</th>
+        <th>Status</th>
+        <th class="right">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in machines %}
+      <tr>
+        <td style="font-weight: 700; font-family: 'Space Mono', monospace;">{{ m.machine_code }}</td>
+        <td>{{ m.name }}</td>
+        <td style="color: var(--sys-muted);">{{ m.category or '—' }}</td>
+        <td style="color: var(--sys-muted);">{{ m.location or '—' }}</td>
+        <td>
+          {% if m.last_maintenance %}
+            {{ m.last_maintenance.strftime('%d %b %Y') }}
+          {% else %}
+            <span style="color: var(--sys-muted); font-style: italic;">No records</span>
+          {% endif %}
+        </td>
+        <td>
+          <span style="display: inline-flex; align-items: center; gap: 0.4rem;">
+            <span class="status-dot {% if m.status == 'Operational' %}ok{% elif m.status == 'Under Maintenance' %}warn{% else %}err{% endif %}"></span>
+            <span style="font-size: 0.6rem; font-weight: 700; text-transform: uppercase;">{{ m.status }}</span>
+          </span>
+        </td>
+        <td class="right">
+          <a href="{{ url_for('spindlemech.machine_detail', machine_id=m.id) }}"
+             class="sys-btn" style="padding: 0.25rem 0.6rem; font-size: 0.55rem; line-height: 1;">
+            View →
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div style="padding: 3rem; text-align: center; font-family: 'Space Mono', monospace; color: var(--sys-muted);">
+    <div>No machines yet.</div>
+    <div style="margin-top: 1rem;">
+      <button onclick="openAddMachineModal()" class="sys-btn sys-btn-primary">Add First Machine</button>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- ═════════════════════════════════════════
      ADD MACHINE MODAL
-───────────────────────────────────────────── -->
+     ═════════════════════════════════════════ -->
 <div id="addMachineModal"
      class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden"
      aria-modal="true" role="dialog" aria-labelledby="modalTitle">
 
   <!-- Backdrop -->
   <div id="modalBackdrop"
-       class="absolute inset-0 bg-gray-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-200"
+       class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-200"
        onclick="closeAddMachineModal()"></div>
 
   <!-- Panel -->
   <div id="modalPanel"
-       class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl
-              translate-y-4 opacity-0 transition-all duration-200 ease-out overflow-hidden">
-
-    <!-- Coloured top stripe -->
-    <div class="h-1 w-full bg-gradient-to-r from-primary-500 to-primary-400"></div>
+       class="relative w-full max-w-lg bg-white border border-black shadow-[8px_8px_0px_rgba(0,0,0,1)]
+              translate-y-4 opacity-0 transition-all duration-200 ease-out overflow-hidden"
+       style="box-shadow: 8px 8px 0px var(--sys-ink); border: 2px solid var(--sys-ink);">
 
     <!-- Header -->
-    <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center">
-          <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
-          </svg>
-        </div>
-        <h2 id="modalTitle" class="text-base font-semibold text-gray-900">Add New Machine</h2>
+    <div class="mech-card-header" style="border-bottom: 2px solid var(--sys-ink); padding: 0.6rem 1rem;">
+      <div class="flex items-center gap-2">
+        <span class="unit-dot"></span>
+        <h2 id="modalTitle" style="font-size: 0.65rem; font-weight: 700; font-family: 'Space Mono', monospace; text-transform: uppercase;">Add New Machine Node</h2>
       </div>
       <button onclick="closeAddMachineModal()"
-              class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-1.5 transition-colors"
+              style="color: #ffffff; background: transparent; border: none; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 700;"
               aria-label="Close">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+        [X]
       </button>
     </div>
 
     <!-- Form -->
-    <form method="POST" action="{{ url_for('spindlemech.add_machine') }}" class="px-6 py-5 space-y-4">
-      {{ form.hidden_tag() if form is defined }}  {# CSRF token if you use Flask-WTF #}
+    <form method="POST" action="{{ url_for('spindlemech.add_machine') }}" style="padding: 1.5rem; background: var(--sys-bg);">
+      {{ form.hidden_tag() if form is defined }}
 
       <!-- Row: Code + Name -->
       <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-            Machine Code <span class="text-red-400">*</span>
-          </label>
-          <input type="text" name="machine_code" required placeholder="e.g. MCH-001"
-                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
-                        placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
-                        focus:border-transparent transition-shadow font-mono">
+        <div class="mech-field">
+          <label>Machine Code <span style="color: var(--sys-red);">*</span></label>
+          <input type="text" name="machine_code" required placeholder="MCH-001" class="mech-input" style="font-family: 'Space Mono', monospace; text-transform: uppercase;">
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-            Name <span class="text-red-400">*</span>
-          </label>
-          <input type="text" name="name" required placeholder="Machine name"
-                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
-                        placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
-                        focus:border-transparent transition-shadow">
+        <div class="mech-field">
+          <label>Name <span style="color: var(--sys-red);">*</span></label>
+          <input type="text" name="name" required placeholder="Machine Name" class="mech-input">
         </div>
       </div>
 
       <!-- Category -->
-      <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Category</label>
-        <input type="text" name="category" placeholder="e.g. CNC Lathe, Press, Conveyor…"
-               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
-                      placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
-                      focus:border-transparent transition-shadow">
+      <div class="mech-field">
+        <label>Category</label>
+        <input type="text" name="category" placeholder="e.g. CNC Lathe, Press, Conveyor…" class="mech-input">
       </div>
 
       <!-- Location -->
-      <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Location</label>
-        <input type="text" name="location" placeholder="e.g. Floor A – Bay 3"
-               class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
-                      placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
-                      focus:border-transparent transition-shadow">
+      <div class="mech-field">
+        <label>Location</label>
+        <input type="text" name="location" placeholder="e.g. Floor A – Bay 3" class="mech-input">
       </div>
 
-      <!-- Status -->
-      <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
-          Status <span class="text-red-400">*</span>
-        </label>
+      <!-- Status selection -->
+      <div class="mech-field">
+        <label>Operational Status <span style="color: var(--sys-red);">*</span></label>
         <div class="grid grid-cols-3 gap-2" id="statusPicker">
-          {% set statuses = [
-            ('Operational',      'bg-green-50 text-green-700 border-green-200  data-ring="ring-green-400"'),
-            ('Under Maintenance','bg-yellow-50 text-yellow-700 border-yellow-200 data-ring="ring-yellow-400"'),
-            ('Decommissioned',   'bg-gray-50 text-gray-500 border-gray-200    data-ring="ring-gray-400"'),
-          ] %}
-          {% for val, cls in [
-            ('Operational',       'green'),
-            ('Under Maintenance', 'yellow'),
-            ('Decommissioned',    'gray')
-          ] %}
-          <label class="status-option cursor-pointer">
-            <input type="radio" name="status" value="{{ val }}"
-                   class="sr-only"
-                   {% if val == 'Operational' %}checked{% endif %}>
-            <span class="block text-center text-xs font-medium px-2 py-2 rounded-lg border transition-all
-              {% if val == 'Operational' %}
-                bg-green-50 text-green-700 border-green-200 ring-2 ring-green-400
-              {% elif val == 'Under Maintenance' %}
-                bg-yellow-50 text-yellow-700 border-yellow-200
-              {% else %}
-                bg-gray-50 text-gray-500 border-gray-200
-              {% endif %}
-              status-label">{{ val }}</span>
+          {% for val in ['Operational', 'Under Maintenance', 'Decommissioned'] %}
+          <label style="cursor: pointer;">
+            <input type="radio" name="status" value="{{ val }}" class="sr-only" {% if val == 'Operational' %}checked{% endif %}>
+            <span class="status-btn-pill" style="
+              display: block;
+              text-align: center;
+              font-family: 'Space Mono', monospace;
+              font-size: 0.55rem;
+              font-weight: 700;
+              padding: 0.5rem 0.25rem;
+              border: 1px solid var(--sys-border);
+              background: #ffffff;
+              color: var(--sys-muted);
+              text-transform: uppercase;
+              transition: all 0.12s;
+            ">{{ val }}</span>
           </label>
           {% endfor %}
         </div>
       </div>
 
       <!-- Notes -->
-      <div>
-        <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Notes</label>
-        <textarea name="notes" rows="2" placeholder="Optional notes or description…"
-                  class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900
-                         placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500
-                         focus:border-transparent transition-shadow resize-none"></textarea>
+      <div class="mech-field">
+        <label>Notes</label>
+        <textarea name="notes" rows="2" placeholder="Optional notes or details…" class="mech-textarea"></textarea>
       </div>
 
       <!-- Footer actions -->
-      <div class="flex items-center justify-end gap-3 pt-2 border-t border-gray-100">
-        <button type="button" onclick="closeAddMachineModal()"
-                class="btn-secondary text-sm px-4 py-2">
+      <div class="mech-btn-row" style="border-top: 1px solid var(--sys-border); padding-top: 1rem; margin-top: 1.5rem;">
+        <button type="button" onclick="closeAddMachineModal()" class="sys-btn" style="padding: 0.45rem 1rem; font-size: 0.6rem;">
           Cancel
         </button>
-        <button type="submit"
-                class="btn-primary flex items-center gap-2 text-sm px-5 py-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
+        <button type="submit" class="sys-btn sys-btn-primary" style="padding: 0.45rem 1.25rem; font-size: 0.6rem;">
           Save Machine
         </button>
       </div>
@@ -268,6 +196,15 @@
   </div>
 </div>
 
+<style>
+  /* Custom status button pills in modal */
+  input[type="radio"]:checked + .status-btn-pill {
+    background: var(--sys-ink) !important;
+    color: #ffffff !important;
+    border-color: var(--sys-ink) !important;
+    box-shadow: 2px 2px 0px var(--sys-amber);
+  }
+</style>
 
 <script>
   /* ── Modal open / close ── */
@@ -278,7 +215,6 @@
   function openAddMachineModal() {
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
-    // Trigger transition on next frame
     requestAnimationFrame(() => {
       backdrop.classList.add('opacity-100');
       backdrop.classList.remove('opacity-0');
@@ -305,25 +241,9 @@
     }
   });
 
-  /* ── Status radio pill highlight ── */
-  const ringColors = {
-    'Operational':       ['ring-2', 'ring-green-400'],
-    'Under Maintenance': ['ring-2', 'ring-yellow-400'],
-    'Decommissioned':    ['ring-2', 'ring-gray-400'],
-  };
-
-  document.querySelectorAll('#statusPicker input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      document.querySelectorAll('#statusPicker .status-label').forEach(lbl => {
-        lbl.classList.remove('ring-2', 'ring-green-400', 'ring-yellow-400', 'ring-gray-400');
-      });
-      if (radio.checked) {
-        const label = radio.nextElementSibling;
-        const rings = ringColors[radio.value] || [];
-        label.classList.add(...rings);
-      }
-    });
+  // Automatically trigger modal open on page load
+  window.addEventListener('DOMContentLoaded', () => {
+    openAddMachineModal();
   });
 </script>
-
 {% endblock %}

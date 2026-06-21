@@ -148,6 +148,13 @@ def _build_store() -> str:
             "concentration_risk": clean.get("concentration_risk", "low"),
         },
 
+        "sale_types": {
+            "corporate_sales": clean.get("corporate_sales", 0),
+            "general_sale": clean.get("general_sale", 0),
+            "corporate_sales_pct": clean.get("corporate_sales_pct", 0),
+            "general_sale_pct": clean.get("general_sale_pct", 0),
+        },
+
         "sources": {
             "labels":  clean.get("source_labels", []),
             "amounts": clean.get("source_amounts", []),

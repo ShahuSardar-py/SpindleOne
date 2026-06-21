@@ -184,6 +184,13 @@ def get_dashboard_context() -> dict:
     else:
         concentration_risk = 'low'
 
+    # Sale type breakdown (Corporate vs General)
+    corporate_sales = sum(c.amount for c in inflow_txns if c.sale_type == 'Corporate sales')
+    general_sale = sum(c.amount for c in inflow_txns if c.sale_type == 'General Sale')
+    total_sales = corporate_sales + general_sale
+    corporate_sales_pct = _safe_pct(corporate_sales, total_sales)
+    general_sale_pct = _safe_pct(general_sale, total_sales)
+
     #  Return full context dict                                           #
     return dict(
         # ── Raw data ──────────────────────────────────────────────────
@@ -238,6 +245,12 @@ def get_dashboard_context() -> dict:
         top_clients=top_clients,
         concentration_pct=concentration_pct,
         concentration_risk=concentration_risk,
+
+        # ── Sale Type Breakdown ───────────────────────────────────────
+        corporate_sales=corporate_sales,
+        general_sale=general_sale,
+        corporate_sales_pct=corporate_sales_pct,
+        general_sale_pct=general_sale_pct,
 
         # ── Chart series (JSON-safe) ──────────────────────────────────
         months=months,

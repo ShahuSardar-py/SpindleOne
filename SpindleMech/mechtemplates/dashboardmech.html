@@ -3,69 +3,74 @@
 {% block title %}Maintenance Dashboard{% endblock %}
 
 {% block mech_content %}
-<div class="flex-1 p-6 bg-gray-50">
-
-<h3 class="text-2xl font-semibold mb-6">
-⚙️ Maintenance Dashboard
-</h3>
+<div style="margin-bottom: 1.75rem;">
+  <div class="mech-page-sub">Operational Node // SpindleMech</div>
+  <h1 class="mech-page-title">Maintenance Dashboard</h1>
+</div>
 
 <!-- KPI CARDS -->
-<div class="grid grid-cols-5 gap-6 mb-6">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
 
-<div class="bg-white p-5 rounded-xl shadow">
-<p class="text-gray-500 text-sm">Total Machines</p>
-<h4 class="text-2xl font-bold">{{ total }}</h4>
-</div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+    <span class="sys-label" style="display: block; margin-bottom: 0.4rem;">Total Machines</span>
+    <span class="sys-heading" style="font-size: 2.2rem; line-height: 1;">{{ total }}</span>
+  </div>
 
-<div class="bg-white p-5 rounded-xl shadow">
-<p class="text-gray-500 text-sm">Operational</p>
-<h4 class="text-2xl font-bold text-green-600">{{ operational }}</h4>
-</div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+    <span class="sys-label" style="display: block; margin-bottom: 0.4rem;">Operational</span>
+    <span class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-green);">{{ operational }}</span>
+  </div>
 
-<div class="bg-white p-5 rounded-xl shadow">
-<p class="text-gray-500 text-sm">Under Maintenance</p>
-<h4 class="text-2xl font-bold text-yellow-600">{{ under_maint }}</h4>
-</div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+    <span class="sys-label" style="display: block; margin-bottom: 0.4rem;">Under Maint.</span>
+    <span class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-amber);">{{ under_maint }}</span>
+  </div>
 
-<div class="bg-white p-5 rounded-xl shadow">
-<p class="text-gray-500 text-sm">Decommissioned</p>
-<h4 class="text-2xl font-bold text-gray-600">{{ decommissioned }}</h4>
-</div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+    <span class="sys-label" style="display: block; margin-bottom: 0.4rem;">Decommissioned</span>
+    <span class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-muted);">{{ decommissioned }}</span>
+  </div>
 
-<div class="bg-white p-5 rounded-xl shadow">
-<p class="text-gray-500 text-sm">Total Downtime</p>
-<h4 class="text-2xl font-bold text-red-600">{{ total_downtime }} hrs</h4>
-</div>
+  <div class="sys-card" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+    <span class="sys-label" style="display: block; margin-bottom: 0.4rem;">Total Downtime</span>
+    <span class="sys-heading" style="font-size: 2.2rem; line-height: 1; color: var(--sys-red);">{{ total_downtime }}<span style="font-size: 0.9rem; font-weight: normal; margin-left: 0.2rem;">hrs</span></span>
+  </div>
 
 </div>
 
 <!-- CHARTS -->
-<div class="grid grid-cols-2 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-<!-- Breakdown Chart -->
-<div class="bg-white p-6 rounded-xl shadow">
-<h5 class="font-semibold mb-4">Breakdowns per Machine</h5>
-<div class="h-80">
-<canvas id="breakdownChart"></canvas>
-</div>
-</div>
+  <!-- Breakdown Chart -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <span>Breakdowns per Machine</span>
+      <span class="unit-indicator" style="background: var(--sys-amber);"></span>
+    </div>
+    <div style="padding: 1.5rem;">
+      <div style="height: 320px; position: relative;">
+        <canvas id="breakdownChart"></canvas>
+      </div>
+    </div>
+  </div>
 
-<!-- Maintenance Type Chart -->
-<div class="bg-white p-6 rounded-xl shadow">
-<h5 class="font-semibold mb-4">Maintenance Type Split</h5>
-<div class="h-80">
-<canvas id="typeChart"></canvas>
-</div>
-</div>
-
-</div>
+  <!-- Maintenance Type Chart -->
+  <div class="sys-card">
+    <div class="sys-card-header">
+      <span>Maintenance Type Split</span>
+      <span class="unit-indicator" style="background: var(--sys-green);"></span>
+    </div>
+    <div style="padding: 1.5rem;">
+      <div style="height: 320px; position: relative;">
+        <canvas id="typeChart"></canvas>
+      </div>
+    </div>
+  </div>
 
 </div>
 {% endblock %}
 
-
 {% block extra_scripts %}
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Breakdown Data -->
@@ -79,41 +84,107 @@
 </script>
 
 <script>
+// Retrieve CSS variable color values
+const sysInk = '#0f0f0f';
+const sysBorder = '#c8c4bb';
+const sysRed = '#d63a2f';
+const sysGreen = '#3a7d44';
+const sysAmber = '#c47e1a';
+const sysMuted = '#6b6860';
+const sysBlue = '#2563eb';
 
 // Breakdown Chart
 const breakdownData = JSON.parse(
-document.getElementById("breakdown-data").textContent
+  document.getElementById("breakdown-data").textContent
 );
 
-new Chart(document.getElementById("breakdownChart"), {
-type: "bar",
-data: {
-labels: Object.keys(breakdownData),
-datasets: [{
-label: "Breakdowns",
-data: Object.values(breakdownData),
-backgroundColor: "#ef4444"
-}]
-}
+const breakdownCtx = document.getElementById("breakdownChart").getContext('2d');
+new Chart(breakdownCtx, {
+  type: "bar",
+  data: {
+    labels: Object.keys(breakdownData),
+    datasets: [{
+      label: "Breakdowns",
+      data: Object.values(breakdownData),
+      backgroundColor: sysRed,
+      borderColor: sysInk,
+      borderWidth: 1.5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          color: sysMuted,
+          font: {
+            family: 'Space Mono',
+            size: 9
+          }
+        }
+      },
+      y: {
+        grid: {
+          color: sysBorder,
+          drawBorder: false
+        },
+        ticks: {
+          color: sysMuted,
+          font: {
+            family: 'Space Mono',
+            size: 9
+          },
+          stepSize: 1
+        }
+      }
+    }
+  }
 });
-
 
 // Maintenance Type Chart
 const typeData = JSON.parse(
-document.getElementById("type-data").textContent
+  document.getElementById("type-data").textContent
 );
 
-new Chart(document.getElementById("typeChart"), {
-type: "pie",
-data: {
-labels: Object.keys(typeData),
-datasets: [{
-data: Object.values(typeData),
-backgroundColor: ["#3b82f6", "#f59e0b", "#10b981"]
-}]
-}
+const typeCtx = document.getElementById("typeChart").getContext('2d');
+new Chart(typeCtx, {
+  type: "doughnut",
+  data: {
+    labels: Object.keys(typeData),
+    datasets: [{
+      data: Object.values(typeData),
+      backgroundColor: [sysBlue, sysAmber, sysGreen],
+      borderColor: sysInk,
+      borderWidth: 1.5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: sysInk,
+          font: {
+            family: 'Space Mono',
+            size: 9,
+            weight: 'bold'
+          },
+          padding: 15
+        }
+      }
+    }
+  }
 });
-
 </script>
-
 {% endblock %}

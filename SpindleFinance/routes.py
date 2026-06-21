@@ -47,6 +47,10 @@ def cashflow():
         else:
             invoice_id = None
         
+        sale_type = request.form.get('sale_type')
+        if txn_type != 'INFLOW':
+            sale_type = None
+
         cashflow = AccountCashflow(
             txn_date=datetime.strptime(request.form['txn_date'], '%Y-%m-%d').date(),
             amount=amount,
@@ -57,12 +61,19 @@ def cashflow():
             reference_id=request.form.get('reference_id', ''),
             current_balance= new_bal,
             source='MANUAL',
-            invoice_id=invoice_id
+            invoice_id=invoice_id,
+            sale_type=sale_type
         )
 
         db.session.add(cashflow)
         db.session.commit()
         
+        from .CF01.metric_Store import refresh_store
+        try:
+            refresh_store()
+        except Exception:
+            pass
+
         # Update invoice status after cashflow is saved
         if invoice_id:
             update_invoice_status(invoice_id)
@@ -233,3 +244,40 @@ def list_invoices():
         })
 
     return jsonify(result)
+
+
+@bp.route('/template/download')
+def download_template():
+    import csv
+    from io import StringIO
+    from flask import Response
+    
+    si = StringIO()
+    cw = csv.writer(si)
+    # Header row
+    cw.writerow([
+        'txn_date', 'amount', 'txn_type', 'txn_name', 'account_name', 
+        'invoice_id', 'reference_id', 'description', 'sale_type'
+    ])
+    # Corporate sales example
+    cw.writerow([
+        '2026-06-21', '125000.00', 'INFLOW', 'Acme Corp Q2 Payment', 'Business Checking',
+        '101', '', 'Direct corporate sales invoice settlement', 'Corporate sales'
+    ])
+    # Outflow example (does not have sale type)
+    cw.writerow([
+        '2026-06-21', '1500.00', 'OUTFLOW', 'Office Stationaries', 'Petty Cash',
+        '', 'REF-9092', 'Paper, pens, and printer cartridges', ''
+    ])
+    # General Sale example
+    cw.writerow([
+        '2026-06-21', '45000.00', 'INFLOW', 'General retail sales walk-in', 'Business Checking',
+        '', '', 'Walk-in cash counter sale', 'General Sale'
+    ])
+    
+    output = si.getvalue()
+    return Response(
+        output,
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=spindle_finance_template.csv"}
+    )

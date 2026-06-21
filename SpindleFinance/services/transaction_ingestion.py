@@ -23,6 +23,7 @@ def ingest_data(file_path):
         "transaction amount": "amount",
         "inflow or outflow": "txn_type",
         "refrence ID": "reference_id",
+        "sale type": "sale_type",
         # optional if exists in CSV
         "description": "description",
     }
@@ -50,6 +51,14 @@ def ingest_data(file_path):
     # Optional fields handling
     if "description" not in df.columns:
         df["description"] = None
+
+    if "sale_type" not in df.columns:
+        df["sale_type"] = None
+    else:
+        df["sale_type"] = df["sale_type"].apply(lambda x: str(x).strip() if pd.notna(x) and str(x).strip() in ["Corporate sales", "General Sale"] else None)
+
+    # For OUTFLOW transactions, sale_type must be None
+    df.loc[df["txn_type"] == "OUTFLOW", "sale_type"] = None
 
     df["invoice_id"] = None  # since not coming from CSV
     df["source"] = "File_Upload"

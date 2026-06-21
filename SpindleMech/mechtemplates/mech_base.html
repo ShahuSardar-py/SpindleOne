@@ -1,58 +1,309 @@
 {% extends "base.html" %}
 
+{% block extra_styles %}
+<style>
+  /* ── Layout Shell ── */
+  .mech-shell {
+    display: flex;
+    min-height: calc(100vh - 48px);
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* ── Sidebar ── */
+  .mech-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    background: var(--sys-ink);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 48px;
+    height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-right: 1px solid var(--sys-border);
+  }
+
+  .mech-sidebar-brand {
+    padding: 1.5rem 1.25rem 1.25rem;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .mech-sidebar-brand-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .mech-sidebar-brand-label .brand-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--sys-amber);
+    flex-shrink: 0;
+  }
+
+  .mech-sidebar-brand-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sys-muted);
+    margin-top: 0.2rem;
+  }
+
+  .mech-nav {
+    padding: 1rem 0;
+    flex: 1;
+  }
+
+  .mech-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sys-muted);
+    text-decoration: none;
+    transition: background 0.12s, color 0.12s;
+  }
+
+  .mech-nav-link:hover {
+    background: #1e2020;
+    color: #ffffff;
+  }
+
+  .mech-nav-link.active {
+    background: #1e2020;
+    color: #ffffff;
+    border-left: 3px solid var(--sys-amber);
+    padding-left: calc(1.25rem - 3px);
+  }
+
+  /* ── Main Content Area ── */
+  .mech-main {
+    flex: 1;
+    padding: 1.75rem 2rem 3rem;
+    overflow-y: auto;
+    background: var(--sys-bg);
+    position: relative;
+  }
+
+  /* ── Brutalist Components ── */
+  .mech-page-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--sys-ink);
+    line-height: 1;
+  }
+
+  .mech-page-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--sys-muted);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  .mech-card-header {
+    background: var(--sys-ink);
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mech-card-header .unit-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--sys-amber);
+    flex-shrink: 0;
+  }
+
+  .mech-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--sys-border);
+    box-shadow: 4px 4px 0 var(--sys-ink);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .mech-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .mech-table thead tr {
+    background: var(--sys-surface);
+    border-bottom: 1px solid var(--sys-border);
+  }
+
+  .mech-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sys-muted);
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .mech-table tbody tr {
+    border-top: 1px solid var(--sys-surface);
+    transition: background 0.1s;
+  }
+
+  .mech-table tbody tr:hover {
+    background: var(--sys-bg);
+  }
+
+  .mech-table td {
+    padding: 0.75rem 0.85rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--sys-ink);
+  }
+
+  .mech-table td.right, .mech-table th.right {
+    text-align: right;
+  }
+
+  /* Form Elements */
+  .mech-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .mech-field label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sys-muted);
+  }
+
+  .mech-input, .mech-select, .mech-textarea {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--sys-ink);
+    background: #ffffff;
+    border: 1px solid var(--sys-border);
+    padding: 0.55rem 0.75rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.12s, box-shadow 0.12s;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  .mech-input:focus, .mech-select:focus, .mech-textarea:focus {
+    border-color: var(--sys-ink);
+    box-shadow: 2px 2px 0 var(--sys-ink);
+  }
+
+  .mech-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6860' stroke-width='1.5' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  .mech-btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+</style>
+{% block mech_styles %}{% endblock %}
+{% endblock %}
+
 {% block content %}
-<div class="flex h-[calc(100vh-72px)]">
+<div class="mech-shell">
 
-<!-- SIDEBAR -->
-<div class="w-64 bg-white border-r">
+  <!-- SIDEBAR -->
+  <div class="mech-sidebar">
+    <div class="mech-sidebar-brand">
+      <div class="mech-sidebar-brand-label">
+        <span class="brand-dot"></span>
+        <span>SpindleMech</span>
+      </div>
+      <div class="mech-sidebar-brand-sub">Machinery & Maint.</div>
+    </div>
 
-<div class="p-6 border-b">
-<h2 class="text-xl font-bold">SpindleMech</h2>
-</div>
+    <div class="mech-nav">
+      <!-- Dashboard -->
+      <a href="{{ url_for('spindlemech.index') }}"
+         class="mech-nav-link {% if request.endpoint == 'spindlemech.index' %}active{% endif %}">
+        <span>📊 Dashboard</span>
+      </a>
 
-<div class="p-4 space-y-2">
+      <!-- Machines -->
+      <a href="{{ url_for('spindlemech.machine_list') }}"
+         class="mech-nav-link {% if request.endpoint == 'spindlemech.machine_list' %}active{% endif %}">
+        <span>⚙️ Machines</span>
+      </a>
 
-<!-- Dashboard -->
-<a href="{{ url_for('spindlemech.index') }}"
-class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
-{% if request.endpoint == 'spindlemech.index' %}
-bg-blue-100 text-blue-600
-{% else %}
-text-gray-600 hover:bg-gray-100
-{% endif %}">
-📊 Dashboard
-</a>
+      <!-- Add Machine -->
+      <a href="{{ url_for('spindlemech.add_machine') }}"
+         class="mech-nav-link {% if request.endpoint == 'spindlemech.add_machine' %}active{% endif %}">
+        <span>➕ Add Machine</span>
+      </a>
 
-<!-- Machines -->
-<a href="{{ url_for('spindlemech.machine_list') }}"
-class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium
-{% if request.endpoint == 'spindlemech.machine_list' %}
-bg-blue-100 text-blue-600
-{% else %}
-text-gray-600 hover:bg-gray-100
-{% endif %}">
-⚙️ Machines
-</a>
+      <!-- Maintenance -->
+      <a href="{{ url_for('spindlemech.log_maintenance') }}"
+         class="mech-nav-link {% if request.endpoint == 'spindlemech.log_maintenance' %}active{% endif %}">
+        <span>🛠 Log Maint.</span>
+      </a>
+    </div>
+  </div>
 
-<!-- Add Machine -->
-<a href="{{ url_for('spindlemech.add_machine') }}"
-class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
-➕ Add Machine
-</a>
+  <!-- MAIN CONTENT -->
+  <div class="mech-main">
+    <!-- Flash Messages inside main area -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="sys-card" style="border-left: 4px solid {% if category == 'success' %}var(--sys-green){% else %}var(--sys-red){% endif %}; margin-bottom: 1.5rem; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.2rem;">
+            <div class="sys-label" style="color: {% if category == 'success' %}var(--sys-green){% else %}var(--sys-red){% endif %}; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em;">
+              System_Alert // {{ category.upper() }}
+            </div>
+            <div style="font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--sys-ink);">
+              {{ message }}
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-<!-- Maintenance -->
-<a href="{{ url_for('spindlemech.log_maintenance') }}"
-class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium">
-🛠 Log Maintenance
-</a>
-
-</div>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="flex-1 p-6 overflow-y-auto bg-gray-50">
-{% block mech_content %}{% endblock %}
-</div>
+    {% block mech_content %}{% endblock %}
+  </div>
 
 </div>
 {% endblock %}

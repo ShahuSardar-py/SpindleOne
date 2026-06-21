@@ -831,6 +831,36 @@
     margin-left: 0.4rem;
     vertical-align: middle;
   }
+
+  .badge-corporate {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.44rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    background: rgba(0, 122, 255, 0.08);
+    color: var(--blue);
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+
+  .badge-general {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.44rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.45rem;
+    background: rgba(52, 199, 89, 0.08);
+    color: #1a7a35;
+    border: 1px solid rgba(52, 199, 89, 0.2);
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
 </style>
 {% endblock %}
 
@@ -979,6 +1009,11 @@
                 {% if cashflow.is_late_payment %}
                 <span class="badge-late">Late</span>
                 {% endif %}
+                {% if cashflow.sale_type == 'Corporate sales' %}
+                <span class="badge-corporate">Corporate</span>
+                {% elif cashflow.sale_type == 'General Sale' %}
+                <span class="badge-general">General</span>
+                {% endif %}
               </div>
               {% if cashflow.description %}
               <span class="td-desc">{{ cashflow.description[:50] }}{% if cashflow.description|length > 50 %}…{% endif
@@ -1089,6 +1124,17 @@
 
     <div class="rec-modal-body">
 
+      <div class="modal-row cols-2">
+        <div class="modal-field">
+          <div class="modal-field-label">Transaction Date</div>
+          <div class="modal-field-value" id="modalDate">—</div>
+        </div>
+        <div class="modal-field">
+          <div class="modal-field-label">Transaction Type</div>
+          <div class="modal-field-value" id="modalType">—</div>
+        </div>
+      </div>
+
       <div class="modal-row cols-2" id="modalLateRow" style="display:none;">
         <div class="modal-field" style="background:rgba(255,59,48,0.05);">
           <div class="modal-field-label">Payment Timing</div>
@@ -1122,6 +1168,16 @@
         <div class="modal-field">
           <div class="modal-field-label">Balance After</div>
           <div class="modal-field-value" id="modalBalance">—</div>
+        </div>
+      </div>
+
+      <div class="modal-row cols-2" id="modalSaleTypeRow" style="display:none;">
+        <div class="modal-field">
+          <div class="modal-field-label">Sale Type</div>
+          <div class="modal-field-value" id="modalSaleType">—</div>
+        </div>
+        <div class="modal-field">
+          <!-- empty field to balance layout -->
         </div>
       </div>
 
@@ -1160,18 +1216,22 @@
 <script>
   const transactions = {
 {% for cashflow in cashflows %}
-  { { cashflow.id } }: {
-    id: { { cashflow.id } },
+  {{ cashflow.id }}: {
+    id: {{ cashflow.id }},
     txn_date: "{{ cashflow.txn_date.strftime('%B %d, %Y') }}",
-      txn_name: "{{ cashflow.txn_name }}",
-        account_name: "{{ cashflow.account_name or '' }}",
-          amount: { { cashflow.amount } },
+    txn_name: "{{ cashflow.txn_name }}",
+    account_name: "{{ cashflow.account_name or '' }}",
+    amount: {{ cashflow.amount }},
     txn_type: "{{ cashflow.txn_type }}",
-      description: "{{ cashflow.description or '' }}",
-        reference_id: "{{ cashflow.reference_id or '' }}",
-          current_balance: { { cashflow.current_balance } },
-    source: "{{ cashflow.source or '' }}",\n    is_late_payment: {{ 'true' if cashflow.is_late_payment else 'false' }},\n    invoice_id: "{{ cashflow.invoice_id or '' }}"\n  }{% if not loop.last %},{% endif %}
-  {% endfor %}
+    description: "{{ cashflow.description or '' }}",
+    reference_id: "{{ cashflow.reference_id or '' }}",
+    current_balance: {{ cashflow.current_balance }},
+    source: "{{ cashflow.source or '' }}",
+    is_late_payment: {{ 'true' if cashflow.is_late_payment else 'false' }},
+    invoice_id: "{{ cashflow.invoice_id or '' }}",
+    sale_type: "{{ cashflow.sale_type or '' }}"
+  }{% if not loop.last %},{% endif %}
+{% endfor %}
 };
 
   function openModal(id) {
@@ -1184,7 +1244,20 @@
     document.getElementById('modalAccount').textContent = txn.account_name || '—';
     document.getElementById('modalDescription').textContent = txn.description || 'No description provided';
     document.getElementById('modalReference').textContent = txn.reference_id || '—';
-    document.getElementById('modalSource').textContent = txn.source || '—';\n    document.getElementById('modalBalance').textContent = '₹' + txn.current_balance.toFixed(2);\n\n    const lateRow = document.getElementById('modalLateRow');\n    document.getElementById('modalInvoiceRef').textContent = txn.invoice_id || '—';\n    lateRow.style.display = txn.is_late_payment ? '' : 'none';
+    document.getElementById('modalSource').textContent = txn.source || '—';
+    document.getElementById('modalBalance').textContent = '₹' + txn.current_balance.toFixed(2);
+
+    const lateRow = document.getElementById('modalLateRow');
+    document.getElementById('modalInvoiceRef').textContent = txn.invoice_id || '—';
+    lateRow.style.display = txn.is_late_payment ? '' : 'none';
+
+    const saleTypeRow = document.getElementById('modalSaleTypeRow');
+    if (txn.sale_type) {
+      document.getElementById('modalSaleType').textContent = txn.sale_type;
+      saleTypeRow.style.display = '';
+    } else {
+      saleTypeRow.style.display = 'none';
+    }
 
     const amtEl = document.getElementById('modalAmount');
     amtEl.textContent = (txn.txn_type === 'INFLOW' ? '+' : '–') + '₹' + txn.amount.toFixed(2);
