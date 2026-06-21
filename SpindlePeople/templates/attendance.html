@@ -1,145 +1,155 @@
 {% extends "base.html" %}
 
+{% block title %}Attendance Records{% endblock %}
+
+{% block extra_styles %}
+{% include "people_styles.html" %}
+<style>
+    /* Inline helper styles for status pills */
+    .status-pill {
+        font-family: var(--font-mono);
+        font-size: 0.52rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.2rem 0.5rem;
+        border: 1px solid var(--s3);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .status-pill.present {
+        background: rgba(52, 199, 89, 0.1);
+        color: var(--green);
+        border-color: var(--green);
+    }
+    .status-pill.absent {
+        background: rgba(255, 59, 48, 0.1);
+        color: var(--red);
+        border-color: var(--red);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="flex min-h-screen bg-gray-50">
+<div class="pep-shell">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900">SpindlePeople</h2>
+    <div class="pep-sidebar">
+        <div class="pep-sidebar-brand">
+            <div class="pep-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindlePeople</span>
+            </div>
+            <div class="pep-sidebar-brand-sub">Workforce Control</div>
         </div>
-        <nav class="p-4">
-            <a href="{{ url_for('spindlepeople.dashboard') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📊</span>
-                <span>Dashboard</span>
+        <div class="pep-nav">
+            <a href="{{ url_for('spindlepeople.dashboard') }}" class="pep-nav-link">
+                <span>📊 Dashboard</span>
             </a>
-            <a href="{{ url_for('spindlepeople.employee') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.employee' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">👥</span>
-                <span>Employees</span>
+            <a href="{{ url_for('spindlepeople.employee') }}" class="pep-nav-link">
+                <span>👥 Employees</span>
             </a>
-            <a href="{{ url_for('spindlepeople.logattendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.logattendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">⏱</span>
-                <span>Log Attendance</span>
+            <a href="{{ url_for('spindlepeople.logattendance') }}" class="pep-nav-link">
+                <span>⏱ Log Attendance</span>
             </a>
-            <a href="{{ url_for('spindlepeople.attendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlepeople.attendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📅</span>
-                <span>Attendance Records</span>
+            <a href="{{ url_for('spindlepeople.attendance') }}" class="pep-nav-link active">
+                <span>📅 Attendance Records</span>
             </a>
-        </nav>
-    </aside>
+        </div>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8">
+    <div class="pep-main">
         <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Attendance Records</h1>
-            <p class="text-gray-600">View and analyze historical attendance data</p>
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h3 class="pep-page-title">Attendance Log</h3>
+                <p class="pep-page-sub">Historical Attendance Database // Archives</p>
+            </div>
         </div>
-
-        <!-- Statistics Cards -->
-
 
         <!-- Records Table -->
         {% if records %}
-        <div class="card">
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Date
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Employee
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Status
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Login Time
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Logout Time
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Work Hours
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        {% for record in records %}
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-gray-900">
-                                        {{ record.date.strftime('%b %d, %Y') }}
-                                    </span>
-                                    <span class="text-sm text-gray-500">
-                                        {{ record.date.strftime('%A') }}
-                                    </span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div>
-                                    <div class="font-semibold text-gray-900">{{ record.employee.name }}</div>
-                                    <div class="text-sm text-gray-500">{{ record.employee.position }}</div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4">
-                                {% if record.status == 'Present' %}
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                    </svg>
-                                    Present
-                                </span>
-                                {% else %}
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800 border border-red-200">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                                    </svg>
-                                    Absent
-                                </span>
-                                {% endif %}
-                            </td>
-                            <td class="px-6 py-4">
-                                {% if record.login_time %}
-                                <span class="text-gray-900 font-medium">
-                                    {{ record.login_time.strftime('%I:%M %p') }}
-                                </span>
-                                {% else %}
-                                <span class="text-gray-400">—</span>
-                                {% endif %}
-                            </td>
-                            <td class="px-6 py-4">
-                                {% if record.logout_time %}
-                                <span class="text-gray-900 font-medium">
-                                    {{ record.logout_time.strftime('%I:%M %p') }}
-                                </span>
-                                {% else %}
-                                <span class="text-gray-400">—</span>
-                                {% endif %}
-                            </td>
-                            
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="pep-table-wrap">
+            <div class="pep-table-header">
+                <span>Historical Shift Records</span>
+                <span class="unit-dot"></span>
             </div>
+            
+            <table class="pep-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Employee</th>
+                        <th>Status</th>
+                        <th>Login Time</th>
+                        <th>Logout Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td class="font-mono">
+                            <div class="flex flex-col">
+                                <span class="font-bold text-gray-900">
+                                    {{ record.date.strftime('%d %b %Y') }}
+                                </span>
+                                <span style="font-size: 0.5rem; color: var(--ink3); text-transform: uppercase;">
+                                    {{ record.date.strftime('%A') }}
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <span class="font-semibold text-gray-900" style="font-family: var(--font-body); font-size: 0.7rem;">{{ record.employee.name }}</span>
+                                <span style="font-size: 0.55rem; color: var(--ink3); display: block;">{{ record.employee.position }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            {% if record.status == 'Present' %}
+                            <span class="status-pill present">
+                                <span class="status-dot ok"></span>
+                                Present
+                            </span>
+                            {% else %}
+                            <span class="status-pill absent">
+                                <span class="status-dot err"></span>
+                                Absent
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="font-mono">
+                            {% if record.login_time %}
+                            <span class="font-bold text-gray-900">
+                                {{ record.login_time.strftime('%I:%M %p') }}
+                            </span>
+                            {% else %}
+                            <span class="text-gray-400">—</span>
+                            {% endif %}
+                        </td>
+                        <td class="font-mono">
+                            {% if record.logout_time %}
+                            <span class="font-bold text-gray-900">
+                                {{ record.logout_time.strftime('%I:%M %p') }}
+                            </span>
+                            {% else %}
+                            <span class="text-gray-400">—</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         {% else %}
-        <div class="card text-center py-16">
-            <div class="text-7xl mb-4 opacity-30">📊</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No records found</h3>
-            <p class="text-gray-600 mb-6">Try adjusting your filters or check back later</p>
-            <a href="{{ url_for('spindlepeople.attendance') }}" class="btn-primary inline-block">
-                Clear Filters
-            </a>
+        <div class="pep-card text-center py-16">
+            <div class="text-6xl mb-4 opacity-40">📊</div>
+            <h3 class="pep-card-title mb-2">No records found</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink3); mb-6;">
+                Check back later or register shift logs.
+            </p>
         </div>
         {% endif %}
-    </main>
+    </div>
 </div>
 {% endblock %}

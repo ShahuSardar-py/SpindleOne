@@ -1,155 +1,145 @@
 {% extends "base.html" %}
 
+{% block title %}Employees Clearance Records{% endblock %}
+
+{% block extra_styles %}
+{% include "people_styles.html" %}
+<style>
+    /* Custom Brutalist Modal Styles */
+    .brutalist-modal-content {
+        background: #ffffff;
+        border: 2px solid var(--ink);
+        box-shadow: 8px 8px 0 var(--ink);
+        max-width: 440px;
+        width: 100%;
+        font-family: var(--font-mono);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="flex min-h-screen bg-gray-50">
+<div class="pep-shell">
     <!-- Sidebar -->
-    <aside class="w-64 bg-white border-r border-gray-200">
-        <div class="p-6 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900">SpindlePeople</h2>
+    <div class="pep-sidebar">
+        <div class="pep-sidebar-brand">
+            <div class="pep-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindlePeople</span>
+            </div>
+            <div class="pep-sidebar-brand-sub">Workforce Control</div>
         </div>
-        <nav class="p-4">
-            <a href="{{ url_for('spindlepeople.dashboard') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.dashboard' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📊</span>
-                <span>Dashboard</span>
+        <div class="pep-nav">
+            <a href="{{ url_for('spindlepeople.dashboard') }}" class="pep-nav-link">
+                <span>📊 Dashboard</span>
             </a>
-            <a href="{{ url_for('spindlepeople.employee') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.employee' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">👥</span>
-                <span>Employees</span>
+            <a href="{{ url_for('spindlepeople.employee') }}" class="pep-nav-link active">
+                <span>👥 Employees</span>
             </a>
-            <a href="{{ url_for('spindlepeople.logattendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium mb-2 transition-colors {% if request.endpoint == 'spindlepeople.logattendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">⏱</span>
-                <span>Log Attendance</span>
+            <a href="{{ url_for('spindlepeople.logattendance') }}" class="pep-nav-link">
+                <span>⏱ Log Attendance</span>
             </a>
-            <a href="{{ url_for('spindlepeople.attendance') }}" 
-               class="flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors {% if request.endpoint == 'spindlepeople.attendance' %}text-primary-600 bg-primary-50 border-r-4 border-primary-600{% else %}text-gray-600 hover:bg-gray-50{% endif %}">
-                <span class="text-xl">📅</span>
-                <span>Attendance Records</span>
+            <a href="{{ url_for('spindlepeople.attendance') }}" class="pep-nav-link">
+                <span>📅 Attendance Records</span>
             </a>
-        </nav>
-    </aside>
+        </div>
+    </div>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8">
+    <div class="pep-main">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Employees</h1>
-            <a href="{{ url_for('spindlepeople.add_employee') }}" class="btn-primary inline-flex items-center gap-2">
-                <span class="text-xl">+</span>
-                <span>Add Employee</span>
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h3 class="pep-page-title">Employees Directory</h3>
+                <p class="pep-page-sub">Clearance Profiles // Active</p>
+            </div>
+            <a href="{{ url_for('spindlepeople.add_employee') }}" class="pep-btn-primary">
+                <span>+ Register Employee</span>
             </a>
         </div>
 
         <!-- Table -->
         {% if employees %}
-        <div class="card">
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Employee ID
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Name
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Position
-                            </th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                Salary
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        {% for emp in employees %}
-                        <tr class="hover:bg-gray-50 cursor-pointer transition-colors" 
-                            onclick="showEmployeeDetails({{ emp.id }})">
-                            <td class="px-6 py-4">
-                                <span class="text-gray-500 font-medium">#{{ emp.id }}</span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="font-semibold text-gray-900">{{ emp.name }}</span>
-                            </td>
-                            <td class="px-6 py-4 text-gray-600">{{ emp.position }}</td>
-                            <td class="px-6 py-4 font-semibold text-gray-900">
-                                ${{ "%.2f"|format(emp.salary) }}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="pep-table-wrap">
+            <div class="pep-table-header">
+                <span>Registered Operators</span>
+                <span class="unit-dot"></span>
             </div>
+            
+            <table class="pep-table">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th class="right">Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in employees %}
+                    <tr class="cursor-pointer" onclick="showEmployeeDetails({{ emp.id }})">
+                        <td class="font-bold">#{{ emp.id }}</td>
+                        <td class="font-semibold text-gray-900">{{ emp.name }}</td>
+                        <td>{{ emp.position }}</td>
+                        <td class="font-semibold right text-blue-600">
+                            ₹{{ "%.2f"|format(emp.salary) }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         {% else %}
-        <div class="card text-center py-16">
-            <div class="text-7xl mb-4 opacity-30">👥</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No employees yet</h3>
-            <p class="text-gray-600">Get started by adding your first employee</p>
+        <div class="pep-card text-center py-16">
+            <div class="text-6xl mb-4 opacity-40">👥</div>
+            <h3 class="pep-card-title mb-2">No employees registered</h3>
+            <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink3);">
+                Get started by adding your first employee database record.
+            </p>
         </div>
         {% endif %}
-    </main>
+    </div>
 </div>
 
 <!-- Modal -->
-<div id="employeeModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full animate-slide-up">
-        <div class="flex justify-between items-center p-6 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900" id="modalEmployeeName">Employee Details</h2>
-            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+<div id="employeeModal" class="hidden fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center p-4">
+    <div class="brutalist-modal-content">
+        <div class="pep-table-header">
+            <span id="modalEmployeeName">Employee Details</span>
+            <button onclick="closeModal()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1rem; font-weight:700;">×</button>
         </div>
-        <div class="p-6 space-y-4">
-            <div class="bg-gray-50 rounded-lg p-4">
-                <div class="text-sm text-gray-600 mb-1">Employee ID</div>
-                <div class="font-semibold text-gray-900" id="modalEmployeeId">-</div>
+        <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <div class="pep-field">
+                <label>Employee ID</label>
+                <div class="pep-input" id="modalEmployeeId" style="background: var(--s2);">—</div>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4">
-                <div class="text-sm text-gray-600 mb-1">Name</div>
-                <div class="font-semibold text-gray-900" id="modalEmployeeNameValue">-</div>
+            <div class="pep-field">
+                <label>Name</label>
+                <div class="pep-input" id="modalEmployeeNameValue" style="background: var(--s2);">—</div>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4">
-                <div class="text-sm text-gray-600 mb-1">Position</div>
-                <div class="font-semibold text-gray-900" id="modalEmployeePosition">-</div>
+            <div class="pep-field">
+                <label>Position</label>
+                <div class="pep-input" id="modalEmployeePosition" style="background: var(--s2);">—</div>
             </div>
-            <div class="bg-gray-50 rounded-lg p-4">
-                <div class="text-sm text-gray-600 mb-1">Salary</div>
-                <div class="font-semibold text-green-600" id="modalEmployeeSalary">-</div>
+            <div class="pep-field">
+                <label>Salary</label>
+                <div class="pep-input text-green-700 font-bold" id="modalEmployeeSalary" style="background: var(--s2);">—</div>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    @keyframes slide-up {
-        from {
-            transform: translateY(20px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-    .animate-slide-up {
-        animation: slide-up 0.3s ease-out;
-    }
-</style>
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
     function showEmployeeDetails(empId) {
         fetch(`{{ url_for('spindlepeople.employee_detail_data', emp_id=0) }}`.replace('0', empId))
-
             .then(response => response.json())
             .then(data => {
                 document.getElementById('modalEmployeeName').textContent = data.name;
                 document.getElementById('modalEmployeeId').textContent = '#' + data.id;
                 document.getElementById('modalEmployeeNameValue').textContent = data.name;
                 document.getElementById('modalEmployeePosition').textContent = data.position;
-                document.getElementById('modalEmployeeSalary').textContent = '$' + parseFloat(data.salary).toFixed(2);
+                document.getElementById('modalEmployeeSalary').textContent = '₹' + parseFloat(data.salary).toFixed(2);
                 
                 document.getElementById('employeeModal').classList.remove('hidden');
             });

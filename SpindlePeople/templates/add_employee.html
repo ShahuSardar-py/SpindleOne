@@ -1,75 +1,105 @@
 {% extends "base.html" %}
 
+{% block title %}Register Operator Profile{% endblock %}
+
+{% block extra_styles %}
+{% include "people_styles.html" %}
+{% endblock %}
+
 {% block content %}
-<div class="min-h-screen bg-gray-50 py-12">
-    <div class="container mx-auto px-4">
-        <div class="max-w-2xl mx-auto">
+<div class="pep-shell">
+    <!-- Sidebar -->
+    <div class="pep-sidebar">
+        <div class="pep-sidebar-brand">
+            <div class="pep-sidebar-brand-label">
+                <span class="brand-dot"></span>
+                <span>SpindlePeople</span>
+            </div>
+            <div class="pep-sidebar-brand-sub">Workforce Control</div>
+        </div>
+        <div class="pep-nav">
+            <a href="{{ url_for('spindlepeople.dashboard') }}" class="pep-nav-link">
+                <span>📊 Dashboard</span>
+            </a>
+            <a href="{{ url_for('spindlepeople.employee') }}" class="pep-nav-link active">
+                <span>👥 Employees</span>
+            </a>
+            <a href="{{ url_for('spindlepeople.logattendance') }}" class="pep-nav-link">
+                <span>⏱ Log Attendance</span>
+            </a>
+            <a href="{{ url_for('spindlepeople.attendance') }}" class="pep-nav-link">
+                <span>📅 Attendance Records</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pep-main">
+        <div style="max-width: 600px;">
             <!-- Header -->
             <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">Add New Employee</h1>
-                <p class="text-gray-600">Fill in the details to add a new employee to the system</p>
+                <h3 class="pep-page-title">Register Employee</h3>
+                <p class="pep-page-sub">Create Clearance profile // Database record</p>
             </div>
 
             <!-- Form Card -->
-            <div class="card">
-                <form method="POST" class="p-8">
-                    <div class="space-y-6">
+            <div class="pep-card">
+                <div class="pep-table-header" style="margin: -1.5rem -1.5rem 1.5rem; width: calc(100% + 3rem);">
+                    <span>Operator Registry Entry</span>
+                    <span class="unit-dot"></span>
+                </div>
+
+                <form method="POST">
+                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
                         <!-- Employee ID -->
-                        <div>
-                            <label for="id" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Employee ID <span class="text-red-500">*</span>
-                            </label>
+                        <div class="pep-field">
+                            <label for="id">Employee ID <span style="color:var(--red);">*</span></label>
                             <input 
                                 type="number" 
                                 id="id" 
                                 name="id" 
                                 required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                placeholder="Enter employee ID">
+                                class="pep-input"
+                                placeholder="Enter numerical employee ID (e.g. 1001)">
                         </div>
 
                         <!-- Full Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Full Name <span class="text-red-500">*</span>
-                            </label>
+                        <div class="pep-field">
+                            <label for="name">Full Name <span style="color:var(--red);">*</span></label>
                             <input 
                                 type="text" 
                                 id="name" 
                                 name="name" 
                                 required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                class="pep-input"
                                 placeholder="Enter full name">
                         </div>
 
                         <!-- Position -->
-                        <div>
-                            <label for="position" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Position <span class="text-red-500">*</span>
-                            </label>
+                        <div class="pep-field">
+                            <label for="position">Operational Position / Role <span style="color:var(--red);">*</span></label>
                             <input 
                                 type="text" 
                                 id="position" 
                                 name="position" 
                                 required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
-                                placeholder="Enter position/role">
+                                class="pep-input"
+                                placeholder="e.g. Operator, Line Manager, Supervisor">
                         </div>
 
                         <!-- Salary -->
-                        <div>
-                            <label for="salary" class="block text-sm font-semibold text-gray-700 mb-2">
-                                Salary <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <span class="absolute left-4 top-3.5 text-gray-500">$</span>
+                        <div class="pep-field">
+                            <label for="salary">Base Salary Rate (₹) <span style="color:var(--red);">*</span></label>
+                            <div style="position: relative;">
+                                <span style="position: absolute; left: 0.75rem; top: 0.55rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink3);">₹</span>
                                 <input 
                                     type="number" 
                                     id="salary" 
                                     name="salary" 
                                     step="0.01" 
                                     required
-                                    class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                                    class="pep-input"
+                                    style="padding-left: 1.5rem;"
                                     placeholder="0.00">
                             </div>
                         </div>
@@ -77,22 +107,19 @@
 
                     <!-- Buttons -->
                     <div class="flex gap-4 mt-8">
-                        <button type="submit" class="flex-1 btn-primary">
-                            Add Employee
+                        <button type="submit" class="pep-btn-primary" style="flex: 1; justify-content: center;">
+                            Register Employee
                         </button>
-                        <a href="{{ url_for('spindlepeople.employee') }}" class="flex-1 btn-secondary text-center">
+                        <a href="{{ url_for('spindlepeople.employee') }}" class="pep-btn-secondary" style="flex: 1; text-align: center; justify-content: center;">
                             Cancel
                         </a>
                     </div>
                 </form>
             </div>
-
-            <!-- Help Text -->
-            <div class="mt-6 text-center">
-                <p class="text-sm text-gray-500">
-                    <span class="text-red-500">*</span> Required fields
-                </p>
-            </div>
+            
+            <p style="font-family: var(--font-mono); font-size: 0.55rem; color: var(--ink3); margin-top: 1rem; text-align: center;">
+                <span style="color:var(--red);">*</span> Fields marked are required for profile verification.
+            </p>
         </div>
     </div>
 </div>
