@@ -18,3 +18,5 @@ python-dotenv
 mistralai
 supabase
 psycopg2-binary
+pandas
+
