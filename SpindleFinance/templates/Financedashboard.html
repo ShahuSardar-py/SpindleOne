@@ -1781,25 +1781,21 @@
             <div class="fin-panel-sub">Corporate vs General trade inflows</div>
           </div>
         </div>
-        {% if corporate_sales > 0 or general_sale > 0 %}
+        {% if sale_type_labels %}
         <div class="chart-wrap" style="height:120px;">
           <canvas id="saleTypeChart"></canvas>
         </div>
         <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          {% set sale_colors = [BLUE, GREEN, YELLOW, RED, '#8b5cf6'] %}
+          {% for i in range(sale_type_labels|length) %}
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <div style="display:flex; align-items:center; gap:0.5rem;">
-              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0; background:var(--blue);display:inline-block;"></span>
-              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">Corporate sales</span>
+              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0; background:{{ sale_colors[i%5] if sale_colors is defined else 'var(--blue)' }};display:inline-block;"></span>
+              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">{{ sale_type_labels[i] }}</span>
             </div>
-            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">₹{{ "{:,.0f}".format(corporate_sales) }} ({{ "%.1f"|format(corporate_sales_pct) }}%)</span>
+            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">₹{{ "{:,.0f}".format(sale_type_amounts[i]) }} ({{ "%.1f"|format(sale_type_pcts[i]) }}%)</span>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="display:flex; align-items:center; gap:0.5rem;">
-              <span style="width:6px;height:6px;border-radius:50%;flex-shrink:0; background:var(--green);display:inline-block;"></span>
-              <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--ink2);">General Sale</span>
-            </div>
-            <span style="font-family:var(--font-mono); font-size:0.6rem; font-weight:500; color:var(--ink);">₹{{ "{:,.0f}".format(general_sale) }} ({{ "%.1f"|format(general_sale_pct) }}%)</span>
-          </div>
+          {% endfor %}
         </div>
         {% else %}
         <div style="text-align:center; padding:2rem 0; font-family:var(--font-mono); font-size:0.6rem; color:var(--ink3);">
@@ -2036,8 +2032,8 @@
       const expenseAmounts = {{ expense_amounts | tojson }};
       const sourceLabels = {{ source_labels   | tojson }};
       const sourceAmounts = {{ source_amounts  | tojson }};
-      const corporateSales = {{ corporate_sales | tojson }};
-      const generalSale = {{ general_sale | tojson }};
+      const saleTypeLabels = {{ sale_type_labels | tojson if sale_type_labels is defined else [] }};
+      const saleTypeAmounts = {{ sale_type_amounts | tojson if sale_type_amounts is defined else [] }};
 
       /* ── Design tokens ── */
       const RED = '#FF3B30';
@@ -2204,14 +2200,14 @@
       }
 
       /* ── 4. Sale Type Breakdown ── */
-      if (corporateSales > 0 || generalSale > 0) {
+      if (saleTypeLabels.length > 0) {
         new Chart(document.getElementById('saleTypeChart'), {
           type: 'doughnut',
           data: {
-            labels: ['Corporate sales', 'General Sale'],
+            labels: saleTypeLabels,
             datasets: [{
-              data: [corporateSales, generalSale],
-              backgroundColor: [BLUE, GREEN],
+              data: saleTypeAmounts,
+              backgroundColor: [BLUE, GREEN, YELLOW, RED, '#8b5cf6'],
               borderWidth: 0,
               hoverOffset: 3
             }]

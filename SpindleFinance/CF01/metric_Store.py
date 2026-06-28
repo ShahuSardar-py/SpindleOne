@@ -153,6 +153,9 @@ def _build_store() -> str:
             "general_sale": clean.get("general_sale", 0),
             "corporate_sales_pct": clean.get("corporate_sales_pct", 0),
             "general_sale_pct": clean.get("general_sale_pct", 0),
+            "labels": clean.get("sale_type_labels", []),
+            "amounts": clean.get("sale_type_amounts", []),
+            "percentages": clean.get("sale_type_pcts", []),
         },
 
         "sources": {

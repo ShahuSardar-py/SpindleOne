@@ -28,6 +28,7 @@ class Invoice(db.Model):
     amt_recievable = db.Column(db.Float, nullable= False)
     due_date = db.Column(db.Date, nullable = False)
     status = db.Column(db.String(20), nullable=False)
+    gst_rate = db.Column(db.Float, nullable=True, default=0.0)
     created_at = db.Column(db.Date, nullable= False, default=datetime.utcnow)
     
 

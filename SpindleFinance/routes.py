@@ -175,12 +175,17 @@ def add_invoice():
     if not client:
         return jsonify({"error": "Client not found"}), 404
 
+    gst_rate = float(data.get("gst_rate") or 0.0)
+    base_amount = float(data["amt_recievable"])
+    total_payable = base_amount * (1 + gst_rate / 100)
+
     invoice = Invoice(
         client_id=data["client_id"],
         product_name=data["product_name"],
-        amt_recievable=data["amt_recievable"],
+        amt_recievable=total_payable,
         due_date=datetime.strptime(data["due_date"], "%Y-%m-%d").date(),
-        status=data.get("status", "OPEN")
+        status=data.get("status", "OPEN"),
+        gst_rate=gst_rate
     )
 
     db.session.add(invoice)
@@ -236,6 +241,7 @@ def list_invoices():
             "client_name":     client.name,
             "product_name":    inv.product_name,
             "amt_recievable":  amt,
+            "gst_rate":        inv.gst_rate or 0.0,
             "due_date":        str(inv.due_date) if inv.due_date else None,
             "status":          inv.status,
             "created_at":      str(inv.created_at) if inv.created_at else None,

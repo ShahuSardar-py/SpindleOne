@@ -635,6 +635,8 @@ textarea.pocket { resize: none; line-height: 1.6; }
                 <option value="">Select Sale Type...</option>
                 <option value="Corporate sales">Corporate sales</option>
                 <option value="General Sale">General Sale</option>
+                <option value="GOVT SALE">GOVT SALE</option>
+                <option value="SALE4">SALE4</option>
               </select>
             </div>
 
@@ -757,7 +759,7 @@ textarea.pocket { resize: none; line-height: 1.6; }
               <div class="spec-item">Date format: <code>YYYY-MM-DD</code></div>
               <div class="spec-item">Transaction type: <code>INFLOW</code> or <code>OUTFLOW</code></div>
               <div class="spec-item">Optional: <code>invoice_id, reference_id, description, sale_type</code></div>
-              <div class="spec-item">Sale type options (Inflow only): <code>Corporate sales</code> or <code>General Sale</code></div>
+              <div class="spec-item">Sale type options (Inflow only): <code>Corporate sales</code>, <code>General Sale</code>, <code>GOVT SALE</code>, or <code>SALE4</code></div>
               <div class="spec-item"><code>source</code> is set to <code>CSV Import</code> automatically</div>
               <a href="{{ url_for('spindlefinance.download_template') }}" class="spec-download">↓ Download Sample Template</a>
             </div>

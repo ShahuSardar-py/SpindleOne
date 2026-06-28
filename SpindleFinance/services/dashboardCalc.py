@@ -49,10 +49,18 @@ def get_dashboard_context() -> dict:
     outflows: list[float] = []
     nets:     list[float] = []
 
+    curr_year = today.year
+    curr_month = today.month
+    MONTH_ABBRS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
     for i in range(5, -1, -1):
-        month_date = today - timedelta(days=30 * i)
-        month_str  = month_date.strftime('%Y-%m')
-        months.append(month_date.strftime('%b %Y'))
+        m = curr_month - i
+        y = curr_year
+        while m <= 0:
+            m += 12
+            y -= 1
+        month_str = f"{y:04d}-{m:02d}"
+        months.append(f"{MONTH_ABBRS[m]} {y}")
         m_in  = monthly_inflows.get(month_str, 0.0)
         m_out = monthly_outflows.get(month_str, 0.0)
         inflows.append(m_in)
@@ -60,8 +68,13 @@ def get_dashboard_context() -> dict:
         nets.append(m_in - m_out)
 
     # Month-over-month momentum
-    current_month = today.strftime('%Y-%m')
-    prev_month    = (today - timedelta(days=30)).strftime('%Y-%m')
+    current_month = f"{curr_year:04d}-{curr_month:02d}"
+    pm = curr_month - 1
+    py = curr_year
+    if pm <= 0:
+        pm += 12
+        py -= 1
+    prev_month = f"{py:04d}-{pm:02d}"
 
     curr_in  = monthly_inflows.get(current_month, 0.0)
     prev_in  = monthly_inflows.get(prev_month, 0.0)
@@ -107,21 +120,43 @@ def get_dashboard_context() -> dict:
     expense_pcts = [_safe_pct(v, total_expense) for v in expense_amounts]
 
     #  Invoice metrics                                                    #
-    open_invoices_list = [inv for inv in all_invoices if inv.status.upper() == 'OPEN']
-    paid_invoices_list = [inv for inv in all_invoices if inv.status.upper() == 'PAID']
+    # Calculate payments made on each invoice from cashflows
+    invoice_payments = defaultdict(float)
+    for c in inflow_txns:
+        if c.invoice_id is not None:
+            invoice_payments[c.invoice_id] += c.amount
+
+    # Classify invoices based on dynamic in-memory status
+    open_invoices_list = []
+    paid_invoices_list = []
+    for inv in all_invoices:
+        paid_amt = invoice_payments.get(inv.inv_id, 0.0)
+        if paid_amt >= inv.amt_recievable:
+            inv.status = 'PAID'
+            paid_invoices_list.append(inv)
+        else:
+            if today > inv.due_date:
+                inv.status = 'OVERDUE'
+            elif paid_amt > 0:
+                inv.status = 'PARTIAL'
+            else:
+                inv.status = 'OPEN'
+            open_invoices_list.append(inv)
 
     open_invoices = len(open_invoices_list)
     paid_invoices = len(paid_invoices_list)
 
-    total_receivable     = sum(inv.amt_recievable for inv in open_invoices_list)
-    total_paid_amount    = sum(inv.amt_recievable for inv in paid_invoices_list)
+    # Open receivables is the sum of remaining unpaid balance for open invoices
+    total_receivable     = sum(inv.amt_recievable - invoice_payments.get(inv.inv_id, 0.0) for inv in open_invoices_list)
+    # Total paid is the total cashflow payments linked to invoices
+    total_paid_amount    = sum(invoice_payments.get(inv.inv_id, 0.0) for inv in all_invoices)
     total_invoice_amount = total_receivable + total_paid_amount
 
     collection_efficiency = _safe_pct(total_paid_amount, total_invoice_amount)
 
-    overdue_list   = [inv for inv in open_invoices_list if inv.due_date < today]
+    overdue_list   = [inv for inv in open_invoices_list if inv.status == 'OVERDUE']
     overdue_count  = len(overdue_list)
-    overdue_amount = sum(inv.amt_recievable for inv in overdue_list)
+    overdue_amount = sum(inv.amt_recievable - invoice_payments.get(inv.inv_id, 0.0) for inv in overdue_list)
 
     #  Invoice aging buckets                                              #
     #  Negative days_outstanding = not yet due (upcoming)                #
@@ -130,7 +165,9 @@ def get_dashboard_context() -> dict:
 
     for inv in open_invoices_list:
         days_outstanding = (today - inv.due_date).days
-        amt = inv.amt_recievable
+        amt = inv.amt_recievable - invoice_payments.get(inv.inv_id, 0.0)
+        if amt <= 0:
+            continue
         if days_outstanding <= 30:
             aging_buckets['0_30']    += amt
             aging_counts['0_30']     += 1
@@ -149,7 +186,9 @@ def get_dashboard_context() -> dict:
     #  Client exposure & concentration risk                               #
     client_receivables: dict[int, float] = defaultdict(float)
     for inv in open_invoices_list:
-        client_receivables[inv.client_id] += inv.amt_recievable
+        amt = inv.amt_recievable - invoice_payments.get(inv.inv_id, 0.0)
+        if amt > 0:
+            client_receivables[inv.client_id] += amt
 
     if client_receivables:
         top_client_id = max(client_receivables, key=client_receivables.get)
@@ -190,6 +229,17 @@ def get_dashboard_context() -> dict:
     total_sales = corporate_sales + general_sale
     corporate_sales_pct = _safe_pct(corporate_sales, total_sales)
     general_sale_pct = _safe_pct(general_sale, total_sales)
+
+    # Dynamic Sale type breakdown (supporting GOVT SALE, SALE4, etc.)
+    sale_types_dict = defaultdict(float)
+    for c in inflow_txns:
+        if c.sale_type:
+            sale_types_dict[c.sale_type] += c.amount
+    sale_type_sorted = sorted(sale_types_dict.items(), key=lambda x: x[1], reverse=True)
+    sale_type_labels = [item[0] for item in sale_type_sorted]
+    sale_type_amounts = [round(item[1], 2) for item in sale_type_sorted]
+    total_dynamic_sales = sum(sale_type_amounts)
+    sale_type_pcts = [_safe_pct(v, total_dynamic_sales) for v in sale_type_amounts]
 
     #  Return full context dict                                           #
     return dict(
@@ -251,6 +301,9 @@ def get_dashboard_context() -> dict:
         general_sale=general_sale,
         corporate_sales_pct=corporate_sales_pct,
         general_sale_pct=general_sale_pct,
+        sale_type_labels=sale_type_labels,
+        sale_type_amounts=sale_type_amounts,
+        sale_type_pcts=sale_type_pcts,
 
         # ── Chart series (JSON-safe) ──────────────────────────────────
         months=months,

@@ -1429,13 +1429,17 @@
         <input type="text" id="inv_product_name" required class="fin-input" placeholder="e.g. Website Design — Phase 1">
       </div>
 
-      <div class="fin-field-row">
+      <div class="fin-field-row" style="grid-template-columns: 1.2fr 0.8fr 1fr;">
         <div class="fin-field">
           <label>Amount Receivable <span class="req">*</span></label>
           <div class="fin-input-prefix-wrap">
             <span class="prefix">₹</span>
             <input type="number" id="inv_amount" step="0.01" required class="fin-input" placeholder="0.00">
           </div>
+        </div>
+        <div class="fin-field">
+          <label>GST (%) <span style="color:var(--ink3); font-weight:400; font-size:0.5rem;">(optional)</span></label>
+          <input type="number" id="inv_gst_rate" min="0" max="100" step="0.1" class="fin-input" placeholder="e.g. 18">
         </div>
         <div class="fin-field">
           <label>Status</label>
@@ -1672,6 +1676,7 @@
       client_id: parseInt(document.getElementById('inv_client_id').value),
       product_name: document.getElementById('inv_product_name').value.trim(),
       amt_recievable: parseFloat(document.getElementById('inv_amount').value),
+      gst_rate: parseFloat(document.getElementById('inv_gst_rate').value) || 0.0,
       due_date: document.getElementById('inv_due_date').value,
       status: document.getElementById('inv_status').value,
     };
@@ -1753,7 +1758,7 @@
       
       pctPaid: inv.pct_paid ?? null,
       totalPaid: inv.total_paid ?? null,
-
+      gstRate: inv.gst_rate ?? 0.0,
     };
 
     const chipMap = {
@@ -1828,7 +1833,7 @@
 
   function renderInvoice(inv) {
     const fmt = n => '₹' + Number(n).toLocaleString('en-IN', { minimumFractionDigits: 2 });
-    const taxRate = 0.18;
+    const taxRate = (inv.gstRate || 0) / 100;
     const subtotal = inv.amount / (1 + taxRate);
     const tax = inv.amount - subtotal;
 
@@ -1913,7 +1918,7 @@
             <span>${fmt(subtotal)}</span>
           </div>
           <div class="inv-totals-row">
-            <span>GST (18%)</span>
+            <span>GST (${inv.gstRate || 0}%)</span>
             <span>${fmt(tax)}</span>
           </div>
           <div class="inv-totals-row total">
