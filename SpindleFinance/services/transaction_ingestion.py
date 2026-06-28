@@ -55,7 +55,7 @@ def ingest_data(file_path):
     if "sale_type" not in df.columns:
         df["sale_type"] = None
     else:
-        df["sale_type"] = df["sale_type"].apply(lambda x: str(x).strip() if pd.notna(x) and str(x).strip() in ["Corporate sales", "General Sale", "GOVT SALE", "SALE4"] else None)
+        df["sale_type"] = df["sale_type"].apply(lambda x: str(x).strip() if pd.notna(x) and str(x).strip() in ["Corporate sales", "General Sale", "GOVT SALE", "Modern Trade"] else None)
 
     # For OUTFLOW transactions, sale_type must be None
     df.loc[df["txn_type"] == "OUTFLOW", "sale_type"] = None
