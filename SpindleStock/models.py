@@ -36,6 +36,8 @@ class RawMaterialLot(db.Model):
     quantity = db.Column(db.Float, nullable=False)  # Original quantity
     remaining_quantity = db.Column(db.Float, nullable=False)  # Quantity left
     price_per_unit = db.Column(db.Float, nullable=False)
+    unit_rate = db.Column(db.Float, nullable=True, default=0.0)
+    gst_rate = db.Column(db.Float, nullable=True, default=0.0)
     inward_date = db.Column(db.Date, nullable=False)
     expiry_date = db.Column(db.Date, nullable=True)
     is_exhausted = db.Column(db.Boolean, default=False)

@@ -66,7 +66,7 @@
 
             <form method="POST" class="space-y-6">
 
-                <div class="grid grid-cols-6 gap-6">
+                <div class="grid grid-cols-4 gap-6">
 
                     <div class="stk-field">
                         <label>Material Name</label>
@@ -81,7 +81,7 @@
                     <div class="stk-field">
                         <label>Quantity & Unit</label>
                         <div class="flex gap-2">
-                            <input type="number" step="0.01" name="quantity" required placeholder="0.00" class="stk-input">
+                            <input type="number" step="0.01" name="quantity" id="inw_quantity" required placeholder="0.00" class="stk-input">
                             <select name="unit" class="stk-select w-28">
                                 <option value="kg">kg</option>
                                 <option value="ton">ton</option>
@@ -90,10 +90,23 @@
                     </div>
 
                     <div class="stk-field">
+                        <label>Unit Rate</label>
+                        <div class="relative">
+                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-mono text-xs">₹</span>
+                            <input type="number" step="0.01" name="unit_rate" id="inw_unit_rate" required placeholder="0.00" class="stk-input pl-7">
+                        </div>
+                    </div>
+
+                    <div class="stk-field">
+                        <label>GST (%) <span style="color:#7A7C7C; font-weight:400; font-size:0.5rem;">(optional)</span></label>
+                        <input type="number" step="0.1" name="gst_rate" id="inw_gst_rate" placeholder="e.g. 18" class="stk-input">
+                    </div>
+
+                    <div class="stk-field">
                         <label>Amount (Total Cost)</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-mono text-xs">₹</span>
-                            <input type="number" step="0.01" name="amount" required placeholder="0.00" class="stk-input pl-7">
+                            <input type="number" step="0.01" name="amount" id="inw_amount" required placeholder="0.00" class="stk-input pl-7">
                         </div>
                     </div>
 
@@ -199,7 +212,13 @@
                             <td class="font-mono font-bold">{{ lot.batch_number }}</td>
                             <td>{{ lot.quantity }} {{ lot.raw_material.unit }}</td>
                             <td class="font-semibold">{{ lot.remaining_quantity }} {{ lot.raw_material.unit }}</td>
-                            <td class="font-mono text-gray-600">₹ {{ "%.2f"|format(lot.price_per_unit) }}</td>
+                            <td class="font-mono text-gray-600">
+                                {% if lot.unit_rate and lot.gst_rate %}
+                                ₹ {{ "%.2f"|format(lot.unit_rate) }} <span style="font-size:0.55rem; color:#888;">(+{{ lot.gst_rate }}% GST)</span>
+                                {% else %}
+                                ₹ {{ "%.2f"|format(lot.price_per_unit) }}
+                                {% endif %}
+                            </td>
                             <td class="font-mono text-gray-600">{{ lot.inward_date.strftime("%d %b %Y") if lot.inward_date else "—" }}</td>
                             <td class="font-mono text-gray-600">{{ lot.expiry_date.strftime("%d %b %Y") if lot.expiry_date else "—" }}</td>
                             <td class="right">
@@ -262,8 +281,29 @@ function switchTab(tab) {
         lotsTab.classList.remove("hidden");
         catalogBtn.classList.remove("active");
         lotsBtn.classList.add("active");
-    }
 }
+
+/* Dynamic inward cost calculator */
+document.addEventListener('DOMContentLoaded', function() {
+    const qtyInput = document.getElementById('inw_quantity');
+    const rateInput = document.getElementById('inw_unit_rate');
+    const gstInput = document.getElementById('inw_gst_rate');
+    const amountInput = document.getElementById('inw_amount');
+
+    function calculateTotal() {
+        const qty = parseFloat(qtyInput.value) || 0;
+        const rate = parseFloat(rateInput.value) || 0;
+        const gst = parseFloat(gstInput.value) || 0;
+        const total = qty * rate * (1 + gst / 100);
+        amountInput.value = total > 0 ? total.toFixed(2) : '';
+    }
+
+    if (qtyInput && rateInput && gstInput && amountInput) {
+        qtyInput.addEventListener('input', calculateTotal);
+        rateInput.addEventListener('input', calculateTotal);
+        gstInput.addEventListener('input', calculateTotal);
+    }
+});
 
 /* Toast animation */
 const toast = document.getElementById("toast");

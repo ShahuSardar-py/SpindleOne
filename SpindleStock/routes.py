@@ -158,6 +158,8 @@ def raw_inward():
     if request.method == "POST":
         name = request.form["name"].strip()
         qty = float(request.form["quantity"])
+        unit_rate = float(request.form.get("unit_rate") or 0.0)
+        gst_rate = float(request.form.get("gst_rate") or 0.0)
         amount = float(request.form["amount"])
         unit = request.form["unit"]
         inward = request.form.get("inward_date")
@@ -206,6 +208,8 @@ def raw_inward():
             quantity=qty,
             remaining_quantity=qty,
             price_per_unit=price_per_unit,
+            unit_rate=unit_rate,
+            gst_rate=gst_rate,
             inward_date=inward_date,
             expiry_date=expiry_date
         )

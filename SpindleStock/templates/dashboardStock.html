@@ -204,7 +204,13 @@
                                 <td class="font-mono font-bold">{{ lot.batch_number }}</td>
                                 <td class="font-mono text-gray-600">{{ lot.inward_date.strftime("%d %b %Y") if lot.inward_date else "—" }}</td>
                                 <td class="font-semibold">{{ lot.quantity }} {{ lot.raw_material.unit }}</td>
-                                <td class="font-mono text-gray-600">₹{{ "{:,.2f}".format(lot.price_per_unit) }}</td>
+                                <td class="font-mono text-gray-600">
+                                    {% if lot.unit_rate and lot.gst_rate %}
+                                    ₹{{ "{:,.2f}".format(lot.unit_rate) }} <span style="font-size:0.55rem; color:#888;">(+{{ lot.gst_rate }}%)</span>
+                                    {% else %}
+                                    ₹{{ "{:,.2f}".format(lot.price_per_unit) }}
+                                    {% endif %}
+                                </td>
                                 <td class="font-mono font-semibold right">₹{{ "{:,.2f}".format(lot.quantity * lot.price_per_unit) }}</td>
                             </tr>
                             {% endfor %}
